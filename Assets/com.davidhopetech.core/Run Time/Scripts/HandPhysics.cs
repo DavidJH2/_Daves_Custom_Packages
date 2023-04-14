@@ -22,9 +22,9 @@ public class HandPhysics : MonoBehaviour
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 
         deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
+        angle = (angle < 180) ? angle : angle - 360; 
         var axialRot = angle * Mathf.Deg2Rad * axis;
 
         rb.angularVelocity = axialRot / Time.fixedDeltaTime;
-        var angularVelocity = axialRot / Time.fixedDeltaTime;
     }
 }

@@ -304,6 +304,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.737
       objectReference: {fileID: 0}
+    - target: {fileID: 4692556171300023292, guid: 39a3eefeff26da149ac3f527ccf6a4c1,
+        type: 3}
+      propertyPath: m_Name
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692556171300023294, guid: 39a3eefeff26da149ac3f527ccf6a4c1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46b5859ad48533e45a6d5616758e7819, type: 2}
+    - target: {fileID: 4692556171336316177, guid: 39a3eefeff26da149ac3f527ccf6a4c1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2da150040219cbf4699c0e99898bc657, type: 2}
     - target: {fileID: 4692556171336316179, guid: 39a3eefeff26da149ac3f527ccf6a4c1,
         type: 3}
       propertyPath: m_LocalPosition.y
