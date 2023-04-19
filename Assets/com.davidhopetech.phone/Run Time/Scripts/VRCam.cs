@@ -14,14 +14,17 @@ namespace com.davidhopetech.phone.run_time.scripts
         {
             if (phone == null)
             {
-                var go = GameObject.Find("Pnone");
+                var go = GameObject.Find("Phone");
                 if (go != null)
                 {
-                    phone = go.GetComponent<Phone>();
-                    if (phone == null)
-                    {
-                        Debug.Log("Error: Phone not found");
-                    }
+                    Debug.Log("Error: Phone not found");
+                    return;
+                }
+
+                phone = go.GetComponent<Phone>();
+                if (phone == null)
+                {
+                    Debug.Log("Error: Phone Script not found");
                 }
             }
         }
