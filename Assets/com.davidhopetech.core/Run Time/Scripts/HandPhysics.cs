@@ -96,7 +96,7 @@ public class HandPhysics : MonoBehaviour
 
     void FixedUpdate()
     {
-        //MoveHandToTargetOrientation();
-        RotateFingersToTargetRotation();
+        MoveHandToTargetOrientation();
+        // RotateFingersToTargetRotation();
     }
 }
