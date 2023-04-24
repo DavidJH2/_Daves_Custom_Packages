@@ -16,6 +16,8 @@ public class PhysicsAngleTracker : MonoBehaviour
 
     void RotateLocalToTarget()
     {
+        rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+
         var deltaRot =  target.rotation * Quaternion.Inverse(transform.rotation);
 
         deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
@@ -26,6 +28,10 @@ public class PhysicsAngleTracker : MonoBehaviour
         {
             var angularVelocity = axialRot / Time.fixedDeltaTime;
             rb.angularVelocity = angularVelocity;
+        }
+        else
+        {
+            rb.angularVelocity = Vector3.zero;
         }
     }
 
