@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class HandPhysicsFull : MonoBehaviour
+public class HandPhysicsAB : MonoBehaviour
 {
     [SerializeField] private float     torqueCoeff;
     [SerializeField] private bool      debug;
     [SerializeField] private Transform target;
     
-    private Rigidbody rb;
+    private ArticulationBody ab;
     /*
     [SerializeField] private Transform       firstSourceBone;
     
@@ -20,7 +20,7 @@ public class HandPhysicsFull : MonoBehaviour
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        ab = GetComponent<ArticulationBody>();
         //GetBones(firstSourceBone);
     }
 
@@ -61,9 +61,8 @@ public class HandPhysicsFull : MonoBehaviour
 
     void MoveHandToTargetOrientation()
     {
-        rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+        ab.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
         
-        /*
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 
         deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
@@ -75,18 +74,16 @@ public class HandPhysicsFull : MonoBehaviour
         if (angle != 0)
         {
             var torque = axialRot * torqueCoeff;
-            // rb.AddTorque(torque);
+            // ab.AddTorque(torque);
             
             var angularVelocity = axialRot / Time.fixedDeltaTime;
-            rb.angularVelocity = angularVelocity;
+            ab.angularVelocity = angularVelocity;
 
             if (debug)
             {
                 Debug.Log($"Torque: {torque}");
             }
         }
-        */
-        rb.MoveRotation(target.rotation);
     }
 
 
@@ -99,7 +96,7 @@ public class HandPhysicsFull : MonoBehaviour
             var srcBone = SrcBones[i];
             var destBone = DestBones[i];
 
-            rb.velocity = (srcBone.position - destBone.position) / Time.fixedDeltaTime;
+            ab.velocity = (srcBone.position - destBone.position) / Time.fixedDeltaTime;
         
             var deltaRot = srcBone.rotation * Quaternion.Inverse(destBone.rotation);
 
@@ -110,7 +107,7 @@ public class HandPhysicsFull : MonoBehaviour
             if (angle != 0)
             {
                 var angularVelocity = axialRot / Time.fixedDeltaTime;
-                rb.angularVelocity = angularVelocity;
+                ab.angularVelocity = angularVelocity;
             }
         }
     }

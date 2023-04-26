@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,22 @@ public class PhysicsAngleTracker : MonoBehaviour
 {
     [SerializeField] private Transform       target;
     
-    private Rigidbody       rb;
+    private Rigidbody         rb;
+    private ConfigurableJoint cj;
+    private Vector3           originalLocalPos;
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb          = GetComponent<Rigidbody>();
+        originalLocalPos = transform.localPosition;
     }
 
 
     void RotateLocalToTarget()
     {
-        rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+        // transform.localPosition = originalLocalPos;
+         rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+        // rb.MoveRotation(target.rotation);
 
         var deltaRot =  target.rotation * Quaternion.Inverse(transform.rotation);
 
@@ -33,11 +39,18 @@ public class PhysicsAngleTracker : MonoBehaviour
         {
             rb.angularVelocity = Vector3.zero;
         }
+        /*
+        */
     }
 
     
     void FixedUpdate()
     {
         RotateLocalToTarget();
+    }
+
+    private void LateUpdate()
+    {
+        transform.localPosition = originalLocalPos;
     }
 }
