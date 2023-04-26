@@ -6,19 +6,26 @@ using System.Linq;
 
 public class HandPhysics : MonoBehaviour
 {
-    [SerializeField] private Transform       target;
+    [SerializeField] private float     torqueCoeff;
+    [SerializeField] private bool      debug;
+    [SerializeField] private Transform target;
+    
+    private Rigidbody rb;
+    /*
     [SerializeField] private Transform       firstSourceBone;
     
-    private Rigidbody       rb;
     private List<Transform> SrcBones = new List<Transform>();
     private List<Transform> DestBones = new List<Transform>();
+    */
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        GetBones(firstSourceBone);
+        //GetBones(firstSourceBone);
     }
 
+    
+    /*
     Transform FindGameObjectByName(Transform parent, string name)
     {
         if (parent.name == name) return parent;
@@ -50,26 +57,40 @@ public class HandPhysics : MonoBehaviour
             GetBones(child);
         }
     }
-
+    */
 
     void MoveHandToTargetOrientation()
     {
         rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
         
+        /*
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 
         deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
+
+
         angle = (angle < 180) ? angle : angle - 360; 
         var axialRot = angle * Mathf.Deg2Rad * axis;
 
         if (angle != 0)
         {
+            var torque = axialRot * torqueCoeff;
+            // rb.AddTorque(torque);
+            
             var angularVelocity = axialRot / Time.fixedDeltaTime;
             rb.angularVelocity = angularVelocity;
+
+            if (debug)
+            {
+                Debug.Log($"Torque: {torque}");
+            }
         }
+        */
+        rb.MoveRotation(target.rotation);
     }
 
 
+    /*
     void RotateFingersToTargetRotation()
     {
         var count = SrcBones.Count;
@@ -93,6 +114,7 @@ public class HandPhysics : MonoBehaviour
             }
         }
     }
+    */
 
     void FixedUpdate()
     {
