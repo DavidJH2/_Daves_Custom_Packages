@@ -1,24 +1,39 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.Debug;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
-using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 [Serializable]
 class DHTInteractionStateIdle : DHTInteractionState
 {
-	private DHTUpdateDebugValue1Event _debugValue1;
+	private  DHTUpdateDebugValue1Event   _debugValue1;
+	private  DHTUpdateDebugTeleportEvent _teleportEvent;
+	internal DHTPlayerInput              _input = null;
 
 
-	internal DHTInteractionStateIdle(DHTPlayerController iController)
+	private void Awake()
 	{
-		// _debugValue1 = new DHTUpdateDebugValue1Event();
-		_debugValue1 = FindObjectOfType<DHTEventContainer>().GetComponent<DHTEventContainer>()
-			.dhtUpdateDebugValue1Event;
-		_controller = iController;
+		_input      = new DHTPlayerInput();
+		_controller = GetComponent<DHTPlayerController>();
+		
+		var eventContainer = FindObjectOfType<DHTEventContainer>().GetComponent<DHTEventContainer>();
+		_debugValue1   = eventContainer.dhtUpdateDebugValue1Event;
+		_teleportEvent = eventContainer.dhtUpdateDebugTeleportEvent;
+	}
+
+	private void OnEnable()
+	{
+		Debug.Log("Input Enabled");
+		_input.Enable();
+		_input.InitialActionMap.Teleport.performed += Teleport;
+	}
+
+	
+		
+	private void Teleport(InputAction.CallbackContext context)
+	{
+		_teleportEvent.Invoke(context.ReadValue<float>().ToString());
 	}
 
 	public override void UpdateState()
@@ -40,12 +55,25 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 		if (closeGrabables.Count() > 0)
 		{
-			_debugValue1.Invoke($"In Grab Range");
+			if (_controller.grabAction.inProgress)
+			{
+				_debugValue1.Invoke($"Grabbing");
+			}
+			else
+			{
+				_debugValue1.Invoke($"In Grab Range");
+			}
 		}
 		else
 		{
 			_debugValue1.Invoke($"Not In Grab Range");
 		}
+	}
+
+		
+	private void OnDisable()
+	{
+		_input.Disable();
 	}
 }
 

@@ -368,17 +368,17 @@ PrefabInstance:
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.466
+      value: -0.0194
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9956825
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.09282436
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
@@ -393,17 +393,17 @@ PrefabInstance:
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 608.528
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 678
+      value: 1.2488
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 10.652
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
@@ -494,21 +494,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Joy Stick
-      objectReference: {fileID: 0}
-    - target: {fileID: 9197337249106485895, guid: 7f48143b6d702e8478bb64357dad0ede,
-        type: 3}
-      propertyPath: m_ParentAnchorPosition.x
-      value: 0.000006100163
-      objectReference: {fileID: 0}
-    - target: {fileID: 9197337249106485895, guid: 7f48143b6d702e8478bb64357dad0ede,
-        type: 3}
-      propertyPath: m_ParentAnchorPosition.y
-      value: 0.0000048589764
-      objectReference: {fileID: 0}
-    - target: {fileID: 9197337249106485895, guid: 7f48143b6d702e8478bb64357dad0ede,
-        type: 3}
-      propertyPath: m_ParentAnchorPosition.z
-      value: 0.000004560621
       objectReference: {fileID: 0}
     - target: {fileID: 9197337249106485895, guid: 7f48143b6d702e8478bb64357dad0ede,
         type: 3}

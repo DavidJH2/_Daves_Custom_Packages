@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 
 public class DHTEventContainer : MonoBehaviour
 {
-    public DHTUpdateDebugValue1Event dhtUpdateDebugValue1Event;
+    public DHTUpdateDebugValue1Event   dhtUpdateDebugValue1Event;
+    public DHTUpdateDebugTeleportEvent dhtUpdateDebugTeleportEvent;
     
     // Start is called before the first frame update
     void Start()
