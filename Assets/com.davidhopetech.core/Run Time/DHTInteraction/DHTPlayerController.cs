@@ -11,7 +11,7 @@ public class DHTPlayerController : MonoBehaviour
     [SerializeField] internal GameObject _rightInteractor;
     
     internal List<DHTGrabable> _grabables;
-    [SerializeField] private DHTInteractionState  _dhtInteractionState;
+    [SerializeField] internal DHTInteractionState  _dhtInteractionState;
 
 
     void Start()
