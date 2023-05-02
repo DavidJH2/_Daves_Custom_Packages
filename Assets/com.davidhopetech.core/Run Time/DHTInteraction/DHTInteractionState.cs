@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-abstract class DHTInteractionState
+namespace com.davidhopetech.core.Run_Time.DHTInteraction
 {
-    DHTPlayerController _controller;
+    [Serializable]
+
+    abstract class DHTInteractionState : MonoBehaviour
+    {
+        protected DHTPlayerController _controller;
         
-    public abstract void Update();
+        public abstract void UpdateState();
+    }
 }
 

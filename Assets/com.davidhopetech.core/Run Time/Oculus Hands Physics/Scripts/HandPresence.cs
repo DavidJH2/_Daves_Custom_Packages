@@ -25,6 +25,7 @@ public class HandPresence : MonoBehaviour
         }
     }
 
+    
     void UpdateHandAnimation()
     {
         if(targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
@@ -46,7 +47,7 @@ public class HandPresence : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(!targetDevice.isValid)
