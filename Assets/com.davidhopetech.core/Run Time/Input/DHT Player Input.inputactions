@@ -1,12 +1,12 @@
 {
-    "name": "DHT Player Controls",
+    "name": "DHT Player Input",
     "maps": [
         {
             "name": "Initial Action Map",
             "id": "64a3dcd1-ffb8-4dd2-b21d-5cf1a87b079a",
             "actions": [
                 {
-                    "name": "Teleport",
+                    "name": "Grab",
                     "type": "Value",
                     "id": "9ade250f-332f-41cd-902d-84cd25da7a2e",
                     "expectedControlType": "Axis",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Teleport",
+                    "action": "Grab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

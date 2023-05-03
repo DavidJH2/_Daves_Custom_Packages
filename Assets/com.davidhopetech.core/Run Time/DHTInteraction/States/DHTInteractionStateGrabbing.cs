@@ -1,18 +1,19 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
 
 [Serializable]
-class DHTInteractionStateIdle : DHTInteractionState
+class DHTInteractionStateGrabbing : DHTInteractionState
 {
-	internal DHTPlayerInput              _input = null;
-	
 	private  DHTUpdateDebugValue1Event   _debugValue1;
 	private  DHTUpdateDebugTeleportEvent _teleportEvent;
+	internal DHTPlayerInput              _input = null;
+	private  IEnumerable<DHTGrabable>    closeGrabables;
 	private  bool                        _isGrabing;
-
 
 	private new void Awake()
 	{
@@ -23,24 +24,16 @@ class DHTInteractionStateIdle : DHTInteractionState
 		_teleportEvent = EventContainer.dhtUpdateDebugTeleportEvent;
 	}
 
-
-	private void Start()
-	{
-		_teleportEvent.Invoke("");
-	}
-
 	private void OnEnable()
 	{
-		Debug.Log("Idle State: Input Enabled");
+		Debug.Log("Grabbing State: Input Enabled");
 		_input.Enable();
-
-		_teleportEvent.Invoke("Hello");
 	}
 
 
 	private void OnDisable()
 	{
-		Debug.Log("Idle State: Input Disabled");
+		Debug.Log("Grabbing State: Input Disabled");
 		_input.Disable();
 	}
 
@@ -55,9 +48,11 @@ class DHTInteractionStateIdle : DHTInteractionState
 	{
 		Debug.Log("Stopped Grabbing");
 		_isGrabing = false;
+		
+		ChangeToIdleState();
 	}
 
-	
+
 	public override void UpdateState()
 	{
 		var grab = _input.InitialActionMap.Grab.ReadValue<float>();
@@ -76,25 +71,32 @@ class DHTInteractionStateIdle : DHTInteractionState
 				StartedGrabbing();
 			}
 		}
-		DistancesToInteractors(Controller._rightInteractor);
+
+		_teleportEvent.Invoke($"StartedGrabbing = {grab.ToString()}\nIsGrabbing: {_isGrabing.ToString()}");
+		// DistancesToInteractors(Controller._rightInteractor);
 	}
 
 	
 	void DistancesToInteractors(GameObject interactor)
 	{
-		var closeGrabables = Controller._grabables.Where((grabable, index) =>
+		float radius = 0;
+		closeGrabables = Controller._grabables.Where((grabable, index) =>
 		{
 			var dist = Vector3.Distance(grabable.transform.position, interactor.transform.position);
+
+			radius = grabable.grabRadius;
 			return (dist <= grabable.grabRadius);
 		});
 
 		if (closeGrabables.Count() > 0)
 		{
-			_debugValue1.Invoke($"In Grab Range");
-			
-			if (_isGrabing)
+			if (_input.InitialActionMap.Grab.inProgress)
 			{
-				ChangeToGrabbingState();
+				_debugValue1.Invoke($"StartedGrabbing");
+			}
+			else
+			{
+				_debugValue1.Invoke($"In Grab Range");
 			}
 		}
 		else
@@ -103,11 +105,12 @@ class DHTInteractionStateIdle : DHTInteractionState
 		}
 	}
 
-	private void ChangeToGrabbingState()
+	
+	private void ChangeToIdleState()
 	{
-		Debug.Log("######  Change to Grabbing State  ######");
+		Debug.Log("######  Change to Idle State  ######");
 
-		Controller._dhtInteractionState = Controller.gameObject.AddComponent<DHTInteractionStateGrabbing>();
+		Controller._dhtInteractionState = Controller.gameObject.AddComponent<DHTInteractionStateIdle>();
 		Destroy(this);
 	}
 }

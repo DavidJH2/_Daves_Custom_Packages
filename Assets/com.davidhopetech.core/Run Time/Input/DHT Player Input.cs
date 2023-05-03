@@ -28,7 +28,7 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""64a3dcd1-ffb8-4dd2-b21d-5cf1a87b079a"",
             ""actions"": [
                 {
-                    ""name"": ""Teleport"",
+                    ""name"": ""Grab"",
                     ""type"": ""Value"",
                     ""id"": ""9ade250f-332f-41cd-902d-84cd25da7a2e"",
                     ""expectedControlType"": ""Axis"",
@@ -45,7 +45,7 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Teleport"",
+                    ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +56,7 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
 }");
         // Initial Action Map
         m_InitialActionMap = asset.FindActionMap("Initial Action Map", throwIfNotFound: true);
-        m_InitialActionMap_Teleport = m_InitialActionMap.FindAction("Teleport", throwIfNotFound: true);
+        m_InitialActionMap_Grab = m_InitialActionMap.FindAction("Grab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +118,12 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
     // Initial Action Map
     private readonly InputActionMap m_InitialActionMap;
     private List<IInitialActionMapActions> m_InitialActionMapActionsCallbackInterfaces = new List<IInitialActionMapActions>();
-    private readonly InputAction m_InitialActionMap_Teleport;
+    private readonly InputAction m_InitialActionMap_Grab;
     public struct InitialActionMapActions
     {
         private @DHTPlayerInput m_Wrapper;
         public InitialActionMapActions(@DHTPlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Teleport => m_Wrapper.m_InitialActionMap_Teleport;
+        public InputAction @Grab => m_Wrapper.m_InitialActionMap_Grab;
         public InputActionMap Get() { return m_Wrapper.m_InitialActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -133,16 +133,16 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InitialActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InitialActionMapActionsCallbackInterfaces.Add(instance);
-            @Teleport.started += instance.OnTeleport;
-            @Teleport.performed += instance.OnTeleport;
-            @Teleport.canceled += instance.OnTeleport;
+            @Grab.started += instance.OnGrab;
+            @Grab.performed += instance.OnGrab;
+            @Grab.canceled += instance.OnGrab;
         }
 
         private void UnregisterCallbacks(IInitialActionMapActions instance)
         {
-            @Teleport.started -= instance.OnTeleport;
-            @Teleport.performed -= instance.OnTeleport;
-            @Teleport.canceled -= instance.OnTeleport;
+            @Grab.started -= instance.OnGrab;
+            @Grab.performed -= instance.OnGrab;
+            @Grab.canceled -= instance.OnGrab;
         }
 
         public void RemoveCallbacks(IInitialActionMapActions instance)
@@ -162,6 +162,6 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
     public InitialActionMapActions @InitialActionMap => new InitialActionMapActions(this);
     public interface IInitialActionMapActions
     {
-        void OnTeleport(InputAction.CallbackContext context);
+        void OnGrab(InputAction.CallbackContext context);
     }
 }

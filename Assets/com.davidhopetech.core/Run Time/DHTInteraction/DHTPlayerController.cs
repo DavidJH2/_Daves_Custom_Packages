@@ -14,7 +14,7 @@
 	public class DHTPlayerController : MonoBehaviour
 	{
 		[SerializeField] internal GameObject                 _rightInteractor;
-		[SerializeField] internal InputAction                grabAction;
+		//[SerializeField] internal InputAction                grabAction;
 		[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
 		
 		private                   InputDevice                targetDevice;
