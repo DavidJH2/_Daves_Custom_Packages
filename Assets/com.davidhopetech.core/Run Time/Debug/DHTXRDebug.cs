@@ -1,3 +1,4 @@
+using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
 using UnityEngine;
 using TMPro;
 
@@ -14,7 +15,7 @@ namespace com.davidhopetech.core.Run_Time.Debug
 	
 		void Start()
 		{
-			var eventContainer = FindObjectOfType<DHTEventContainer>().GetComponent<DHTEventContainer>();
+			var eventContainer = DHTServiceLocator.DhtEventService;
 			
 			_debugValue1 = eventContainer.dhtUpdateDebugValue1Event;
 			_debugValue1.AddListener(UpdateValue1);

@@ -1,4 +1,5 @@
 using System;
+using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
 using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.DHTInteraction
@@ -9,13 +10,13 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
     {
         internal float GripThreshold = .1f;
     
-        protected DHTEventContainer   EventContainer ;
+        protected DHTEventService     EventService ;
         protected DHTPlayerController Controller;
         
 
         internal void Awake()
         {
-            EventContainer = FindObjectOfType<DHTEventContainer>().GetComponent<DHTEventContainer>();
+            EventService = DHTServiceLocator.DhtEventService;
             Controller     = GetComponent<DHTPlayerController>();
         }
 

@@ -20,8 +20,8 @@ class DHTInteractionStateGrabbing : DHTInteractionState
 		base.Awake();
 
 		_input         = new DHTPlayerInput();
-		_debugValue1   = EventContainer.dhtUpdateDebugValue1Event;
-		_teleportEvent = EventContainer.dhtUpdateDebugTeleportEvent;
+		_debugValue1   = EventService.dhtUpdateDebugValue1Event;
+		_teleportEvent = EventService.dhtUpdateDebugTeleportEvent;
 	}
 
 	private void OnEnable()
