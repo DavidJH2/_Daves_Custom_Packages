@@ -7,20 +7,12 @@ using UnityEngine.InputSystem;
 [Serializable]
 class DHTInteractionStateIdle : DHTInteractionState
 {
-	internal DHTPlayerInput              _input = null;
-	
-	private  DHTUpdateDebugValue1Event   _debugValue1;
-	private  DHTUpdateDebugTeleportEvent _teleportEvent;
 	private  bool                        _isGrabing;
 
 
 	private new void Awake()
 	{
 		base.Awake();
-
-		_input         = new DHTPlayerInput();
-		_debugValue1   = EventService.dhtUpdateDebugValue1Event;
-		_teleportEvent = EventService.dhtUpdateDebugTeleportEvent;
 	}
 
 
@@ -31,7 +23,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 	private void OnEnable()
 	{
-		Debug.Log("Idle State: Input Enabled");
+		// Debug.Log("Idle State: Input Enabled");
 		_input.Enable();
 
 		_teleportEvent.Invoke("Hello");
@@ -40,7 +32,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 	private void OnDisable()
 	{
-		Debug.Log("Idle State: Input Disabled");
+		// Debug.Log("Idle State: Input Disabled");
 		_input.Disable();
 	}
 
@@ -90,7 +82,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 		if (closeGrabables.Count() > 0)
 		{
-			_debugValue1.Invoke($"In Grab Range");
+			_debugValue1Event.Invoke($"In Grab Range");
 			
 			if (_isGrabing)
 			{
@@ -99,7 +91,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 		}
 		else
 		{
-			_debugValue1.Invoke($"Not In Grab Range");
+			_debugValue1Event.Invoke($"Not In Grab Range");
 		}
 	}
 

@@ -9,35 +9,38 @@ namespace com.davidhopetech.core.Run_Time.Debug
 	{
 		[SerializeField] private TextMeshProUGUI value1;
 		[SerializeField] private TextMeshProUGUI teleportValue;
+		[SerializeField] private TextMeshProUGUI miscValue;
 
 		private DHTUpdateDebugValue1Event   _debugValue1;
 		private DHTUpdateDebugTeleportEvent _debugTeleportEvent;
+		private DHTUpdateDebugMiscEvent     _debugMiscEvent;
 	
+		
 		void Start()
 		{
-			var eventContainer = DHTServiceLocator.DhtEventService;
+			var eventService = DHTServiceLocator.DhtEventService;
 			
-			_debugValue1 = eventContainer.dhtUpdateDebugValue1Event;
-			_debugValue1.AddListener(UpdateValue1);
-
-			_debugTeleportEvent = eventContainer.dhtUpdateDebugTeleportEvent;
-			_debugTeleportEvent.AddListener(UpdateTeleportValue);
+			eventService.dhtUpdateDebugValue1Event.AddListener(UpdateValue1);
+			eventService.dhtUpdateDebugTeleportEvent.AddListener(UpdateTeleportValue);
+			eventService.dhtUpdateDebugMiscEvent.AddListener(UpdateMiscValue);
 		}
 
+		
 		private void UpdateTeleportValue(string text)
 		{
 			teleportValue.text = text;
 		}
 
+		
 		public void UpdateValue1(string text)
 		{
 			value1.text = text;
 		}
 
-
-		void Update()
-		{
 		
+		private void UpdateMiscValue(string text)
+		{
+			miscValue.text = text;
 		}
 	}
 }

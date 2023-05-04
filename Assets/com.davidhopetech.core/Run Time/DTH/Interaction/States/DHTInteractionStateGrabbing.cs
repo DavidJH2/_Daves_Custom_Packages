@@ -9,31 +9,24 @@ using UnityEngine.XR;
 [Serializable]
 class DHTInteractionStateGrabbing : DHTInteractionState
 {
-	private  DHTUpdateDebugValue1Event   _debugValue1;
-	private  DHTUpdateDebugTeleportEvent _teleportEvent;
-	internal DHTPlayerInput              _input = null;
 	private  IEnumerable<DHTGrabable>    closeGrabables;
 	private  bool                        _isGrabing;
 
 	private new void Awake()
 	{
 		base.Awake();
-
-		_input         = new DHTPlayerInput();
-		_debugValue1   = EventService.dhtUpdateDebugValue1Event;
-		_teleportEvent = EventService.dhtUpdateDebugTeleportEvent;
 	}
 
 	private void OnEnable()
 	{
-		Debug.Log("Grabbing State: Input Enabled");
+		// Debug.Log("Grabbing State: Input Enabled");
 		_input.Enable();
 	}
 
 
 	private void OnDisable()
 	{
-		Debug.Log("Grabbing State: Input Disabled");
+		// Debug.Log("Grabbing State: Input Disabled");
 		_input.Disable();
 	}
 
@@ -92,16 +85,16 @@ class DHTInteractionStateGrabbing : DHTInteractionState
 		{
 			if (_input.InitialActionMap.Grab.inProgress)
 			{
-				_debugValue1.Invoke($"StartedGrabbing");
+				_debugValue1Event.Invoke($"StartedGrabbing");
 			}
 			else
 			{
-				_debugValue1.Invoke($"In Grab Range");
+				_debugValue1Event.Invoke($"In Grab Range");
 			}
 		}
 		else
 		{
-			_debugValue1.Invoke($"Not In Grab Range");
+			_debugValue1Event.Invoke($"Not In Grab Range");
 		}
 	}
 

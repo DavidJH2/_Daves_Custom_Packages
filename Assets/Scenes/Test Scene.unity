@@ -493,18 +493,6 @@ MonoBehaviour:
   torqueCoeff: 0
   debug: 0
   target: {fileID: 1563843871}
---- !u!114 &492705459 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7589748539921616942, guid: a446566eff70a174abc8b90c5c27ec21,
-    type: 3}
-  m_PrefabInstance: {fileID: 490094845612547605}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &603222111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -714,6 +702,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &677136229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 977470122924415358, guid: a446566eff70a174abc8b90c5c27ec21,
+    type: 3}
+  m_PrefabInstance: {fileID: 490094845612547605}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,23 +1242,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3742142718561594369, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
-      propertyPath: teleportValue
+      propertyPath: miscValue
       value: 
-      objectReference: {fileID: 492705459}
+      objectReference: {fileID: 677136229}
     - target: {fileID: 4165447696543268260, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
       propertyPath: m_Name
       value: Debug Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7314346481366801772, guid: a446566eff70a174abc8b90c5c27ec21,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7314346481366801772, guid: a446566eff70a174abc8b90c5c27ec21,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 91.7
       objectReference: {fileID: 0}
     - target: {fileID: 7750360880792803787, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
@@ -1364,16 +1354,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317849249984950864, guid: a446566eff70a174abc8b90c5c27ec21,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317849249984950864, guid: a446566eff70a174abc8b90c5c27ec21,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -109.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a446566eff70a174abc8b90c5c27ec21, type: 3}
