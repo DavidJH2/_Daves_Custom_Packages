@@ -47,7 +47,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		
 		private void OnEnable()
 		{
-			UnityEngine.Debug.Log("State Enabled");
+			// Debug.Log("State Enabled");
 			_input.Enable();
 			_input.InitialActionMap.Grab.started  += OnGrabStarted;
 			_input.InitialActionMap.Grab.canceled += OnGrabCanceled;
@@ -56,7 +56,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		
 		private void OnDisable()
 		{
-			UnityEngine.Debug.Log("State Disabled");
+			// Debug.Log("State Disabled");
 			//_input.Disable();
 			_input.InitialActionMap.Grab.started  -= OnGrabStarted;
 			_input.InitialActionMap.Grab.canceled -= OnGrabCanceled;
@@ -65,14 +65,14 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 
 		private void OnGrabStarted(InputAction.CallbackContext context)
 		{
-			UnityEngine.Debug.Log("Grab Started");
+			// Debug.Log("Grab Started");
 			_input._isGrabing = true;
 		}
 
 
 		private void OnGrabCanceled(InputAction.CallbackContext context)
 		{
-			UnityEngine.Debug.Log("Grab Canceled");
+			// Debug.Log("Grab Canceled");
 			_input._isGrabing = false;
 		}
 

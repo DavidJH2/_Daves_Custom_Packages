@@ -31,13 +31,13 @@ public class DHTInput : DHTPlayerInput
 	
     private void StartedGrabbing(InputAction.CallbackContext obj)
     {
-        Debug.Log("Started Grabbing");
+        // Debug.Log("Started Grabbing");
         _isGrabing = true;
     }
 
     private void StopedGrabbing(InputAction.CallbackContext obj)
     {
-        Debug.Log("Stopped Grabbing");
+        // Debug.Log("Stopped Grabbing");
         _isGrabing = false;
     }
 

@@ -23,6 +23,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 	private void Start()
 	{
 		_teleportEvent.Invoke("");
+		_debugMiscEvent.Invoke("Idle State");
 	}
 
 	
