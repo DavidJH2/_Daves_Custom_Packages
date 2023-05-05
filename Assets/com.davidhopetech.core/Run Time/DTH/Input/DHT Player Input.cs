@@ -28,10 +28,19 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""64a3dcd1-ffb8-4dd2-b21d-5cf1a87b079a"",
             ""actions"": [
                 {
-                    ""name"": ""Grab"",
+                    ""name"": ""Grab Value"",
                     ""type"": ""Value"",
                     ""id"": ""9ade250f-332f-41cd-902d-84cd25da7a2e"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""6af947fa-aecd-4522-950f-4ff194466d37"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -42,6 +51,17 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""53b96037-ba22-4868-881f-c80b42479d66"",
                     ""path"": ""<XRController>{RightHand}/grip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Value"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad3a9557-8b8e-4d59-afef-453b02d78e97"",
+                    ""path"": ""<XRController>{RightHand}/gripPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -56,6 +76,7 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
 }");
         // Initial Action Map
         m_InitialActionMap = asset.FindActionMap("Initial Action Map", throwIfNotFound: true);
+        m_InitialActionMap_GrabValue = m_InitialActionMap.FindAction("Grab Value", throwIfNotFound: true);
         m_InitialActionMap_Grab = m_InitialActionMap.FindAction("Grab", throwIfNotFound: true);
     }
 
@@ -118,11 +139,13 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
     // Initial Action Map
     private readonly InputActionMap m_InitialActionMap;
     private List<IInitialActionMapActions> m_InitialActionMapActionsCallbackInterfaces = new List<IInitialActionMapActions>();
+    private readonly InputAction m_InitialActionMap_GrabValue;
     private readonly InputAction m_InitialActionMap_Grab;
     public struct InitialActionMapActions
     {
         private @DHTPlayerInput m_Wrapper;
         public InitialActionMapActions(@DHTPlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @GrabValue => m_Wrapper.m_InitialActionMap_GrabValue;
         public InputAction @Grab => m_Wrapper.m_InitialActionMap_Grab;
         public InputActionMap Get() { return m_Wrapper.m_InitialActionMap; }
         public void Enable() { Get().Enable(); }
@@ -133,6 +156,9 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InitialActionMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InitialActionMapActionsCallbackInterfaces.Add(instance);
+            @GrabValue.started += instance.OnGrabValue;
+            @GrabValue.performed += instance.OnGrabValue;
+            @GrabValue.canceled += instance.OnGrabValue;
             @Grab.started += instance.OnGrab;
             @Grab.performed += instance.OnGrab;
             @Grab.canceled += instance.OnGrab;
@@ -140,6 +166,9 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IInitialActionMapActions instance)
         {
+            @GrabValue.started -= instance.OnGrabValue;
+            @GrabValue.performed -= instance.OnGrabValue;
+            @GrabValue.canceled -= instance.OnGrabValue;
             @Grab.started -= instance.OnGrab;
             @Grab.performed -= instance.OnGrab;
             @Grab.canceled -= instance.OnGrab;
@@ -162,6 +191,7 @@ public partial class @DHTPlayerInput: IInputActionCollection2, IDisposable
     public InitialActionMapActions @InitialActionMap => new InitialActionMapActions(this);
     public interface IInitialActionMapActions
     {
+        void OnGrabValue(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
     }
 }

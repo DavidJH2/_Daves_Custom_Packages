@@ -6,10 +6,19 @@
             "id": "64a3dcd1-ffb8-4dd2-b21d-5cf1a87b079a",
             "actions": [
                 {
-                    "name": "Grab",
+                    "name": "Grab Value",
                     "type": "Value",
                     "id": "9ade250f-332f-41cd-902d-84cd25da7a2e",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Grab",
+                    "type": "Button",
+                    "id": "6af947fa-aecd-4522-950f-4ff194466d37",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -20,6 +29,17 @@
                     "name": "",
                     "id": "53b96037-ba22-4868-881f-c80b42479d66",
                     "path": "<XRController>{RightHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad3a9557-8b8e-4d59-afef-453b02d78e97",
+                    "path": "<XRController>{RightHand}/gripPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

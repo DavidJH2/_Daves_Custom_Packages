@@ -12,7 +12,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
         
         }
 
-        // UpdateState is called once per frame
+        // UpdateStateImpl is called once per frame
         void Update()
         {
         

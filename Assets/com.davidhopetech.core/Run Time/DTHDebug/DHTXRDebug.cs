@@ -1,9 +1,8 @@
 using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-
-namespace com.davidhopetech.core.Run_Time.Debug
+namespace com.davidhopetech.core.Run_Time.DTHDebug
 {
 	public class DHTXRDebug : MonoBehaviour
 	{

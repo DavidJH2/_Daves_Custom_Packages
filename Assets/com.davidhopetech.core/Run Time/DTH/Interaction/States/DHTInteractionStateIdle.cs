@@ -2,14 +2,18 @@ using System;
 using UnityEngine;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
+using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
 using UnityEngine.InputSystem;
 
 [Serializable]
 class DHTInteractionStateIdle : DHTInteractionState
 {
-	private  bool                        _isGrabing;
+	public override void UpdateStateImpl()
+	{
+		DistancesToInteractors(Controller._rightInteractor);
+	}
 
-
+	
 	private new void Awake()
 	{
 		base.Awake();
@@ -19,56 +23,6 @@ class DHTInteractionStateIdle : DHTInteractionState
 	private void Start()
 	{
 		_teleportEvent.Invoke("");
-	}
-
-	private void OnEnable()
-	{
-		// Debug.Log("Idle State: Input Enabled");
-		_input.Enable();
-
-		_teleportEvent.Invoke("Hello");
-	}
-
-
-	private void OnDisable()
-	{
-		// Debug.Log("Idle State: Input Disabled");
-		_input.Disable();
-	}
-
-	
-	private void StartedGrabbing()
-	{
-		Debug.Log("Started Grabbing");
-		_isGrabing = true;
-	}
-
-	private void StopedGrabbing()
-	{
-		Debug.Log("Stopped Grabbing");
-		_isGrabing = false;
-	}
-
-	
-	public override void UpdateState()
-	{
-		var grab = _input.InitialActionMap.Grab.ReadValue<float>();
-
-		if (_isGrabing)
-		{
-			if (grab < GripThreshold)
-			{
-				StopedGrabbing();
-			}
-		}
-		else
-		{
-			if (grab >= GripThreshold)
-			{
-				StartedGrabbing();
-			}
-		}
-		DistancesToInteractors(Controller._rightInteractor);
 	}
 
 	
@@ -84,7 +38,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 		{
 			_debugValue1Event.Invoke($"In Grab Range");
 			
-			if (_isGrabing)
+			if (_input._isGrabing)
 			{
 				ChangeToGrabbingState();
 			}

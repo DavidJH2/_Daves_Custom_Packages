@@ -9,46 +9,80 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 	[Serializable]
 	abstract class DHTInteractionState : MonoBehaviour
 	{
+		internal DHTInput _input = null;
+		public   bool     grabStarted;
+		public   bool     grabStopped;
+
 		protected DHTUpdateDebugValue1Event   _debugValue1Event;
 		protected DHTUpdateDebugTeleportEvent _teleportEvent;
 		protected DHTUpdateDebugMiscEvent     _debugMiscEvent;
-		
-		internal  float                       GripThreshold = .1f;
-		internal  DHTPlayerInput              _input = null;
-	
 		protected DHTEventService     EventService ;
 		protected DHTPlayerController Controller;
-		
+
+		private bool _lastIsGrabbing;
+
+
+		public void UpdateState()
+		{
+			
+			setGrabFlags();
+			UpdateStateImpl();
+		}
+
+		public abstract void UpdateStateImpl();
+
 
 		internal void Awake()
 		{
 			EventService = DHTServiceLocator.DhtEventService;
-			Controller     = GetComponent<DHTPlayerController>();
+			Controller   = GetComponent<DHTPlayerController>();
 
-			_input            = new DHTPlayerInput();
-			
-			_debugValue1Event                    =  EventService.dhtUpdateDebugValue1Event;
-			_teleportEvent                       =  EventService.dhtUpdateDebugTeleportEvent;
-			_debugMiscEvent                      =  EventService.dhtUpdateDebugMiscEvent;
-			_input.InitialActionMap.Grab.started += TestStarted;
-			_input.InitialActionMap.Grab.canceled += TestCanceled;
+			_input = new DHTInput();
+
+			_debugValue1Event = EventService.dhtUpdateDebugValue1Event;
+			_teleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+			_debugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
 		}
 
 		
-		private void TestStarted(InputAction.CallbackContext context)
+		private void OnEnable()
 		{
-			var val = context.ReadValue<float>();
-			_debugMiscEvent.Invoke($"Started: {val}");
+			UnityEngine.Debug.Log("State Enabled");
+			_input.Enable();
+			_input.InitialActionMap.Grab.started  += OnGrabStarted;
+			_input.InitialActionMap.Grab.canceled += OnGrabCanceled;
 		}
 
 		
-		private void TestCanceled(InputAction.CallbackContext context)
+		private void OnDisable()
 		{
-			var val = context.ReadValue<float>();
-			_debugMiscEvent.Invoke($"Canceled: {val}");
+			UnityEngine.Debug.Log("State Disabled");
+			//_input.Disable();
+			_input.InitialActionMap.Grab.started  -= OnGrabStarted;
+			_input.InitialActionMap.Grab.canceled -= OnGrabCanceled;
 		}
 
-		public abstract void UpdateState();
+
+		private void OnGrabStarted(InputAction.CallbackContext context)
+		{
+			UnityEngine.Debug.Log("Grab Started");
+			_input._isGrabing = true;
+		}
+
+
+		private void OnGrabCanceled(InputAction.CallbackContext context)
+		{
+			UnityEngine.Debug.Log("Grab Canceled");
+			_input._isGrabing = false;
+		}
+
+		
+		public void setGrabFlags()
+		{
+			grabStarted     = (_input._isGrabing && !_lastIsGrabbing);
+			grabStopped     = (!_input._isGrabing && _lastIsGrabbing);
+			_lastIsGrabbing = _input._isGrabing;
+		}
 	}
 }
 

@@ -2,7 +2,6 @@
 	using System.Collections;
 	using System.Collections.Generic;
 	using System.Linq;
-	using com.davidhopetech.core.Run_Time.Debug;
 	using com.davidhopetech.core.Run_Time.DHTInteraction;
 	using Unity.VisualScripting;
 	using UnityEngine;
@@ -14,7 +13,6 @@
 	public class DHTPlayerController : MonoBehaviour
 	{
 		[SerializeField] internal GameObject                 _rightInteractor;
-		//[SerializeField] internal InputAction                grabAction;
 		[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
 		
 		private                   InputDevice                targetDevice;
@@ -43,7 +41,7 @@
 			}
 		}
 
-		// UpdateState is called once per frame
+		// UpdateStateImpl is called once per frame
 		void Update()
 		{
 			_dhtInteractionState?.UpdateState();
