@@ -14,6 +14,7 @@
 	{
 		[SerializeField] internal GameObject                 _rightInteractor;
 		[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
+		[SerializeField] internal GameObject                 _rightMirrorHand;
 		
 		private                   InputDevice                targetDevice;
 

@@ -24,9 +24,13 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 
 		public void UpdateState()
 		{
-			
 			setGrabFlags();
 			UpdateStateImpl();
+		}
+
+		internal bool _isGrabbing
+		{
+			get { return _input.GrabValue() > .01; }
 		}
 
 		public abstract void UpdateStateImpl();
@@ -49,8 +53,6 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		{
 			// Debug.Log("State Enabled");
 			_input.Enable();
-			_input.InitialActionMap.Grab.started  += OnGrabStarted;
-			_input.InitialActionMap.Grab.canceled += OnGrabCanceled;
 		}
 
 		
@@ -58,30 +60,19 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		{
 			// Debug.Log("State Disabled");
 			//_input.Disable();
-			_input.InitialActionMap.Grab.started  -= OnGrabStarted;
-			_input.InitialActionMap.Grab.canceled -= OnGrabCanceled;
-		}
-
-
-		private void OnGrabStarted(InputAction.CallbackContext context)
-		{
-			// Debug.Log("Grab Started");
-			_input._isGrabing = true;
-		}
-
-
-		private void OnGrabCanceled(InputAction.CallbackContext context)
-		{
-			// Debug.Log("Grab Canceled");
-			_input._isGrabing = false;
 		}
 
 		
 		public void setGrabFlags()
 		{
-			grabStarted     = (_input._isGrabing && !_lastIsGrabbing);
-			grabStopped     = (!_input._isGrabing && _lastIsGrabbing);
-			_lastIsGrabbing = _input._isGrabing;
+			grabStarted     = (_isGrabbing && !_lastIsGrabbing);
+			grabStopped     = (!_isGrabbing && _lastIsGrabbing);
+
+			if (_isGrabbing != _lastIsGrabbing)
+			{
+				Debug.Log($"Grabbing Stopped: {grabStopped}");
+			}
+			_lastIsGrabbing = _isGrabbing;
 		}
 	}
 }

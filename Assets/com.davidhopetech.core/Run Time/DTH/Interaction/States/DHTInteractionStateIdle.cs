@@ -39,9 +39,9 @@ class DHTInteractionStateIdle : DHTInteractionState
 		{
 			_debugValue1Event.Invoke($"In Grab Range");
 			
-			if (_input._isGrabing)
+			if (_isGrabbing)
 			{
-				ChangeToGrabbingState();
+				ChangeToGrabbingState(closeGrabables.First());
 			}
 		}
 		else
@@ -50,11 +50,14 @@ class DHTInteractionStateIdle : DHTInteractionState
 		}
 	}
 
-	private void ChangeToGrabbingState()
+	private void ChangeToGrabbingState(DHTGrabable grabable)
 	{
 		Debug.Log("######  Change to Grabbing State  ######");
 
-		Controller._dhtInteractionState = Controller.gameObject.AddComponent<DHTInteractionStateGrabbing>();
+		DHTInteractionStateGrabbing component = Controller.gameObject.AddComponent<DHTInteractionStateGrabbing>();
+		component.grabedItem            = grabable;
+		Controller._dhtInteractionState = component;
+		
 		Destroy(this);
 	}
 }

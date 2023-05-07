@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976772229672697675}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.045, y: 1.1176, z: 0.608}
+  m_LocalPosition: {x: -0.045, y: 1.1176, z: 0.2122}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 1721108357264775168}
   - component: {fileID: 1721108357264775181}
   - component: {fileID: 1721108357264775175}
+  - component: {fileID: 4348230769239123690}
   m_Layer: 6
   m_Name: Right Mirror Hand
   m_TagString: Untagged
@@ -91,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721108357264775169}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.239, y: 1.1176, z: 0.643}
+  m_LocalPosition: {x: 0, y: 1.1176, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -130,6 +131,36 @@ MonoBehaviour:
   torqueCoeff: 0
   debug: 0
   target: {fileID: 8970635015327110448}
+--- !u!1773428102 &4348230769239123690
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721108357264775169}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -14, z: 90}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 0
+  m_AffectRotationY: 0
+  m_AffectRotationZ: 0
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 8970635015327110448}
+    weight: 1
+  - sourceTransform: {fileID: 0}
+    weight: 0
 --- !u!1 &3645432911485130400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3645432911485130460}
   m_LocalRotation: {x: 0.7599481, y: 0.541514, z: -0.17099279, w: -0.31623262}
-  m_LocalPosition: {x: 0.017749999, y: 0.049009997, z: -0.0717}
+  m_LocalPosition: {x: -0.01, y: 0.04, z: -0.0717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3627,8 +3658,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7300757829478408836}
-  m_LocalRotation: {x: 0.7599481, y: 0.54151404, z: -0.17099279, w: -0.31623265}
-  m_LocalPosition: {x: 0.017749999, y: 0.049009997, z: -0.0717}
+  m_LocalRotation: {x: 0.7599481, y: 0.541514, z: -0.17099279, w: -0.31623262}
+  m_LocalPosition: {x: -0.01, y: 0.04, z: -0.0717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5570,7 +5601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8970635015327110449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.012, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6170,7 +6201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8970635015459044264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.1107, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7010,6 +7041,7 @@ GameObject:
   - component: {fileID: 8970635017006262890}
   - component: {fileID: 8970635017006262891}
   - component: {fileID: 8970635017006262889}
+  - component: {fileID: 4109656907441096}
   m_Layer: 0
   m_Name: Daves XR Origin
   m_TagString: Untagged
@@ -7050,7 +7082,7 @@ MonoBehaviour:
   m_Camera: {fileID: 8970635016644697829}
   m_OriginBaseGameObject: {fileID: 8970635017006262804}
   m_CameraFloorOffsetObject: {fileID: 8970635016388765554}
-  m_RequestedTrackingOriginMode: 2
+  m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.1176
 --- !u!114 &8970635017006262803
 MonoBehaviour:
@@ -7138,6 +7170,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 8970635017006262890}
   m_DelayTime: 0
+--- !u!114 &4109656907441096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970635017006262804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2101b19f015e71409ecf88fa004f87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rightInteractor: {fileID: 8970635015327110449}
+  controllerCharacteristics: 64
+  _rightMirrorHand: {fileID: 1721108357264775169}
 --- !u!1 &9077800321696658080
 GameObject:
   m_ObjectHideFlags: 0
