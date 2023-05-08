@@ -1,59 +1,51 @@
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
-	using System.Linq;
-	using com.davidhopetech.core.Run_Time.DHTInteraction;
-	using Unity.VisualScripting;
-	using UnityEngine;
-	using UnityEngine.InputSystem;
-	using UnityEngine.Serialization;
-	using UnityEngine.XR;
-	using InputDevice = UnityEngine.XR.InputDevice;
+using System.Collections.Generic;
+using System.Linq;
+using com.davidhopetech.core.Run_Time.DHTInteraction;
+using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
+using UnityEditor.MPE;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
-	public class DHTPlayerController : MonoBehaviour
+namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 	{
-		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-		[SerializeField] internal GameObject _lefttInteractor;
-		[SerializeField] internal GameObject _rightInteractor;
-		
-		[SerializeField] internal GameObject _leftMirrorHand;
-		[SerializeField] internal GameObject _rightMirrorHand;
-
-		[SerializeField] internal float handSpringCoeeff;		// TODO: Move these to Settings Scriptable Object?
-		[SerializeField] internal float handDampCoeeff;
-		
-		// private                   InputDevice                targetDevice;
-
-		internal List<DHTGrabable>   _grabables;
-		internal DHTInteractionState _dhtInteractionState;
-
-		void Start()
+		public class DHTPlayerController : MonoBehaviour
 		{
-			
-			_dhtInteractionState = gameObject.AddComponent<DHTInteractionStateIdle>();
-			_grabables           = GameObject.FindObjectsOfType<DHTGrabable>().ToList();
-			
-			Debug.Log($"Number of Grabables: {_grabables.Count}");
-			// TryInitialize();
-		}
-
+			//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
+			[SerializeField] internal GameObject _lefttInteractor;
+			[SerializeField] internal GameObject _rightInteractor;
 		
-		/*
-		void TryInitialize()
-		{
-			List<InputDevice> devices = new List<InputDevice>();
+			[SerializeField] internal GameObject _leftMirrorHand;
+			[SerializeField] internal GameObject _rightMirrorHand;
 
-			InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
-			if (devices.Count > 0)
+			[SerializeField] internal float handSpringCoeeff;		// TODO: Move these to Settings Scriptable Object?
+			[SerializeField] internal float handDampCoeeff;
+		
+			// private                   InputDevice                targetDevice;
+
+			internal List<DHTGrabable>   _grabables;
+			internal DHTInteractionState _dhtInteractionState;
+
+			void Start()
 			{
-				targetDevice = devices[0];
-			}
-		}
-		*/
+				Joystick.JoyStickEvent += OnJoystick;
 
-		// UpdateStateImpl is called once per frame
-		void Update()
-		{
-			_dhtInteractionState?.UpdateState();
+				_dhtInteractionState = gameObject.AddComponent<DHTInteractionStateIdle>();
+				_grabables           = GameObject.FindObjectsOfType<DHTGrabable>().ToList();
+			
+				Debug.Log($"Number of Grabables: {_grabables.Count}");
+			}
+
+			// UpdateStateImpl is called once per frame
+			void Update()
+			{
+				_dhtInteractionState?.UpdateState();
+			}
+			
+
+			
+			private void OnJoystick(object sender, Joystick.JoystickEventArgs e)
+			{
+				DHTServiceLocator.DhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Value: {e.AngX}, {e.AngY}");
+			}
 		}
 	}
