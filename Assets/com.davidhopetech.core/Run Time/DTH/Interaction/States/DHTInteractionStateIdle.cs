@@ -22,8 +22,6 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 	private void Start()
 	{
-		_teleportEvent.Invoke("");
-		_debugMiscEvent.Invoke("Idle State");
 	}
 
 	
@@ -37,7 +35,7 @@ class DHTInteractionStateIdle : DHTInteractionState
 
 		if (closeGrabables.Count() > 0)
 		{
-			_debugValue1Event.Invoke($"In Grab Range");
+			// DebugValue1Event.Invoke($"In Grab Range");
 			
 			if (_isGrabbing)
 			{
@@ -46,16 +44,18 @@ class DHTInteractionStateIdle : DHTInteractionState
 		}
 		else
 		{
-			_debugValue1Event.Invoke($"Not In Grab Range");
+			// DebugValue1Event.Invoke($"Not In Grab Range");
 		}
 	}
 
 	private void ChangeToGrabbingState(DHTGrabable grabable)
 	{
-		Debug.Log("######  Change to Grabbing State  ######");
+		// Debug.Log("######  Change to Grabbing State  ######");
 
 		DHTInteractionStateGrabbing component = Controller.gameObject.AddComponent<DHTInteractionStateGrabbing>();
-		component.grabedItem            = grabable;
+		component.GrabedItem            = grabable;
+		component.Interactor            = Controller._rightInteractor;
+		component.MirrorHand            = Controller._rightMirrorHand;
 		Controller._dhtInteractionState = component;
 		
 		Destroy(this);

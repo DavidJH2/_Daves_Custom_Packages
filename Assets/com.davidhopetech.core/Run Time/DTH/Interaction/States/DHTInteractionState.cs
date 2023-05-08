@@ -13,11 +13,12 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		public   bool     grabStarted;
 		public   bool     grabStopped;
 
-		protected DHTUpdateDebugValue1Event   _debugValue1Event;
-		protected DHTUpdateDebugTeleportEvent _teleportEvent;
-		protected DHTUpdateDebugMiscEvent     _debugMiscEvent;
-		protected DHTEventService     EventService ;
-		protected DHTPlayerController Controller;
+		protected DHTUpdateDebugMiscEvent     DebugMiscEvent;
+		protected DHTUpdateDebugTeleportEvent TeleportEvent;
+		protected DHTUpdateDebugValue1Event   DebugValue1Event;
+		
+		protected DHTEventService             EventService ;
+		protected DHTPlayerController         Controller;
 
 		private bool _lastIsGrabbing;
 
@@ -43,9 +44,9 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 
 			_input = new DHTInput();
 
-			_debugValue1Event = EventService.dhtUpdateDebugValue1Event;
-			_teleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
-			_debugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
+			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
+			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
 		}
 
 		
@@ -68,10 +69,6 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 			grabStarted     = (_isGrabbing && !_lastIsGrabbing);
 			grabStopped     = (!_isGrabbing && _lastIsGrabbing);
 
-			if (_isGrabbing != _lastIsGrabbing)
-			{
-				Debug.Log($"Grabbing Stopped: {grabStopped}");
-			}
 			_lastIsGrabbing = _isGrabbing;
 		}
 	}

@@ -12,11 +12,17 @@
 
 	public class DHTPlayerController : MonoBehaviour
 	{
-		[SerializeField] internal GameObject                 _rightInteractor;
-		[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-		[SerializeField] internal GameObject                 _rightMirrorHand;
+		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
+		[SerializeField] internal GameObject _lefttInteractor;
+		[SerializeField] internal GameObject _rightInteractor;
 		
-		private                   InputDevice                targetDevice;
+		[SerializeField] internal GameObject _leftMirrorHand;
+		[SerializeField] internal GameObject _rightMirrorHand;
+
+		[SerializeField] internal float handSpringCoeeff;		// TODO: Move these to Settings Scriptable Object?
+		[SerializeField] internal float handDampCoeeff;
+		
+		// private                   InputDevice                targetDevice;
 
 		internal List<DHTGrabable>   _grabables;
 		internal DHTInteractionState _dhtInteractionState;
@@ -28,9 +34,11 @@
 			_grabables           = GameObject.FindObjectsOfType<DHTGrabable>().ToList();
 			
 			Debug.Log($"Number of Grabables: {_grabables.Count}");
-			TryInitialize();
+			// TryInitialize();
 		}
 
+		
+		/*
 		void TryInitialize()
 		{
 			List<InputDevice> devices = new List<InputDevice>();
@@ -41,6 +49,7 @@
 				targetDevice = devices[0];
 			}
 		}
+		*/
 
 		// UpdateStateImpl is called once per frame
 		void Update()

@@ -2,57 +2,76 @@ using System;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 {
 	[Serializable]
 	class DHTInteractionStateGrabbing : DHTInteractionState
 	{
-		public  DHTGrabable      grabedItem;
-		private GameObject       rightHand;
-		private ParentConstraint parentConstraint;
+		internal DHTGrabable      GrabedItem;
+		internal GameObject       Interactor;
+		internal GameObject       MirrorHand;
+		private  ParentConstraint _parentConstraint;
 
 		
 		private void Start()
 		{
-			_debugMiscEvent.Invoke("Grabbing State");
-			rightHand = Controller._rightMirrorHand;
-			var rb = rightHand.GetComponent<Rigidbody>();
+			// DebugMiscEvent.Invoke("Grabbing State");
+			MirrorHand = Controller._rightMirrorHand;
+			var rb = MirrorHand.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
 			
-			parentConstraint = rightHand.GetComponent<ParentConstraint>();
+			_parentConstraint = MirrorHand.GetComponent<ParentConstraint>();
 			var cs = new ConstraintSource();
-			cs.sourceTransform = grabedItem.transform;
+			cs.sourceTransform = GrabedItem.transform;
 			cs.weight          = 0f;
-			parentConstraint.SetSource(1, cs);
-			parentConstraint.constraintActive = true;
+			_parentConstraint.SetSource(1, cs);
+			_parentConstraint.constraintActive = true;
 		}
 
 		
 		public override void UpdateStateImpl()
 		{
-			_debugValue1Event.Invoke(_input.GrabValue().ToString());
+			// DebugValue1Event.Invoke(_input.GrabValue().ToString());
 			if (grabStopped)
 			{
 				ChangeToIdleState();
 			}
 
-			var cs0 = parentConstraint.GetSource(0);
-			var cs1 = parentConstraint.GetSource(1);
+			AdjustParentConstraint();
+			ApplyHandForce();
+		}
+
+
+		void AdjustParentConstraint()
+		{
+			var cs0 = _parentConstraint.GetSource(0);
+			var cs1 = _parentConstraint.GetSource(1);
 			
 			cs0.weight = 1.0f - _input.GrabValue();
 			cs1.weight = _input.GrabValue();
 
-			parentConstraint.SetSource(0, cs0);
-			parentConstraint.SetSource(1, cs1);
+			_parentConstraint.SetSource(0, cs0);
+			_parentConstraint.SetSource(1, cs1);
 		}
 
-	
+		void ApplyHandForce()
+		{
+			var dist  = MirrorHand.transform.position - GrabedItem.transform.position;
+			var accel = dist * Controller.handSpringCoeeff;
+			var ab    = GrabedItem.GetComponentInParent<ArticulationBody>();
+			
+			var loc = GrabedItem.transform.position;
+			ab.AddForceAtPosition(accel, loc, ForceMode.Force);
+		}
+		
+		
 		private void ChangeToIdleState()
 		{
-			Debug.Log("######  Change to Idle State  ######");
+			// Debug.Log("######  Change to Idle State  ######");
 
-			parentConstraint.constraintActive = false;
+			_parentConstraint.constraintActive = false;
 			Controller._dhtInteractionState = Controller.gameObject.AddComponent<DHTInteractionStateIdle>();
 			Destroy(this);
 		}
