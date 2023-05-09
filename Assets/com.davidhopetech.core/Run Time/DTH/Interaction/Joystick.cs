@@ -20,7 +20,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction
         }
 
     
-        void Update()
+        void FixedUpdate()
         {
             /*
             Vector3 newDir = GrabPoint.position - Handle.transform.position;
