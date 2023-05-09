@@ -1,44 +1,50 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Joystick : MonoBehaviour
+namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 {
-    [SerializeField] private GameObject Handle;
-    [SerializeField] private Transform GrabPoint;
-    [SerializeField] private float      deadZoneAngle;
-
-    private Vector3 ZeroDirection;
-    
-    public static event EventHandler<JoystickEventArgs> JoyStickEvent;
-    public class JoystickEventArgs : EventArgs
+    public class Joystick : MonoBehaviour
     {
-        public float AngX;
-        public float AngY;
-        
-        public JoystickEventArgs(float i_angX, float i_angZ)
+        [SerializeField] private GameObject Handle;
+        [SerializeField] private Transform  GrabPoint;
+        [SerializeField] private float      deadZoneAngle;
+
+        private Vector3 ZeroDirection;
+    
+        public event Action<float, float> JoyStickEvent = delegate(float f, float f1) {  };
+    
+        void Start()
         {
-            AngX = i_angX;
-            AngY = i_angZ;
+        
+            ZeroDirection = GrabPoint.position - Handle.transform.position;
         }
 
-    }
     
-    void Start()
-    {
-        
-        ZeroDirection = GrabPoint.position - Handle.transform.position;
-    }
+        void Update()
+        {
+            /*
+            Vector3 newDir = GrabPoint.position - Handle.transform.position;
+            
+            var     ang    = Vector3.Angle(ZeroDirection, newDir);
 
-    
-    void Update()
-    {
-        Vector3 newDir = GrabPoint.position - Handle.transform.position;
-        var ang = Vector3.Angle(ZeroDirection, newDir);
+            if (ang < deadZoneAngle) return;
+            var pos = GrabPoint.localPosition;
+                       
+            JoyStickEvent.Invoke(pos.x, pos.z);
+            */
 
-        if (ang < deadZoneAngle) return;
-        JoyStickEvent.Invoke(this, new JoystickEventArgs(ang, 0));
+            var up   = Vector3.up;
+            var dir  = Handle.transform.localRotation * up;
+            var xDir = new Vector3(dir.x, dir.y, 0);
+            var zDir = new Vector3(0, dir.y, dir.z);
+
+            var angX = Vector3.SignedAngle(Vector3.up, xDir, Vector3.back);
+            var angZ = Vector3.SignedAngle(Vector3.up, zDir, Vector3.right);
+            
+            // var ax = Vector3.Angle(xDir, up);
+            // var az = Vector3.Angle(zDir, up);
+            
+            JoyStickEvent.Invoke(angX, angZ);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
@@ -22,12 +23,14 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 		
 			// private                   InputDevice                targetDevice;
 
+			[SerializeField]  Joystick _joystick;
+			
 			internal List<DHTGrabable>   _grabables;
 			internal DHTInteractionState _dhtInteractionState;
 
 			void Start()
 			{
-				Joystick.JoyStickEvent += OnJoystick;
+				_joystick.JoyStickEvent += OnJoystick;
 
 				_dhtInteractionState = gameObject.AddComponent<DHTInteractionStateIdle>();
 				_grabables           = GameObject.FindObjectsOfType<DHTGrabable>().ToList();
@@ -43,9 +46,9 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 			
 
 			
-			private void OnJoystick(object sender, Joystick.JoystickEventArgs e)
+			private void OnJoystick(float x, float y)
 			{
-				DHTServiceLocator.DhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Value: {e.AngX}, {e.AngY}");
+				DHTServiceLocator.DhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Value: {Mathf.RoundToInt(x)}, {Mathf.RoundToInt(y)}");
 			}
 		}
 	}

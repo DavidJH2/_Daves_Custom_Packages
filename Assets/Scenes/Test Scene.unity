@@ -1376,6 +1376,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4109656907441096, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}
+      propertyPath: _joystick
+      value: 
+      objectReference: {fileID: 1820462154081930040}
     - target: {fileID: 976772229672697674, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_LocalPosition.x

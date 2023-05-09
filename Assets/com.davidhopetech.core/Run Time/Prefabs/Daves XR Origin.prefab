@@ -7188,6 +7188,7 @@ MonoBehaviour:
   _rightMirrorHand: {fileID: 1721108357264775169}
   handSpringCoeeff: 400
   handDampCoeeff: 0
+  _joystick: {fileID: 0}
 --- !u!1 &9077800321696658080
 GameObject:
   m_ObjectHideFlags: 0
