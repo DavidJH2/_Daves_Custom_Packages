@@ -1,12 +1,9 @@
 using UnityEngine;
 
-
-namespace com.davidhopetech.core.Run_Time.DHTInteraction
+namespace com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction
 {
-    public class DHTGrabable : MonoBehaviour
+    public class DHTGrabable : DTHInteractable
     {
-        [SerializeField] internal float grabRadius = .3f;
-    
         void Start()
         {
         

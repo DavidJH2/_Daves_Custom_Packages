@@ -10,7 +10,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 	[Serializable]
 	abstract class DHTInteractionState : MonoBehaviour
 	{
-		internal DHTInput _input = null;
+		internal DHTInput Input = null;
 		public   bool     grabStarted;
 		public   bool     grabStopped;
 
@@ -24,6 +24,19 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		private bool _lastIsGrabbing;
 
 
+		internal void Awake()
+		{
+			EventService = DHTServiceLocator.DhtEventService;
+			Controller   = GetComponent<DHTPlayerController>();
+
+			Input = new DHTInput();
+
+			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
+			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
+		}
+
+
 		public void UpdateState()
 		{
 			setGrabFlags();
@@ -32,29 +45,16 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 
 		internal bool _isGrabbing
 		{
-			get { return _input.GrabValue() > .01; }
+			get { return Input.GrabValue() > .01; }
 		}
 
 		public abstract void UpdateStateImpl();
-
-
-		internal void Awake()
-		{
-			EventService = DHTServiceLocator.DhtEventService;
-			Controller   = GetComponent<DHTPlayerController>();
-
-			_input = new DHTInput();
-
-			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
-			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
-			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
-		}
 
 		
 		private void OnEnable()
 		{
 			// Debug.Log("State Enabled");
-			_input.Enable();
+			Input.Enable();
 		}
 
 		

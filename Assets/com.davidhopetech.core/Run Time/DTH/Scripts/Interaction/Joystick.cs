@@ -22,17 +22,6 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction
     
         void FixedUpdate()
         {
-            /*
-            Vector3 newDir = GrabPoint.position - Handle.transform.position;
-            
-            var     ang    = Vector3.Angle(ZeroDirection, newDir);
-
-            if (ang < deadZoneAngle) return;
-            var pos = GrabPoint.localPosition;
-                       
-            JoyStickEvent.Invoke(pos.x, pos.z);
-            */
-
             var up   = Vector3.up;
             var dir  = Handle.transform.localRotation * up;
             var xDir = new Vector3(dir.x, dir.y, 0);
