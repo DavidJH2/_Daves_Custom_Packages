@@ -38,15 +38,15 @@ class DHTInteractionIdleState : DHTInteractionState
 		if (interactable.InRange(intoractorPos))
 		{
 			DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");
+
+			if (_isGrabbing && interactable is DHTGrabable grabable)
+			{
+				ChangeToGrabbingState(grabable);
+			}
 		}
 		else
 		{
 			DebugMiscEvent.Invoke($"Not In Grab Range");
-		}
-
-		if (_isGrabbing && interactable is DHTGrabable grabable)
-		{
-			ChangeToGrabbingState(grabable);
 		}
 	}
 
