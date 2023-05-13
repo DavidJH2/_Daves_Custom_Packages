@@ -26,14 +26,14 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 
 		internal void Awake()
 		{
-			EventService = DHTServiceLocator.DhtEventService;
 			Controller   = GetComponent<DHTPlayerController>();
-
 			Input = new DHTInput();
 
-			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
-			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+			EventService = DHTServiceLocator.DhtEventService;
+			
 			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
+			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
 		}
 
 

@@ -19,7 +19,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 		private void Start()
 		{
 			// DebugMiscEvent.Invoke("Grabbing State");
-			MirrorHand = Controller._rightMirrorHand;
+			MirrorHand = null;
 			var rb = MirrorHand.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
 			
@@ -73,7 +73,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 			// Debug.Log("######  Change to Idle State  ######");
 
 			_parentConstraint.constraintActive = false;
-			Controller._dhtInteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
+			Controller.InteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
 			Destroy(this);
 		}
 	}

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class HandPhysics : MonoBehaviour
+public class MirrorHand : MonoBehaviour
 {
-    [SerializeField] private float     torqueCoeff;
-    [SerializeField] private bool      debug;
-    [SerializeField] private Transform target;
+    [SerializeField] private  float     torqueCoeff;
+    [SerializeField] private  bool      debug;
+    [SerializeField] internal Transform target;
     
     private Rigidbody rb;
     

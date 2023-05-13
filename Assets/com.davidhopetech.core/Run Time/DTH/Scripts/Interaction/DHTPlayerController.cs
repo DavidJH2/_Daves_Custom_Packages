@@ -3,40 +3,41 @@ using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 	{
 		public class DHTPlayerController : MonoBehaviour
 		{
 			//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-			[SerializeField] internal GameObject _lefttInteractor;
-			[SerializeField] internal GameObject _rightInteractor;
+			[SerializeField]  internal GameObject leftInteractor;
+			[SerializeField] internal GameObject rightInteractor;
 		
-			[SerializeField] internal GameObject _leftMirrorHand;
-			[SerializeField] internal GameObject _rightMirrorHand;
+			[SerializeField]  internal GameObject leftMirrorHand;
+			[SerializeField] internal GameObject rightMirrorHand;
 
 			[SerializeField] internal float handSpringCoeeff;		// TODO: Move these to Settings Scriptable Object?
 			[SerializeField] internal float handDampCoeeff;
 		
 			// private                   InputDevice                targetDevice;
 
-			[SerializeField]  Joystick _joystick;
+			[SerializeField]  Joystick joystick;
 			
-			internal List<DTHInteractable> _Interactables;
-			internal DHTInteractionState   _dhtInteractionState;
+			internal List<DTHInteractable> Interactables;
+			internal DHTInteractionState   InteractionState;
 
 			void Start()
 			{
-				_dhtInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
-				_Interactables           = GameObject.FindObjectsOfType<DTHInteractable>().ToList();
+				InteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
+				Interactables           = GameObject.FindObjectsOfType<DTHInteractable>().ToList();
 			
-				Debug.Log($"Number of Grabables: {_Interactables.Count}");
+				Debug.Log($"Number of Grabables: {Interactables.Count}");
 			}
 
 			// UpdateStateImpl is called once per frame
 			void Update()
 			{
-				_dhtInteractionState?.UpdateState();
+				InteractionState?.UpdateState();
 			}
 		}
 	}

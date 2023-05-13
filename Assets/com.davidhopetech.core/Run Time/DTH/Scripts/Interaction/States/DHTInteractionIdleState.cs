@@ -1,17 +1,16 @@
 using System;
-using UnityEngine;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
-using UnityEngine.InputSystem;
+
 
 [Serializable]
 class DHTInteractionIdleState : DHTInteractionState
 {
 	public override void UpdateStateImpl()
 	{
-		FindClosestInteractor(Controller._rightInteractor);
+		FindClosestInteractor(Controller.leftMirrorHand.GetComponent<MirrorHand>());
 	}
 
 	
@@ -26,22 +25,23 @@ class DHTInteractionIdleState : DHTInteractionState
 	}
 
 
-	void FindClosestInteractor(GameObject interactor)
+	void FindClosestInteractor(MirrorHand mirrorHand)
 	{
-		var intoractorPos = interactor.transform.position;
-		var interactables = Controller._Interactables;
+		var interactor    = mirrorHand.target;
+		var interactorPos = interactor.transform.position;
+		var interactables = Controller.Interactables;
 
-		var orderedInteractables = interactables.OrderBy(o => o.Dist(intoractorPos));
+		var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
 
 		var interactable = orderedInteractables.First();
 
-		if (interactable.InRange(intoractorPos))
+		if (interactable.InRange(interactorPos))
 		{
 			DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");
 
 			if (_isGrabbing && interactable is DHTGrabable grabable)
 			{
-				ChangeToGrabbingState(grabable);
+				ChangeToGrabbingState(mirrorHand, grabable);
 			}
 		}
 		else
@@ -50,15 +50,17 @@ class DHTInteractionIdleState : DHTInteractionState
 		}
 	}
 
-	private void ChangeToGrabbingState(DHTGrabable grabable)
+	private void ChangeToGrabbingState(MirrorHand mirrorHand, DHTGrabable grabable)
 	{
 		// Debug.Log("######  Change to Grabbing State  ######");
 
 		DHTInteractionGrabbingState component = Controller.gameObject.AddComponent<DHTInteractionGrabbingState>();
 		component.GrabedItem            = grabable;
-		component.Interactor            = Controller._rightInteractor;
-		component.MirrorHand            = Controller._rightMirrorHand;
-		Controller._dhtInteractionState = component;
+		component.Interactor            = mirrorHand.target.gameObject;
+		component.MirrorHand            = mirrorHand.gameObject;
+		Controller.InteractionState = component;
+		
+		mirrorHand.gameObject.DisableAllColliders();
 		
 		Destroy(this);
 	}
