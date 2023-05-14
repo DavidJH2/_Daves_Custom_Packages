@@ -3,13 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class MirrorHand : MonoBehaviour
 {
+    public bool grabStarted;
+    public bool grabStopped;
+
+    [SerializeField] internal InputActionProperty grabValue;
+
     [SerializeField] private  float     torqueCoeff;
     [SerializeField] private  bool      debug;
     [SerializeField] internal Transform target;
     
+    private bool _lastIsGrabbing;
     private Rigidbody rb;
     
     void Start()
@@ -18,6 +26,11 @@ public class MirrorHand : MonoBehaviour
         //GetBones(firstSourceBone);
     }
 
+
+    private void Update()
+    {
+        setGrabFlags();
+    }
 
     void MoveHandToTargetOrientation()
     {
@@ -38,15 +51,23 @@ public class MirrorHand : MonoBehaviour
             
             var angularVelocity = axialRot / Time.fixedDeltaTime;
             rb.angularVelocity = angularVelocity;
-
-            /*
-            if (debug)
-            {
-                Debug.Log($"Torque: {torque}");
-            }
-            */
         }
     }
+
+
+    public float GrabValue => grabValue.action.ReadValue<float>();
+    internal bool IsGrabbing =>  GrabValue > .01; 
+
+		
+    public void setGrabFlags()
+    {
+        grabStarted = (IsGrabbing && !_lastIsGrabbing);
+        grabStopped = (!IsGrabbing && _lastIsGrabbing);
+
+        _lastIsGrabbing = IsGrabbing;
+    }
+    
+
 
     
     void FixedUpdate()

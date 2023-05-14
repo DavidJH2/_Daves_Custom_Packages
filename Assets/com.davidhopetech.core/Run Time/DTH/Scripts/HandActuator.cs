@@ -1,11 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace com.davidhopetech.core.run_time.scripts
+namespace com.davidhopetech.core.Run_Time.DTH.Scripts
 {
     public class HandActuator : MonoBehaviour
     {
@@ -25,28 +22,15 @@ namespace com.davidhopetech.core.run_time.scripts
             DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
             TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
             DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
-
-            DebugValue1Event.Invoke("This Works");
-        }
-
-        void Start()
-        {
-
         }
 
 
         void Update()
         {
-            float triggerValue = pinchAnimationAction.action.ReadValue<float>();
             float gripValue = gripAnimationAction.action.ReadValue<float>();
+            float triggerValue = pinchAnimationAction.action.ReadValue<float>();
+            handAnimator.SetFloat("Grip", gripValue);           // Todo: change to Index lookup
             handAnimator.SetFloat("Trigger", triggerValue);
-            handAnimator.SetFloat("Grip", gripValue);
-
-            DebugValue1Event.Invoke($"Trigger: {triggerValue}\nGrip: {gripValue}");
-            if (triggerValue > 0.2f)
-            {
-                
-            }
         }
     }
 }

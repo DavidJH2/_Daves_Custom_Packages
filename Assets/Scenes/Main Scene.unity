@@ -805,6 +805,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d844c5536cde9b44e9c573eb544e394b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabStarted: 0
+  grabStopped: 0
+  grabValue:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
   torqueCoeff: 0
   debug: 0
   target: {fileID: 1563843871}
@@ -3067,6 +3081,112 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_Id
+      value: be657452-d60c-4c20-9894-44b3ab46ece6
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_Id
+      value: c5fed05b-522b-467e-a766-87af9a0c4b70
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_Name
+      value: Grab Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_Name
+      value: Grab
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabbingAction.m_Id
+      value: af70e0cf-dc72-469c-a590-7d66f11b9758
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Reference
+      value: 
+      objectReference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f,
+        type: 3}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabbingAction.m_Name
+      value: Grabbing
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Action.m_Id
+      value: bb241529-1a39-42ee-9719-130069cba6e1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Action.m_Name
+      value: Grab Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabbingAction.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 0cfb3e00-bacd-48c1-a656-f1a0b78ceb8a
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 874c62ea-ca88-4d42-bb27-7268a80ac850
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <XRController>{LeftHand}/grip
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <XRController>{LeftHand}/grip
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabValue.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Grab Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Grab
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabbingAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 26786672-c53e-4619-b630-7bd202e89372
+      objectReference: {fileID: 0}
+    - target: {fileID: 976772229672697673, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: _grabbingAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Grabbing
+      objectReference: {fileID: 0}
     - target: {fileID: 976772229672697674, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3087,6 +3207,27 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.05099997
       objectReference: {fileID: 0}
+    - target: {fileID: 1721108357264775175, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Reference
+      value: 
+      objectReference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f,
+        type: 3}
+    - target: {fileID: 1721108357264775175, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Action.m_Id
+      value: 692d4a6d-ed3f-495c-8b03-9837b19ff87f
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721108357264775175, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721108357264775175, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: grabValue.m_Action.m_Name
+      value: Grab Value
+      objectReference: {fileID: 0}
     - target: {fileID: 3645432911479856046, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_Enabled
@@ -3097,6 +3238,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 01eed99db45e44a47848e3aaeba866f3, type: 2}
+    - target: {fileID: 7233173659745683941, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233173659745683941, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 8970635015327110448, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3240,7 +3391,7 @@ PrefabInstance:
     - target: {fileID: 9077800321693482934, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}

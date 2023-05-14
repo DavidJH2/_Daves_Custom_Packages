@@ -11,6 +11,7 @@ class DHTInteractionIdleState : DHTInteractionState
 	public override void UpdateStateImpl()
 	{
 		FindClosestInteractor(Controller.leftMirrorHand.GetComponent<MirrorHand>());
+		FindClosestInteractor(Controller.rightMirrorHand.GetComponent<MirrorHand>());
 	}
 
 	
@@ -39,7 +40,7 @@ class DHTInteractionIdleState : DHTInteractionState
 		{
 			DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");
 
-			if (_isGrabbing && interactable is DHTGrabable grabable)
+			if (mirrorHand.IsGrabbing && interactable is DHTGrabable grabable)
 			{
 				ChangeToGrabbingState(mirrorHand, grabable);
 			}
@@ -57,7 +58,7 @@ class DHTInteractionIdleState : DHTInteractionState
 		DHTInteractionGrabbingState component = Controller.gameObject.AddComponent<DHTInteractionGrabbingState>();
 		component.GrabedItem            = grabable;
 		component.Interactor            = mirrorHand.target.gameObject;
-		component.MirrorHand            = mirrorHand.gameObject;
+		component.MirrorHandGo            = mirrorHand.gameObject;
 		Controller.InteractionState = component;
 		
 		mirrorHand.gameObject.DisableAllColliders();

@@ -12,17 +12,20 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 	{
 		internal DHTGrabable      GrabedItem;
 		internal GameObject       Interactor;
-		internal GameObject       MirrorHand;
+		internal GameObject       MirrorHandGo;
+		internal MirrorHand       MirrorHand;
 		private  ParentConstraint _parentConstraint;
 
 		
 		private void Start()
 		{
+			MirrorHand = MirrorHandGo.GetComponent<MirrorHand>();
+			
 			// DebugMiscEvent.Invoke("Grabbing State");
-			var rb = MirrorHand.GetComponent<Rigidbody>();
+			var rb = MirrorHandGo.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
 			
-			_parentConstraint = MirrorHand.GetComponent<ParentConstraint>();
+			_parentConstraint = MirrorHandGo.GetComponent<ParentConstraint>();
 			var cs = new ConstraintSource();
 			cs.sourceTransform = GrabedItem.transform;
 			cs.weight          = 0f;
@@ -34,7 +37,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 		public override void UpdateStateImpl()
 		{
 			// DebugValue1Event.Invoke(_input.GrabValue().ToString());
-			if (grabStopped)
+			if (MirrorHand.grabStopped)
 			{
 				ChangeToIdleState();
 			}
@@ -48,9 +51,10 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 		{
 			var cs0 = _parentConstraint.GetSource(0);
 			var cs1 = _parentConstraint.GetSource(1);
-			
-			cs0.weight = 1.0f - Input.GrabValue();
-			cs1.weight = Input.GrabValue();
+
+			var grab = MirrorHand.GrabValue;
+			cs0.weight = 1.0f - grab;
+			cs1.weight = grab;
 
 			_parentConstraint.SetSource(0, cs0);
 			_parentConstraint.SetSource(1, cs1);
@@ -58,7 +62,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 
 		void ApplyHandForce()
 		{
-			var dist  = MirrorHand.transform.position - GrabedItem.transform.position;
+			var dist  = MirrorHandGo.transform.position - GrabedItem.transform.position;
 			var accel = dist * Controller.handSpringCoeeff;
 			var rb    = GrabedItem.GetComponentInParent<Rigidbody>();
 			
@@ -73,7 +77,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 
 			_parentConstraint.constraintActive = false;
 			Controller.InteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
-			MirrorHand.EnableAllColliders();
+			MirrorHandGo.EnableAllColliders();
 			
 			Destroy(this);
 		}
