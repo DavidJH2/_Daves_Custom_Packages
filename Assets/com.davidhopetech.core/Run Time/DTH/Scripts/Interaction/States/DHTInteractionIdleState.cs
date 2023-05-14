@@ -3,6 +3,7 @@ using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using UnityEngine.Animations;
 
 
 [Serializable]
@@ -55,13 +56,16 @@ class DHTInteractionIdleState : DHTInteractionState
 	{
 		// Debug.Log("######  Change to Grabbing State  ######");
 
+		var MirrorHandGO     = mirrorHand.gameObject;
+		
 		DHTInteractionGrabbingState component = Controller.gameObject.AddComponent<DHTInteractionGrabbingState>();
-		component.GrabedItem            = grabable;
-		component.Interactor            = mirrorHand.target.gameObject;
-		component.MirrorHandGo            = mirrorHand.gameObject;
+		component.GrabedItem        = grabable;
+		component.Interactor        = mirrorHand.target.gameObject;
+		component.MirrorHandGO      = MirrorHandGO;
 		Controller.InteractionState = component;
 		
-		mirrorHand.gameObject.DisableAllColliders();
+		MirrorHandGO.GetComponent<ParentConstraint>().enabled = true;
+		MirrorHandGO.DisableAllColliders();
 		
 		Destroy(this);
 	}
