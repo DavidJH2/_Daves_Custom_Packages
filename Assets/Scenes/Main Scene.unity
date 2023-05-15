@@ -1365,10 +1365,30 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 1820462154081930040}
+    - target: {fileID: 3645432911475746158, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 01eed99db45e44a47848e3aaeba866f3, type: 2}
+    - target: {fileID: 3645432911479856046, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4348230769239123690, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233173659745683941, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.017749771
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233173659745683941, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.049014878
       objectReference: {fileID: 0}
     - target: {fileID: 8970635017006262801, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
@@ -1429,6 +1449,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Daves XR Origin
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077800321689223542, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0284ecac7be7e2d409126f62358d744b, type: 2}
+    - target: {fileID: 9077800321693482934, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}
