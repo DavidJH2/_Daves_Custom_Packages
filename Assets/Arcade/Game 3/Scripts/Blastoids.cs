@@ -3,22 +3,25 @@ using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class Blastoids : MonoBehaviour
 {
-	internal                 SpaceShip SpaceShip;
-	[SerializeField] private float     _turnThreshold;
-	[SerializeField] private float     _turnRate;
-	[SerializeField] private float     _thrust;
+	[SerializeField] private GameObject thrustImage;
+	[SerializeField] private float      turnThreshold;
+	[SerializeField] private float      _turnRate;
+	[SerializeField] private float      _thrust;
+	[SerializeField] private float      maxVelocity;
 
-	[SerializeField] private Transform ScreenTopRight;
-	[SerializeField] private Transform ScreenBottomLeft;
+	[SerializeField] private Transform screenTopRight;
+	[SerializeField] private Transform screenBottomLeft;
 	
 	[SerializeField] private DTHJoystick dthJoystick;
-	[SerializeField] private DTHButton   _thrustButton;
+	[SerializeField] private DTHButton   thrustButton;
 
-	private float turnRate;
+	internal SpaceShip SpaceShip;
+	private  float     turnRate;
 
 	void Start()
 	{
@@ -34,9 +37,9 @@ public class Blastoids : MonoBehaviour
 	{
 		turnRate = 0.0f;
 
-		if (arg1 > _turnThreshold)
+		if (arg1 > turnThreshold)
 			turnRate  = -_turnRate;
-		if (arg1 < -_turnThreshold)
+		if (arg1 < -turnThreshold)
 			turnRate = _turnRate;
 	}
 
@@ -47,17 +50,20 @@ public class Blastoids : MonoBehaviour
 
 	private void UpdateShip()
 	{
-		var thrust      = (_thrustButton.pressed ? _thrust : 0);
+		var thrusting   = thrustButton.pressed;
+		var thrust      = (thrusting ? _thrust : 0);
 		var thrustForce = SpaceShip.transform.up * thrust;
+		
+		thrustImage.SetActive(thrusting);
 
-		DHTServiceLocator.dhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Thrust Force: {thrustForce}"); // Should not be TeleportEvent
+		// DHTServiceLocator.dhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Thrust Force: {thrustForce}"); // Should not be TeleportEvent
 
 		SpaceShip.rb.angularVelocity = turnRate * Mathf.Deg2Rad * Vector3.forward;
 		SpaceShip.rb.AddForce(thrustForce, ForceMode.Force);
 
 		var pos   = SpaceShip.rb.position;
-		var trPos = ScreenTopRight.position;
-		var blPos = ScreenBottomLeft.position;
+		var trPos = screenTopRight.position;
+		var blPos = screenBottomLeft.position;
 		var height = trPos.y - blPos.y;
 		var width = trPos.x - blPos.x;
 
@@ -72,6 +78,13 @@ public class Blastoids : MonoBehaviour
 			pos.y += height;
 		if (pos.y > trPos.y)
 			pos.y -= height;
+
+		// Clamp Velocity
+		var vel = SpaceShip.rb.velocity;
+		if (vel.magnitude > maxVelocity)
+		{
+			SpaceShip.rb.velocity = vel.normalized * maxVelocity;
+		}
 
 		SpaceShip.rb.position = pos;
 	}

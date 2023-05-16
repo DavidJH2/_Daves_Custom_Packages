@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
+using com.davidhopetech.core.Run_Time.DTH.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using UnityEngine;
 using UnityEngine.Animations;
 
 
@@ -11,8 +13,8 @@ class DHTInteractionIdleState : DHTInteractionState
 {
 	public override void UpdateStateImpl()
 	{
-		FindClosestInteractor(Controller.leftMirrorHand.GetComponent<MirrorHand>());
 		FindClosestInteractor(Controller.rightMirrorHand.GetComponent<MirrorHand>());
+		FindClosestInteractor(Controller.leftMirrorHand.GetComponent<MirrorHand>());
 	}
 
 	
@@ -44,6 +46,13 @@ class DHTInteractionIdleState : DHTInteractionState
 			if (mirrorHand.IsGrabbing && interactable is DHTGrabable grabable)
 			{
 				ChangeToGrabbingState(mirrorHand, grabable);
+				return;
+			}
+
+			if (interactable is DHTSpatialLock spatialLock)
+			{
+				ChangeToSpatialLockState(mirrorHand, spatialLock);
+				return;
 			}
 		}
 		else
@@ -52,10 +61,11 @@ class DHTInteractionIdleState : DHTInteractionState
 		}
 	}
 
+	
 	private void ChangeToGrabbingState(MirrorHand mirrorHand, DHTGrabable grabable)
 	{
-		// Debug.Log("######  Change to Grabbing State  ######");
-
+		Debug.Log("######  Change to Grabbing State  ######");
+		DebugValue1Event.Invoke("###  Change to Grabbing State  ###");
 		var MirrorHandGO     = mirrorHand.gameObject;
 		
 		DHTInteractionGrabbingState component = Controller.gameObject.AddComponent<DHTInteractionGrabbingState>();
@@ -66,6 +76,27 @@ class DHTInteractionIdleState : DHTInteractionState
 		
 		MirrorHandGO.GetComponent<ParentConstraint>().enabled = true;
 		MirrorHandGO.DisableAllColliders();
+		
+		Destroy(this);
+	}
+
+	
+	private void ChangeToSpatialLockState(MirrorHand mirrorHand, DHTSpatialLock spatialLock)
+	{
+		Debug.Log("######  Change to Spatial Lock State  ######");
+		DebugValue1Event.Invoke("###  Change to Spatial Lock State  ###");
+
+
+		var MirrorHandGO = mirrorHand.gameObject;
+		
+		DHTInteractionSpatialLockingState component = Controller.gameObject.AddComponent<DHTInteractionSpatialLockingState>();
+		component.SpatialLock        = spatialLock;
+		component.Interactor        = mirrorHand.target.gameObject;
+		component.MirrorHandGO      = MirrorHandGO;
+		
+		Controller.InteractionState = component;
+		
+		MirrorHandGO.GetComponent<ParentConstraint>().enabled = true;
 		
 		Destroy(this);
 	}

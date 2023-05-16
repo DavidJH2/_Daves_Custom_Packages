@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.DTH.Scripts
 {
-    public class SpatialLock : DTHInteractable
+    public class DHTSpatialLock : DTHInteractable
     {
-        [SerializeField] private float innerRadius;
-        [SerializeField] private float outerRadius;
+        [SerializeField] private float fullLockRadius;
     }
 }

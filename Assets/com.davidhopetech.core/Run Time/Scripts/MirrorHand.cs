@@ -34,7 +34,9 @@ public class MirrorHand : MonoBehaviour
 
     void MoveHandToTargetOrientation()
     {
-        rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+        var vel = (target.position - transform.position) / Time.fixedDeltaTime;
+        vel.Clamp(0,3);
+        rb.velocity = vel; 
         
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 

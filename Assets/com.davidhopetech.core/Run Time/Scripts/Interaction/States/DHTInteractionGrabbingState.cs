@@ -31,6 +31,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 			cs.weight          = 0f;
 			_parentConstraint.SetSource(1, cs);
 			_parentConstraint.constraintActive = true;
+			_parentConstraint.rotationAxis     = Axis.None;
 		}
 
 		
@@ -60,6 +61,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 			_parentConstraint.SetSource(1, cs1);
 		}
 
+		
 		void ApplyHandForce()
 		{
 			var dist  = MirrorHandGO.transform.position - GrabedItem.transform.position;
@@ -73,7 +75,8 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 		
 		private void ChangeToIdleState()
 		{
-			// Debug.Log("######  Change to Idle State  ######");
+			Debug.Log("######  Change to Idle State  ######");
+			DebugValue1Event.Invoke("###  Change to Idle State  ###");
 
 			_parentConstraint.constraintActive = false;
 			Controller.InteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
