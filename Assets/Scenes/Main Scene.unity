@@ -1567,6 +1567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1032571290}
+  - component: {fileID: 1032571291}
   m_Layer: 0
   m_Name: SpatialLock
   m_TagString: Untagged
@@ -1582,13 +1583,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032571289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0248, z: -0.0349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1989724312}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032571291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032571289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72cc91cad9e4f3f4d9c71c8fdb0ff7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0.2
+  fullLockRadius: 0.1
 --- !u!64 &1041005718
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2250,7 +2265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1989724312}
-  - component: {fileID: 1989724313}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -2276,20 +2290,6 @@ Transform:
   m_Father: {fileID: 8797497242278680028}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1989724313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989724311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72cc91cad9e4f3f4d9c71c8fdb0ff7a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 0.2
-  fullLockRadius: 0.1
 --- !u!1 &2038959040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2965,6 +2965,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 351729359, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}
+      propertyPath: m_IsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 351729359, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}
+      propertyPath: m_RotationOffsets.Array.data[1].z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 4109656907441096, guid: 9f2d61611622b164e93a6d421f42b2e0, type: 3}
       propertyPath: joystick
       value: 
@@ -2987,6 +2995,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348230769239123690, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_IsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348230769239123690, guid: 9f2d61611622b164e93a6d421f42b2e0,
+        type: 3}
+      propertyPath: m_RotationOffsets.Array.data[1].z
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7232986112001658763, guid: 9f2d61611622b164e93a6d421f42b2e0,
         type: 3}
