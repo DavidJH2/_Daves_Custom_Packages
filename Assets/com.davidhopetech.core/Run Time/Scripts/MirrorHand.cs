@@ -8,28 +8,36 @@ using UnityEngine.Serialization;
 
 public class MirrorHand : MonoBehaviour
 {
-    public bool grabStarted;
-    public bool grabStopped;
-
+    [SerializeField] internal Transform           target;
+    [SerializeField] internal bool                active = true;
+    [SerializeField] private  float               torqueCoeff;
+    [SerializeField] private  bool                debug;
     [SerializeField] internal InputActionProperty grabValue;
-
-    [SerializeField] private  float     torqueCoeff;
-    [SerializeField] private  bool      debug;
-    [SerializeField] internal Transform target;
     
-    private bool _lastIsGrabbing;
+    internal bool grabStarted;
+    internal bool grabStopped;
+
+    private bool      _lastIsGrabbing;
     private Rigidbody rb;
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //GetBones(firstSourceBone);
     }
 
 
     private void Update()
     {
-        setGrabFlags();
+        SetGrabFlags();
+    }
+
+
+    void FixedUpdate()
+    {
+        if (active)
+        {
+            MoveHandToTargetOrientation();
+        }
     }
 
     void MoveHandToTargetOrientation()
@@ -61,19 +69,11 @@ public class MirrorHand : MonoBehaviour
     internal bool IsGrabbing =>  GrabValue > .01; 
 
 		
-    public void setGrabFlags()
+    public void SetGrabFlags()
     {
         grabStarted = (IsGrabbing && !_lastIsGrabbing);
         grabStopped = (!IsGrabbing && _lastIsGrabbing);
 
         _lastIsGrabbing = IsGrabbing;
-    }
-    
-
-
-    
-    void FixedUpdate()
-    {
-        MoveHandToTargetOrientation();
     }
 }

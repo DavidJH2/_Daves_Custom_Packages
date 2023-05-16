@@ -5,6 +5,6 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts
 {
     public class DHTSpatialLock : DTHInteractable
     {
-        [SerializeField] private float fullLockRadius;
+        [SerializeField] internal float fullLockRadius;
     }
 }

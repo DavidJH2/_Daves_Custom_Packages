@@ -26,6 +26,9 @@ using UnityEngine.Animations;
 	 {
 		 MirrorHand                         = MirrorHandGO.GetComponent<MirrorHand>();
 		 _parentConstraint                  = MirrorHandGO.GetComponent<ParentConstraint>();
+
+		 MirrorHand.active = false;
+		 
 		 var cs = new ConstraintSource();
 		 cs.sourceTransform = SpatialLock.transform;
 		 cs.weight          = 0f;
@@ -37,18 +40,19 @@ using UnityEngine.Animations;
 
 	 public override void UpdateStateImpl()
 	 {
-
 		 var interactor    = MirrorHand.target;
 		 var interactorPos = interactor.transform.position;
+		 
+		 /*
 		 var interactables = Controller.Interactables;
 
 		 var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
 		 var interactable = orderedInteractables.First();
+		 */
 
-		 if (interactable.InRange(interactorPos))
+		 if (SpatialLock.InRange(interactorPos))
 		 {
-			 DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");
-			 AdjustParentConstraint();
+			 AdjustParentConstraint(interactorPos);
 		 }
 		 else
 		 {
@@ -57,19 +61,20 @@ using UnityEngine.Animations;
 	 }
 
 
-	 void AdjustParentConstraint()
+	 void AdjustParentConstraint(Vector3 interactorPos)
 	 {
 		 var cs0 = _parentConstraint.GetSource(0);
 		 var cs1 = _parentConstraint.GetSource(1);
 
-		 var grab = MirrorHand.GrabValue;
-
-		 grab = 1.0f;
+		 var dis           = SpatialLock.Dist(interactorPos);
+		 var scope         = SpatialLock.fullLockRadius - SpatialLock.range;
+		 var normalizedDis = (dis - SpatialLock.range) / scope;
+		 var locking       = Mathf.Clamp( normalizedDis, 0, 1);
 		 
-		 TeleportEvent.Invoke($"Grab: {grab}");
+		 TeleportEvent.Invoke($"Grab: {locking}");
 		 
-		 cs0.weight = 1.0f - grab;
-		 cs1.weight = grab;
+		 cs0.weight = 1.0f - locking;
+		 cs1.weight = locking;
 
 		 _parentConstraint.SetSource(0, cs0);
 		 _parentConstraint.SetSource(1, cs1);
@@ -82,7 +87,8 @@ using UnityEngine.Animations;
 		 DebugValue1Event.Invoke("###  Change to Idle State  ###");
 
 		 _parentConstraint.constraintActive = false;
-		 Controller.InteractionState        = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
+		 MirrorHand.active           = true;
+		 Controller.InteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
 
 		 MirrorHandGO.GetComponent<ParentConstraint>().enabled = false;
 		 MirrorHandGO.EnableAllColliders();
