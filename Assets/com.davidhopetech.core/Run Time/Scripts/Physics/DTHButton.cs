@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class DTHButtonPhysics : MonoBehaviour
+public class DTHButton : MonoBehaviour
 {
+    public float value;
+    public bool  pressed;
+    
     [SerializeField] private float min;
     [SerializeField] private float max;
     [SerializeField] private float target;
     [SerializeField] private float spring;
     [SerializeField] private float damp;
+    [SerializeField] private float actvateY;
 
     private Rigidbody _rb;
-    //private GameObject _buttonBase;
+
     
     void Start()
     {
@@ -22,11 +26,32 @@ public class DTHButtonPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var pos = transform.localPosition;
+        UpdateButton();
+    }
 
+    void UpdateButton()
+    {
+        var pos = transform.localPosition;
+        EnforceLimits(ref pos);
+        ApplyForces(pos);
+        UpdateStates(pos);
+        transform.localPosition = pos;
+    }
+
+    private void UpdateStates(Vector3 pos)
+    {
+        float y = pos.y;
+        float range = target - min;
+
+        value = (target-y)/range;
+        pressed = (y < actvateY);
+    }
+
+    void EnforceLimits(ref Vector3 pos)
+    {
         if (pos.y < min)
         {
-            pos.y = min;
+            pos.y        = min;
             _rb.velocity = Vector3.zero;
         }
 
@@ -35,13 +60,15 @@ public class DTHButtonPhysics : MonoBehaviour
             pos.y        = max;
             _rb.velocity = Vector3.zero;
         }
+    }
 
+
+    void ApplyForces(Vector3 pos)
+    {
         var springForce = (target - pos.y) * spring;
         var dampeningForce   = _rb.velocity.y * -damp;
         var totalForce  = (springForce + dampeningForce) * transform.up;
         
         _rb.AddForce(totalForce, ForceMode.Force);
-        
-        transform.localPosition = pos;
     }
 }

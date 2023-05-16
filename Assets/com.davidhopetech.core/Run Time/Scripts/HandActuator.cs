@@ -1,4 +1,4 @@
-using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +17,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts
 
         private void Awake()
         {
-            EventService     = DHTServiceLocator.DhtEventService;
+            EventService     = DHTServiceLocator.dhtEventService;
             
             DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
             TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;

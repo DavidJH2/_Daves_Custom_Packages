@@ -21,7 +21,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 		
 			// private                   InputDevice                targetDevice;
 
-			[SerializeField]  Joystick joystick;
+			[SerializeField]  DTHJoystick dthJoystick;
 			
 			internal List<DTHInteractable> Interactables;
 			internal DHTInteractionState   InteractionState;

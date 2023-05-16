@@ -1,4 +1,4 @@
-using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using TMPro;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace com.davidhopetech.core.Run_Time.DTHDebug
 		
 		void Start()
 		{
-			var eventService = DHTServiceLocator.DhtEventService;
+			var eventService = DHTServiceLocator.dhtEventService;
 			
 			eventService.dhtUpdateDebugValue1Event.AddListener(UpdateValue1);
 			eventService.dhtUpdateDebugTeleportEvent.AddListener(UpdateTeleportValue);

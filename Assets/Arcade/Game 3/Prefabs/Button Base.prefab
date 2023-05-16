@@ -156,7 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   min: -0.1
-  max: 0
+  max: 0.3
+  target: 0.3
+  spring: 1
+  damp: 0.1
+  actvate: 0
 --- !u!1 &1959109387529107257
 GameObject:
   m_ObjectHideFlags: 0

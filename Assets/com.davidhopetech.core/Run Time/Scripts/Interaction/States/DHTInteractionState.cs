@@ -1,6 +1,6 @@
 using System;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
-using com.davidhopetech.core.Run_Time.DTH.ServiceLocator;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +23,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 			Controller   = GetComponent<DHTPlayerController>();
 			// Input = new DHTInput();
 
-			EventService = DHTServiceLocator.DhtEventService;
+			EventService = DHTServiceLocator.dhtEventService;
 			
 			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
 			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;

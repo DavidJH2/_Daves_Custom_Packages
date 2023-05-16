@@ -1,9 +1,9 @@
 using com.davidhopetech.core.Run_Time.Misc;
 
-namespace com.davidhopetech.core.Run_Time.DTH.ServiceLocator
+namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 {
     public class DHTServiceLocator : Singleton
     {
-        static public DHTEventService DhtEventService = new DHTEventService();
+        public static readonly DHTEventService dhtEventService = new DHTEventService();
     }
 }
