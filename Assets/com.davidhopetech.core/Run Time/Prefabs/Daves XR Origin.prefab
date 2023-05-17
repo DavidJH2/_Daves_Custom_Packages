@@ -63,8 +63,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d844c5536cde9b44e9c573eb544e394b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabStarted: 0
-  grabStopped: 0
+  target: {fileID: 8970635015459044311}
+  active: 0
+  torqueCoeff: 0
+  debug: 0
   grabValue:
     m_UseReference: 1
     m_Action:
@@ -78,9 +80,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-  torqueCoeff: 0
-  debug: 0
-  target: {fileID: 8970635015459044311}
 --- !u!1773428102 &351729359
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -174,8 +173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d844c5536cde9b44e9c573eb544e394b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabStarted: 0
-  grabStopped: 0
+  target: {fileID: 8970635015327110448}
+  active: 0
+  torqueCoeff: 0
+  debug: 0
   grabValue:
     m_UseReference: 1
     m_Action:
@@ -189,9 +190,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-  torqueCoeff: 0
-  debug: 0
-  target: {fileID: 8970635015327110448}
 --- !u!1773428102 &4348230769239123690
 ParentConstraint:
   m_ObjectHideFlags: 0

@@ -36,11 +36,19 @@ public class Blastoids : MonoBehaviour
 	private void OnDthJoystick(float arg1, float arg2)
 	{
 		turnRate = 0.0f;
+		var coeef = 4; 
 
 		if (arg1 > turnThreshold)
-			turnRate  = -_turnRate;
+		{
+			// turnRate = -_turnRate;
+			turnRate = -arg1 * coeef;
+		}
+
 		if (arg1 < -turnThreshold)
-			turnRate = _turnRate;
+		{
+			// turnRate = _turnRate;
+			turnRate = -arg1 * coeef;
+		}
 	}
 
 	private void FixedUpdate()
