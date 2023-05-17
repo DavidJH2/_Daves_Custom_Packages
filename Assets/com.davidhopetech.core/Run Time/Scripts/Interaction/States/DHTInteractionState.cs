@@ -14,23 +14,31 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		protected DHTUpdateDebugMiscEvent     DebugMiscEvent;
 		protected DHTUpdateDebugTeleportEvent TeleportEvent;
 		protected DHTUpdateDebugValue1Event   DebugValue1Event;
+
+		protected DHTEventService     EventService;
+		protected DHTPlayerController Controller;
+
+		internal MirrorHand MirrorHand;
+		internal GameObject MirrorHandGO;
+
+		internal DHTInteractionStateRef selfHandle;
+
 		
-		protected DHTEventService             EventService ;
-		protected DHTPlayerController         Controller;
-
-
 		internal void Awake()
 		{
 			Controller   = GetComponent<DHTPlayerController>();
-			// Input = new DHTInput();
-
 			EventService = DHTServiceLocator.dhtEventService;
-			
+
 			DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
 			TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
 			DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
 		}
 
+
+		private void Start()
+		{
+			MirrorHandGO = MirrorHand.gameObject;
+		}
 
 		public void UpdateState()
 		{

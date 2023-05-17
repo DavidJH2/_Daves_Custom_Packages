@@ -3,6 +3,7 @@ using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
 using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
@@ -22,12 +23,22 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		[SerializeField] DTHJoystick dthJoystick;
 
 		internal List<DTHInteractable> Interactables;
-		internal DHTInteractionState   InteractionState;
+		internal DHTInteractionStateRef   LeftHandInteractionStateRef;
+		internal DHTInteractionStateRef   RightHandInteractionStateRef;
 
 		void Start()
 		{
-			InteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
-			Interactables    = FindObjectsOfType<DTHInteractable>().ToList();
+			var rightHandInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
+			RightHandInteractionStateRef         = new DHTInteractionStateRef(rightHandInteractionState);
+			rightHandInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
+			rightHandInteractionState.selfHandle = RightHandInteractionStateRef;
+			
+			var leftHandInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
+			LeftHandInteractionStateRef         = new DHTInteractionStateRef(leftHandInteractionState);
+			leftHandInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
+			leftHandInteractionState.selfHandle = LeftHandInteractionStateRef;
+			
+			Interactables                = FindObjectsOfType<DTHInteractable>().ToList();
 
 			Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
@@ -35,7 +46,8 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		// UpdateStateImpl is called once per frame
 		void Update()
 		{
-			InteractionState?.UpdateState();
+			RightHandInteractionStateRef.InteractionState.UpdateState();
+			LeftHandInteractionStateRef.InteractionState.UpdateState();
 		}
 	}
 }

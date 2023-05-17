@@ -2,7 +2,8 @@
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Scripts;
-using UnityEngine;
+ using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
+ using UnityEngine;
 using UnityEngine.Animations;
 
 
@@ -10,9 +11,6 @@ using UnityEngine.Animations;
  class DHTInteractionSpatialLockingState : DHTInteractionState
  {
 	 internal DHTSpatialLock   SpatialLock;
-	 internal GameObject       Interactor;
-	 internal GameObject       MirrorHandGO;
-	 internal MirrorHand       MirrorHand;
 	 private  ParentConstraint _parentConstraint;
 
 
@@ -24,8 +22,8 @@ using UnityEngine.Animations;
 
 	 private void Start()
 	 {
-		 MirrorHand                         = MirrorHandGO.GetComponent<MirrorHand>();
-		 _parentConstraint                  = MirrorHandGO.GetComponent<ParentConstraint>();
+		 MirrorHandGO      = MirrorHand.gameObject;
+		 _parentConstraint = MirrorHandGO.GetComponent<ParentConstraint>();
 
 		 MirrorHand.active = false;
 		 
@@ -40,15 +38,7 @@ using UnityEngine.Animations;
 
 	 public override void UpdateStateImpl()
 	 {
-		 var interactor    = MirrorHand.target;
-		 var interactorPos = interactor.transform.position;
-		 
-		 /*
-		 var interactables = Controller.Interactables;
-
-		 var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
-		 var interactable = orderedInteractables.First();
-		 */
+		 var interactorPos = MirrorHand.target.transform.position;
 
 		 if (SpatialLock.InRange(interactorPos))
 		 {
@@ -87,8 +77,13 @@ using UnityEngine.Animations;
 		 DebugValue1Event.Invoke("###  Change to Idle State  ###");
 
 		 _parentConstraint.constraintActive = false;
-		 MirrorHand.active           = true;
-		 Controller.InteractionState = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
+		 MirrorHand.active                  = true;
+		 
+		 DHTInteractionIdleState component = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
+		 component.selfHandle   = selfHandle;
+		 component.MirrorHand = MirrorHand;
+			
+		 selfHandle.InteractionState = component;
 
 		 MirrorHandGO.GetComponent<ParentConstraint>().enabled = false;
 		 MirrorHandGO.EnableAllColliders();
