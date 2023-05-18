@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class MirrorHand : MonoBehaviour
 {
     [SerializeField] internal Transform           target;
+    [SerializeField] internal Transform           interactionPoint;
     [SerializeField] internal bool                active = true;
     [SerializeField] private  float               torqueCoeff;
     [SerializeField] private  bool                debug;
