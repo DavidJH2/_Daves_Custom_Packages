@@ -32,7 +32,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 
 		void FindClosestInteractor()
 		{
-			var interactorPos = MirrorHand.interactionPoint.position;
+			var interactorPos = MirrorHand.target.transform.position;
 			var interactables = Controller.Interactables;
 
 			var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
