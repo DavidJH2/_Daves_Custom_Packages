@@ -15,10 +15,8 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 		private  ParentConstraint _parentConstraint;
 
 		
-		private void Start()
+		protected override void StartExt()
 		{
-			MirrorHandGO = MirrorHand.gameObject;
-			
 			// DebugMiscEvent.Invoke("Grabbing State");
 			var rb = MirrorHandGO.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
@@ -32,8 +30,8 @@ namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
 			_parentConstraint.rotationAxis     = Axis.None;
 		}
 
-		
-		public override void UpdateStateImpl()
+
+		protected override void UpdateStateImpl()
 		{
 			// DebugValue1Event.Invoke(_input.GrabValue().ToString());
 			if (MirrorHand.grabStopped)

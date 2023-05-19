@@ -12,7 +12,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 	[Serializable]
 	class DHTInteractionIdleState : DHTInteractionState
 	{
-		public override void UpdateStateImpl()
+		protected override void UpdateStateImpl()
 		{
 			FindClosestInteractor();
 		}
@@ -24,9 +24,8 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		}
 
 
-		private void Start()
+		protected override void StartExt()
 		{
-			MirrorHandGO = MirrorHand.gameObject;
 		}
 
 
@@ -86,6 +85,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 			Debug.Log("######  Change to Spatial Lock State  ######");
 			DebugValue1Event.Invoke("###  Change to Spatial Lock State  ###");
 
+			handAnimator.SetBool("Near Two Buttons", true);
 
 			var MirrorHandGO = MirrorHand.gameObject;
 		

@@ -20,9 +20,8 @@ using UnityEngine.Animations;
 	 }
 
 
-	 private void Start()
+	 protected override void StartExt()
 	 {
-		 MirrorHandGO      = MirrorHand.gameObject;
 		 _parentConstraint = MirrorHandGO.GetComponent<ParentConstraint>();
 
 		 MirrorHand.active = false;
@@ -36,7 +35,7 @@ using UnityEngine.Animations;
 	 }
 
 
-	 public override void UpdateStateImpl()
+	 protected override void UpdateStateImpl()
 	 {
 		 var interactorPos = MirrorHand.target.transform.position;
 
@@ -75,6 +74,8 @@ using UnityEngine.Animations;
 	 {
 		 Debug.Log("######  Change to Idle State  ######");
 		 DebugValue1Event.Invoke("###  Change to Idle State  ###");
+
+		 handAnimator.SetBool("Near Two Buttons", false);
 
 		 _parentConstraint.constraintActive = false;
 		 MirrorHand.active                  = true;

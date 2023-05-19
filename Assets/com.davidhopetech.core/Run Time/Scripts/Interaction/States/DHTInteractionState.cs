@@ -22,6 +22,7 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		internal GameObject MirrorHandGO;
 
 		internal DHTInteractionStateRef selfHandle;
+		internal Animator               handAnimator;
 
 		
 		internal void Awake()
@@ -38,14 +39,19 @@ namespace com.davidhopetech.core.Run_Time.DHTInteraction
 		private void Start()
 		{
 			MirrorHandGO = MirrorHand.gameObject;
+			handAnimator = MirrorHandGO.GetComponentInChildren<Animator>();
+			StartExt();
 		}
+
+		protected abstract void StartExt();
+
 
 		public void UpdateState()
 		{
 			UpdateStateImpl();
 		}
 
-		public abstract void UpdateStateImpl();
+		protected abstract void UpdateStateImpl();
 	}
 }
 
