@@ -60,7 +60,7 @@ using UnityEngine.Animations;
 		 var normalizedDis = (dis - SpatialLock.range) / scope;
 		 var locking       = Mathf.Clamp( normalizedDis, 0, 1);
 		 
-		 TeleportEvent.Invoke($"Grab: {locking}");
+		 //TeleportEvent.Invoke($"Grab: {locking}");
 		 
 		 cs0.weight = 1.0f - locking;
 		 cs1.weight = locking;

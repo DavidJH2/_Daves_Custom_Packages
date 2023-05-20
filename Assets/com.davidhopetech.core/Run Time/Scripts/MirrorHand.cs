@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -18,12 +19,22 @@ public class MirrorHand : MonoBehaviour
     internal bool grabStarted;
     internal bool grabStopped;
 
-    private bool      _lastIsGrabbing;
-    private Rigidbody rb;
+    private   bool                        _lastIsGrabbing;
+    private   Rigidbody                   rb;
+
+    protected DHTEventService dhtEventService;
+    protected DHTUpdateDebugMiscEvent     DebugMiscEvent;
+    protected DHTUpdateDebugTeleportEvent TeleportEvent;
+    protected DHTUpdateDebugValue1Event   DebugValue1Event;
+
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        dhtEventService  = DHTServiceLocator.dhtEventService;
+        DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
+        TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
+        DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
+        rb               = GetComponent<Rigidbody>();
     }
 
 
@@ -67,11 +78,17 @@ public class MirrorHand : MonoBehaviour
 
 
     public float GrabValue => grabValue.action.ReadValue<float>();
-    internal bool IsGrabbing =>  GrabValue > .01; 
+    internal bool IsGrabbing =>  GrabValue > .1; 
 
 		
     public void SetGrabFlags()
     {
+        /*
+        if (name == "Right Mirror Hand")
+        {
+            TeleportEvent.Invoke($"Grab: {GrabValue}");
+        }
+        */
         grabStarted = (IsGrabbing && !_lastIsGrabbing);
         grabStopped = (!IsGrabbing && _lastIsGrabbing);
 
