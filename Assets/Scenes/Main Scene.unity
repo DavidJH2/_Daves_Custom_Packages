@@ -1297,36 +1297,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: spring
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: actvateY
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: deactvateY
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: actvateValue
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: deactvateValue
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_Positions.Array.data[0].y
@@ -1510,6 +1480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 111897401015591293, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 868388283662761346, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
