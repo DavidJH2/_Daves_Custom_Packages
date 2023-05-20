@@ -67,7 +67,7 @@ public class Blastoids : MonoBehaviour
 	{
 		// Fire
 		var fireButtonIsPressed = fireButton.isPressed;
-		if (fireButtonIsPressed != lastFireButtonIsPressed)
+		if (fireButtonIsPressed && !lastFireButtonIsPressed)
 		{
 			var newBullet = Instantiate(bullet, bulletStartPos.position, quaternion.identity);
 			var rb        = newBullet.GetComponent<Rigidbody>();

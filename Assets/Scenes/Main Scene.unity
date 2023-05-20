@@ -1297,6 +1297,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: spring
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: actvateY
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: deactvateY
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: actvateValue
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318613710343839176, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: deactvateValue
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_Positions.Array.data[0].y
@@ -1356,11 +1386,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Positions.Array.data[5].z
       value: 7.502
-      objectReference: {fileID: 0}
-    - target: {fileID: 5091320816186830244, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 5091320816560372051, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
@@ -1462,20 +1487,10 @@ PrefabInstance:
       propertyPath: m_TranslationOffsets.Array.data[0].y
       value: 0.0020999312
       objectReference: {fileID: 0}
-    - target: {fileID: 5802960915020104938, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: m_TranslationOffsets.Array.data[0].z
-      value: -0.00069999695
-      objectReference: {fileID: 0}
     - target: {fileID: 7503917310606434761, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_TranslationOffsets.Array.data[0].y
       value: 0.0020999312
-      objectReference: {fileID: 0}
-    - target: {fileID: 7503917310606434761, guid: 8a76afe187b70c7439a4235666b1e732,
-        type: 3}
-      propertyPath: m_TranslationOffsets.Array.data[0].z
-      value: -0.00069999695
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a76afe187b70c7439a4235666b1e732, type: 3}

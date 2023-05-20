@@ -9,12 +9,13 @@ public class DTHButton : MonoBehaviour
     public                                   float value;
     [FormerlySerializedAs("pressed")] public bool  isPressed;
     
-    [SerializeField] private float min;
-    [SerializeField] private float max;
-    [SerializeField] private float target;
-    [SerializeField] private float spring;
-    [SerializeField] private float damp;
-    [SerializeField] private float actvateY;
+    [SerializeField]                                      private float min;
+    [SerializeField]                                      private float max;
+    [SerializeField]                                      private float target;
+    [SerializeField]                                      private float spring;
+    [SerializeField]                                      private float damp;
+    [FormerlySerializedAs("actvateY")] [SerializeField]   private float actvateValue;
+    [FormerlySerializedAs("deactvateY")] [SerializeField] private float deactvateValue;
 
     private Rigidbody _rb;
 
@@ -44,7 +45,21 @@ public class DTHButton : MonoBehaviour
         float range = target - min;
 
         value = (target-y)/range;
-        isPressed = (y < actvateY);
+
+        if (isPressed)
+        {
+            if (value < deactvateValue)
+            {
+                isPressed = false;
+            }
+        }
+        else
+        {
+            if (value > actvateValue)
+            {
+                isPressed = true;
+            }
+        }
     }
 
     void EnforceLimits(ref Vector3 pos)

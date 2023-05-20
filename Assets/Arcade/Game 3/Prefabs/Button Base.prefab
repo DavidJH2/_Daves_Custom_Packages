@@ -155,14 +155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9192b72505574384585334a5419e1707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 0
-  pressed: 0
+  value: 0.2722436
+  isPressed: 1
   min: -0.1
   max: 0.3
   target: 0.3
-  spring: 0.3
-  damp: 0.2
-  actvateY: 0
+  spring: 0.1
+  damp: 0.1
+  actvateValue: 0.6
+  deactvateValue: 0.2
 --- !u!1 &1959109387529107257
 GameObject:
   m_ObjectHideFlags: 0
