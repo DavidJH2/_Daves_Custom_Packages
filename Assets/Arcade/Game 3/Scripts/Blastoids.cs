@@ -2,12 +2,17 @@ using System;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class Blastoids : MonoBehaviour
 {
+	[SerializeField]                                          private GameObject bullet;
+	[SerializeField]                                          private Transform  bulletStartPos;
+	[FormerlySerializedAs("bulletVelocity")] [SerializeField] private float      bulletSpeed = 5;
+	
 	[SerializeField] private GameObject thrustImage;
 	[SerializeField] private float      turnThreshold;
 	[SerializeField] private float      _turnRate;
@@ -19,9 +24,11 @@ public class Blastoids : MonoBehaviour
 	
 	[SerializeField] private DTHJoystick dthJoystick;
 	[SerializeField] private DTHButton   thrustButton;
+	[SerializeField] private DTHButton   fireButton;
 
 	internal SpaceShip SpaceShip;
 	private  float     turnRate;
+	private  bool      lastFireButtonIsPressed;
 
 	void Start()
 	{
@@ -58,30 +65,40 @@ public class Blastoids : MonoBehaviour
 
 	private void UpdateShip()
 	{
-		var thrusting   = thrustButton.pressed;
+		// Fire
+		var fireButtonIsPressed = fireButton.isPressed;
+		if (fireButtonIsPressed != lastFireButtonIsPressed)
+		{
+			var newBullet = Instantiate(bullet, bulletStartPos.position, quaternion.identity);
+			var rb        = newBullet.GetComponent<Rigidbody>();
+			rb.velocity = SpaceShip.rb.velocity + bulletSpeed * SpaceShip.transform.up;
+		}
+
+		lastFireButtonIsPressed = fireButtonIsPressed;
+		
+		// Thrust
+		var thrusting   = thrustButton.isPressed;
 		var thrust      = (thrusting ? _thrust : 0);
 		var thrustForce = SpaceShip.transform.up * thrust;
+		SpaceShip.rb.AddForce(thrustForce, ForceMode.Force);
 		
 		thrustImage.SetActive(thrusting);
 
-		// DHTServiceLocator.dhtEventService.dhtUpdateDebugTeleportEvent.Invoke($"Thrust Force: {thrustForce}"); // Should not be TeleportEvent
-
+		// Rotation
 		SpaceShip.rb.angularVelocity = turnRate * Mathf.Deg2Rad * Vector3.forward;
-		SpaceShip.rb.AddForce(thrustForce, ForceMode.Force);
 
+		// Wrap 
 		var pos   = SpaceShip.rb.position;
 		var trPos = screenTopRight.position;
 		var blPos = screenBottomLeft.position;
 		var height = trPos.y - blPos.y;
 		var width = trPos.x - blPos.x;
 
-		// Wrap X
 		if (pos.x < blPos.x)
 			pos.x += width;
 		if (pos.x > trPos.x)
 			pos.x -= width;
 		
-		// Wrap Y
 		if (pos.y < blPos.y)
 			pos.y += height;
 		if (pos.y > trPos.y)

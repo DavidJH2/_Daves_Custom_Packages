@@ -6,8 +6,8 @@ using UnityEngine.Serialization;
 
 public class DTHButton : MonoBehaviour
 {
-    public float value;
-    public bool  pressed;
+    public                                   float value;
+    [FormerlySerializedAs("pressed")] public bool  isPressed;
     
     [SerializeField] private float min;
     [SerializeField] private float max;
@@ -44,7 +44,7 @@ public class DTHButton : MonoBehaviour
         float range = target - min;
 
         value = (target-y)/range;
-        pressed = (y < actvateY);
+        isPressed = (y < actvateY);
     }
 
     void EnforceLimits(ref Vector3 pos)

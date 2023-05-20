@@ -31,6 +31,13 @@ public class Tools : MonoBehaviour
 	}
 
 
+	[MenuItem("GameObject/Davids Tools/Select Game Object Cameras", false, 10)]
+	static void SelectGameObjectCameras(MenuCommand menuCommand)
+	{
+		SelectGameObjectTypes<Camera>();
+	}
+
+
 	[MenuItem("GameObject/Davids Tools/Select Game Object Configurable Joints", false, 10)]
 	static void SelectGameObjectConfigurableJoints(MenuCommand menuCommand)
 	{

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2476402971960370567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2194984541087658383}
+  m_Layer: 24
+  m_Name: BulletStartPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2194984541087658383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476402971960370567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.194, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5091320815412179354}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3145899021622053806
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a8b04be355ce54e8a437fea61aee91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 4271993660675633520, guid: b12521b8c11ef264ab6661d34d14100e, type: 3}
+  bulletStartPos: {fileID: 2194984541087658383}
+  bulletSpeed: 5
   thrustImage: {fileID: 5091320817550337182}
   turnThreshold: 7
   _turnRate: 180
@@ -204,6 +238,7 @@ MonoBehaviour:
   screenBottomLeft: {fileID: 5091320817014190958}
   dthJoystick: {fileID: 6911782849950562632}
   thrustButton: {fileID: 3091632166470629611}
+  fireButton: {fileID: 1318613710343839176}
 --- !u!1 &4936750602142851138
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +306,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5091320817550337183}
+  - {fileID: 2194984541087658383}
   m_Father: {fileID: 1965718168203220474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -448,14 +484,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5091320815801334761}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0248, z: -0.0349}
+  m_LocalRotation: {x: -0.14670877, y: -0.11210235, z: -0.05923763, w: 0.98102015}
+  m_LocalPosition: {x: 0.001, y: -0.0405, z: -0.0754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5091320816959814376}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -17.525, y: -12.265, z: -5.013}
 --- !u!114 &5091320815801334763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,10 +1581,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1959109387529107257, guid: 97193f9bf47394d40893859d1d003d37,
+    - target: {fileID: 1154176641931146617, guid: 97193f9bf47394d40893859d1d003d37,
         type: 3}
       propertyPath: m_Name
       value: Fire Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959109387529107257, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_Name
+      value: Fire Button Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353849421935438097, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0020999312
       objectReference: {fileID: 0}
     - target: {fileID: 6117200423976998160, guid: 97193f9bf47394d40893859d1d003d37,
         type: 3}
@@ -1572,6 +1618,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97193f9bf47394d40893859d1d003d37, type: 3}
+--- !u!114 &1318613710343839176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6117200423976998160, guid: 97193f9bf47394d40893859d1d003d37,
+    type: 3}
+  m_PrefabInstance: {fileID: 5091320817456089304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9192b72505574384585334a5419e1707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5377761808314796303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 867405349232148951, guid: 97193f9bf47394d40893859d1d003d37,
@@ -1640,10 +1698,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1959109387529107257, guid: 97193f9bf47394d40893859d1d003d37,
+    - target: {fileID: 1154176641931146617, guid: 97193f9bf47394d40893859d1d003d37,
         type: 3}
       propertyPath: m_Name
       value: Thrust Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959109387529107257, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_Name
+      value: Thrust Button Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353849421935438097, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0020999312
       objectReference: {fileID: 0}
     - target: {fileID: 6117200423976998160, guid: 97193f9bf47394d40893859d1d003d37,
         type: 3}
