@@ -1297,6 +1297,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: bulletLifeTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_Positions.Array.data[0].y

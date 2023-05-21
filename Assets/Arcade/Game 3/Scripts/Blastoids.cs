@@ -9,9 +9,10 @@ using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class Blastoids : MonoBehaviour
 {
-	[SerializeField]                                          private GameObject bullet;
-	[SerializeField]                                          private Transform  bulletStartPos;
-	[FormerlySerializedAs("bulletVelocity")] [SerializeField] private float      bulletSpeed = 5;
+	[SerializeField] private GameObject bullet;
+	[SerializeField] private Transform  bulletStartPos;
+	[SerializeField] private float      bulletSpeed = 5;
+	[SerializeField] private float      bulletLifeTime = 1;
 	
 	[SerializeField] private GameObject thrustImage;
 	[SerializeField] private float      turnThreshold;
@@ -32,7 +33,7 @@ public class Blastoids : MonoBehaviour
 
 	void Start()
 	{
-		dthJoystick.JoyStickEvent += OnDthJoystick;
+		dthJoystick.JoyStickEvent += OnJoystick;
 
 		if (!SpaceShip)
 		{
@@ -40,7 +41,7 @@ public class Blastoids : MonoBehaviour
 		}
 	}
 
-	private void OnDthJoystick(float arg1, float arg2)
+	private void OnJoystick(float arg1, float arg2)
 	{
 		turnRate = 0.0f;
 		var coeef = 4; 
@@ -69,8 +70,12 @@ public class Blastoids : MonoBehaviour
 		var fireButtonIsPressed = fireButton.isPressed;
 		if (fireButtonIsPressed && !lastFireButtonIsPressed)
 		{
-			var newBullet = Instantiate(bullet, bulletStartPos.position, quaternion.identity);
-			var rb        = newBullet.GetComponent<Rigidbody>();
+			var newBulletGO = Instantiate(bullet, bulletStartPos.position, quaternion.identity);
+			var newBullet   = newBulletGO.GetComponent<Bullet>();
+			newBullet.time       = bulletLifeTime;
+			newBullet.gameEngine = this;
+			
+			var rb          = newBulletGO.GetComponent<Rigidbody>();
 			rb.velocity = SpaceShip.rb.velocity + bulletSpeed * SpaceShip.transform.up;
 		}
 
@@ -87,12 +92,30 @@ public class Blastoids : MonoBehaviour
 		// Rotation
 		SpaceShip.rb.angularVelocity = turnRate * Mathf.Deg2Rad * Vector3.forward;
 
+		// Wrap Ship Pos
+		WrapPosition(SpaceShip.rb);
+		
+		// Clamp Velocity
+		var vel = SpaceShip.rb.velocity;
+		if (vel.magnitude > maxVelocity)
+		{
+			SpaceShip.rb.velocity = vel.normalized * maxVelocity;
+		}
+	}
+
+	public void WrapPosition(Rigidbody rb)
+	{
+
+		if (rb.name == "Bullet(Clone)")
+		{
+			
+		}
 		// Wrap 
-		var pos   = SpaceShip.rb.position;
-		var trPos = screenTopRight.position;
-		var blPos = screenBottomLeft.position;
+		var pos    = rb.position;
+		var trPos  = screenTopRight.position;
+		var blPos  = screenBottomLeft.position;
 		var height = trPos.y - blPos.y;
-		var width = trPos.x - blPos.x;
+		var width  = trPos.x - blPos.x;
 
 		if (pos.x < blPos.x)
 			pos.x += width;
@@ -103,17 +126,11 @@ public class Blastoids : MonoBehaviour
 			pos.y += height;
 		if (pos.y > trPos.y)
 			pos.y -= height;
+		
+		rb.position = pos;
 
-		// Clamp Velocity
-		var vel = SpaceShip.rb.velocity;
-		if (vel.magnitude > maxVelocity)
-		{
-			SpaceShip.rb.velocity = vel.normalized * maxVelocity;
-		}
-
-		SpaceShip.rb.position = pos;
 	}
-
+	
 	void Update()
 	{
 		UpdateGame();

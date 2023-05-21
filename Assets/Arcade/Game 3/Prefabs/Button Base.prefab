@@ -163,7 +163,7 @@ MonoBehaviour:
   spring: 0.1
   damp: 0.1
   actvateValue: 0.6
-  deactvateValue: 0.2
+  deactvateValue: 0.5
 --- !u!1 &1959109387529107257
 GameObject:
   m_ObjectHideFlags: 0
