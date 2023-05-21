@@ -1063,6 +1063,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1226909487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5091320815412179352, guid: 8a76afe187b70c7439a4235666b1e732,
+    type: 3}
+  m_PrefabInstance: {fileID: 5091320816128766576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1226909489
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226909487}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1251947208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,6 +1101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Debug Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498802653660265958, guid: a446566eff70a174abc8b90c5c27ec21,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2164261367
       objectReference: {fileID: 0}
     - target: {fileID: 7314346481366801772, guid: a446566eff70a174abc8b90c5c27ec21,
         type: 3}
@@ -1494,7 +1526,8 @@ PrefabInstance:
       propertyPath: m_TranslationOffsets.Array.data[0].y
       value: 0.0020999312
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5091320815412179358, guid: 8a76afe187b70c7439a4235666b1e732, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8a76afe187b70c7439a4235666b1e732, type: 3}
 --- !u!1001 &8102885644105340897
 PrefabInstance:

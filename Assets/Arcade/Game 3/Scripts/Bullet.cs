@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    internal Rigidbody rb;
+    internal Rigidbody2D rb;
     internal Blastoids gameEngine;
     internal float     time;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()

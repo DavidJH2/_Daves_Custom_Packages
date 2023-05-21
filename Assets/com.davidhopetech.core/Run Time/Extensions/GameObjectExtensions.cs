@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class TransformExtensions
+public static class GameObjectExtensions
 {
 	public static void DisableAllColliders(this GameObject go)
 	{
@@ -21,16 +21,5 @@ public static class TransformExtensions
 		{
 			collider.enabled = true;
 		}
-	}
-}
-
-
-public static class Vector3Extentions
-{
-	public static void Clamp(this Vector3 vec, float min, float max)
-	{
-		var mag = Mathf.Clamp(vec.magnitude, max, max);
-
-		vec = vec.normalized * mag;
 	}
 }

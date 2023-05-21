@@ -1,6 +1,7 @@
 using System;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,6 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class Blastoids : MonoBehaviour
 {
+	[SerializeField] private int        NumRocks = 0;
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private GameObject rockPrefab;
 	[SerializeField] private Transform  bulletStartPos;
@@ -65,7 +67,7 @@ public class Blastoids : MonoBehaviour
 
 	internal void InitalizeRocks()
 	{
-		for (var i = 0; i < 1; i++)
+		for (var i = 0; i < NumRocks; i++)
 		{
 			var rockGO  = Instantiate(rockPrefab);
 			var rock    = rockGO.GetComponent<DTHLineRenderer>();
@@ -102,8 +104,9 @@ public class Blastoids : MonoBehaviour
 			newBullet.time       = bulletLifeTime;
 			newBullet.gameEngine = this;
 			
-			var rb          = newBulletGO.GetComponent<Rigidbody>();
-			rb.velocity = SpaceShip.rb.velocity + bulletSpeed * SpaceShip.transform.up;
+			var rb  = newBulletGO.GetComponent<Rigidbody2D>();
+			var pos = transform.position; 
+			rb.velocity = SpaceShip.rb.velocity + SpaceShip.transform.forward2D() * bulletSpeed;
 		}
 
 		lastFireButtonIsPressed = fireButtonIsPressed;
@@ -112,12 +115,12 @@ public class Blastoids : MonoBehaviour
 		var thrusting   = thrustButton.isPressed;
 		var thrust      = (thrusting ? _thrust : 0);
 		var thrustForce = SpaceShip.transform.up * thrust;
-		SpaceShip.rb.AddForce(thrustForce, ForceMode.Force);
+		SpaceShip.rb.AddForce(thrustForce);
 		
 		thrustImage.SetActive(thrusting);
 
 		// Rotation
-		SpaceShip.rb.angularVelocity = turnRate * Mathf.Deg2Rad * Vector3.forward;
+		SpaceShip.rb.angularVelocity = turnRate;
 
 		// Wrap Ship Pos
 		WrapPosition(SpaceShip.rb);
@@ -130,7 +133,7 @@ public class Blastoids : MonoBehaviour
 		}
 	}
 
-	public void WrapPosition(Rigidbody rb)
+	public void WrapPosition(Rigidbody2D rb)
 	{
 
 		if (rb.name == "Bullet(Clone)")

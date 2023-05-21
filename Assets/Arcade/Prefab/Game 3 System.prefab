@@ -226,9 +226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a8b04be355ce54e8a437fea61aee91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 4271993660675633520, guid: b12521b8c11ef264ab6661d34d14100e, type: 3}
+  bulletPrefab: {fileID: 0}
+  rockPrefab: {fileID: 0}
   bulletStartPos: {fileID: 2194984541087658383}
   bulletSpeed: 5
+  bulletLifeTime: 1
   thrustImage: {fileID: 5091320817550337182}
   turnThreshold: 7
   _turnRate: 180
@@ -282,8 +284,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5091320815412179354}
-  - component: {fileID: 5091320815412179357}
   - component: {fileID: 5091320815412179358}
+  - component: {fileID: 5091320815412179357}
   - component: {fileID: 5091320815412179353}
   - component: {fileID: 5091320815412179355}
   m_Layer: 24
@@ -310,18 +312,6 @@ Transform:
   m_Father: {fileID: 1965718168203220474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5091320815412179357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5091320815412179352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb39b260e5bb464fa815fff3dae227c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &5091320815412179358
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -338,6 +328,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
+--- !u!114 &5091320815412179357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091320815412179352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb39b260e5bb464fa815fff3dae227c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &5091320815412179353
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1591,6 +1593,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire Button Base
       objectReference: {fileID: 0}
+    - target: {fileID: 3353849421935438097, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0020999312
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97193f9bf47394d40893859d1d003d37, type: 3}
 --- !u!114 &1318613710343839176 stripped
@@ -1683,9 +1690,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thrust Button Base
       objectReference: {fileID: 0}
+    - target: {fileID: 3353849421935438097, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0020999312
+      objectReference: {fileID: 0}
     - target: {fileID: 6117200423976998160, guid: 97193f9bf47394d40893859d1d003d37,
         type: 3}
       propertyPath: actvateY
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117200423976998160, guid: 97193f9bf47394d40893859d1d003d37,
+        type: 3}
+      propertyPath: actvateValue
       value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []

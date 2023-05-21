@@ -4,11 +4,11 @@ namespace Arcade.Game_3.Scripts
 {
 	public class SpaceShip : MonoBehaviour
 	{
-		internal Rigidbody rb;
+		internal Rigidbody2D rb;
 
 		void Start()
 		{
-			rb = GetComponent<Rigidbody>();
+			rb = GetComponent<Rigidbody2D>();
 		}
 	}
 }
