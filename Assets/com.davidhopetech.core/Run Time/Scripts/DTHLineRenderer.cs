@@ -7,13 +7,13 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class DTHLineRenderer : MonoBehaviour
 {
-    private LineRenderer _lr;
-    [SerializeField] private Vector3[]    points;
+    public Vector3[]    points;
 
+    internal LineRenderer _lr;
 
     private void Awake()
     {
-        _lr               = GetComponent<LineRenderer>();
+        _lr = GetComponent<LineRenderer>();
     }
 
     void Update()

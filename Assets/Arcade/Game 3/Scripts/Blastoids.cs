@@ -9,9 +9,10 @@ using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class Blastoids : MonoBehaviour
 {
-	[SerializeField] private GameObject bullet;
+	[SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private GameObject rockPrefab;
 	[SerializeField] private Transform  bulletStartPos;
-	[SerializeField] private float      bulletSpeed = 5;
+	[SerializeField] private float      bulletSpeed    = 5;
 	[SerializeField] private float      bulletLifeTime = 1;
 	
 	[SerializeField] private GameObject thrustImage;
@@ -39,6 +40,8 @@ public class Blastoids : MonoBehaviour
 		{
 			SpaceShip = transform.parent.GetComponentInChildren<SpaceShip>();
 		}
+
+		InitalizeRocks();
 	}
 
 	private void OnJoystick(float arg1, float arg2)
@@ -59,6 +62,30 @@ public class Blastoids : MonoBehaviour
 		}
 	}
 
+
+	internal void InitalizeRocks()
+	{
+		for (var i = 0; i < 1; i++)
+		{
+			var rockGO  = Instantiate(rockPrefab);
+			var rock    = rockGO.GetComponent<DTHLineRenderer>();
+			var points  = rock.points;
+			var count   = rock.points.Length;
+			var radStep = 360 / count * Mathf.Deg2Rad;
+
+			var rads = 0.0f;
+			for (var j = 0; j < count; j++)
+			{
+				var x = Mathf.Sin(rads);
+				var y = Mathf.Cos(rads);
+				points[j] =  new Vector3(x, y, 0);
+				rads      += radStep;
+			}
+
+			rock.points = points;
+		}
+	}
+
 	private void FixedUpdate()
 	{
 		UpdateShip();
@@ -70,7 +97,7 @@ public class Blastoids : MonoBehaviour
 		var fireButtonIsPressed = fireButton.isPressed;
 		if (fireButtonIsPressed && !lastFireButtonIsPressed)
 		{
-			var newBulletGO = Instantiate(bullet, bulletStartPos.position, quaternion.identity);
+			var newBulletGO = Instantiate(bulletPrefab, bulletStartPos.position, quaternion.identity);
 			var newBullet   = newBulletGO.GetComponent<Bullet>();
 			newBullet.time       = bulletLifeTime;
 			newBullet.gameEngine = this;

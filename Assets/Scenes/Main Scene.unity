@@ -1299,8 +1299,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
+      propertyPath: rockPrefab
+      value: 
+      objectReference: {fileID: 6408966140793270409, guid: 159cc53c8ccc9e2488d8a5f1e9a47785,
+        type: 3}
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 4271993660675633520, guid: b12521b8c11ef264ab6661d34d14100e,
+        type: 3}
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
       propertyPath: bulletLifeTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_Positions.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5091320815412179353, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
@@ -1361,6 +1383,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Positions.Array.data[5].z
       value: 7.502
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091320815412179355, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: points.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5091320816560372051, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
