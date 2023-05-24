@@ -226,11 +226,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a8b04be355ce54e8a437fea61aee91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  rockPrefab: {fileID: 0}
+  NumRocks: 0
+  bulletPrefab: {fileID: 4271993660675633520, guid: b12521b8c11ef264ab6661d34d14100e,
+    type: 3}
+  rockPrefab: {fileID: 6408966140793270409, guid: 159cc53c8ccc9e2488d8a5f1e9a47785,
+    type: 3}
   bulletStartPos: {fileID: 2194984541087658383}
   bulletSpeed: 5
-  bulletLifeTime: 1
+  bulletLifeTime: 3
   thrustImage: {fileID: 5091320817550337182}
   turnThreshold: 7
   _turnRate: 180
@@ -284,10 +287,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5091320815412179354}
-  - component: {fileID: 5091320815412179358}
   - component: {fileID: 5091320815412179357}
   - component: {fileID: 5091320815412179353}
   - component: {fileID: 5091320815412179355}
+  - component: {fileID: 1226909489}
   m_Layer: 24
   m_Name: Space Ship
   m_TagString: Untagged
@@ -312,22 +315,6 @@ Transform:
   m_Father: {fileID: 1965718168203220474}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &5091320815412179358
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5091320815412179352}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 48
-  m_CollisionDetection: 0
 --- !u!114 &5091320815412179357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +374,6 @@ LineRenderer:
   - {x: 1.144, y: 18.07, z: 7.502}
   - {x: 0.744, y: 18.07, z: 7.502}
   - {x: 0.34399998, y: 17.67, z: 7.502}
-  - {x: 0.944, y: 19.67, z: 7.502}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -442,7 +428,7 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1
-  m_Loop: 0
+  m_Loop: 1
 --- !u!114 &5091320815412179355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,7 +447,27 @@ MonoBehaviour:
   - {x: 0.2, y: -0.6, z: 0}
   - {x: -0.2, y: -0.6, z: 0}
   - {x: -0.6, y: -1, z: 0}
-  - {x: 0, y: 1, z: 0}
+--- !u!50 &1226909489
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091320815412179352}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5091320815801334761
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +807,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 16777216
+    m_Bits: 16777472
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 77855049d59972e43be8b4d58b442813, type: 2}
   m_TargetDisplay: 0

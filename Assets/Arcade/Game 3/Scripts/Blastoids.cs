@@ -107,6 +107,7 @@ public class Blastoids : MonoBehaviour
 			var rb  = newBulletGO.GetComponent<Rigidbody2D>();
 			var pos = transform.position; 
 			rb.velocity = SpaceShip.rb.velocity + SpaceShip.transform.forward2D() * bulletSpeed;
+			// rb.velocity = SpaceShip.transform.forward2D() * bulletSpeed;
 		}
 
 		lastFireButtonIsPressed = fireButtonIsPressed;
