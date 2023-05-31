@@ -79,7 +79,7 @@ public class MirrorHand : MonoBehaviour
 
 
     public float GrabValue => grabValue.action.ReadValue<float>();
-    internal bool IsGrabbing =>  GrabValue > .1; 
+    internal bool IsGrabbing =>  GrabValue > .3; 
 
 		
     public void SetGrabFlags()

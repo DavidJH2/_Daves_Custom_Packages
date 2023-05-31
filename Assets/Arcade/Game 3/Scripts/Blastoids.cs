@@ -2,11 +2,9 @@ using System;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
-using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.XR.Interaction.Toolkit.Filtering;
+// using Random = Unity.Mathematics.Random;
 
 public class Blastoids : MonoBehaviour
 {
@@ -16,6 +14,7 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private Transform  bulletStartPos;
 	[SerializeField] private float      bulletSpeed    = 5;
 	[SerializeField] private float      bulletLifeTime = 1;
+	[SerializeField] private GameObject screenSpace;
 	
 	[SerializeField] private GameObject thrustImage;
 	[SerializeField] private float      turnThreshold;
@@ -67,25 +66,47 @@ public class Blastoids : MonoBehaviour
 
 	internal void InitalizeRocks()
 	{
+		var trPos = screenTopRight.localPosition;
+		var blPos = screenBottomLeft.localPosition;
+		
 		for (var i = 0; i < NumRocks; i++)
 		{
-			var rockGO  = Instantiate(rockPrefab);
-			var rock    = rockGO.GetComponent<DTHLineRenderer>();
-			var points  = rock.points;
-			var count   = rock.points.Length;
-			var radStep = 360 / count * Mathf.Deg2Rad;
-
-			var rads = 0.0f;
-			for (var j = 0; j < count; j++)
-			{
-				var x = Mathf.Sin(rads);
-				var y = Mathf.Cos(rads);
-				points[j] =  new Vector3(x, y, 0);
-				rads      += radStep;
-			}
-
-			rock.points = points;
+			var rx  = UnityEngine.Random.Range(blPos.x, trPos.x);
+			var ry  = UnityEngine.Random.Range(blPos.y, trPos.y);
+			var pos = new Vector3(rx,ry,0);
+	
+			CreateRock(pos, 2f);
 		}
+	}
+
+
+	internal void CreateRock(Vector3 pos, float size)
+	{
+		var rockGO = Instantiate(rockPrefab, screenSpace.transform);
+		var rock      = rockGO.GetComponent<Rock>();
+		var rockModel = rockGO.GetComponent<DTHLineRenderer>();
+
+		rock.size = size;
+		
+		rockGO.transform.localPosition = pos;
+		var points    = rockModel.points;
+		var count     = rockModel.points.Length;
+		var radStep   = 360 / count * Mathf.Deg2Rad;
+
+		var rads           = 0.0f;
+		var angOffsetRange = 18 * Mathf.Deg2Rad;
+		for (var j = 0; j < count; j++)
+		{
+			var angOff = UnityEngine.Random.Range(-angOffsetRange, angOffsetRange);
+			var radius = UnityEngine.Random.Range(size/2, size);
+				
+			var x = Mathf.Sin(rads + angOff) * radius;
+			var y = Mathf.Cos(rads + angOff) * radius;
+			points[j] =  new Vector3(x, y, 0);
+			rads      += radStep;
+		}
+
+		rockModel.points = points;
 	}
 
 	private void FixedUpdate()
@@ -162,11 +183,13 @@ public class Blastoids : MonoBehaviour
 
 	}
 	
+	
 	void Update()
 	{
 		UpdateGame();
 	}
 
+	
 	private void UpdateGame()
 	{
 		
