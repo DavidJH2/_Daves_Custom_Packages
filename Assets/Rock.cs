@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Arcade.Game_3.Scripts;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
@@ -37,17 +38,32 @@ public class Rock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var bulletGO     = other.gameObject;
-        var bullet = bulletGO.GetComponent<Bullet>();
+        var go     = other.gameObject;
+        var bullet = go.GetComponent<Bullet>();
 
         if (bullet)
         {
-            var pos = transform.localPosition;
-            gameEngine.CreateRock(pos, size/2);
-            gameEngine.CreateRock(pos, size/2);
-            Destroy(bulletGO);
-            Destroy(this.gameObject);
-            
+            Destroy(go);
+            CreateTwoNewRocks();            
         }
+        else
+        {
+            var ship = go.GetComponent<SpaceShip>();
+
+            if (ship)
+            {
+                ship.Explode();
+                CreateTwoNewRocks();
+            }
+        }
+    }
+
+    private void CreateTwoNewRocks()
+    {
+        var pos = transform.localPosition;
+        gameEngine.CreateRock(pos, size / 2);
+        gameEngine.CreateRock(pos, size / 2);
+
+        Destroy(gameObject);
     }
 }

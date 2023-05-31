@@ -202,9 +202,9 @@ MonoBehaviour:
   rockPrefab: {fileID: 6408966140793270409, guid: 159cc53c8ccc9e2488d8a5f1e9a47785,
     type: 3}
   bulletStartPos: {fileID: 2194984541087658383}
-  bulletSpeed: 5
+  bulletSpeed: 10
   bulletLifeTime: 3
-  screenSpace: {fileID: 0}
+  screenSpace: {fileID: 4936750602142851138}
   thrustImage: {fileID: 5091320817550337182}
   turnThreshold: 7
   _turnRate: 180
@@ -212,7 +212,7 @@ MonoBehaviour:
   maxVelocity: 15
   screenTopRight: {fileID: 5091320816186111521}
   screenBottomLeft: {fileID: 5091320817014190958}
-  dthJoystick: {fileID: 6911782849950562632}
+  joystick: {fileID: 0}
   thrustButton: {fileID: 3091632166470629611}
   fireButton: {fileID: 1318613710343839176}
 --- !u!1 &4936750602142851138
@@ -1146,18 +1146,6 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &6911782849950562632 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8884323618798088451, guid: 7f48143b6d702e8478bb64357dad0ede,
-    type: 3}
-  m_PrefabInstance: {fileID: 2639356372992526411}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2526372282135536969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8698dac8a770ffd41a91160c0a2e4e9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5091320817456089304
 PrefabInstance:
   m_ObjectHideFlags: 0

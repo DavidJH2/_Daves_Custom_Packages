@@ -3,7 +3,10 @@ using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 // using Random = Unity.Mathematics.Random;
 
 public class Blastoids : MonoBehaviour
@@ -25,7 +28,7 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private Transform screenTopRight;
 	[SerializeField] private Transform screenBottomLeft;
 	
-	[SerializeField] private DTHJoystick dthJoystick;
+	[SerializeField] private DTHJoystick joystick;
 	[SerializeField] private DTHButton   thrustButton;
 	[SerializeField] private DTHButton   fireButton;
 
@@ -35,7 +38,7 @@ public class Blastoids : MonoBehaviour
 
 	void Start()
 	{
-		dthJoystick.JoyStickEvent += OnJoystick;
+		joystick.JoyStickEvent += OnJoystick;
 
 		if (!SpaceShip)
 		{
@@ -82,11 +85,13 @@ public class Blastoids : MonoBehaviour
 
 	internal void CreateRock(Vector3 pos, float size)
 	{
-		var rockGO = Instantiate(rockPrefab, screenSpace.transform);
+		var rockGO    = Instantiate(rockPrefab, screenSpace.transform);
 		var rock      = rockGO.GetComponent<Rock>();
+		var collider  = rockGO.GetComponent<CircleCollider2D>();
 		var rockModel = rockGO.GetComponent<DTHLineRenderer>();
 
-		rock.size = size;
+		rock.size       = size;
+		collider.radius = size;
 		
 		rockGO.transform.localPosition = pos;
 		var points    = rockModel.points;
@@ -111,7 +116,10 @@ public class Blastoids : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		UpdateShip();
+		if (SpaceShip)
+		{
+			UpdateShip();
+		}
 	}
 
 	private void UpdateShip()
