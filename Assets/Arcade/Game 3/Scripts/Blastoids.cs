@@ -91,7 +91,7 @@ public class Blastoids : MonoBehaviour
 		var rockModel = rockGO.GetComponent<DTHLineRenderer>();
 
 		rock.size       = size;
-		collider.radius = size;
+		collider.radius = size * 1.25f;
 		
 		rockGO.transform.localPosition = pos;
 		var points    = rockModel.points;

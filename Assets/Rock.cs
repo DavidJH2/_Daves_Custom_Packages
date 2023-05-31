@@ -60,9 +60,12 @@ public class Rock : MonoBehaviour
 
     private void CreateTwoNewRocks()
     {
-        var pos = transform.localPosition;
-        gameEngine.CreateRock(pos, size / 2);
-        gameEngine.CreateRock(pos, size / 2);
+        if (size >= .5)
+        {
+            var pos = transform.localPosition;
+            gameEngine.CreateRock(pos, size / 2);
+            gameEngine.CreateRock(pos, size / 2);
+        }
 
         Destroy(gameObject);
     }
