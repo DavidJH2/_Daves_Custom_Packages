@@ -31,14 +31,19 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private DTHJoystick joystick;
 	[SerializeField] private DTHButton   thrustButton;
 	[SerializeField] private DTHButton   fireButton;
+	[SerializeField] private DTHButton   startButton;
 
+	
+	
 	internal SpaceShip SpaceShip;
 	private  float     turnRate;
 	private  bool      lastFireButtonIsPressed;
-
+	private  Blink     _blink;
+	
 	void Start()
 	{
 		joystick.JoyStickEvent += OnJoystick;
+		_blink                 =  startButton.gameObject.GetComponent<Blink>();
 
 		if (!SpaceShip)
 		{
@@ -126,6 +131,19 @@ public class Blastoids : MonoBehaviour
 		if (SpaceShip.alive)
 		{
 			UpdateShip();
+		}
+		else
+		{
+			if (startButton.isPressed)
+			{
+				SpaceShip.alive = true;
+				
+				_blink.enabled = false;
+			}
+			else
+			{
+				_blink.enabled = true;
+			}
 		}
 	}
 

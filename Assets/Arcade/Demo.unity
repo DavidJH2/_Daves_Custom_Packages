@@ -2245,6 +2245,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 792809995}
     - target: {fileID: 2266640575216352268, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3558,14 +3563,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9192b72505574384585334a5419e1707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 0.6439791
-  isPressed: 1
+  value: 1.1
+  isPressed: 0
   min: 0.7
   max: 1.1
   target: 1.1
   spring: 0.2
   damp: 0.1
-  actvateValue: 0.6
+  actvateValue: 0.8
   deactvateValue: 0.5
 --- !u!114 &792809996
 MonoBehaviour:
