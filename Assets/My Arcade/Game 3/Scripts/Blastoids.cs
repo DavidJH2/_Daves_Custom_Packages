@@ -45,8 +45,15 @@ public class Blastoids : MonoBehaviour
 			SpaceShip = transform.parent.GetComponentInChildren<SpaceShip>();
 		}
 
-		InitalizeRocks();
+		InitializeShip();
+		InitializeRocks();
 	}
+
+	private void InitializeShip()
+	{
+		SpaceShip.alive = false;
+	}
+
 
 	private void OnJoystick(float arg1, float arg2)
 	{
@@ -67,7 +74,7 @@ public class Blastoids : MonoBehaviour
 	}
 
 
-	internal void InitalizeRocks()
+	internal void InitializeRocks()
 	{
 		var trPos = screenTopRight.localPosition;
 		var blPos = screenBottomLeft.localPosition;
@@ -116,7 +123,7 @@ public class Blastoids : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (SpaceShip)
+		if (SpaceShip.alive)
 		{
 			UpdateShip();
 		}

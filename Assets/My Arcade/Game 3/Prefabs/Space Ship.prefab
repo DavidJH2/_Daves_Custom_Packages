@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb39b260e5bb464fa815fff3dae227c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrustImage: {fileID: 1592487334070776230}
 --- !u!120 &1592487336192156833
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -368,6 +369,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0, y: 1}
       - {x: 0.6, y: -1}
+      - {x: 0.2021671, y: -0.6210124}
+      - {x: -0.19966088, y: -0.6062581}
       - {x: -0.6, y: -1}
 --- !u!1 &7984802515941270214
 GameObject:
@@ -475,7 +478,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
