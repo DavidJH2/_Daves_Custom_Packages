@@ -50,13 +50,23 @@ public class Blastoids : MonoBehaviour
 			SpaceShip = transform.parent.GetComponentInChildren<SpaceShip>();
 		}
 
-		InitializeShip();
+		DisableShip();
 		InitializeRocks();
 	}
 
-	private void InitializeShip()
+	private void DisableShip()
 	{
 		SpaceShip.alive = false;
+	}
+
+
+	private void InitializeShip()
+	{
+		SpaceShip.alive              = true;
+		SpaceShip.transform.localPosition = Vector3.zero;
+		SpaceShip.rb.velocity = Vector3.zero;
+		SpaceShip.rb.angularVelocity = 0;
+		SpaceShip.rb.SetRotation(0);
 	}
 
 
@@ -136,7 +146,7 @@ public class Blastoids : MonoBehaviour
 		{
 			if (startButton.isPressed)
 			{
-				SpaceShip.alive = true;
+				InitializeShip();
 				
 				_blink.enabled = false;
 			}
@@ -146,6 +156,10 @@ public class Blastoids : MonoBehaviour
 			}
 		}
 	}
+	
+	
+	
+	
 
 	private void UpdateShip()
 	{
