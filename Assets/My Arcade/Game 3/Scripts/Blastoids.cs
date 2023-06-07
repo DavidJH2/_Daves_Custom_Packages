@@ -11,13 +11,15 @@ using UnityEngine.Serialization;
 
 public class Blastoids : MonoBehaviour
 {
-	[SerializeField] private int        NumRocks = 0;
-	[SerializeField] private GameObject bulletPrefab;
-	[SerializeField] private GameObject rockPrefab;
-	[SerializeField] private Transform  bulletStartPos;
-	[SerializeField] private float      bulletSpeed    = 5;
-	[SerializeField] private float      bulletLifeTime = 1;
-	[SerializeField] private GameObject screenSpace;
+	[SerializeField] internal int            NumLives = 3;
+	[SerializeField] private  LineRenderer[] livesModels;
+	[SerializeField] private  int            NumRocks = 0;
+	[SerializeField] private  GameObject     bulletPrefab;
+	[SerializeField] private  GameObject     rockPrefab;
+	[SerializeField] private  Transform      bulletStartPos;
+	[SerializeField] private  float          bulletSpeed    = 5;
+	[SerializeField] private  float          bulletLifeTime = 1;
+	[SerializeField] private  GameObject     screenSpace;
 	
 	[SerializeField] private GameObject thrustImage;
 	[SerializeField] private float      turnThreshold;
@@ -32,13 +34,16 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private DTHButton   thrustButton;
 	[SerializeField] private DTHButton   fireButton;
 	[SerializeField] private DTHButton   startButton;
+	[SerializeField] private GameObject  GameOverGO;
 
-	
-	
+
+
+	internal int       lives;
 	internal SpaceShip SpaceShip;
 	private  float     turnRate;
 	private  bool      lastFireButtonIsPressed;
 	private  Blink     _blink;
+	private  float     respawnTimer;
 	
 	void Start()
 	{
@@ -50,8 +55,27 @@ public class Blastoids : MonoBehaviour
 			SpaceShip = transform.parent.GetComponentInChildren<SpaceShip>();
 		}
 
+		InitializeGame();
+	}
+
+	private void InitializeGame()
+	{
+		respawnTimer = 0;
 		DisableShip();
 		InitializeRocks();
+		lives = 0;
+		UpdateLivesModels();
+	}
+
+	private void UpdateLivesModels()
+	{
+		for (var i=0; i<NumLives; i++)
+		{
+			var model = livesModels[i];
+			model.enabled = ((i+1)<=lives);
+		}
+
+		;
 	}
 
 	private void DisableShip()
@@ -144,11 +168,19 @@ public class Blastoids : MonoBehaviour
 		}
 		else
 		{
+			if (respawnTimer > 0)
+			{
+				respawnTimer -= Time.deltaTime;
+				if (respawnTimer < 0)
+				{
+					respawnTimer    = 0;
+					InitializeShip();
+				}
+				return;
+			}
 			if (startButton.isPressed)
 			{
-				InitializeShip();
-				
-				_blink.enabled = false;
+				StartGame();
 			}
 			else
 			{
@@ -156,10 +188,16 @@ public class Blastoids : MonoBehaviour
 			}
 		}
 	}
-	
-	
-	
-	
+
+	private void StartGame()
+	{
+		InitializeShip();
+		_blink.enabled = false;
+		lives          = NumLives;
+		UpdateLivesModels();
+		GameOverGO.SetActive(false);
+	}
+
 
 	private void UpdateShip()
 	{
@@ -240,6 +278,20 @@ public class Blastoids : MonoBehaviour
 	private void UpdateGame()
 	{
 		
+	}
+
+	public void PlayerCrashed()
+	{
+		lives--;
+		UpdateLivesModels();
+		if (lives > 0)
+		{
+			respawnTimer = 3;
+		}
+		else
+		{
+			GameOverGO.SetActive(true);
+		}
 	}
 }
 

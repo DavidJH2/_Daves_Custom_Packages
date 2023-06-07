@@ -6,16 +6,16 @@ namespace Arcade.Game_3.Scripts
 	{
 		[SerializeField] private GameObject thrustImage;
 
-		internal bool           _alive;
-		internal Rigidbody2D    rb;
-		internal ParticleSystem explosion;
-		internal LineRenderer   model;
-		internal Collider2D     collider_;
+		internal                 bool           _alive;
+		internal                 Rigidbody2D    rb;
+		internal                 ParticleSystem explosion;
+		[SerializeField] private LineRenderer   model;
+		internal                 Collider2D     collider_;
 
 		void Start()
 		{
 			rb        = GetComponent<Rigidbody2D>();
-			model     = GetComponent<LineRenderer>();
+			//model     = GetComponentInChildren<LineRenderer>();
 			explosion = GetComponentInChildren<ParticleSystem>();
 			collider_  = GetComponentInChildren<Collider2D>();
 		}

@@ -65,6 +65,7 @@ public class Rock : MonoBehaviour
             var pos = transform.localPosition;
             gameEngine.CreateRock(pos, size / 2);
             gameEngine.CreateRock(pos, size / 2);
+            gameEngine.PlayerCrashed();
         }
 
         Destroy(gameObject);
