@@ -12,7 +12,7 @@ namespace Arcade.Game_3.Scripts
 		[SerializeField] private LineRenderer   model;
 		internal                 Collider2D     collider_;
 
-		void Start()
+		void Awake()
 		{
 			rb        = GetComponent<Rigidbody2D>();
 			//model     = GetComponentInChildren<LineRenderer>();

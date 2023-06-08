@@ -53,6 +53,7 @@ public class Rock : MonoBehaviour
             if (ship)
             {
                 ship.Explode();
+                gameEngine.PlayerCrashed();
                 CreateTwoNewRocks();
             }
         }
@@ -65,7 +66,6 @@ public class Rock : MonoBehaviour
             var pos = transform.localPosition;
             gameEngine.CreateRock(pos, size / 2);
             gameEngine.CreateRock(pos, size / 2);
-            gameEngine.PlayerCrashed();
         }
 
         Destroy(gameObject);
