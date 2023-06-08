@@ -83,6 +83,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 	
 		private void ChangeToSpatialLockState(DHTSpatialLock spatialLock)
 		{
+			//return;
 			Debug.Log("######  Change to Spatial Lock State  ######");
 			DebugValue1Event.Invoke("###  Change to Spatial Lock State  ###");
 

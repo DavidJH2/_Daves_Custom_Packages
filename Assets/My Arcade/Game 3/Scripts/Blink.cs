@@ -32,12 +32,24 @@ public class Blink : MonoBehaviour
 
             if (_on)
             {
-                _material.EnableKeyword("_EMISSION");
+                TurnOn();
             }
             else
             {
-                _material.DisableKeyword("_EMISSION");
+                TurnOff();
             }
         }
+    }
+
+    
+    public void TurnOn()
+    {
+        _material.EnableKeyword("_EMISSION");
+    }
+
+    
+    public void TurnOff()
+    {
+        _material.DisableKeyword("_EMISSION");
     }
 }

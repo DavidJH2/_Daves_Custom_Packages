@@ -198,7 +198,9 @@ public class Blastoids : MonoBehaviour
 	private void StartGame()
 	{
 		InitializeShip();
+		_blink.TurnOff();
 		_blink.enabled = false;
+		
 		lives          = NumLives;
 		UpdateLivesModels();
 		GameOverGO.SetActive(false);

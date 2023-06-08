@@ -5,6 +5,7 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction
 	[RequireComponent(typeof(Transform))]
 	public class DTHInteractable : MonoBehaviour
 	{
+		[SerializeField] internal bool  active = true;
 		[SerializeField] internal float range = .08f;
 
 		public float Dist(Vector3 pos)

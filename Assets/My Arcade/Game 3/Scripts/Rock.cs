@@ -12,7 +12,7 @@ public class Rock : MonoBehaviour
     internal                 float       size;
 
     
-    void Start()
+    void Awake()
     {
         rb         = GetComponent<Rigidbody2D>();
         gameEngine = GetComponentInParent<Blastoids>();
