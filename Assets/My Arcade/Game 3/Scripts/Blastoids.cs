@@ -115,6 +115,12 @@ public class Blastoids : MonoBehaviour
 
 	internal void InitializeRocks()
 	{
+		var rocks = GameObject.FindObjectsOfType<Rock>();
+		foreach (var rock in rocks)
+		{
+			Destroy(rock.gameObject);
+		}
+		
 		var trPos = screenTopRight.localPosition;
 		var blPos = screenBottomLeft.localPosition;
 		
@@ -196,6 +202,7 @@ public class Blastoids : MonoBehaviour
 		lives          = NumLives;
 		UpdateLivesModels();
 		GameOverGO.SetActive(false);
+		InitializeRocks();
 	}
 
 
