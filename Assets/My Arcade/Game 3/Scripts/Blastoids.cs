@@ -2,6 +2,7 @@ using System;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
+using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -34,7 +35,9 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private DTHButton   thrustButton;
 	[SerializeField] private DTHButton   fireButton;
 	[SerializeField] private DTHButton   startButton;
-	[SerializeField] private GameObject  GameOverGO;
+
+	[SerializeField] private GameObject      GameOverTMPGO;
+	[SerializeField] private TextMeshProUGUI ScoreTMP;
 
 
 
@@ -44,6 +47,7 @@ public class Blastoids : MonoBehaviour
 	private  bool      lastFireButtonIsPressed;
 	private  Blink     _blink;
 	private  float     respawnTimer;
+	private  int       score;
 	
 	void Start()
 	{
@@ -64,6 +68,7 @@ public class Blastoids : MonoBehaviour
 		DisableShip();
 		InitializeRocks();
 		lives = 0;
+		score = 0;
 		UpdateLivesModels();
 	}
 
@@ -203,8 +208,9 @@ public class Blastoids : MonoBehaviour
 		
 		lives          = NumLives;
 		UpdateLivesModels();
-		GameOverGO.SetActive(false);
+		GameOverTMPGO.SetActive(false);
 		InitializeRocks();
+		score = 0;
 	}
 
 
@@ -299,8 +305,14 @@ public class Blastoids : MonoBehaviour
 		}
 		else
 		{
-			GameOverGO.SetActive(true);
+			GameOverTMPGO.SetActive(true);
 		}
+	}
+
+	public void AddScore(int points)
+	{
+		score         += points;
+		ScoreTMP.text =  $"Score: {score.ToString()}";
 	}
 }
 

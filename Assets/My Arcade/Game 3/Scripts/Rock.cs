@@ -44,7 +44,24 @@ public class Rock : MonoBehaviour
         if (bullet)
         {
             Destroy(go);
-            CreateTwoNewRocks();            
+            CreateTwoNewRocks();
+
+            int points = 0;
+            
+            switch (size)
+            {
+                case 2:
+                    points = 25;
+                    break;
+                case 1:
+                    points = 50;
+                    break;
+                case .5f:
+                    points = 100;
+                    break;
+            }
+            
+            gameEngine.AddScore((int) points);
         }
         else
         {
