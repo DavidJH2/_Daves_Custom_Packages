@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
@@ -12,7 +13,12 @@ using UnityEngine.Serialization;
 
 public class Blastoids : MonoBehaviour
 {
-	[SerializeField] internal int            NumLives = 3;
+	[SerializeField] internal int        NumLives = 3;
+	[SerializeField] internal GameObject LeaderboardGO;
+	
+	[SerializeField] internal TextMeshProUGUI[] leaderboardNames;
+	[SerializeField] internal TextMeshProUGUI[] leaderboardScore;
+	
 	[SerializeField] private  LineRenderer[] livesModels;
 	[SerializeField] private  int            NumRocks = 0;
 	[SerializeField] private  GameObject     bulletPrefab;
@@ -43,6 +49,7 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private AudioSource WeaponSound;
 	[SerializeField] private AudioSource ExplosionSound;
 
+	[SerializeField] private Leaderboard _leaderboard;
 
 
 	internal int       lives;
@@ -78,6 +85,18 @@ public class Blastoids : MonoBehaviour
 		UpdateLivesModels();
 	}
 
+
+	internal async void  InitLeaderboard()
+	{
+		var highScores = (await _leaderboard.GetScoresAsync()).Results;
+		for(var i = 0; i<highScores.Count; i++)
+		{
+			var entry = highScores[i];
+			leaderboardNames[i].text = entry.PlayerName;
+			leaderboardScore[i].text = entry.Score.ToString(CultureInfo.InvariantCulture);
+		}
+	}
+	
 	private void UpdateLivesModels()
 	{
 		for (var i=0; i<NumLives; i++)
@@ -222,6 +241,7 @@ public class Blastoids : MonoBehaviour
 		InitializeRocks();
 		score = 0;
 		UpdateUI();
+		LeaderboardGO.SetActive(false);
 	}
 
 
@@ -340,6 +360,10 @@ public class Blastoids : MonoBehaviour
 	{
 		GameOverTMPGO.SetActive(true);
 		UpdateUI();
+		
+		_leaderboard.AddScore(score);
+		InitLeaderboard();
+		LeaderboardGO.SetActive(true);
 	}
 
 	void UpdateUI()
