@@ -221,6 +221,7 @@ public class Blastoids : MonoBehaviour
 		GameOverTMPGO.SetActive(false);
 		InitializeRocks();
 		score = 0;
+		UpdateUI();
 	}
 
 
@@ -338,11 +339,17 @@ public class Blastoids : MonoBehaviour
 	internal void GameOver()
 	{
 		GameOverTMPGO.SetActive(true);
+		UpdateUI();
 	}
 
+	void UpdateUI()
+	{
+		ScoreTMP.text =  $"Score: {score.ToString()}";
+	}
+	
 	public void AddScore(int points)
 	{
 		score         += points;
-		ScoreTMP.text =  $"Score: {score.ToString()}";
+		UpdateUI();
 	}
 }
