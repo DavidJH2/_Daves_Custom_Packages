@@ -10,6 +10,7 @@ public class Rock : MonoBehaviour
     internal                 Rigidbody2D rb;
     internal                 Blastoids   gameEngine;
     internal                 float       size;
+    internal                 int         generation = 1;
 
     
     void Awake()
@@ -81,8 +82,8 @@ public class Rock : MonoBehaviour
         if (size >= .5)
         {
             var pos = transform.localPosition;
-            gameEngine.CreateRock(pos, size / 2);
-            gameEngine.CreateRock(pos, size / 2);
+            gameEngine.CreateRock(pos, size / 2, 1);
+            gameEngine.CreateRock(pos, size / 2, 1);
         }
 
         Destroy(gameObject);

@@ -38,6 +38,7 @@ public class Blastoids : MonoBehaviour
 
 	[SerializeField] private GameObject      GameOverTMPGO;
 	[SerializeField] private TextMeshProUGUI ScoreTMP;
+	[SerializeField] private AudioSource     ThrustSound;
 
 
 
@@ -48,7 +49,7 @@ public class Blastoids : MonoBehaviour
 	private  Blink     _blink;
 	private  float     respawnTimer;
 	private  int       score;
-	
+	private  bool      thrusting;
 	void Start()
 	{
 		joystick.JoyStickEvent += OnJoystick;
@@ -67,6 +68,8 @@ public class Blastoids : MonoBehaviour
 		respawnTimer = 0;
 		DisableShip();
 		InitializeRocks();
+		InitializeShip();
+		DisableShip();
 		lives = 0;
 		score = 0;
 		UpdateLivesModels();
@@ -91,11 +94,14 @@ public class Blastoids : MonoBehaviour
 
 	private void InitializeShip()
 	{
-		SpaceShip.alive              = true;
+		thrusting                         = false;
+		SpaceShip.alive                   = true;
 		SpaceShip.transform.localPosition = Vector3.zero;
-		SpaceShip.rb.velocity = Vector3.zero;
-		SpaceShip.rb.angularVelocity = 0;
+		SpaceShip.rb.velocity             = Vector3.zero;
+		SpaceShip.rb.angularVelocity      = 0;
 		SpaceShip.rb.SetRotation(0);
+		ThrustSound.enabled = false;
+		UpdateThrust();
 	}
 
 
@@ -135,18 +141,19 @@ public class Blastoids : MonoBehaviour
 			var ry  = UnityEngine.Random.Range(blPos.y, trPos.y);
 			var pos = new Vector3(rx,ry,0);
 	
-			CreateRock(pos, 2f);
+			CreateRock(pos, 2f, 1);
 		}
 	}
 
 
-	internal void CreateRock(Vector3 pos, float size)
+	internal void CreateRock(Vector3 pos, float size, int generation)
 	{
 		var rockGO    = Instantiate(rockPrefab, screenSpace.transform);
 		var rock      = rockGO.GetComponent<Rock>();
 		var collider  = rockGO.GetComponent<CircleCollider2D>();
 		var rockModel = rockGO.GetComponent<DTHLineRenderer>();
 
+		rock.generation = generation;
 		rock.size       = size;
 		collider.radius = size * 1.25f;
 		
@@ -234,12 +241,8 @@ public class Blastoids : MonoBehaviour
 		lastFireButtonIsPressed = fireButtonIsPressed;
 		
 		// Thrust
-		var thrusting   = thrustButton.isPressed;
-		var thrust      = (thrusting ? _thrust : 0);
-		var thrustForce = SpaceShip.transform.up * thrust;
-		SpaceShip.rb.AddForce(thrustForce);
-		
-		thrustImage.SetActive(thrusting);
+		GetThrust();
+		UpdateThrust();
 
 		// Rotation
 		SpaceShip.rb.angularVelocity = turnRate;
@@ -253,6 +256,21 @@ public class Blastoids : MonoBehaviour
 		{
 			SpaceShip.rb.velocity = vel.normalized * maxVelocity;
 		}
+	}
+
+	internal void GetThrust()
+	{
+		thrusting   = thrustButton.isPressed;
+	}
+	
+
+	internal void UpdateThrust()
+	{
+		var thrust      = (thrusting ? _thrust : 0);
+		var thrustForce = SpaceShip.transform.up * thrust;
+		SpaceShip.rb.AddForce(thrustForce);
+		ThrustSound.enabled = thrusting;
+		thrustImage.SetActive(thrusting);
 	}
 
 	public void WrapPosition(Rigidbody2D rb)
@@ -297,6 +315,8 @@ public class Blastoids : MonoBehaviour
 
 	public void PlayerCrashed()
 	{
+		thrusting = false;
+		UpdateThrust();
 		lives--;
 		UpdateLivesModels();
 		if (lives > 0)
@@ -305,8 +325,14 @@ public class Blastoids : MonoBehaviour
 		}
 		else
 		{
-			GameOverTMPGO.SetActive(true);
+			GameOver();
 		}
+	}
+
+
+	internal void GameOver()
+	{
+		GameOverTMPGO.SetActive(true);
 	}
 
 	public void AddScore(int points)
@@ -315,4 +341,3 @@ public class Blastoids : MonoBehaviour
 		ScoreTMP.text =  $"Score: {score.ToString()}";
 	}
 }
-
