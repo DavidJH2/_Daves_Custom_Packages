@@ -11,16 +11,16 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 	public class DHTPlayerController : MonoBehaviour
 	{
 		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-		[SerializeField] internal GameObject leftInteractor;
-		[SerializeField] internal GameObject rightInteractor;
-		[SerializeField] internal GameObject leftMirrorHand;
-		[SerializeField] internal GameObject rightMirrorHand;
-		[SerializeField] internal float      handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
-		[SerializeField] internal float      handDampCoeeff;
+		[SerializeField] internal GameObject  leftInteractor;
+		[SerializeField] internal GameObject  rightInteractor;
+		[SerializeField] internal GameObject  leftMirrorHand;
+		[SerializeField] internal GameObject  rightMirrorHand;
+		[SerializeField] internal float       handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
+		[SerializeField] internal float       handDampCoeeff;
+		[SerializeField] private  DTHJoystick dthJoystick;
 
 		// private                   InputDevice                targetDevice;
 
-		[SerializeField] DTHJoystick dthJoystick;
 
 		internal List<DTHInteractable> Interactables;
 		internal DHTInteractionStateRef   LeftHandInteractionStateRef;
