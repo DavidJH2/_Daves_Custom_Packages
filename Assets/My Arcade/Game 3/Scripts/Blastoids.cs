@@ -38,7 +38,10 @@ public class Blastoids : MonoBehaviour
 
 	[SerializeField] private GameObject      GameOverTMPGO;
 	[SerializeField] private TextMeshProUGUI ScoreTMP;
-	[SerializeField] private AudioSource     ThrustSound;
+
+	[SerializeField] private AudioSource ThrustSound;
+	[SerializeField] private AudioSource WeaponSound;
+	[SerializeField] private AudioSource ExplosionSound;
 
 
 
@@ -227,6 +230,7 @@ public class Blastoids : MonoBehaviour
 		var fireButtonIsPressed = fireButton.isPressed;
 		if (fireButtonIsPressed && !lastFireButtonIsPressed)
 		{
+			WeaponSound.Play();
 			var newBulletGO = Instantiate(bulletPrefab, bulletStartPos.position, quaternion.identity);
 			var newBullet   = newBulletGO.GetComponent<Bullet>();
 			newBullet.time       = bulletLifeTime;
@@ -315,6 +319,7 @@ public class Blastoids : MonoBehaviour
 
 	public void PlayerCrashed()
 	{
+		ExplosionSound.Play();
 		thrusting = false;
 		UpdateThrust();
 		lives--;

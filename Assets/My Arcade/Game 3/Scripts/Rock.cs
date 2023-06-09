@@ -49,15 +49,18 @@ public class Rock : MonoBehaviour
 
             int points = 0;
             
-            switch (size)
+            switch (generation)
             {
+                case 1:
+                    points = 10;
+                    break;
                 case 2:
                     points = 25;
                     break;
-                case 1:
+                case 3:
                     points = 50;
                     break;
-                case .5f:
+                case 4:
                     points = 100;
                     break;
             }
@@ -82,8 +85,8 @@ public class Rock : MonoBehaviour
         if (size >= .5)
         {
             var pos = transform.localPosition;
-            gameEngine.CreateRock(pos, size / 2, 1);
-            gameEngine.CreateRock(pos, size / 2, 1);
+            gameEngine.CreateRock(pos, size / 2, generation + 1);
+            gameEngine.CreateRock(pos, size / 2, generation + 1);
         }
 
         Destroy(gameObject);
