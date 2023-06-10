@@ -1,13 +1,11 @@
-using System;
 using System.Globalization;
+using System.Collections;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
 using TMPro;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // using Random = Unity.Mathematics.Random;
 
@@ -71,6 +69,7 @@ public class Blastoids : MonoBehaviour
 		}
 
 		InitializeGame();
+		GameOverTMPGO.SetActive(false);
 	}
 
 	private void InitializeGame()
@@ -177,7 +176,7 @@ public class Blastoids : MonoBehaviour
 
 		rock.generation = generation;
 		rock.size       = size;
-		collider.radius = size * 1.25f;
+		collider.radius = size + .1f;
 		
 		rockGO.transform.localPosition = pos;
 		var points    = rockModel.points;
@@ -231,6 +230,11 @@ public class Blastoids : MonoBehaviour
 
 	private void StartGame()
 	{
+		if (_switchToHighScoreAfterDelay != null)
+		{
+			StopCoroutine(_switchToHighScoreAfterDelay);
+		}
+
 		InitializeShip();
 		_blink.TurnOff();
 		_blink.enabled = false;
@@ -355,15 +359,27 @@ public class Blastoids : MonoBehaviour
 		}
 	}
 
+	private Coroutine _switchToHighScoreAfterDelay;
 
 	internal void GameOver()
 	{
 		GameOverTMPGO.SetActive(true);
 		UpdateUI();
-		
 		_leaderboard.AddScore(score);
-		InitLeaderboard();
-		LeaderboardGO.SetActive(true);
+
+		_switchToHighScoreAfterDelay = StartCoroutine(SwitchToHighScoreAfterDelay());
+	}
+	
+	IEnumerator SwitchToHighScoreAfterDelay()
+	{
+		yield return new WaitForSeconds(2);
+
+		if (!SpaceShip.alive)
+		{
+			GameOverTMPGO.SetActive(false);
+			InitLeaderboard();
+			LeaderboardGO.SetActive(true);
+		}
 	}
 
 	void UpdateUI()
