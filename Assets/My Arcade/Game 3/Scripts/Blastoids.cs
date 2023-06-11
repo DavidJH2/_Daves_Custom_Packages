@@ -13,6 +13,8 @@ public class Blastoids : MonoBehaviour
 {
 	[SerializeField] internal int        NumLives = 3;
 	[SerializeField] internal GameObject LeaderboardGO;
+
+	[SerializeField] internal float MinRockSpawnDist = .5f;
 	
 	[SerializeField] internal TextMeshProUGUI[] leaderboardNames;
 	[SerializeField] internal TextMeshProUGUI[] leaderboardScore;
@@ -50,7 +52,7 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private Leaderboard _leaderboard;
 
 
-	internal int       lives;
+	internal int       livesLeft;
 	internal SpaceShip SpaceShip;
 	private  float     turnRate;
 	private  bool      lastFireButtonIsPressed;
@@ -79,7 +81,7 @@ public class Blastoids : MonoBehaviour
 		InitializeRocks();
 		InitializeShip();
 		DisableShip();
-		lives = 0;
+		livesLeft = 0;
 		score = 0;
 		UpdateLivesModels();
 	}
@@ -101,7 +103,7 @@ public class Blastoids : MonoBehaviour
 		for (var i=0; i<NumLives; i++)
 		{
 			var model = livesModels[i];
-			model.enabled = ((i+1)<=lives);
+			model.enabled = ((i+1)<=livesLeft);
 		}
 
 		;
@@ -113,10 +115,26 @@ public class Blastoids : MonoBehaviour
 	}
 
 
+	private void AttemptToRespawnShip()
+	{
+		var rocksLeft = FindObjectsOfType<Rock>();
+
+		foreach (var rock in rocksLeft)
+		{
+			var dist = (rock.transform.position - SpaceShip.transform.position).magnitude;
+			Debug.Log($"Rock Dist: {dist}");
+			if (dist < MinRockSpawnDist)
+			{
+				return;
+			}
+		}
+		
+		SpaceShip.alive = true;
+	}
+
 	private void InitializeShip()
 	{
 		thrusting                         = false;
-		SpaceShip.alive                   = true;
 		SpaceShip.transform.localPosition = Vector3.zero;
 		SpaceShip.rb.velocity             = Vector3.zero;
 		SpaceShip.rb.angularVelocity      = 0;
@@ -147,6 +165,7 @@ public class Blastoids : MonoBehaviour
 
 	internal void InitializeRocks()
 	{
+		Vector3 pos;
 		var rocks = GameObject.FindObjectsOfType<Rock>();
 		foreach (var rock in rocks)
 		{
@@ -158,10 +177,15 @@ public class Blastoids : MonoBehaviour
 		
 		for (var i = 0; i < NumRocks; i++)
 		{
-			var rx  = UnityEngine.Random.Range(blPos.x, trPos.x);
-			var ry  = UnityEngine.Random.Range(blPos.y, trPos.y);
-			var pos = new Vector3(rx,ry,0);
-	
+			do
+			{
+				var rx  = UnityEngine.Random.Range(blPos.x, trPos.x);
+				var ry  = UnityEngine.Random.Range(blPos.y, trPos.y);
+				pos = new Vector3(rx, ry, 0);
+				
+				
+			} while ((pos - SpaceShip.transform.localPosition).magnitude<MinRockSpawnDist);
+
 			CreateRock(pos, 2f, 1);
 		}
 	}
@@ -212,11 +236,21 @@ public class Blastoids : MonoBehaviour
 				respawnTimer -= Time.deltaTime;
 				if (respawnTimer < 0)
 				{
-					respawnTimer    = 0;
+					respawnTimer = 0;
 					InitializeShip();
 				}
+				else
+				{
+					return;
+				}
+			}
+
+			if (livesLeft > 0)
+			{
+				AttemptToRespawnShip();
 				return;
 			}
+
 			if (startButton.isPressed)
 			{
 				StartGame();
@@ -239,7 +273,7 @@ public class Blastoids : MonoBehaviour
 		_blink.TurnOff();
 		_blink.enabled = false;
 		
-		lives          = NumLives;
+		livesLeft          = NumLives;
 		UpdateLivesModels();
 		GameOverTMPGO.SetActive(false);
 		InitializeRocks();
@@ -347,9 +381,9 @@ public class Blastoids : MonoBehaviour
 		ExplosionSound.Play();
 		thrusting = false;
 		UpdateThrust();
-		lives--;
+		livesLeft--;
 		UpdateLivesModels();
-		if (lives > 0)
+		if (livesLeft > 0)
 		{
 			respawnTimer = 3;
 		}
@@ -391,5 +425,23 @@ public class Blastoids : MonoBehaviour
 	{
 		score         += points;
 		UpdateUI();
+	}
+
+	internal void CheckRoundComplete()
+	{
+		StartCoroutine(CheckRoundCompleteNextFrame());
+	}
+
+	IEnumerator CheckRoundCompleteNextFrame()
+	{
+		yield return 0;
+		
+		var rocksLeft = FindObjectsOfType<Rock>();
+		if (rocksLeft.Length == 0 && livesLeft > 0)
+		{
+			yield return new WaitForSeconds(1);
+			NumRocks++;
+			InitializeRocks();
+		}
 	}
 }

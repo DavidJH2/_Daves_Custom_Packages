@@ -12,7 +12,7 @@ public class Rock : MonoBehaviour
     internal                 float       size;
     internal                 int         generation = 1;
 
-    
+
     void Awake()
     {
         rb         = GetComponent<Rigidbody2D>();
@@ -20,7 +20,7 @@ public class Rock : MonoBehaviour
         InitRock();
     }
 
-    
+
     private void InitRock()
     {
         var ang   = UnityEngine.Random.Range(0, 360) * Mathf.Deg2Rad;
@@ -37,18 +37,24 @@ public class Rock : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) // Todo: Add more rocks after all are destroyed
     {
         var go     = other.gameObject;
+
         var bullet = go.GetComponent<Bullet>();
 
+        if (!gameEngine.SpaceShip.alive)
+        {
+            return;
+        }
+        
         if (bullet)
         {
             Destroy(go);
-            CreateTwoNewRocks();
+            DestroyThisRock();
 
-            int points = 0;
-            
+            int points;
+
             switch (generation)
             {
                 case 1:
@@ -63,9 +69,12 @@ public class Rock : MonoBehaviour
                 case 4:
                     points = 100;
                     break;
+                default:
+                    points = 0;
+                    break;
             }
-            
-            gameEngine.AddScore((int) points);
+
+            gameEngine.AddScore((int)points);
         }
         else
         {
@@ -73,22 +82,33 @@ public class Rock : MonoBehaviour
 
             if (ship)
             {
-                ship.Explode();
                 gameEngine.PlayerCrashed();
-                CreateTwoNewRocks();
+                ship.Explode();
+                
+                DestroyThisRock();
             }
         }
     }
 
-    private void CreateTwoNewRocks()
+    
+    void DestroyThisRock()
     {
+        Destroy(gameObject);
         if (size >= .5)
         {
-            var pos = transform.localPosition;
-            gameEngine.CreateRock(pos, size / 2, generation + 1);
-            gameEngine.CreateRock(pos, size / 2, generation + 1);
+            CreateTwoNewRocks();
         }
+        else
+        {
+            gameEngine.CheckRoundComplete();
+        }
+    }
 
-        Destroy(gameObject);
+
+    private void CreateTwoNewRocks()
+    {
+        var pos = transform.localPosition;
+        gameEngine.CreateRock(pos, size / 2, generation + 1);
+        gameEngine.CreateRock(pos, size / 2, generation + 1);
     }
 }

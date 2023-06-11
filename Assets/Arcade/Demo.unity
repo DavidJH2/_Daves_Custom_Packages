@@ -2498,6 +2498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
+      propertyPath: NumRocks
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
       propertyPath: GameOverGO
       value: 
       objectReference: {fileID: 1813547433}
@@ -2511,6 +2516,16 @@ PrefabInstance:
       propertyPath: LeaderboardGO
       value: 
       objectReference: {fileID: 2137561868}
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: bulletLifeTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: MinRockSpawnDist
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2108032900457048171, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: leaderboardNames.Array.size
@@ -2902,6 +2917,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4377213445223212972, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377213445223212972, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377213445223212972, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4440192678067181071, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_text
@@ -3101,6 +3131,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSizeBase
       value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802960915020104938, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0021000057
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802960915020104938, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].z
+      value: -0.00069987774
       objectReference: {fileID: 0}
     - target: {fileID: 6063267155786668940, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
@@ -3412,6 +3452,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7503917310606434761, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0021000057
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503917310606434761, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].z
+      value: -0.00069987774
+      objectReference: {fileID: 0}
     - target: {fileID: 7662725350919596694, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3586,6 +3636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSizeBase
       value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766016080499088065, guid: 8a76afe187b70c7439a4235666b1e732,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: 0.0070500374
       objectReference: {fileID: 0}
     - target: {fileID: 8792423709973138841, guid: 8a76afe187b70c7439a4235666b1e732,
         type: 3}
