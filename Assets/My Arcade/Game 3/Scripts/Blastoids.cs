@@ -6,6 +6,8 @@ using com.davidhopetech.core.Run_Time.Extensions;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 // using Random = Unity.Mathematics.Random;
 
@@ -14,8 +16,9 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] internal int        NumLives = 3;
 	[SerializeField] internal GameObject LeaderboardGO;
 
-	[SerializeField] internal float MinRockSpawnDist = .5f;
-	
+	[SerializeField] internal float               MinRockSpawnDist = .5f;
+	[SerializeField] internal InputActionProperty LeftMenuAction;
+
 	[SerializeField] internal TextMeshProUGUI[] leaderboardNames;
 	[SerializeField] internal TextMeshProUGUI[] leaderboardScore;
 	
@@ -51,6 +54,9 @@ public class Blastoids : MonoBehaviour
 
 	[SerializeField] private Leaderboard _leaderboard;
 
+	[SerializeField]         TMP_InputField PlayerNameInputField;
+	[SerializeField] private GameObject     PlayerHudMenu;
+
 
 	internal int       livesLeft;
 	internal SpaceShip SpaceShip;
@@ -62,8 +68,9 @@ public class Blastoids : MonoBehaviour
 	private  bool      thrusting;
 	void Start()
 	{
-		joystick.JoyStickEvent += OnJoystick;
-		_blink                 =  startButton.gameObject.GetComponent<Blink>();
+		LeftMenuAction.action.Enable();
+		joystick.JoyStickEvent         += OnJoystick;
+		_blink                         =  startButton.gameObject.GetComponent<Blink>();
 
 		if (!SpaceShip)
 		{
@@ -87,7 +94,30 @@ public class Blastoids : MonoBehaviour
 	}
 
 
-	internal async void  InitLeaderboard()
+	internal void  InitLeaderboard()
+	{
+		InitializeHighScores();
+		InitializeUserName();
+	}
+
+
+	private string PlayName;
+
+
+	public void SetPlayerName()
+	{
+		var newName = PlayerNameInputField.text;
+		_leaderboard.SetPlayerName(newName);
+	}
+	
+	internal async void InitializeUserName()
+	{
+		PlayName                  = await _leaderboard.GetPlayerName();
+		PlayerNameInputField.text = PlayName;
+	}
+
+	
+	internal async void InitializeHighScores()
 	{
 		var highScores = (await _leaderboard.GetScoresAsync()).Results;
 		for(var i = 0; i<highScores.Count; i++)
@@ -97,7 +127,8 @@ public class Blastoids : MonoBehaviour
 			leaderboardScore[i].text = entry.Score.ToString(CultureInfo.InvariantCulture);
 		}
 	}
-	
+
+
 	private void UpdateLivesModels()
 	{
 		for (var i=0; i<NumLives; i++)
@@ -373,7 +404,10 @@ public class Blastoids : MonoBehaviour
 	
 	private void UpdateGame()
 	{
-		
+		if (LeftMenuAction.action.WasPerformedThisFrame())
+		{
+			PlayerHudMenu.SetActive(!PlayerHudMenu.activeSelf);
+		}
 	}
 
 	public void PlayerCrashed()

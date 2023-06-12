@@ -48,6 +48,11 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		{
 			RightHandInteractionStateRef.InteractionState.UpdateState();
 			LeftHandInteractionStateRef.InteractionState.UpdateState();
+
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				Application.Quit();
+			}
 		}
 	}
 }

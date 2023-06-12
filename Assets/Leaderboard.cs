@@ -56,6 +56,7 @@ public class Leaderboard : MonoBehaviour
     public async Task<LeaderboardScoresPage> GetScoresAsync()
     {
         LeaderboardScoresPage scoresResponse;
+        
         try
         {
             scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId);
@@ -94,15 +95,27 @@ public class Leaderboard : MonoBehaviour
     Debug.Log(JsonConvert.SerializeObject(versionScoresResponse));
     }
 
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public async void SetPlayerName(string newName)
     {
+        await AuthenticationService.Instance.UpdatePlayerNameAsync(newName);
+    }
+    
+    public async Task<String> GetPlayerName()
+    {
+        string playerName = "";
         
+        try
+        {
+            playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+            Debug.Log($"Player Name: {playerName}");
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.ToString());
+        }
+
+        return playerName;
     }
 }
