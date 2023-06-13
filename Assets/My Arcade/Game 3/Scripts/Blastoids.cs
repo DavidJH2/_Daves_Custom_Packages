@@ -94,30 +94,33 @@ public class Blastoids : MonoBehaviour
 	}
 
 
-	internal void  InitLeaderboard()
+	internal void  UpdateLeaderboard()
 	{
-		InitializeHighScores();
-		InitializeUserName();
+		UpdateHighScores();
+		UpdateUserNameUI();
 	}
 
 
 	private string PlayName;
 
 
-	public void SetPlayerName()
+	public async void SetPlayerName()
 	{
 		var newName = PlayerNameInputField.text;
-		_leaderboard.SetPlayerName(newName);
+		PlayerNameInputField.text =  await _leaderboard.SetPlayerName(newName);
+		UpdateLeaderboard();
+		// UpdateUserNameUI();
 	}
 	
-	internal async void InitializeUserName()
+	
+	internal async void UpdateUserNameUI()
 	{
 		PlayName                  = await _leaderboard.GetPlayerName();
 		PlayerNameInputField.text = PlayName;
 	}
 
 	
-	internal async void InitializeHighScores()
+	internal async void UpdateHighScores()
 	{
 		var highScores = (await _leaderboard.GetScoresAsync()).Results;
 		for(var i = 0; i<highScores.Count; i++)
@@ -445,7 +448,7 @@ public class Blastoids : MonoBehaviour
 		if (!SpaceShip.alive)
 		{
 			GameOverTMPGO.SetActive(false);
-			InitLeaderboard();
+			UpdateLeaderboard();
 			LeaderboardGO.SetActive(true);
 		}
 	}

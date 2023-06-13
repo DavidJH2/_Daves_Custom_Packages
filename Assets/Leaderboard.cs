@@ -36,7 +36,7 @@ public class Leaderboard : MonoBehaviour
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
-            gameEngine.InitLeaderboard();
+            gameEngine.UpdateLeaderboard();
         };
         AuthenticationService.Instance.SignInFailed += s =>
         {
@@ -96,10 +96,13 @@ public class Leaderboard : MonoBehaviour
     }
 
 
-    public async void SetPlayerName(string newName)
+    public async Task<string> SetPlayerName(string newName)
     {
-        await AuthenticationService.Instance.UpdatePlayerNameAsync(newName);
+        Debug.Log("*****  Updating Player  *****");
+        var updatedPlayerName = await AuthenticationService.Instance.UpdatePlayerNameAsync(newName);
+        return updatedPlayerName;
     }
+    
     
     public async Task<String> GetPlayerName()
     {
