@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
+using TMPro;
+using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 {
@@ -22,9 +27,16 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		// private                   InputDevice                targetDevice;
 
 
-		internal List<DTHInteractable> Interactables;
-		internal DHTInteractionStateRef   LeftHandInteractionStateRef;
-		internal DHTInteractionStateRef   RightHandInteractionStateRef;
+		internal List<DTHInteractable>  Interactables;
+		internal DHTInteractionStateRef LeftHandInteractionStateRef;
+		internal DHTInteractionStateRef RightHandInteractionStateRef;
+
+		private XROrigin _xrOrgin;
+
+		private void Awake()
+		{
+			_xrOrgin = GetComponent<XROrigin>();
+		}
 
 		void Start()
 		{
@@ -32,18 +44,32 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 			RightHandInteractionStateRef         = new DHTInteractionStateRef(rightHandInteractionState);
 			rightHandInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
 			rightHandInteractionState.selfHandle = RightHandInteractionStateRef;
-			
+
 			var leftHandInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
 			LeftHandInteractionStateRef         = new DHTInteractionStateRef(leftHandInteractionState);
 			leftHandInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
 			leftHandInteractionState.selfHandle = LeftHandInteractionStateRef;
-			
-			Interactables                = FindObjectsOfType<DTHInteractable>().ToList();
+
+			Interactables = FindObjectsOfType<DTHInteractable>().ToList();
 
 			Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
 
-		// UpdateStateImpl is called once per frame
+
+		public void SetVRMode(TMP_Dropdown dropdown)
+		{
+			switch (dropdown.value)
+			{
+				case 0:
+					_xrOrgin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
+					break;
+				case 1:
+					_xrOrgin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Floor;
+					break;
+			}
+		}
+
+	// UpdateStateImpl is called once per frame
 		void Update()
 		{
 			RightHandInteractionStateRef.InteractionState.UpdateState();

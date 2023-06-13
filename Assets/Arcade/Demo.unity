@@ -4982,6 +4982,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &686036290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 868388283662761346, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
+    type: 3}
+  m_PrefabInstance: {fileID: 954976677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2101b19f015e71409ecf88fa004f87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &695655025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: e5d00e6f2a9dc4a43bd63b16637cf26e,
@@ -6222,7 +6234,7 @@ PrefabInstance:
     - target: {fileID: 8105813272391404404, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
       propertyPath: m_LineWidth
-      value: 0.0129
+      value: 0.0075
       objectReference: {fileID: 0}
     - target: {fileID: 8105813272391404404, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
@@ -6277,7 +6289,7 @@ PrefabInstance:
     - target: {fileID: 8105813272391404404, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
       propertyPath: m_ValidColorGradient.key2.a
-      value: 0.5019608
+      value: 0.62352943
       objectReference: {fileID: 0}
     - target: {fileID: 8105813272391404404, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
@@ -8673,7 +8685,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608809937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000049114227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8685,7 +8697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125, y: 23}
+  m_AnchoredPosition: {x: 130, y: 23.000061}
   m_SizeDelta: {x: 160, y: 29.999996}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1608809939
@@ -8744,7 +8756,20 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686036290}
+        m_TargetAssemblyTypeName: com.davidhopetech.core.Run_Time.Scripts.Interaction.DHTPlayerController,
+          DavidHopeTechCore
+        m_MethodName: SetVRMode
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1608809939}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1608809940
 MonoBehaviour:
@@ -10783,7 +10808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'User Name:'
+  m_text: 'Player Name:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 385f176f5c2a7cd4bb1fa1c79d840c55, type: 2}
@@ -16410,7 +16435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -23}
+  m_AnchoredPosition: {x: 130, y: -23}
   m_SizeDelta: {x: 275.5, y: 30.02}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &3359812184331436547
@@ -19704,6 +19729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7564283929689777912}
   - component: {fileID: 7564283929689777913}
+  - component: {fileID: 7564283929689777914}
   m_Layer: 5
   m_Name: HudUI
   m_TagString: Untagged
@@ -20424,6 +20450,19 @@ ParentConstraint:
   m_Sources:
   - sourceTransform: {fileID: 991331118}
     weight: 1
+--- !u!114 &7564283929689777914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742067671617512221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d79333075b152b479efcee95a8f5c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropDown: {fileID: 1608809939}
 --- !u!222 &7612398385371976992
 CanvasRenderer:
   m_ObjectHideFlags: 0
