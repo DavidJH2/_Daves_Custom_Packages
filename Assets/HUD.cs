@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class HUD : MonoBehaviour
 {
-    [SerializeField] private TMP_Dropdown        dropDown;
+    [SerializeField] private TMP_Dropdown dropDown;
+    
     private                  DHTPlayerController _playerController;
     
     // Start is called before the first frame update
