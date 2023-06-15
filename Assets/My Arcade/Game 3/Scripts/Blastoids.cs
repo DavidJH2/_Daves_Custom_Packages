@@ -1,10 +1,13 @@
+using System;
 using System.Globalization;
 using System.Collections;
+using System.Security.Authentication;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.Extensions;
 using TMPro;
 using Unity.Mathematics;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -56,7 +59,10 @@ public class Blastoids : MonoBehaviour
 
 	[SerializeField]         TMP_InputField PlayerNameInputField;
 	[SerializeField] private GameObject     PlayerHudMenu;
+	[SerializeField] private GameObject     warningMessagePanel;
+	[SerializeField] private TMP_Text       exceptionScreenTMP;
 
+	private TMP_Text warningMessageTMP;
 
 	internal int       livesLeft;
 	internal SpaceShip SpaceShip;
@@ -68,6 +74,7 @@ public class Blastoids : MonoBehaviour
 	private  bool      thrusting;
 	void Start()
 	{
+		warningMessageTMP = warningMessagePanel.GetComponentInChildren<TMP_Text>();
 		LeftMenuAction.action.Enable();
 		joystick.JoyStickEvent         += OnJoystick;
 		_blink                         =  startButton.gameObject.GetComponent<Blink>();
@@ -107,9 +114,37 @@ public class Blastoids : MonoBehaviour
 	public async void SetPlayerName()
 	{
 		var newName = PlayerNameInputField.text;
-		PlayerNameInputField.text =  await _leaderboard.SetPlayerName(newName);
-		UpdateLeaderboard();
-		// UpdateUserNameUI();
+
+		try
+		{
+			PlayerNameInputField.text = await _leaderboard.SetPlayerName(newName);
+			warningMessagePanel.SetActive(false);	
+			UpdateLeaderboard();
+		}
+		catch (Exception e)
+		{
+			exceptionScreenTMP.text = e.ToString();
+			
+			if (e is Unity.Services.Authentication.AuthenticationException)
+			{
+				warningMessagePanel.SetActive(true);	
+				warningMessageTMP.text    = "Player Name can not be empty or contain spaces";
+			}
+			else
+			{
+				if (e is RequestFailedException)
+				{
+					warningMessagePanel.SetActive(true);	
+					warningMessageTMP.text    = "Name Changing Too Frequently";
+				}
+				else
+				{
+					warningMessagePanel.SetActive(false);	
+					Console.WriteLine(e);
+					throw;
+				}
+			}
+		}
 	}
 	
 	
