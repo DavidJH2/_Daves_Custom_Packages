@@ -25,10 +25,10 @@ public class Leaderboard : MonoBehaviour
 
     async void Awake()
     {
+        gameEngine = FindObjectOfType<Blastoids>();
         await UnityServices.InitializeAsync();
 
         await SignInAnonymously();
-        
     }
 
     async Task SignInAnonymously()
