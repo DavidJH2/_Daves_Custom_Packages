@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Collections;
+using System.Linq;
 using System.Security.Authentication;
 using Arcade.Game_3.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
@@ -61,7 +62,9 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private GameObject     PlayerHudMenu;
 	[SerializeField] private GameObject     warningMessagePanel;
 	[SerializeField] private TMP_Text       exceptionScreenTMP;
+	private                  GameObject     nullGO = null;
 
+	
 	private TMP_Text warningMessageTMP;
 
 	internal int       livesLeft;
@@ -72,6 +75,20 @@ public class Blastoids : MonoBehaviour
 	private  float     respawnTimer;
 	private  int       score;
 	private  bool      thrusting;
+	
+	void OnEnable()
+	{
+		Application.logMessageReceived += LogCallback;
+	}
+
+	private void LogCallback(string condition, string stacktrace, LogType type)
+	{
+		if (type != LogType.Log)
+		{
+			exceptionScreenTMP.text += $"Log Type:\n{type}\n\nCondition:\n{condition}\n\nStack Trace:\n{stacktrace}";
+		}
+	}
+
 	void Start()
 	{
 		warningMessageTMP = warningMessagePanel.GetComponentInChildren<TMP_Text>();
@@ -115,34 +132,41 @@ public class Blastoids : MonoBehaviour
 	{
 		var newName = PlayerNameInputField.text;
 
-		try
+		if (newName == "" || newName.IndexOf(" ", StringComparison.Ordinal)!=-1)
 		{
-			PlayerNameInputField.text = await _leaderboard.SetPlayerName(newName);
-			warningMessagePanel.SetActive(false);	
-			UpdateLeaderboard();
+			warningMessagePanel.SetActive(true);
+			warningMessageTMP.text = "Player Name can not be empty or contain spaces";
 		}
-		catch (Exception e)
+		else
 		{
-			exceptionScreenTMP.text = e.ToString();
-			
-			if (e is Unity.Services.Authentication.AuthenticationException)
+			try
 			{
-				warningMessagePanel.SetActive(true);	
-				warningMessageTMP.text    = "Player Name can not be empty or contain spaces";
+				PlayerNameInputField.text = await _leaderboard.SetPlayerName(newName);
+				warningMessagePanel.SetActive(false);
+				UpdateLeaderboard();
 			}
-			else
+			catch (Exception e)
 			{
-				if (e is RequestFailedException)
+				var message = e.Message;
+				// exceptionScreenTMP.text = e.ToString();
+
+				if (e is RequestFailedException && message.IndexOf("Too Many Requests", StringComparison.Ordinal)!=-1)
 				{
-					warningMessagePanel.SetActive(true);	
-					warningMessageTMP.text    = "Name Changing Too Frequently";
+					warningMessagePanel.SetActive(true);
+					warningMessageTMP.text = "Name Changing Too Frequently";
 				}
 				else
 				{
-					warningMessagePanel.SetActive(false);	
-					Console.WriteLine(e);
-					throw;
+					throw e;
 				}
+					/*
+					else
+					{
+						warningMessagePanel.SetActive(false);
+						Console.WriteLine(e);
+						throw;
+					}
+					*/
 			}
 		}
 	}

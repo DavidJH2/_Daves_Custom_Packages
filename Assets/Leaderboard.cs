@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine;
 using Unity.Services.Leaderboards;
 using Unity.Services.Authentication;
@@ -14,6 +15,7 @@ public class Leaderboard : MonoBehaviour
 {
     // Create a leaderboard with this ID in the Unity Dashboard
     [SerializeField] private Blastoids gameEngine;
+    [SerializeField] private TMP_Text  exceptionTMP;
     
     const   string    LeaderboardId = "Test";
 
@@ -35,15 +37,19 @@ public class Leaderboard : MonoBehaviour
     {
         AuthenticationService.Instance.SignedIn += () =>
         {
-            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
+            var logMessage = $"Signed in as: {AuthenticationService.Instance.PlayerId}";
+            Debug.Log(logMessage);
             gameEngine.UpdateLeaderboard();
+            exceptionTMP.text += logMessage + "\n\n";
         };
         AuthenticationService.Instance.SignInFailed += s =>
         {
             // Take some action here...
             Debug.Log(s);
+            exceptionTMP.text += s + "\n\n";
         };
 
+        exceptionTMP.text += "Attempting to sign in\n\n";
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
