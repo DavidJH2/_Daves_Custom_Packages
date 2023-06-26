@@ -6525,7 +6525,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
+  m_DisableVisualsWhenBlockedInGroup: 0
   m_StartingSelectedInteractable: {fileID: 0}
   m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
@@ -6608,7 +6608,7 @@ MonoBehaviour:
   m_SphereCastRadius: 0.1
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483703
+    m_Bits: 55
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
@@ -7830,12 +7830,12 @@ MonoBehaviour:
       m_Name: Tracking State
       m_Type: 0
       m_ExpectedControlType: Integer
-      m_Id: e73d3e2d-8059-4780-affb-5bff45241de0
+      m_Id: b6c5847c-0dc8-447e-b857-c3d3522a266a
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings:
       - m_Name: 
-        m_Id: b7273618-b276-4048-98c7-58cc0969d488
+        m_Id: e2c5c281-7101-47eb-bc09-3c8b3e4fc50d
         m_Path: <XRHMD>/trackingState
         m_Interactions: 
         m_Processors: 

@@ -34,7 +34,12 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 			var interactorPos = MirrorHand.target.transform.position;
 			var interactables = Controller.Interactables;
 
-			var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
+			if (interactables.Count == 0)
+			{
+				return;
+			}
+
+		var orderedInteractables = interactables.OrderBy(o => o.Dist(interactorPos));
 
 			var interactable = orderedInteractables.First();
 			
