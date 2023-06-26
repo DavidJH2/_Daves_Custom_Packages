@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6c65402bc8ef96d4182e01ecd045a2ed
+labels:
+- Dust
+- Ground
+- Material
+- Mud
+- Nature
+- Pbr
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

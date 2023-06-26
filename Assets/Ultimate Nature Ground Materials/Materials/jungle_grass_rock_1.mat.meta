@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f2873118cdc905e419b14e53edcdaae3
+labels:
+- Grass
+- Ground
+- Jungle
+- Material
+- Nature
+- Pbr
+- Rock
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

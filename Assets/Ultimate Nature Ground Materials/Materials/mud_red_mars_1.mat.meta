@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e9e36cd8497070949b2e231c2f1376bf
+labels:
+- Ground
+- Mars
+- Material
+- Mud
+- Nature
+- Pbr
+- Red
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

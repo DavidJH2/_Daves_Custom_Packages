@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 727b2a18249286142aca8cdecb37c003
+labels:
+- Ground
+- Ice
+- Material
+- Nature
+- Pbr
+- Snow
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
