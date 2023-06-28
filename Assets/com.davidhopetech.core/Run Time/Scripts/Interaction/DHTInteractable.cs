@@ -20,5 +20,10 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction
 		{
 			return (Dist(point)<range);
 		}
+
+		public virtual void Activate()
+		{
+			
+		}
 	}
 }
