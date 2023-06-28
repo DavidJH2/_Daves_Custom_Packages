@@ -10,6 +10,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private TMP_Dropdown dropDown;
     
     private                  DHTPlayerController _playerController;
+    private 
     
     // Start is called before the first frame update
     void Start()

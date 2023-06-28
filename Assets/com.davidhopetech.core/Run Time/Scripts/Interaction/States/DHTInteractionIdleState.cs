@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DHTInteraction;
 using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
 using com.davidhopetech.core.Run_Time.DTH.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
@@ -10,7 +9,7 @@ using UnityEngine.Animations;
 namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 {
 	[Serializable]
-	class DHTInteractionIdleState : DHTInteractionState
+	public class DHTInteractionIdleState : DHTInteractionState
 	{
 		protected override void UpdateStateImpl()
 		{

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.DTH.Interaction
 {
-    public class DTHJoystick : MonoBehaviour
+    public class DHTJoystick : MonoBehaviour
     {
         [SerializeField] private GameObject Handle;
         

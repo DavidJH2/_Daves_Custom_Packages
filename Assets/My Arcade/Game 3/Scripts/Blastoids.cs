@@ -44,10 +44,10 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private Transform screenTopRight;
 	[SerializeField] private Transform screenBottomLeft;
 	
-	[SerializeField] private DTHJoystick joystick;
-	[SerializeField] private DTHButton   thrustButton;
-	[SerializeField] private DTHButton   fireButton;
-	[SerializeField] private DTHButton   startButton;
+	[SerializeField] private DHTJoystick joystick;
+	[SerializeField] private DHTButton   thrustButton;
+	[SerializeField] private DHTButton   fireButton;
+	[SerializeField] private DHTButton   startButton;
 
 	[SerializeField] private GameObject      GameOverTMPGO;
 	[SerializeField] private TextMeshProUGUI ScoreTMP;
@@ -62,7 +62,7 @@ public class Blastoids : MonoBehaviour
 	[SerializeField] private GameObject     PlayerHudMenu;
 	[SerializeField] private GameObject     warningMessagePanel;
 	[SerializeField] private TMP_Text       exceptionScreenTMP;
-	private                  GameObject     nullGO = null;
+	// private                  GameObject     nullGO = null;
 
 	
 	private TMP_Text warningMessageTMP;

@@ -13,7 +13,7 @@ using UnityEngine.XR;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 {
-	public class DHTPlayerController : MonoBehaviour
+	public class DPlayerController : MonoBehaviour
 	{
 		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
 		[SerializeField]     internal DHTInteractionState leftHandInitialInteractionState;
@@ -40,15 +40,13 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 
 		void Start()
 		{
-			var rightHandInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
-			RightHandInteractionStateRef         = new DHTInteractionStateRef(rightHandInteractionState);
-			rightHandInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
-			rightHandInteractionState.selfHandle = RightHandInteractionStateRef;
+			RightHandInteractionStateRef                = new DHTInteractionStateRef(rightHandInitialInteractionState);
+			rightHandInitialInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
+			rightHandInitialInteractionState.selfHandle = RightHandInteractionStateRef;
 
-			var leftHandInteractionState = gameObject.AddComponent<DHTInteractionIdleState>();
-			LeftHandInteractionStateRef         = new DHTInteractionStateRef(leftHandInteractionState);
-			leftHandInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
-			leftHandInteractionState.selfHandle = LeftHandInteractionStateRef;
+			LeftHandInteractionStateRef                = new DHTInteractionStateRef(leftHandInitialInteractionState);
+			leftHandInitialInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
+			leftHandInitialInteractionState.selfHandle = LeftHandInteractionStateRef;
 
 			Interactables = FindObjectsOfType<DHTInteractable>().ToList();
 

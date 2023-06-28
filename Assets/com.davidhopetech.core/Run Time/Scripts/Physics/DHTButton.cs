@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class DTHButton : MonoBehaviour
+public class DHTButton : MonoBehaviour
 {
     public                                   float value;
     [FormerlySerializedAs("pressed")] public bool  isPressed;

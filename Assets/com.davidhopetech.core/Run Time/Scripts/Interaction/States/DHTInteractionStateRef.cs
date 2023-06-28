@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using com.davidhopetech.core.Run_Time.DHTInteraction;
+using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
 using UnityEngine;
 
 public class DHTInteractionStateRef
 {
-    internal DHTInteractionState InteractionState;
+    public DHTInteractionState InteractionState;
 
-    internal DHTInteractionStateRef(DHTInteractionState iInteractionState)
+    public DHTInteractionStateRef(DHTInteractionState iInteractionState)
     {
         InteractionState = iInteractionState;
     }

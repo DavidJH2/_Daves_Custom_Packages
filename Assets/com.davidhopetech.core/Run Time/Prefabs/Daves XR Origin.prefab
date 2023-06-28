@@ -7684,13 +7684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2101b19f015e71409ecf88fa004f87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftInteractor: {fileID: 8102885642814869355}
-  rightInteractor: {fileID: 8102885643598139492}
+  leftHandInitialInteractionState: {fileID: 0}
+  rightHandInitialInteractionState: {fileID: 0}
   leftMirrorHand: {fileID: 111897401015591169}
   rightMirrorHand: {fileID: 2008924101194843723}
   handSpringCoeeff: 300
   handDampCoeeff: 0
-  dthJoystick: {fileID: 0}
+  dhtJoystick: {fileID: 0}
 --- !u!1 &8105813274295009459
 GameObject:
   m_ObjectHideFlags: 0
