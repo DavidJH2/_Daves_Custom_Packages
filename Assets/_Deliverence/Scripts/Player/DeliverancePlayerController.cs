@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using com.davidhopetech.core.Run_Time.DTH.Interaction;
@@ -8,28 +7,29 @@ using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
-using UnityEngine.XR;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 {
-	public class DPlayerController : MonoBehaviour
+	public class DeliverancePlayerController : MonoBehaviour
 	{
 		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-		[SerializeField]     internal DHTInteractionState leftHandInitialInteractionState;
-		[SerializeField]     internal DHTInteractionState rightHandInitialInteractionState;
-		[SerializeField]     internal GameObject          leftMirrorHand;
-		[SerializeField]     internal GameObject          rightMirrorHand;
-		[SerializeField]     internal float               handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
-		[SerializeField]     internal float               handDampCoeeff;
-		[FormerlySerializedAs("dthJoystick")] [SerializeField] private  DHTJoystick         dhtJoystick;
+		[SerializeField] private  GameObject grenadeLauncer;
+		[SerializeField] internal DeliveranceInteractionState leftHandInitialInteractionState;
+		[SerializeField] internal DeliveranceInteractionState rightHandInitialInteractionState;
+		[SerializeField] internal GameObject leftMirrorHand;
+		[SerializeField] internal GameObject rightMirrorHand;
+		[SerializeField] internal float handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
+		[SerializeField] internal float handDampCoeeff;
+
+		[FormerlySerializedAs("dthJoystick")] [SerializeField]
+		private DHTJoystick dhtJoystick;
 
 		// private                   InputDevice                targetDevice;
 
 
-		internal List<DHTInteractable>  Interactables;
-		internal DHTInteractionStateRef LeftHandInteractionStateRef;
-		internal DHTInteractionStateRef RightHandInteractionStateRef;
+		internal List<DHTInteractable>       Interactables;
+		internal DeliveranceInteractionStateRef LeftHandInteractionStateRef;
+		internal DeliveranceInteractionStateRef RightHandInteractionStateRef;
 
 		private XROrigin _xrOrgin;
 
@@ -40,11 +40,11 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 
 		void Start()
 		{
-			RightHandInteractionStateRef                = new DHTInteractionStateRef(rightHandInitialInteractionState);
+			RightHandInteractionStateRef                = new DeliveranceInteractionStateRef(rightHandInitialInteractionState);
 			rightHandInitialInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
 			rightHandInitialInteractionState.selfHandle = RightHandInteractionStateRef;
 
-			LeftHandInteractionStateRef                = new DHTInteractionStateRef(leftHandInitialInteractionState);
+			LeftHandInteractionStateRef                = new DeliveranceInteractionStateRef(leftHandInitialInteractionState);
 			leftHandInitialInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
 			leftHandInitialInteractionState.selfHandle = LeftHandInteractionStateRef;
 
@@ -67,7 +67,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 			}
 		}
 
-	// UpdateStateImpl is called once per frame
+		// UpdateStateImpl is called once per frame
 		void Update()
 		{
 			RightHandInteractionStateRef.InteractionState.UpdateState();
@@ -77,6 +77,12 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 			{
 				Application.Quit();
 			}
+		}
+
+		public void TriggerPulled()
+		{
+			var gl = grenadeLauncer.GetComponent<DHTInteractable>();
+			gl.Activate();
 		}
 	}
 }

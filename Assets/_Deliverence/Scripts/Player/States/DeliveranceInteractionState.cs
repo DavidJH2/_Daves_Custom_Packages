@@ -6,25 +6,25 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 {
 
 	[Serializable]
-	public abstract class DHTInteractionState : MonoBehaviour
+	public abstract class DeliveranceInteractionState : MonoBehaviour
 	{
 		protected DHTUpdateDebugMiscEvent     DebugMiscEvent;
 		protected DHTUpdateDebugTeleportEvent TeleportEvent;
 		protected DHTUpdateDebugValue1Event   DebugValue1Event;
 
-		protected DHTEventService     dhtEventService;
-		protected DHTPlayerController Controller;
+		protected DHTEventService             dhtEventService;
+		protected DeliverancePlayerController Controller;
 
 		public   MirrorHand MirrorHand;
 		internal GameObject MirrorHandGO;
 
-		public DHTInteractionStateRef selfHandle;
-		internal Animator               handAnimator;
+		public   DeliveranceInteractionStateRef selfHandle;
+		internal Animator                       handAnimator;
 
 		
 		public void Awake()
 		{
-			Controller   = GetComponent<DHTPlayerController>();
+			Controller      = GetComponent<DeliverancePlayerController>();
 			dhtEventService = DHTServiceLocator.dhtEventService;
 
 			DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
