@@ -68,10 +68,10 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		}
 
 		// UpdateStateImpl is called once per frame
-		void Update()
+		void FixedUpdate()
 		{
-			RightHandInteractionStateRef.InteractionState.UpdateState();
-			LeftHandInteractionStateRef.InteractionState.UpdateState();
+			RightHandInteractionStateRef.InteractionState.FixedUpdateState();
+			LeftHandInteractionStateRef.InteractionState.FixedUpdateState();
 
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{

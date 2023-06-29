@@ -87,6 +87,7 @@ MonoBehaviour:
   _particleSystem: {fileID: 8175383645658956009}
   ParitcleStartSpeed: 0.4
   MaxParitcleStartSpeed: 2
+  ParitcleStartSpeedIncreaseRate: 2
 --- !u!1 &8318078285959967697
 GameObject:
   m_ObjectHideFlags: 0

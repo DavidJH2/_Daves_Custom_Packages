@@ -23,13 +23,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 				ChangeToIdleState();
 			}
 
-
-			ParticleSystem.MainModule  psMain  = granadeLauncer._particleSystem.main;
-			ParticleSystem.ShapeModule psShape = granadeLauncer._particleSystem.shape;
-
-
-			var newStartSpeed = Mathf.Min(granadeLauncer.MaxParitcleStartSpeed, psMain.startSpeed.constant * 1.03f);
-			psMain.startSpeed = newStartSpeed;
+			granadeLauncer.ChargeGrenade();
 		}
 
 		

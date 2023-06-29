@@ -14,9 +14,12 @@ public class GrenadeLauncer : DHTInteractable
     //[SerializeField] private VisualEffect _visualEffect;
     public ParticleSystem _particleSystem;
 
-    [SerializeField] private float ParitcleStartSpeed = 0.4f;
-    public                   float MaxParitcleStartSpeed = 2.0f;
+    [SerializeField] private float ParitcleStartSpeed    = 0.4f;
+    [SerializeField] private float MaxParitcleStartSpeed = 2.0f;
+    [SerializeField] private float ParitcleStartSpeedIncreaseRate = 2f;
 
+
+    private float           _chargeTime;
     private TextMeshProUGUI tmp;
     
     // Start is called before the first frame update
@@ -31,13 +34,25 @@ public class GrenadeLauncer : DHTInteractable
 
     public void ResetParticleSystem()
     {
-        var psm = _particleSystem.main;
-        psm.startSpeed = ParitcleStartSpeed;
+        _chargeTime = 0;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+    }
+
+    public void ChargeGrenade()
+    {
+        ParticleSystem.MainModule  psMain  = _particleSystem.main;
+        ParticleSystem.ShapeModule psShape = _particleSystem.shape;
+
+        var elapsedTime = Time.fixedDeltaTime;
+        _chargeTime += elapsedTime;
+        
+        var newStartSpeed = Mathf.Min(MaxParitcleStartSpeed, ParitcleStartSpeed + ParitcleStartSpeedIncreaseRate * _chargeTime);
+        psMain.startSpeed = newStartSpeed;
+
     }
 
     public override void Activate()

@@ -43,7 +43,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		protected abstract void StartExt();
 
 
-		public void UpdateState()
+		public void FixedUpdateState()
 		{
 			UpdateStateImpl();
 		}
