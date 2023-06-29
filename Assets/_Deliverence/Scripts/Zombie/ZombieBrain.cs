@@ -52,11 +52,6 @@ public class ZombieBrain : MonoBehaviour
 
         rb.rotation        = Quaternion.Euler(0, angY, 0);
         rb.angularVelocity = Vector3.zero;
-
-        if (Selection.Contains(gameObject))
-        {
-            
-        }
     }
 
     private void OnDrawGizmos()

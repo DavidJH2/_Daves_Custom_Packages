@@ -4,12 +4,14 @@ using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 public class GrenadeLauncer : DHTInteractable
 {
-    [SerializeField] private GameObject grenadePrefab;
-    [SerializeField] private Transform  launchPoint;
-    [SerializeField] private float      grenadeVelocity = 5;
+    [SerializeField] private GameObject   grenadePrefab;
+    [SerializeField] private Transform    launchPoint;
+    [SerializeField] private float        grenadeVelocity = 5;
+    [SerializeField] private VisualEffect _visualEffect;
 
     private TextMeshProUGUI tmp;
     
