@@ -16,7 +16,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		{
 			if (MirrorHand.triggerPulledThisFrame)
 			{
-				Controller.TriggerPulled();
+				ChangeToChargingWeaponState();
 			}
 			// FindClosestInteractor();
 		}
@@ -50,28 +50,19 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 
 			if (interactable.InRange(interactorPos))
 			{
-				DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");
-
-				if (MirrorHand.IsGrabbing && interactable is DHTGrabable grabable)
-				{
-					ChangeToGrabbingState(grabable);
-					return;
-				}
 			}
 			else
 			{
-				DebugMiscEvent.Invoke($"Not In Grab Range");
 			}
 		}
 
 
-		private void ChangeToGrabbingState(DHTGrabable grabable)
+		private void ChangeToChargingWeaponState()
 		{
-			Debug.Log("######  Change to Grabbing State  ######");
-			DebugValue1Event.Invoke("###  Change to Grabbing State  ###");
-			var MirrorHandGO = MirrorHand.gameObject;
+			Debug.Log("######  Change to Charging Weapon State  ######");
+			DebugValue1Event.Invoke("###  Change to Charging Weapon State  ###");
 
-			DeliveranceInteractionIdleState component = Controller.gameObject.AddComponent<DeliveranceInteractionIdleState>();
+			DeliveranceInteractionChargeWeaponState component = Controller.gameObject.AddComponent<DeliveranceInteractionChargeWeaponState>();
 			component.MirrorHand        = MirrorHand;
 			component.selfHandle        = selfHandle;
 			selfHandle.InteractionState = component;

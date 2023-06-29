@@ -13,13 +13,13 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 	public class DeliverancePlayerController : MonoBehaviour
 	{
 		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
-		[SerializeField] private  GameObject grenadeLauncer;
+		[FormerlySerializedAs("grenadeLauncer")]                 public   GameObject                  grenadeLauncerGO;
 		[SerializeField] internal DeliveranceInteractionState leftHandInitialInteractionState;
 		[SerializeField] internal DeliveranceInteractionState rightHandInitialInteractionState;
-		[SerializeField] internal GameObject leftMirrorHand;
-		[SerializeField] internal GameObject rightMirrorHand;
-		[SerializeField] internal float handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
-		[SerializeField] internal float handDampCoeeff;
+		[SerializeField] internal GameObject                  leftMirrorHand;
+		[SerializeField] internal GameObject                  rightMirrorHand;
+		[SerializeField] internal float                       handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
+		[SerializeField] internal float                       handDampCoeeff;
 
 		[FormerlySerializedAs("dthJoystick")] [SerializeField]
 		private DHTJoystick dhtJoystick;
@@ -81,7 +81,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 
 		public void TriggerPulled()
 		{
-			var gl = grenadeLauncer.GetComponent<DHTInteractable>();
+			var gl = grenadeLauncerGO.GetComponent<DHTInteractable>();
 			gl.Activate();
 		}
 	}
