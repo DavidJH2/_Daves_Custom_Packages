@@ -1,36 +1,76 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class ZombieBrain : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI tmp;
-    
     private ZombieTarget target;
+    private Rigidbody    rb;
+
+    private float angY = 0;
+
     
     void Start()
     {
         target = FindObjectOfType<ZombieTarget>();
-        tmp    = FindObjectOfType<DebugText>().GetComponent<TextMeshProUGUI>();
+        rb     = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         UpdateRotation();
     }
 
+    private Vector3 zombiePos;
+    private Vector3 targatPos;
+    private Vector3 delta;
+    private float   ang;
+    
+    
     private void UpdateRotation()
     {
-        var delta = target.transform.position - transform.position;
+        zombiePos = transform.position;
+        targatPos = target.transform.position;
+        delta     = targatPos - zombiePos;
         delta.y = 0;
 
-        var ang = Vector3.SignedAngle(transform.forward, delta, Vector3.up);
-        //tmp.text = $"Ang: {(int) (ang )}";
+        ang = Vector3.SignedAngle(rb.transform.forward, delta, Vector3.up);
 
-        var newRot = transform.rotation * Quaternion.Euler(0, ang * .01f, 0);
+        
+        
+        // var deltaRot = Quaternion.Euler(0, ang * .008f, 0);
+        // var rot      = rb.rotation;
 
-        transform.rotation = newRot;
+        angY += ang * Time.fixedDeltaTime * 2f;
+
+        //var newRot = rot * deltaRot;
+
+
+        rb.rotation        = Quaternion.Euler(0, angY, 0);
+        rb.angularVelocity = Vector3.zero;
+
+        if (Selection.Contains(gameObject))
+        {
+            
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (target)
+        {
+            var zombiePos = transform.position;
+            var targatPos = target.transform.position;
+
+            // Gizmos.DrawLine(zombiePos, targatPos);
+
+            var message = $"Angle: {(int) ang}\n";
+            message += $"Y-Rot: {(int)rb.rotation.eulerAngles.y}";
+            // Handles.Label(transform.position, message);
+        }
     }
 }

@@ -17,7 +17,10 @@ public class GrenadeLauncer : DHTInteractable
     void Start()
     {
         var dt = FindObjectOfType<DebugText>();
-        tmp = dt.GetComponent<TextMeshProUGUI>();
+        if (dt)
+        {
+            tmp = dt.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     // Update is called once per frame
