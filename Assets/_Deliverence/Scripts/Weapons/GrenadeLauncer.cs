@@ -8,20 +8,27 @@ using UnityEngine.VFX;
 
 public class GrenadeLauncer : DHTInteractable
 {
-    [SerializeField] private GameObject   grenadePrefab;
-    [SerializeField] private Transform    launchPoint;
-    [SerializeField] private float        grenadeVelocity = 5;
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private Transform  launchPoint;
+
+    [FormerlySerializedAs("grenadeMinVelocity")] [SerializeField] private float grenadeMinSpeed = 10;
+    [FormerlySerializedAs("grenadeMaxVelocity")] [SerializeField] private float grenadeMaxSpeed = 35;
+
+    [SerializeField] private float grenadeMinPower = 10;
+    [SerializeField] private float grenadeMaxPower = 20;
+
     //[SerializeField] private VisualEffect _visualEffect;
     public ParticleSystem _particleSystem;
 
-    [SerializeField] private float ParitcleStartSpeed    = 0.4f;
-    [SerializeField] private float MaxParitcleStartSpeed = 2.0f;
-    [SerializeField] private float ParitcleStartSpeedIncreaseRate = 2f;
+    [SerializeField] private float           ParitcleStartSpeed             = 0.4f;
+    [SerializeField] private float           MaxGreandeChargeTime           = 0.8f;
+    [SerializeField] private float           ParitcleStartSpeedIncreaseRate = 2f;
+    [SerializeField] private TextMeshProUGUI debugTMP;
 
 
     private float           _chargeTime;
     private TextMeshProUGUI tmp;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,20 +55,32 @@ public class GrenadeLauncer : DHTInteractable
         ParticleSystem.ShapeModule psShape = _particleSystem.shape;
 
         var elapsedTime = Time.fixedDeltaTime;
-        _chargeTime += elapsedTime;
-        
-        var newStartSpeed = Mathf.Min(MaxParitcleStartSpeed, ParitcleStartSpeed + ParitcleStartSpeedIncreaseRate * _chargeTime);
-        psMain.startSpeed = newStartSpeed;
+        _chargeTime = Mathf.Min(_chargeTime + elapsedTime, MaxGreandeChargeTime);
 
+        psMain.startSpeed = ParitcleStartSpeed + ParitcleStartSpeedIncreaseRate * _chargeTime;
     }
 
     public override void Activate()
     {
-        // tmp.text += "Launch Grenade!\n";
-        var newGrenade = Instantiate(grenadePrefab, launchPoint.position, Quaternion.identity);
-        var rb         = newGrenade.GetComponent<Rigidbody>();
+        LaunchGrenade();
+    }
 
-        var newVel = transform.forward * grenadeVelocity;
+    public void LaunchGrenade()
+    {
+        // tmp.text += "Launch Grenade!\n";
+        var percent = _chargeTime / MaxGreandeChargeTime;
+
+
+        var newGrenadeGO = Instantiate(grenadePrefab, launchPoint.position, Quaternion.identity);
+        var newGrenade   = newGrenadeGO.GetComponent<Grenade>();
+        newGrenade.percent = percent;
+        
+        var rb         = newGrenadeGO.GetComponent<Rigidbody>();
+
+        var speed      = Mathf.Lerp(grenadeMinSpeed, grenadeMaxSpeed, percent);
+        debugTMP.text = $"Speed: {speed}\n";
+        var newVel = transform.forward * speed;
+        
         rb.velocity = newVel;
     }
 }

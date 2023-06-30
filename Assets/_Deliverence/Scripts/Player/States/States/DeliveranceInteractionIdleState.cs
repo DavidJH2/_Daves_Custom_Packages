@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
-using com.davidhopetech.core.Run_Time.DTH.Scripts;
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.Events;
 
-namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
+namespace _Deliverence.Scripts.Player.States.States
 {
 	[Serializable]
 	public class DeliveranceInteractionIdleState : DeliveranceInteractionState

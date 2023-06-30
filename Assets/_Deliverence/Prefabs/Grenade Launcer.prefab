@@ -83,11 +83,15 @@ MonoBehaviour:
   grenadePrefab: {fileID: 8405611516970899938, guid: 4ca2285dd8b44674ca65126d1310f819,
     type: 3}
   launchPoint: {fileID: 7605285394141133056}
-  grenadeVelocity: 30
+  grenadeMinSpeed: 15
+  grenadeMaxSpeed: 35
+  grenadeMinPower: 10
+  grenadeMaxPower: 20
   _particleSystem: {fileID: 8175383645658956009}
   ParitcleStartSpeed: 0.4
-  MaxParitcleStartSpeed: 2
+  MaxGreandeChargeTime: 2
   ParitcleStartSpeedIncreaseRate: 2
+  debugTMP: {fileID: 0}
 --- !u!1 &8318078285959967697
 GameObject:
   m_ObjectHideFlags: 0
