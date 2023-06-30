@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DTH.Interaction;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
+namespace _Deliverence.Scripts.Player
 {
 	public class DeliverancePlayerController : MonoBehaviour
 	{
@@ -72,12 +70,6 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 			{
 				Application.Quit();
 			}
-		}
-
-
-		public void AddDebugText(string text)
-		{
-			debugTMP.text += text;
 		}
 		
 		public void TriggerPulled()

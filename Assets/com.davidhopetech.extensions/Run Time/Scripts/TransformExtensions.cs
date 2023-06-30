@@ -11,5 +11,10 @@ namespace com.davidhopetech.core.Run_Time.Extensions
 			var up = trans.up;
 			return new Vector2(up.x, up.y);
 		}
+
+		public static float Dist(this Transform trans, Transform other)
+		{
+			return Vector3.Distance(trans.position, other.position);
+		}
 	}
 }

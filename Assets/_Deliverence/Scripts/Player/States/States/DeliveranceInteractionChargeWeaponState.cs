@@ -45,8 +45,8 @@ namespace _Deliverence.Scripts.Player.States.States
 
 		private void ChangeToIdleState()
 		{
-			Debug.Log("######  Change to Grabbing State  ######");
-			DebugValue1Event.Invoke("###  Change to Grabbing State  ###");
+			Debug.Log("######  Change to Idle State  ######");
+			DebugValue1Event.Invoke("###  Change to Idle State  ###");
 
 			DeliveranceInteractionIdleState component = Controller.gameObject.AddComponent<DeliveranceInteractionIdleState>();
 			component.MirrorHand        = MirrorHand;

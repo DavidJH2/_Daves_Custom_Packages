@@ -48,8 +48,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 95ae7538d5bba3b408e45c304eb4df7b, type: 3}
   m_Controller: {fileID: 9100000, guid: d5aa1d2ac01aa9342b3082633a094e60, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
