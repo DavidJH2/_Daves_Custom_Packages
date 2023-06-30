@@ -4905,7 +4905,7 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 4658734358370104869, guid: c91da9893c5c58b419cae4cc491433bd,
     type: 3}
   minPower: 5
-  maxPower: 20
+  maxPower: 15
   powerParticleSpeedRatio: 1
   percent: 0
   power: 0

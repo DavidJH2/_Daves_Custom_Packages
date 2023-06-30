@@ -21,7 +21,7 @@ public class ZombieTarget : MonoBehaviour
         if (health != 0)
         {
             health = Mathf.Max(0, health - damage);
-            // GameEngine.SetDebugText($"Player Hurt!   Health = {health}\n");
+            GameEngine.AddDebugText($"Player Hurt!   Health = {health}\n");
             bloodParticles.Play();
 
             if (health == 0)
