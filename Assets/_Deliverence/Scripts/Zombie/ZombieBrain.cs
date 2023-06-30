@@ -1,4 +1,6 @@
 using System;
+using _Deliverence.Scripts.Player;
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -7,26 +9,54 @@ namespace _Deliverence
 {
     public class ZombieBrain : DamageTaker
     {
+        [SerializeField] private int   startingHealth = 10;
+        [SerializeField] private float AttackDist     = 3f;
+
         private ZombieTarget    target;
         private Rigidbody       rb;
         private Animator        animator;
         private CapsuleCollider _collider;
 
         private float angY = 0;
+        public  int   health;
 
-    
+
         void Start()
         {
             target    = FindObjectOfType<ZombieTarget>();
             rb        = GetComponent<Rigidbody>();
             animator  = GetComponent<Animator>();
             _collider = GetComponent<CapsuleCollider>();
+
+            health = startingHealth;
         }
 
-        // Update is called once per frame
+
+        public void HurtPlayer()
+        {
+            target.TakeDamage(10);
+        }
+
+
+        void Update()
+        {
+            var dist = transform.Dist(target.transform);
+            // GameEngine.SetDebugText($"Dist: {dist}");
+            
+            if (dist < AttackDist)
+            {
+                animator.SetInteger("Attack", 1);
+            }
+            else
+            {
+                animator.SetInteger("Attack", 0);
+            }
+        }
+        
+        
         void FixedUpdate()
         {
-            ;UpdateRotation();
+            UpdateRotation();
         }
 
         private void LateUpdate()
@@ -91,6 +121,7 @@ namespace _Deliverence
             _collider.height = .3f;
             _collider.radius = .3f;
             _collider.center = new Vector3(0, 0.36f, -0.75f);
+            health           = 0;
         }
     }
 }

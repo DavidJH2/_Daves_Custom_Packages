@@ -4,13 +4,34 @@ using UnityEngine;
 
 public class ZombieTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private  ParticleSystem bloodParticles;
+    [SerializeField] private  GameObject     blinder;
+    [SerializeField] internal int            StartHealth = 100;
+    public                    int            health;
+
     void Start()
     {
-        
+        health = StartHealth;
     }
 
-    // Update is called once per frame
+
+    
+    public void TakeDamage(int damage)
+    {
+        if (health != 0)
+        {
+            health = Mathf.Max(0, health - damage);
+            // GameEngine.SetDebugText($"Player Hurt!   Health = {health}\n");
+            bloodParticles.Play();
+
+            if (health == 0)
+            {
+                blinder.SetActive(true);
+            }
+        }
+    }
+
+    
     void Update()
     {
         

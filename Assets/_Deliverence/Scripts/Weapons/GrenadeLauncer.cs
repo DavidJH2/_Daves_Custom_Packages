@@ -70,7 +70,7 @@ namespace _Deliverence
 
             var speed = Mathf.Lerp(grenadeMinSpeed, grenadeMaxSpeed, percent);
             
-            GameEngine.SetDebugText($"Speed: {speed}\n");
+            // GameEngine.SetDebugText($"Speed: {speed}\n");
             var newVel = transform.forward * speed;
         
             rb.velocity = newVel;

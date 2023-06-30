@@ -23,12 +23,14 @@ namespace _Deliverence.Scripts.Player
 		internal DeliveranceInteractionStateRef LeftHandInteractionStateRef;
 		internal DeliveranceInteractionStateRef RightHandInteractionStateRef;
 
-		private XROrigin _xrOrgin;
+		private XROrigin     _xrOrgin;
+		public ZombieTarget _target;
 
 
 		private void Awake()
 		{
 			_xrOrgin = GetComponent<XROrigin>();
+			_target  = GetComponentInChildren<ZombieTarget>();
 		}
 
 		void Start()
@@ -45,8 +47,7 @@ namespace _Deliverence.Scripts.Player
 
 			Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
-
-
+		
 		public void SetVRMode(TMP_Dropdown dropdown)
 		{
 			switch (dropdown.value)
