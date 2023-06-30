@@ -35,7 +35,7 @@ namespace _Deliverence
             {
                 var per = (radius - dist) / radius;
                 var damage = (int) (Mathf.Lerp(0.0f, force, per) * 10);
-                GameEngine.SetDebugText($"Damage: {damage}");
+                // GameEngine.SetDebugText($"Damage: {damage}\n");
                 _player.TakeDamage(damage);
             }
             

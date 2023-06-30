@@ -33,7 +33,7 @@ namespace _Deliverence
             var explosionPS = explosionGO.GetComponentInChildren<ParticleSystem>();
             var explosion   = explosionGO.GetComponent<Explosion>();
         
-            explosion.AddExplosiveForce(power, power);
+            explosion.AddExplosiveForce(power, power/1.5f);
 
             ParticleSystem.MainModule main = explosionPS.main;
             main.startSpeed = Mathf.Lerp(minPower * powerParticleSpeedRatio, maxPower * powerParticleSpeedRatio, percent); 

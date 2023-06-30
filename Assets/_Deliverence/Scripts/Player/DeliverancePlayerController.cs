@@ -14,6 +14,8 @@ namespace _Deliverence.Scripts.Player
 		public                    GameObject                  grenadeLauncerGO;
 		[SerializeField] internal DeliveranceInteractionState leftHandInitialInteractionState;
 		[SerializeField] internal DeliveranceInteractionState rightHandInitialInteractionState;
+		[SerializeField] internal DeliveranceInteractionState leftHandPlayInteractionState;
+		[SerializeField] internal DeliveranceInteractionState rightHandPlayInteractionState;
 		[SerializeField] internal GameObject                  leftMirrorHand;
 		[SerializeField] internal GameObject                  rightMirrorHand;
 		[SerializeField] private  TextMeshProUGUI             debugTMP;
@@ -47,6 +49,19 @@ namespace _Deliverence.Scripts.Player
 
 			Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
+
+
+		public void ChangeToIdleState()
+		{
+			RightHandInteractionStateRef                = new DeliveranceInteractionStateRef(rightHandPlayInteractionState);
+			rightHandPlayInteractionState.MirrorHand = rightMirrorHand.GetComponent<MirrorHand>();
+			rightHandPlayInteractionState.selfHandle = RightHandInteractionStateRef;
+
+			LeftHandInteractionStateRef             = new DeliveranceInteractionStateRef(leftHandPlayInteractionState);
+			leftHandPlayInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
+			leftHandPlayInteractionState.selfHandle = LeftHandInteractionStateRef;
+		}
+		
 		
 		public void SetVRMode(TMP_Dropdown dropdown)
 		{

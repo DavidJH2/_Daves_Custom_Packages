@@ -14,10 +14,10 @@ public class ZombieSpawner : MonoBehaviour
     {
         _boxCollider = GetComponent<BoxCollider>();
         _terrain     = FindObjectOfType<Terrain>();
-        SpawnZombies();
+        //SpawnZombies();
     }
 
-    private void SpawnZombies()
+    public void SpawnZombies()
     {
         var pos   = transform.position;
         var range = _boxCollider.size;

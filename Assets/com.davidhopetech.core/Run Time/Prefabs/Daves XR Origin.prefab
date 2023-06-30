@@ -7569,7 +7569,6 @@ GameObject:
   - component: {fileID: 8105813273936344096}
   - component: {fileID: 8105813273936344097}
   - component: {fileID: 8105813273936344099}
-  - component: {fileID: 868388283662761346}
   m_Layer: 0
   m_Name: Daves XR Origin
   m_TagString: Untagged
@@ -7698,26 +7697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 8105813273936344096}
   m_DelayTime: 0
---- !u!114 &868388283662761346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8105813273936344158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2101b19f015e71409ecf88fa004f87f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandInitialInteractionState: {fileID: 0}
-  rightHandInitialInteractionState: {fileID: 0}
-  leftMirrorHand: {fileID: 111897401015591169}
-  rightMirrorHand: {fileID: 2008924101194843723}
-  handSpringCoeeff: 300
-  handDampCoeeff: 0
-  dhtJoystick: {fileID: 0}
-  Interactables: []
 --- !u!1 &8105813274295009459
 GameObject:
   m_ObjectHideFlags: 0

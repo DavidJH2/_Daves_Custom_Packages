@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos: []
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 1d667ce613f7fb74ab180db8c985cf53,
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 005e543750aa55b4485a96d219d9adb8,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 2048
@@ -134,7 +134,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 0.1.0
+  bundleVersion: 0.9.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -277,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 1d667ce613f7fb74ab180db8c985cf53, type: 3}
+      m_Icon: {fileID: 2800000, guid: 005e543750aa55b4485a96d219d9adb8, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
