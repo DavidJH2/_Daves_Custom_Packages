@@ -40,11 +40,13 @@ namespace _Deliverence.Scripts.Player.States.States
 			granadeLauncer = Controller.grenadeLauncerGO.GetComponent<GrenadeLauncer>();
 			granadeLauncer.ResetParticleSystem();
 			granadeLauncer._particleSystem.Play();
+			granadeLauncer.ChargeSound.Play();
 		}
 
 
 		private void ChangeToIdleState()
 		{
+			granadeLauncer.ChargeSound.Stop();
 			Debug.Log("######  Change to Idle State  ######");
 			DebugValue1Event.Invoke("###  Change to Idle State  ###");
 

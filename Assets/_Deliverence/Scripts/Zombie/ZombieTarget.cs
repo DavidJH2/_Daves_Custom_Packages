@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,16 +11,21 @@ public class ZombieTarget : MonoBehaviour
     [SerializeField] private  GameObject     blinder;
     [SerializeField] private  GameObject     grenadeLauncher;
     [SerializeField] internal int            StartHealth = 100;
-    
-    public                    int            health;
 
-    private Material blinderMat;
+    private XROrigin   _xrOrigin;
+    public  int        health;
+    private GameEngine _gameEngine;
+    private Material   blinderMat;
+    
+    
     void Start()
     {
         List<Material> mats = new List<Material>();
         health     = StartHealth;
         blinder.GetComponent<Renderer>().GetMaterials(mats);
-        blinderMat = mats[0];
+        blinderMat  = mats[0];
+        _gameEngine = FindObjectOfType<GameEngine>();
+        _xrOrigin   = GetComponentInParent<XROrigin>();
     }
 
 
@@ -39,6 +45,14 @@ public class ZombieTarget : MonoBehaviour
                 var collider = grenadeLauncher.GetComponent<Collider>();
                 collider.enabled = true;
                 grenadeLauncher.AddComponent<Rigidbody>();
+                
+                var gameOverGO = _gameEngine._gameOver;
+                gameOverGO.SetActive(true);
+
+                var messageSpawnPos = _xrOrigin.GetComponentInChildren<MessageSpawnPos>();
+                var trans             = messageSpawnPos.transform;
+                gameOverGO.transform.position = trans.position;
+                gameOverGO.transform.rotation = trans.rotation;
             }
         }
     }

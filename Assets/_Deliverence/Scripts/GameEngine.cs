@@ -15,8 +15,11 @@ public class GameEngine : MonoBehaviour
     [SerializeField] private XROrigin                    _xrOrigin;
     [SerializeField] private DeliverancePlayerController _playerController;
     [SerializeField] private GameObject                  _menu;
+    public                   GameObject                  _gameOver;
     [SerializeField] private GameObject                  _grenadeLauncher;
     [SerializeField] private Transform                   _playerStartOrien;
+    [SerializeField] private GameObject                  _menuBackgroundMusic;
+    [SerializeField] private GameObject                  _gameBackgroundMusic;
     
 
     public static bool            GamePlaying;
@@ -38,10 +41,15 @@ public class GameEngine : MonoBehaviour
         
     }
 
+    
 
     public void StartGame()
     {
         GamePlaying = true;
+        
+        _menuBackgroundMusic.SetActive(false);
+        _gameBackgroundMusic.SetActive(true);
+        
         _playerController.ChangeToIdleState();
         _xrOrigin.transform.position = _playerStartOrien.position;
         _xrOrigin.transform.rotation = _playerStartOrien.rotation;

@@ -19,6 +19,8 @@ namespace _Deliverence
         [SerializeField] private float ParitcleStartSpeed             = 0.4f;
         [SerializeField] private float MaxGreandeChargeTime           = 0.8f;
         [SerializeField] private float ParitcleStartSpeedIncreaseRate = 2f;
+
+        public AudioSource ChargeSound;
     
         [SerializeField] private TextMeshProUGUI debugTMP;
 
