@@ -27,7 +27,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 		// private                   InputDevice                targetDevice;
 
 
-		internal List<DHTInteractable>  Interactables;
+		public List<DHTInteractable>  Interactables;
 		internal DHTInteractionStateRef LeftHandInteractionStateRef;
 		internal DHTInteractionStateRef RightHandInteractionStateRef;
 

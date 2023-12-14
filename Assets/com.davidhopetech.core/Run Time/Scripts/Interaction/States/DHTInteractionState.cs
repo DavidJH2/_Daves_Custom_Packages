@@ -22,7 +22,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		internal Animator               handAnimator;
 
 		
-		internal void Awake()
+		public void Awake()
 		{
 			Controller   = GetComponent<DHTPlayerController>();
 			dhtEventService = DHTServiceLocator.dhtEventService;

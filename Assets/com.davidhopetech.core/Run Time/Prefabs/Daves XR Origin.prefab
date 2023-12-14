@@ -93,6 +93,19 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+  triggerValue:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  triggerPulledThisFrame: 0
 --- !u!1773428102 &865741424090376325
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -217,6 +230,19 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+  triggerValue:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  triggerPulledThisFrame: 0
 --- !u!1773428102 &3484589730578987168
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -7543,7 +7569,6 @@ GameObject:
   - component: {fileID: 8105813273936344096}
   - component: {fileID: 8105813273936344097}
   - component: {fileID: 8105813273936344099}
-  - component: {fileID: 868388283662761346}
   m_Layer: 0
   m_Name: Daves XR Origin
   m_TagString: Untagged
@@ -7672,25 +7697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 8105813273936344096}
   m_DelayTime: 0
---- !u!114 &868388283662761346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8105813273936344158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2101b19f015e71409ecf88fa004f87f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftHandInitialInteractionState: {fileID: 0}
-  rightHandInitialInteractionState: {fileID: 0}
-  leftMirrorHand: {fileID: 111897401015591169}
-  rightMirrorHand: {fileID: 2008924101194843723}
-  handSpringCoeeff: 300
-  handDampCoeeff: 0
-  dhtJoystick: {fileID: 0}
 --- !u!1 &8105813274295009459
 GameObject:
   m_ObjectHideFlags: 0
