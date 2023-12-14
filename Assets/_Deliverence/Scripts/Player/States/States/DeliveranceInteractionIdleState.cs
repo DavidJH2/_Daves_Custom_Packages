@@ -10,7 +10,7 @@ namespace _Deliverence.Scripts.Player.States.States
 	{
 		protected override void UpdateStateImpl()
 		{
-			if (Controller._target.health == 0)
+			if (Controller._target.Health == 0)
 			{
 				return;
 			}

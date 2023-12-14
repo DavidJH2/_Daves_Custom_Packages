@@ -12,8 +12,10 @@ public class ZombieTarget : MonoBehaviour
     [SerializeField] private  GameObject     grenadeLauncher;
     [SerializeField] internal int            StartHealth = 100;
 
+    public                                  float Radius;
+    [FormerlySerializedAs("health")] public int   Health;
+    
     private XROrigin   _xrOrigin;
-    public  int        health;
     private GameEngine _gameEngine;
     private Material   blinderMat;
     
@@ -21,43 +23,55 @@ public class ZombieTarget : MonoBehaviour
     void Start()
     {
         List<Material> mats = new List<Material>();
-        health     = StartHealth;
-        blinder.GetComponent<Renderer>().GetMaterials(mats);
-        blinderMat  = mats[0];
+        Health     = StartHealth;
+
+        if (blinder != null)
+        {
+            blinder.GetComponent<Renderer>().GetMaterials(mats);
+            blinderMat = mats[0];
+        }
+
         _gameEngine = FindObjectOfType<GameEngine>();
         _xrOrigin   = GetComponentInParent<XROrigin>();
     }
 
 
-    
+    public float Dist(Vector3 pos)
+    {
+        return Vector3.Distance(pos, transform.position);
+    }
+
     public void TakeDamage(int damage)
     {
-        if (health != 0)
+        var baby = GetComponentInParent<Baby>();
+
+        if (baby != null)
         {
-            health = Mathf.Max(0, health - damage);
-            // GameEngine.AddDebugText($"Player Hurt!   Health = {health}\n");
-            bloodParticles.Play();
-
-            blinderMat.color = new Color(1, 0, 0, ((float)StartHealth - health) / StartHealth / 3.0f);
-            if (health == 0)
+            _gameEngine.EndGame("The Zombies Got Your Baby!");
+        }
+        else
+        {
+            if (Health != 0)
             {
-                //grenadeLauncher.transform.SetParent(null);
-                var collider = grenadeLauncher.GetComponent<Collider>();
-                collider.enabled = true;
-                grenadeLauncher.AddComponent<Rigidbody>();
-                
-                var gameOverGO = _gameEngine._gameOver;
-                gameOverGO.SetActive(true);
+                Health = Mathf.Max(0, Health - damage);
+                // GameEngine.AddDebugText($"Player Hurt!   Health = {Health}\n");
+                bloodParticles.Play();
 
-                var messageSpawnPos = _xrOrigin.GetComponentInChildren<MessageSpawnPos>();
-                var trans             = messageSpawnPos.transform;
-                gameOverGO.transform.position = trans.position;
-                gameOverGO.transform.rotation = trans.rotation;
+                blinderMat.color = new Color(1, 0, 0, ((float)StartHealth - Health) / StartHealth / 3.0f);
+                if (Health == 0)
+                {
+                    //grenadeLauncher.transform.SetParent(null);
+                    var collider = grenadeLauncher.GetComponent<Collider>();
+                    collider.enabled = true;
+                    grenadeLauncher.AddComponent<Rigidbody>();
+
+                    _gameEngine.EndGame("You Died!");
+                }
             }
         }
     }
 
-    
+
     void Update()
     {
         

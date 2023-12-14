@@ -6,6 +6,7 @@ using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR;
 
 public class GameEngine : MonoBehaviour
@@ -15,7 +16,8 @@ public class GameEngine : MonoBehaviour
     [SerializeField] private XROrigin                    _xrOrigin;
     [SerializeField] private DeliverancePlayerController _playerController;
     [SerializeField] private GameObject                  _menu;
-    public                   GameObject                  _gameOver;
+    public                   GameObject                  _gameOverGO;
+    public                   TextMeshProUGUI             _gameOverMessage;
     [SerializeField] private GameObject                  _grenadeLauncher;
     [SerializeField] private Transform                   _playerStartOrien;
     [SerializeField] private GameObject                  _menuBackgroundMusic;
@@ -41,6 +43,20 @@ public class GameEngine : MonoBehaviour
         
     }
 
+    public void EndGame(string message)
+    {
+        GamePlaying = false;
+        _gameOverGO.SetActive(true);
+        _gameOverMessage.text = message;
+
+        var messageSpawnPos = _xrOrigin.GetComponentInChildren<MessageSpawnPos>();
+        var trans           = messageSpawnPos.transform;
+        _gameOverGO.transform.position = trans.position;
+        
+        
+        _gameOverGO.transform.rotation = Quaternion.Euler(0, trans.rotation.eulerAngles.y, 0);
+
+    }
     
 
     public void StartGame()

@@ -1,21 +1,20 @@
-using System;
-using _Deliverence.Scripts.Player;
+using System.Collections.Generic;
+using System.Linq;
 using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace _Deliverence
 {
     public class ZombieBrain : DamageTaker
     {
         [SerializeField] private int   startingHealth = 10;
-        [SerializeField] private float AttackDist     = 3f;
 
-        private ZombieTarget    target;
-        private Rigidbody       rb;
-        private Animator        animator;
-        private CapsuleCollider _collider;
+        private List<ZombieTarget> targets;
+        private ZombieTarget       currentTarget;
+        private Rigidbody          rb;
+        private Animator           animator;
+        private CapsuleCollider    _collider;
 
         private float angY = 0;
         public  int   health;
@@ -23,7 +22,7 @@ namespace _Deliverence
 
         void Start()
         {
-            target    = FindObjectOfType<ZombieTarget>();
+            targets    = FindObjectsOfType<ZombieTarget>().ToList();
             rb        = GetComponent<Rigidbody>();
             animator  = GetComponent<Animator>();
             _collider = GetComponent<CapsuleCollider>();
@@ -34,16 +33,16 @@ namespace _Deliverence
 
         public void HurtPlayer()
         {
-            target.TakeDamage(10);
+            currentTarget.TakeDamage(10);
         }
 
 
         void Update()
         {
-            var dist = transform.Dist(target.transform);
+            var dist = transform.Dist(currentTarget.transform);
             // GameEngine.SetDebugText($"Dist: {dist}");
             
-            if (dist < AttackDist)
+            if (currentTarget.Health>0 && dist < currentTarget.Radius)
             {
                 animator.SetInteger("Attack", 1);
             }
@@ -61,7 +60,28 @@ namespace _Deliverence
 
         private void LateUpdate()
         {
+            SelectTarget();
             UpdateRotation();
+        }
+
+
+        private float selectTargetTimer = 0;
+        private void SelectTarget()
+        {
+            selectTargetTimer -= Time.deltaTime;
+            if (selectTargetTimer<0)
+            {
+                var orderedTargets = targets.OrderBy(o => o.Dist(transform.position));
+                foreach (var target in orderedTargets)
+                {
+                    if (target.Health > 0)
+                    {
+                        currentTarget     = target;
+                        break;
+                    }
+                }
+                selectTargetTimer = 1;
+            }
         }
 
         private Vector3 zombiePos;
@@ -72,8 +92,10 @@ namespace _Deliverence
     
         private void UpdateRotation()
         {
+            
+            
             zombiePos = transform.position;
-            targatPos = target.transform.position;
+            targatPos = currentTarget.transform.position;
             delta     = targatPos - zombiePos;
             delta.y   = 0;
 
@@ -103,14 +125,20 @@ namespace _Deliverence
 
         private void OnDrawGizmos()
         {
-            if (target)
+            if (currentTarget)
             {
+#if UNITY_EDITOR
                 // Gizmos.DrawLine(zombiePos, targatPos);
 
-                var message = $"Angle: {(int) ang}\n";
-                message += $"Rot: {rb.rotation.eulerAngles}";
+                var message = "";
                 
-                // Handles.Label(transform.position, message);
+                // message =  $"Angle: {(int)ang}\n";
+                // message += $"Rot: {rb.rotation.eulerAngles}";
+
+                //message = $"Target: {currentTarget.name}";
+                
+                Handles.Label(transform.position, message);
+#endif
             }
         }
 
