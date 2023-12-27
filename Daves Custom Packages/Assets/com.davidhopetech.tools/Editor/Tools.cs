@@ -21,13 +21,13 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		}
 
 
-		public static void CreateFolders(string root, params string[] folders)
+		public static void CreateFolders(string root, params string[] folderNames)
 		{
 			var fullPath = Path.Combine(Application.dataPath, root);
 
-			foreach (var folder in folders)
+			foreach (var folderName in folderNames)
 			{
-				Directory.CreateDirectory(Path.Combine(fullPath, folder));
+				Directory.CreateDirectory(Path.Combine(fullPath, folderName));
 			}
 		}
 	
