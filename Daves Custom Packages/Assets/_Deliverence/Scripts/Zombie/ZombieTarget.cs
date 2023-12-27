@@ -16,7 +16,7 @@ public class ZombieTarget : MonoBehaviour
     [FormerlySerializedAs("health")] public int   Health;
     
     private XROrigin   _xrOrigin;
-    private GameEngine _gameEngine;
+    private DeliveranceGameEngine _deliveranceGameEngine;
     private Material   blinderMat;
     
     
@@ -31,7 +31,7 @@ public class ZombieTarget : MonoBehaviour
             blinderMat = mats[0];
         }
 
-        _gameEngine = FindObjectOfType<GameEngine>();
+        _deliveranceGameEngine = FindObjectOfType<DeliveranceGameEngine>();
         _xrOrigin   = GetComponentInParent<XROrigin>();
     }
 
@@ -47,7 +47,7 @@ public class ZombieTarget : MonoBehaviour
 
         if (baby != null)
         {
-            _gameEngine.EndGame("The Zombies Got Your Baby!");
+            _deliveranceGameEngine.EndGame("The Zombies Got Your Baby!");
         }
         else
         {
@@ -65,7 +65,7 @@ public class ZombieTarget : MonoBehaviour
                     collider.enabled = true;
                     grenadeLauncher.AddComponent<Rigidbody>();
 
-                    _gameEngine.EndGame("You Died!");
+                    _deliveranceGameEngine.EndGame("You Died!");
                 }
             }
         }

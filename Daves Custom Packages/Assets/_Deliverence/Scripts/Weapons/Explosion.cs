@@ -11,12 +11,12 @@ namespace _Deliverence
         private GameObject   _playerGO;
         private GameObject   _babyGO;
         private ZombieTarget _player;
-        private GameEngine   _gameEngine;
+        private DeliveranceGameEngine   _deliveranceGameEngine;
         
         
         void OnEnable()
         {
-            _gameEngine = FindObjectOfType<GameEngine>();
+            _deliveranceGameEngine = FindObjectOfType<DeliveranceGameEngine>();
             
             var playerController = FindObjectOfType<DeliverancePlayerController>();
             _playerGO = playerController.gameObject;
@@ -58,7 +58,7 @@ namespace _Deliverence
             
             if (dist < radius)
             {
-                _gameEngine.EndGame("Your child didn't make it!");
+                _deliveranceGameEngine.EndGame("Your child didn't make it!");
             }
             
             var damageTakers = FindObjectsOfType<DamageTaker>();

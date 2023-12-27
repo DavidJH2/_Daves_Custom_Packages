@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR;
 
-public class GameEngine : MonoBehaviour
+public class DeliveranceGameEngine : GameEngine
 {
     private static           TextMeshProUGUI             debugTMP;
     [SerializeField] private Material                    skyBox;

@@ -15,7 +15,7 @@ public class Baby : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameEngine.GamePlaying)
+        if (!DeliveranceGameEngine.GamePlaying)
         {
             return;
         }
