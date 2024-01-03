@@ -1,3 +1,6 @@
-"dependencies": {
-	"com.davidhopetech.core": "https://github.com/DylanYasen/uItemSystem.git?path=/Assets/ItemSystem"
+{
+	"dependencies":
+	{
+		"com.davidhopetech.core": "https://github.com/DylanYasen/uItemSystem.git?path=/Assets/ItemSystem"
+	}
 }
