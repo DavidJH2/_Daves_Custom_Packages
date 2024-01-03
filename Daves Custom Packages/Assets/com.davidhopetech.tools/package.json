@@ -1,7 +1,7 @@
 {
   "name": "com.davehopetech.tool.dependency",
   "displayName": "Dave's Custom Tools",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "This tools asset has miscellaneous tools and classes",
   "unity": "2019.1",
   "documentationUrl": "https://example.com/",
