@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using com.davidhopetech.core.Run_Time.Extensions;
 
 public class HandPhysicsFull : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class HandPhysicsFull : MonoBehaviour
 
     void MoveHandToTargetOrientation()
     {
-        rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+        rb.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
         
         /*
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);

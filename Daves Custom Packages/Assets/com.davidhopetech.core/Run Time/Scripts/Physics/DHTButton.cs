@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -67,13 +68,13 @@ public class DHTButton : MonoBehaviour
         if (pos.y < min)
         {
             pos.y        = min;
-            _rb.velocity = Vector3.zero;
+            _rb.SetVelocty(Vector3.zero);
         }
 
         if (pos.y > max)
         {
             pos.y        = max;
-            _rb.velocity = Vector3.zero;
+            _rb.SetVelocty(Vector3.zero);
         }
     }
 
@@ -81,7 +82,7 @@ public class DHTButton : MonoBehaviour
     void ApplyForces(Vector3 pos)
     {
         var springForce = (target - pos.y) * spring;
-        var dampeningForce   = _rb.velocity.y * -damp;
+        var dampeningForce   = _rb.GetVelocity().y * -damp;
         var totalForce  = (springForce + dampeningForce) * transform.up;
         
         _rb.AddForce(totalForce, ForceMode.Force);

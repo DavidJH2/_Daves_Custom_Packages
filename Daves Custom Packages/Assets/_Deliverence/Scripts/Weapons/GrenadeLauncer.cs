@@ -1,4 +1,5 @@
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using com.davidhopetech.core.Run_Time.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -75,7 +76,7 @@ namespace _Deliverence
             // GameEngine.SetDebugText($"Speed: {speed}\n");
             var newVel = transform.forward * speed;
         
-            rb.velocity = newVel;
+            rb.SetVelocty(newVel);
         }
     }
 }
