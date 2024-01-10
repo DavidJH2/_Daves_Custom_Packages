@@ -8,10 +8,8 @@ using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-
 public class MirrorHand : MonoBehaviour
 {
-    private                   int                 a;        // Not need - Test only
     [SerializeField] public   Transform           target;
     [SerializeField] internal Transform           interactionPoint;
     [SerializeField] internal bool                active = true;
