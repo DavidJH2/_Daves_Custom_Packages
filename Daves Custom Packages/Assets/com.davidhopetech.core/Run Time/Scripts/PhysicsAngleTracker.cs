@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEngine;
 
 public class PhysicsAngleTracker : MonoBehaviour
@@ -21,7 +22,7 @@ public class PhysicsAngleTracker : MonoBehaviour
     void RotateLocalToTarget()
     {
         // transform.localPosition = originalLocalPos;
-         rb.velocity = (target.position - transform.position) / Time.fixedDeltaTime;
+         rb.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
         // rb.MoveRotation(target.rotation);
 
         var deltaRot =  target.rotation * Quaternion.Inverse(transform.rotation);

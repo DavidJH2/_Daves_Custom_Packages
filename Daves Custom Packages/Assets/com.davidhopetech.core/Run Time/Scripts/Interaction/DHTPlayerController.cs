@@ -50,7 +50,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
 			leftHandInteractionState.MirrorHand = leftMirrorHand.GetComponent<MirrorHand>();
 			leftHandInteractionState.selfHandle = LeftHandInteractionStateRef;
 
-			Interactables = FindObjectsOfType<DHTInteractable>().ToList();
+			Interactables = FindObjectsByType<DHTInteractable>(FindObjectsSortMode.None).ToList();
 
 			Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
