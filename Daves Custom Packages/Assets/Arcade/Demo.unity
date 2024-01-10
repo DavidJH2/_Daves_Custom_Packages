@@ -7599,6 +7599,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 111897401015591171, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
+        type: 3}
+      propertyPath: triggerValue.m_Action.m_Id
+      value: 750707d3-0029-457d-a17a-7dbfddad95b3
+      objectReference: {fileID: 0}
+    - target: {fileID: 111897401015591171, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
+        type: 3}
+      propertyPath: triggerValue.m_Action.m_Name
+      value: Trigger Value
+      objectReference: {fileID: 0}
     - target: {fileID: 868388283662761346, guid: d6150bed0c70ec24ab6c34b6ffb58d58,
         type: 3}
       propertyPath: dthJoystick
