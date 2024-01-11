@@ -14,12 +14,19 @@ public class Keyboard : MonoBehaviour
 
     [SerializeField] private UnityEvent KeyboardEnterEvent;
     
+    
+    
     int SelectionStart
     {
         get
         {
-            var anchorPosition = tmpInputField.selectionStringAnchorPosition;
-            var focusPosition  = tmpInputField.selectionStringFocusPosition;
+            var anchorPosition = 0;
+            var focusPosition  = 0;
+            if (tmpInputField != null)
+            {
+                anchorPosition = tmpInputField.selectionStringAnchorPosition;
+                focusPosition  = tmpInputField.selectionStringFocusPosition;
+            }
 
             return Math.Min(anchorPosition, focusPosition);
         }
@@ -30,8 +37,13 @@ public class Keyboard : MonoBehaviour
     {
         get
         {
-            var anchorPosition = tmpInputField.selectionStringAnchorPosition;
-            var focusPosition  = tmpInputField.selectionStringFocusPosition;
+            var anchorPosition = 0;
+            var focusPosition  = 0;
+            if (tmpInputField != null)
+            {
+                anchorPosition = tmpInputField.selectionStringAnchorPosition;
+                focusPosition  = tmpInputField.selectionStringFocusPosition;
+            }
 
             return Math.Max(anchorPosition, focusPosition);
         }
@@ -49,6 +61,11 @@ public class Keyboard : MonoBehaviour
     {
         keys        = GetComponentsInChildren<KeyboardKey>();
         CapitalizeFirstCharacter();
+
+        if (tmpInputField == null)
+        {
+            Debug.Log("No TextMeshPro field set for Keyboard");
+        }
     }
 
 
