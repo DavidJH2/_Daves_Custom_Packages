@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Keyboard : MonoBehaviour
 {
@@ -61,13 +62,22 @@ public class Keyboard : MonoBehaviour
     {
         keys        = GetComponentsInChildren<KeyboardKey>();
         CapitalizeFirstCharacter();
-
-        if (tmpInputField == null)
+        
+        var tmpifs = EventSystem.FindObjectsByType<TMP_InputField>(FindObjectsSortMode.None);
+        foreach (var tmpif in tmpifs)
         {
-            Debug.Log("No TextMeshPro field set for Keyboard");
+            var a = tmpif;
+            tmpif.onSelect.AddListener((a) =>
+            {
+                SetCurrentInputField(tmpif);
+            });
         }
     }
 
+    void SetCurrentInputField(TMP_InputField tmpif)
+    {
+        tmpInputField = tmpif;
+    }
 
     void CapitalizeFirstCharacter()
     {
