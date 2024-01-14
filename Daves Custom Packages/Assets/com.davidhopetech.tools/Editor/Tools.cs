@@ -109,6 +109,13 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		}
 
 
+		[MenuItem("GameObject/Davids Tools/Select All Canvases", false, 10)]
+		static void SelectAllCanvases(MenuCommand menuCommand)
+		{
+			SelectAllGameObjectTypes<Canvas>();
+		}
+
+
 		[MenuItem("GameObject/Davids Tools/Select All Box Colliders", false, 10)]
 		static void SelectAllBoxColliders(MenuCommand menuCommand)
 		{
