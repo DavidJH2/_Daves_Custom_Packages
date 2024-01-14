@@ -1,53 +1,60 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
 
 public class DHTHMDService : MonoBehaviour
 {
-    private bool        HMDFound;
+    public  UnityEvent<bool> UserPresence;
+
     private InputDevice inputDevice ;
-
-
-    public UnityEvent<bool> UserPresence;
-
-    private void Start()
-    {
-        Debug.Log("Start: UserPresence");
-    }
+    private Action      state;
+    private bool        lastHmdMounted;
 
     
-    private bool lastHmdMounted;
+    private void Start()
+    {
+        SetState(FindHMD);
+    }
+    
+    
+    void SetState(Action newState)
+    {
+        state = newState;
+    }
+
     
     void Update()
     {
-        if (HMDFound)
-        {
-            Vector3 velocity;
-            inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
-            var hmdMounted =  velocity != Vector3.zero;
-            if (hmdMounted != lastHmdMounted)
-            {
-                UserPresence.Invoke(hmdMounted);
-                lastHmdMounted = hmdMounted;
-            }
-        }
-        else
-        {
-            var inputDevices = new List<InputDevice>();
-            InputDevices.GetDevices(inputDevices);
+        state.Invoke();
+    }
 
-            foreach (var device in inputDevices)
+    void FindHMD()
+    {
+        var inputDevices = new List<InputDevice>();
+        InputDevices.GetDevices(inputDevices);
+
+        foreach (var device in inputDevices)
+        {
+            if (device.characteristics.HasFlag(InputDeviceCharacteristics.HeadMounted))
             {
-                if (device.characteristics.HasFlag(InputDeviceCharacteristics.HeadMounted))
-                {
-                    inputDevice = device;
-                    HMDFound    = true;
-                }
+                inputDevice = device;
+                SetState(UpdateHMDUserPresence);
             }
         }
     }
 
-    
+    void UpdateHMDUserPresence()
+    {
+        Vector3 velocity;
+        inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
+        var hmdMounted =  (velocity != Vector3.zero);
+        if (hmdMounted != lastHmdMounted)
+        {
+            UserPresence.Invoke(hmdMounted);
+            lastHmdMounted = hmdMounted;
+        }
+    }
 }
