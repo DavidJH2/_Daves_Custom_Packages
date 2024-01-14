@@ -1,0 +1,34 @@
+{
+    "name": "User Presence",
+    "maps": [
+        {
+            "name": "action map",
+            "id": "13c07a88-cc8a-4aaf-b9e7-bb2c0e35e2cd",
+            "actions": [
+                {
+                    "name": "User Presence",
+                    "type": "Button",
+                    "id": "bc387cff-d9c2-448a-88f1-a28de46690b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "49c12838-19c6-4d9d-90dd-14744e572460",
+                    "path": "<OculusHMD>/userPresence",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "User Presence",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

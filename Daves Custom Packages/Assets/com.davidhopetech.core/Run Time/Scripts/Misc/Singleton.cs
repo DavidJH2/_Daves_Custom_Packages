@@ -1,21 +1,35 @@
+using System;
 using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Misc
 {
     public class Singleton : MonoBehaviour 
     {
-        public static Singleton Instance { get; private set; }
-    
+        private static Singleton _instance;
+
+        public static Singleton Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    throw new Exception("Singleton instance not found in the scene!");
+                    // Debug.LogError("Singleton instance not found in the scene!");
+                }
+                
+                return _instance;
+            }
+        }    
     
         private void Awake() 
         { 
-            if (Instance != null && Instance != this) 
+            if (_instance != null && _instance != this) 
             { 
                 Destroy(this); 
             } 
             else 
             { 
-                Instance = this; 
+                _instance = this; 
             } 
         }}
 }
