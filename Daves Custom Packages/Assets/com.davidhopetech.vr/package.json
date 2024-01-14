@@ -1,7 +1,7 @@
 {
   "name": "com.davehopetech.vr.dependency",
   "displayName": "Dave's Custom VR",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "This is a VR package",
   "unity": "2019.1",
   "documentationUrl": "https://example.com/",

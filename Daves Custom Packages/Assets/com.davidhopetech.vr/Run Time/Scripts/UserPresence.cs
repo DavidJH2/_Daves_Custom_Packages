@@ -11,12 +11,9 @@ public class UserPresence : MonoBehaviour
 {
     [SerializeField] private GameObject vrCam;
     [SerializeField] private GameObject cam;
-
-    public  GameObject  go;
     
     public void OnUserPresence(bool hmdMounted)
     {
-        go.SetActive(hmdMounted);
 #if UNITY_STANDALONE_WIN
         if (hmdMounted)
         {

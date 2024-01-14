@@ -215,7 +215,7 @@ public class Blastoids : MonoBehaviour
 		foreach (var rock in rocksLeft)
 		{
 			var dist = (rock.transform.position - SpaceShip.transform.position).magnitude;
-			Debug.Log($"Rock Dist: {dist}");
+
 			if (dist < MinRockSpawnDist)
 			{
 				return;

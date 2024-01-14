@@ -17,6 +17,7 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		public static void CreateDefaultFolders()
 		{
 			CreateFolders("_Project", "Art", "Code", "Scenes");
+			CreateFolders("_Project/Art", "Materials", "Models");
 			AssetDatabase.Refresh();
 		}
 
