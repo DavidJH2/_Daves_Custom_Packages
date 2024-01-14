@@ -14,7 +14,7 @@ public class DHTHMDService : MonoBehaviour
     private bool        lastHmdMounted;
 
     
-    private void Start()
+    void Start()
     {
         SetState(FindHMD);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 {
-    public class DHTServiceLocator : Singleton
+    public class DHTServiceLocator : MonoBehaviour
     {
         public static readonly DHTEventService dhtEventService = new DHTEventService();
 
