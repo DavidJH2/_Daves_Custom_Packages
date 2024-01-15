@@ -54,6 +54,7 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
         private static extern IntPtr intercept_xrGetInstanceProcAddr(IntPtr func);
 
         
+        /*
         /// <inheritdoc />
         protected override bool OnInstanceCreate(ulong xrInstance)
         {
@@ -67,6 +68,8 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
             Debug.Log($"EXT: Got xrInstance: {xrInstance}");
             return true;
         }
+        */
+        
 
         private delegate void OnMessageDelegate(string message);
         [MonoPInvokeCallback(typeof(OnMessageDelegate))]
