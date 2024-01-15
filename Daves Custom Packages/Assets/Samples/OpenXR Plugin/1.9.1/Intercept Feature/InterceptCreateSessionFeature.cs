@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using AOT;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.XR.OpenXR.Features;
 #if UNITY_EDITOR
@@ -14,12 +15,12 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
     /// Example feature showing how to intercept a single OpenXR function.
     /// </summary>
 #if UNITY_EDITOR
-    [OpenXRFeature(UiName = "Sample: Intercept Create Session",
-        BuildTargetGroups = new[] {BuildTargetGroup.Standalone, BuildTargetGroup.WSA, BuildTargetGroup.Android},
+    [OpenXRFeature(UiName = "XR Locate Views",
+        BuildTargetGroups = new[] {BuildTargetGroup.Standalone},
         Company = "Unity",
-        Desc = "Example feature extension showing how to intercept a single OpenXR function.",
+        Desc = "Example feature extension change FOV.",
         DocumentationLink = Constants.k_DocumentationURL,
-        OpenxrExtensionStrings = "XR_test", // this extension doesn't exist, a log message will be printed that it couldn't be enabled
+        OpenxrExtensionStrings = "",
         Version = "0.0.1",
         FeatureId = featureId)]
 #endif
@@ -44,14 +45,20 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
         protected override IntPtr HookGetInstanceProcAddr(IntPtr func)
         {
             Debug.Log("EXT: registering our own xrGetInstanceProcAddr");
-            return intercept_xrCreateSession_xrGetInstanceProcAddr(func);
+            // return intercept_xrCreateSession_xrGetInstanceProcAddr(func);
+
+            return intercept_xrGetInstanceProcAddr(func);
         }
 
+        [DllImport("OpenGL Feature")]
+        private static extern IntPtr intercept_xrGetInstanceProcAddr(IntPtr func);
+
+        
         /// <inheritdoc />
         protected override bool OnInstanceCreate(ulong xrInstance)
         {
             Internal_SetCallback(OnMessage);
-
+            
             // Example of sending data set by user down to native.
             // this is unsafe!  Don't do this. Just an example.
             Internal_SetMessage(message);
