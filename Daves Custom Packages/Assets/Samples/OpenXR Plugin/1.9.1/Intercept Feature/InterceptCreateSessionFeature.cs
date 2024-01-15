@@ -2,7 +2,6 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using AOT;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.XR.OpenXR.Features;
 #if UNITY_EDITOR
@@ -15,12 +14,12 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
     /// Example feature showing how to intercept a single OpenXR function.
     /// </summary>
 #if UNITY_EDITOR
-    [OpenXRFeature(UiName = "XR Locate Views",
-        BuildTargetGroups = new[] {BuildTargetGroup.Standalone},
+    [OpenXRFeature(UiName = "Sample: Intercept Create Session",
+        BuildTargetGroups = new[] {BuildTargetGroup.Standalone, BuildTargetGroup.WSA, BuildTargetGroup.Android},
         Company = "Unity",
-        Desc = "Example feature extension change FOV.",
+        Desc = "Example feature extension showing how to intercept a single OpenXR function.",
         DocumentationLink = Constants.k_DocumentationURL,
-        OpenxrExtensionStrings = "",
+        OpenxrExtensionStrings = "XR_test", // this extension doesn't exist, a log message will be printed that it couldn't be enabled
         Version = "0.0.1",
         FeatureId = featureId)]
 #endif
@@ -45,21 +44,14 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
         protected override IntPtr HookGetInstanceProcAddr(IntPtr func)
         {
             Debug.Log("EXT: registering our own xrGetInstanceProcAddr");
-            // return intercept_xrCreateSession_xrGetInstanceProcAddr(func);
-
-            return intercept_xrGetInstanceProcAddr(func);
+            return intercept_xrCreateSession_xrGetInstanceProcAddr(func);
         }
 
-        [DllImport("OpenGL Feature")]
-        private static extern IntPtr intercept_xrGetInstanceProcAddr(IntPtr func);
-
-        
-        /*
         /// <inheritdoc />
         protected override bool OnInstanceCreate(ulong xrInstance)
         {
             Internal_SetCallback(OnMessage);
-            
+
             // Example of sending data set by user down to native.
             // this is unsafe!  Don't do this. Just an example.
             Internal_SetMessage(message);
@@ -68,8 +60,6 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
             Debug.Log($"EXT: Got xrInstance: {xrInstance}");
             return true;
         }
-        */
-        
 
         private delegate void OnMessageDelegate(string message);
         [MonoPInvokeCallback(typeof(OnMessageDelegate))]

@@ -1,10 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using AOT;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.XR.OpenXR.Features;
+using UnityEngine.XR.OpenXR.NativeTypes;
+
 #if UNITY_EDITOR
 using UnityEditor.XR.OpenXR.Features;
 #endif
@@ -12,24 +12,36 @@ using UnityEditor.XR.OpenXR.Features;
 namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
 {
     /// <summary>
-    /// Example feature showing how to intercept a single OpenXR function.
     /// </summary>
+
 #if UNITY_EDITOR
-    [OpenXRFeature(UiName = "XR Locate Views",
-        BuildTargetGroups = new[] {BuildTargetGroup.Standalone},
-        Company = "Unity",
-        Desc = "Example feature extension change FOV.",
-        DocumentationLink = Constants.k_DocumentationURL,
+
+    [OpenXRFeature(
+        UiName = "Custom Session State Feature",
+        BuildTargetGroups = new[] { BuildTargetGroup.Standalone, BuildTargetGroup.WSA },
+        Company = "MyCompany",
+        Desc = "A custom feature to handle session state changes in OpenXR.",
+        DocumentationLink = "http://mycompany.com/docs/customsessionstatefeature",
         OpenxrExtensionStrings = "",
-        Version = "0.0.1",
-        FeatureId = featureId)]
+        Version = "1.0.0",
+        FeatureId = CustomSessionStateFeature.featureId)]
 #endif
-    public class InterceptGetSessionStateFeature : OpenXRFeature
+
+    public class CustomSessionStateFeature : OpenXRFeature
     {
-        /// <summary>
-        /// The feature id string. This is used to give the feature a well known id for reference.
-        /// </summary>
-        public const string featureId = "com.unity.openxr.feature.example.intercept";
+        public const string featureId = "com.mycompany.openxr.customsessionstatefeature";
+
+
+        protected override void OnSessionStateChange(int oldState, int newState)
+        {
+            int a;
+            base.OnSessionStateChange(oldState, newState);
+
+            // Custom handling logic here...
+        }
+
+// Other methods and properties of your custom feature...
+
 
         /// <summary>
         /// Message to display upon interception.
@@ -41,6 +53,7 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
         /// </summary>
         public string receivedMessage { get; private set; }
 
+        
         /// <inheritdoc />
         protected override IntPtr HookGetInstanceProcAddr(IntPtr func)
         {
@@ -80,12 +93,13 @@ namespace UnityEngine.XR.OpenXR.Samples.InterceptFeature
 
             Debug.Log(message);
 
-            var feature = OpenXRSettings.Instance.GetFeature<InterceptGetSessionStateFeature>();
+            var feature = OpenXRSettings.Instance.GetFeature<CustomSessionStateFeature>();
             if (null == feature)
                 return;
 
             feature.receivedMessage = message;
         }
+
 
         /// <inheritdoc />
         protected override void OnSessionCreate(ulong xrSession)
