@@ -3,6 +3,7 @@ using System.Linq;
 using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
 using com.davidhopetech.core.Run_Time.DTH.Scripts;
 using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -42,7 +43,11 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 
 			var interactable = orderedInteractables.First();
 			
-
+			// Debug.Log($"Mirror Hand: {MirrorHand.name}");
+			var debugPanel = DHTServiceLocator.Instance.Get<DHTDebugPanelService>().debugPanel1;
+			var dist       = interactable.Dist(interactorPos).ToString();
+			debugPanel.SetElement(0, "Dist:", dist);
+			
 			if (interactable.InRange(interactorPos))
 			{
 				DebugMiscEvent.Invoke($"Closest Interactable: {interactable.gameObject.name}");

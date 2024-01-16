@@ -18,7 +18,11 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction
 		
 		public bool InRange(Vector3 point)
 		{
-			return (Dist(point)<range);
+			var dist = Dist(point);
+			//Debug.Log($"Distance: {dist}\t\tRange: {range} ");
+			//if(dist<range)
+				//Debug.Log("In Range");
+			return (dist<range);
 		}
 
 		public virtual void Activate()

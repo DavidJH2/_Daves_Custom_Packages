@@ -1,35 +1,57 @@
-using System;
 using UnityEngine;
 
-namespace com.davidhopetech.core.Run_Time.Misc
+public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    public class Singleton : MonoBehaviour 
-    {
-        private static Singleton _instance;
+	private static T      _instance;
+	private static object _lock          = new object();
+	private static bool   _isInitialized = false;
 
-        public static Singleton Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    throw new Exception("Singleton instance not found in the scene!");
-                    // Debug.LogError("Singleton instance not found in the scene!");
-                }
-                
-                return _instance;
-            }
-        }    
-    
-        private void Awake() 
-        { 
-            if (_instance != null && _instance != this) 
-            { 
-                Destroy(this); 
-            } 
-            else 
-            { 
-                _instance = this; 
-            } 
-        }}
+	public static T Instance
+	{
+		get
+		{
+			lock (_lock)
+			{
+				if (!_isInitialized)
+				{
+					T[] instances = FindObjectsOfType<T>();
+
+					if (instances.Length > 0)
+					{
+						if (instances.Length > 1)
+						{
+							Debug.LogError("[Singleton] There should never be more than 1 singleton!");
+						}
+
+						_instance      = instances[0];
+						_isInitialized = true;
+						DontDestroyOnLoad(_instance.gameObject);
+					}
+					else
+					{
+						GameObject singletonObject = new GameObject();
+						_instance            = singletonObject.AddComponent<T>();
+						singletonObject.name = typeof(T).ToString() + " (Singleton)";
+
+						DontDestroyOnLoad(singletonObject);
+						_isInitialized = true;
+					}
+				}
+
+				return _instance;
+			}
+		}
+	}
+
+	protected virtual void Awake()
+	{
+		if (_instance == null)
+		{
+			_instance = this as T;
+		}
+		else if (_instance != this)
+		{
+			Destroy(gameObject);
+		}
+	}
 }

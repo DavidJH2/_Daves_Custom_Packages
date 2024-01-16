@@ -17,8 +17,9 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts
 
         private void Awake()
         {
-            EventService     = DHTServiceLocator.dhtEventService;
-            
+            // EventService = DHTServiceLocator.dhtEventService;
+            EventService = DHTServiceLocator.Instance.Get<DHTEventService>();
+
             DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
             TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
             DebugValue1Event = EventService.dhtUpdateDebugValue1Event;

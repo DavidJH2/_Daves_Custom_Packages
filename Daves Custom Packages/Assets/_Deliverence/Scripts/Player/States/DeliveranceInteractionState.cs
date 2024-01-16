@@ -26,7 +26,8 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		public void Awake()
 		{
 			Controller      = GetComponent<DeliverancePlayerController>();
-			dhtEventService = DHTServiceLocator.dhtEventService;
+			// dhtEventService = DHTServiceLocator.dhtEventService;
+			dhtEventService = DHTServiceLocator.Instance.Get<DHTEventService>();
 
 			DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
 			TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;

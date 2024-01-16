@@ -24,8 +24,9 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
 		
 		public void Awake()
 		{
-			Controller   = GetComponent<DHTPlayerController>();
-			dhtEventService = DHTServiceLocator.dhtEventService;
+			Controller      = GetComponent<DHTPlayerController>();
+			// dhtEventService = DHTServiceLocator.dhtEventService;
+			dhtEventService = DHTServiceLocator.Instance.Get<DHTEventService>();
 
 			DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
 			TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;

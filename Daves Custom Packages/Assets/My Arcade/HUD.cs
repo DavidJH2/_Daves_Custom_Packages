@@ -16,7 +16,11 @@ public class HUD : MonoBehaviour
     void Start()
     {
         _playerController = FindObjectOfType<DHTPlayerController>();
-        _playerController.SetVRMode(dropDown);
+
+        if (_playerController != null)
+        {
+            _playerController.SetVRMode(dropDown);
+        }
     }
 
     // Update is called once per frame
