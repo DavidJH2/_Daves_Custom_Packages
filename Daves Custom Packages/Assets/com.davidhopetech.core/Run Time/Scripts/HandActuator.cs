@@ -15,8 +15,11 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
         protected DHTEventService             EventService ;
 
+        private DebugPanel debugPanel;
         private void Awake()
         {
+            debugPanel = DHTServiceLocator.Instance.Get<DHTDebugPanelService>().debugPanel1;
+
             // EventService = DHTServiceLocator.dhtEventService;
             EventService = DHTServiceLocator.Instance.Get<DHTEventService>();
 
@@ -25,11 +28,13 @@ namespace com.davidhopetech.core.Run_Time.DTH.Scripts
             DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
         }
 
+        
+        public float gripValue    => gripAnimationAction.action.ReadValue<float>();
+        public float triggerValue => pinchAnimationAction.action.ReadValue<float>();
 
+        
         void Update()
         {
-            float gripValue = gripAnimationAction.action.ReadValue<float>();
-            float triggerValue = pinchAnimationAction.action.ReadValue<float>();
             handAnimator.SetFloat("Grip", gripValue);           // Todo: change to Index lookup
             handAnimator.SetFloat("Trigger", triggerValue);
         }

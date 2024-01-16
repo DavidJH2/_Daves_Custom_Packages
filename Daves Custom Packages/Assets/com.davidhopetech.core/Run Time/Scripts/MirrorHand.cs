@@ -86,7 +86,6 @@ public class MirrorHand : MonoBehaviour
     {
         get
         {
-            // Debug.Log($"{name}: Grap Value ={GrabValue}");
             return GrabValue > .3;
         }
     }
