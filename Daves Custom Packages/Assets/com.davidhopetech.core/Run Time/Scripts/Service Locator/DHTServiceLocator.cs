@@ -2,24 +2,13 @@ using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 {
-    public class DHTServiceLocator : MonoBehaviour
+    public class DHTServiceLocator : Singleton<DHTServiceLocator>
     {
-        public static readonly DHTEventService dhtEventService = new DHTEventService();
-
-        public static DHTHMDService dhtHmdService
+        public ServiceType Get<ServiceType>() where ServiceType : Object
         {
-            get
-            {
-                return __dhtHmdService;
-            }
-        }
-        
-        private static           DHTHMDService __dhtHmdService;
-        [SerializeField] private DHTHMDService _dhtHmdService;
-
-        public void Start()
-        {
-            __dhtHmdService = _dhtHmdService;
+            ServiceType service;
+            service = FindObjectOfType<ServiceType>(true);
+            return service;
         }
     }
 }

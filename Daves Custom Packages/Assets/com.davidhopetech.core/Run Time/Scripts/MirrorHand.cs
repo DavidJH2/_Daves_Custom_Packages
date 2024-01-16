@@ -32,7 +32,8 @@ public class MirrorHand : MonoBehaviour
     
     void Start()
     {
-        dhtEventService  = DHTServiceLocator.dhtEventService;
+        //dhtEventService  = DHTServiceLocator.dhtEventService;
+        dhtEventService  = DHTServiceLocator.Instance.Get<DHTEventService>();
         DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
         TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
         DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
@@ -81,7 +82,15 @@ public class MirrorHand : MonoBehaviour
 
     public float GrabValue     => grabValue.action.ReadValue<float>();
     public float TriggerValue  => triggerValue.action?.ReadValue<float>() ?? 0;
-    public bool  IsGrabbing    =>  GrabValue > .3;
+    public bool  IsGrabbing
+    {
+        get
+        {
+            // Debug.Log($"{name}: Grap Value ={GrabValue}");
+            return GrabValue > .3;
+        }
+    }
+
     public bool  TriggerPulled => TriggerValue > .3;
 
 		

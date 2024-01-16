@@ -17,7 +17,8 @@ namespace com.davidhopetech.core.Run_Time.DTHDebug
 		
 		void Start()
 		{
-			var eventService = DHTServiceLocator.dhtEventService;
+			// var eventService = DHTServiceLocator.dhtEventService;
+			var eventService = DHTServiceLocator.Instance.Get<DHTEventService>();
 			
 			eventService.dhtUpdateDebugValue1Event.AddListener(UpdateValue1);
 			eventService.dhtUpdateDebugTeleportEvent.AddListener(UpdateTeleportValue);

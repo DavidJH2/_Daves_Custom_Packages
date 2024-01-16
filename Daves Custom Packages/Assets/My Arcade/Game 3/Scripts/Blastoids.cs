@@ -58,10 +58,11 @@ public class Blastoids : MonoBehaviour
 
 	[SerializeField] private Leaderboard _leaderboard;
 
-	[SerializeField]         TMP_InputField PlayerNameInputField;
+	[SerializeField] private TMP_InputField PlayerNameInputField;
 	[SerializeField] private GameObject     PlayerHudMenu;
-	[SerializeField] private GameObject     warningMessagePanel;
-	[SerializeField] private TMP_Text       exceptionScreenTMP;
+	[SerializeField] private GameObject     warningMessagePanelGO;
+
+	[SerializeField] private TMP_Text exceptionScreenTMP;
 	// private                  GameObject     nullGO = null;
 
 	
@@ -91,7 +92,21 @@ public class Blastoids : MonoBehaviour
 
 	void Start()
 	{
-		warningMessageTMP = warningMessagePanel.GetComponentInChildren<TMP_Text>();
+		if (!PlayerNameInputField)
+		{
+			var PlayerNameInputFieldGO = FindObjectOfType<PlayerNameInput>(true).gameObject;
+			PlayerNameInputField = PlayerNameInputFieldGO.GetComponent<TMP_InputField>();
+		}
+
+		PlayerHudMenu = FindObjectOfType<HUD>(true).gameObject;
+		
+		if (!warningMessagePanelGO)	// Todo: Should use events
+		{
+			var warningMessagePanels = FindObjectsOfType<WarningMesagePannel>(true);
+			var warningMessagePanel = warningMessagePanels[0];
+			warningMessagePanelGO = warningMessagePanel.gameObject;
+		}
+		warningMessageTMP = warningMessagePanelGO.GetComponentInChildren<TMP_Text>();
 		LeftMenuAction.action.Enable();
 		joystick.JoyStickEvent         += OnJoystick;
 		_blink                         =  startButton.gameObject.GetComponent<Blink>();
@@ -134,7 +149,7 @@ public class Blastoids : MonoBehaviour
 
 		if (newName == "" || newName.IndexOf(" ", StringComparison.Ordinal)!=-1)
 		{
-			warningMessagePanel.SetActive(true);
+			warningMessagePanelGO.SetActive(true);
 			warningMessageTMP.text = "Player Name can not be empty or contain spaces";
 		}
 		else
@@ -142,7 +157,7 @@ public class Blastoids : MonoBehaviour
 			try
 			{
 				PlayerNameInputField.text = await _leaderboard.SetPlayerName(newName);
-				warningMessagePanel.SetActive(false);
+				warningMessagePanelGO.SetActive(false);
 				UpdateLeaderboard();
 			}
 			catch (Exception e)
@@ -152,7 +167,7 @@ public class Blastoids : MonoBehaviour
 
 				if (e is RequestFailedException && message.IndexOf("Too Many Requests", StringComparison.Ordinal)!=-1)
 				{
-					warningMessagePanel.SetActive(true);
+					warningMessagePanelGO.SetActive(true);
 					warningMessageTMP.text = "Name Changing Too Frequently";
 				}
 				else
@@ -162,7 +177,7 @@ public class Blastoids : MonoBehaviour
 					/*
 					else
 					{
-						warningMessagePanel.SetActive(false);
+						warningMessagePanelGO.SetActive(false);
 						Console.WriteLine(e);
 						throw;
 					}
