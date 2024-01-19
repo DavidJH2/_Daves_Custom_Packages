@@ -26,10 +26,13 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugTeleportEvent TeleportEvent;
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
 
+        private DebugPanel        _debugPanel;
+
     
         void Start()
         {
-            //dhtEventService  = DHTServiceLocator.dhtEventService;
+            _debugPanel = FindObjectOfType<DebugPanel>(true);
+            
             dhtEventService  = DHTServiceLocator.Instance.Get<DHTEventService>();
             DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
             TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
@@ -95,12 +98,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     
         public void SetGrabFlags()
         {
-            /*
-        if (name == "Right Mirror Hand")
-        {
-            TeleportEvent.Invoke($"Grab: {GrabValue}");
-        }
-        */
+            if (name.Contains("Right"))
+            {
+                _debugPanel.SetElement(0, $"Trigger Pulled: {TriggerPulled}");
+            }
+
             grabStarted     = (IsGrabbing && !_lastIsGrabbing);
             grabStopped     = (!IsGrabbing && _lastIsGrabbing);
             _lastIsGrabbing = IsGrabbing;

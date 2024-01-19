@@ -1,4 +1,7 @@
+using System;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
@@ -6,7 +9,16 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     {
         [SerializeField] private GameObject vrCam;
         [SerializeField] private GameObject cam;
-    
+
+
+        public UnityEvent<GameObject> CameraChange = new UnityEvent<GameObject>();
+        
+        private void Start()
+        {
+            var service = DHTServiceLocator.Instance.Get<DHTHMDService>();
+            service.UserPresence.AddListener(OnUserPresence);
+        }
+
         public void OnUserPresence(bool hmdMounted)
         {
 #if UNITY_STANDALONE_WIN
@@ -15,12 +27,16 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                 Debug.Log("User Presence");
                 vrCam.SetActive(true);
                 cam.SetActive(false);
+                
+                CameraChange.Invoke(vrCam);
             }
             else
             {
                 Debug.Log("No User Presence");
                 vrCam.SetActive(false);
                 cam.SetActive(true);
+                
+                CameraChange.Invoke(cam);
             }
 #endif
 #if PLATFORM_ANDROID

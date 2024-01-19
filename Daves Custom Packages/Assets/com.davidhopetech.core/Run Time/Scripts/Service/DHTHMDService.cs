@@ -7,7 +7,7 @@ using UnityEngine.XR;
 
 public class DHTHMDService : MonoBehaviour
 {
-    public  UnityEvent<bool> UserPresence;
+    public UnityEvent<bool> UserPresence = new UnityEvent<bool>();
 
     private InputDevice inputDevice ;
     private Action      state;

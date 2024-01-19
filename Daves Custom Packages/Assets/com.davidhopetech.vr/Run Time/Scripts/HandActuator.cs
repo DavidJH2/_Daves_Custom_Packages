@@ -15,12 +15,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
         protected DHTEventService             EventService ;
 
-        private DebugPanel debugPanel;
         private void Awake()
         {
-            debugPanel = DHTServiceLocator.Instance.Get<DHTDebugPanelService>().debugPanel1;
-
-            // EventService = DHTServiceLocator.dhtEventService;
             EventService = DHTServiceLocator.Instance.Get<DHTEventService>();
 
             DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
