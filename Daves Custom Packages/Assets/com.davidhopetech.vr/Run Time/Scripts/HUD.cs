@@ -7,6 +7,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     public class HUD : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown dropDown;
+        [SerializeField] private DHTXROrigin  dhtXROrigin;
     
         private DHTPlayerController _playerController;
 
@@ -21,6 +22,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             }
         }
 
+        public void VRModeSelected()
+        {
+            dhtXROrigin.SetVRMode(dropDown.value==0);
+        }
         // Update is called once per frame
         void Update()
         {

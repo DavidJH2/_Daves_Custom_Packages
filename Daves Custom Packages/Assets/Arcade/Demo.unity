@@ -10586,6 +10586,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 304168054}
   m_LocalEulerAnglesHint: {x: 89.3, y: -270.551, z: -269.999}
+--- !u!114 &2012341235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632538939380322397, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+    type: 3}
+  m_PrefabInstance: {fileID: 7824754849422756647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebe4d547f37b0e4f9da04060c0c4a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2014395412
 GameObject:
   m_ObjectHideFlags: 0
@@ -13052,6 +13064,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2012341235}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VRModeSelected
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: com.davidhopetech.vr.Run_Time.Scripts.HUD, DavidHopeTechVR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543969716568451472, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6607980715997165751, guid: 4a55eaf86d7989d40ae262eb3daf8d19,
         type: 3}
