@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DTH.Interaction;
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
-using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
+using com.davidhopetech.vr.Run_Time.Scripts.Interaction.States;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
-using UnityEngine.XR;
 
-namespace com.davidhopetech.core.Run_Time.Scripts.Interaction
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
 	public class DHTPlayerController : MonoBehaviour
 	{

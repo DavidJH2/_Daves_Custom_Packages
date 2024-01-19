@@ -830,12 +830,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: -448615171586083507}
+  - {fileID: 8260764617425868733}
   - {fileID: -293215328822975980}
   - {fileID: -7028764014936521238}
   - {fileID: 1863218519778719530}
   - {fileID: 3440223503736768957}
   - {fileID: 3635552722054151975}
   - {fileID: -9089020313253053163}
+  - {fileID: 4615759553650482880}
   - {fileID: -3797975704409549549}
   - {fileID: 6449159797286885747}
   - {fileID: -7259528298960974039}
@@ -921,11 +923,11 @@ MonoBehaviour:
   m_Name: InterceptCreateSessionFeature Metro
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 
-  version: 
-  featureIdInternal: 
-  openxrExtensionStrings: 
-  company: 
+  nameUi: 'Sample: Intercept Create Session'
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.example.intercept
+  openxrExtensionStrings: XR_test
+  company: Unity
   priority: 0
   required: 0
   message: Hello from C#!
@@ -1202,11 +1204,11 @@ MonoBehaviour:
   m_Name: CustomSessionStateFeature Metro
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 
-  version: 
-  featureIdInternal: 
+  nameUi: Custom Session State Feature
+  version: 1.0.0
+  featureIdInternal: com.mycompany.openxr.customsessionstatefeature
   openxrExtensionStrings: 
-  company: 
+  company: MyCompany
   priority: 0
   required: 0
   message: Hello from C#!

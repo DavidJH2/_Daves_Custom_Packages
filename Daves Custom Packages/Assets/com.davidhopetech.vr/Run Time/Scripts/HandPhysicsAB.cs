@@ -1,32 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
 using com.davidhopetech.core.Run_Time.Extensions;
+using UnityEngine;
 
-public class HandPhysicsAB : MonoBehaviour
+namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    [SerializeField] private float     torqueCoeff;
-    [SerializeField] private bool      debug;
-    [SerializeField] private Transform target;
+    public class HandPhysicsAB : MonoBehaviour
+    {
+        [SerializeField] private float     torqueCoeff;
+        [SerializeField] private bool      debug;
+        [SerializeField] private Transform target;
     
-    private ArticulationBody ab;
-    /*
+        private ArticulationBody ab;
+        /*
     [SerializeField] private Transform       firstSourceBone;
     
     private List<Transform> SrcBones = new List<Transform>();
     private List<Transform> DestBones = new List<Transform>();
     */
     
-    void Start()
-    {
-        ab = GetComponent<ArticulationBody>();
-        //GetBones(firstSourceBone);
-    }
+        void Start()
+        {
+            ab = GetComponent<ArticulationBody>();
+            //GetBones(firstSourceBone);
+        }
 
     
-    /*
+        /*
     Transform FindGameObjectByName(Transform parent, string name)
     {
         if (parent.name == name) return parent;
@@ -60,35 +58,35 @@ public class HandPhysicsAB : MonoBehaviour
     }
     */
 
-    void MoveHandToTargetOrientation()
-    {
-        ab.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
-        
-        var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
-
-        deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
-
-
-        angle = (angle < 180) ? angle : angle - 360; 
-        var axialRot = angle * Mathf.Deg2Rad * axis;
-
-        if (angle != 0)
+        void MoveHandToTargetOrientation()
         {
-            var torque = axialRot * torqueCoeff;
-            // ab.AddTorque(torque);
-            
-            var angularVelocity = axialRot / Time.fixedDeltaTime;
-            ab.angularVelocity = angularVelocity;
+            ab.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
+        
+            var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 
-            if (debug)
+            deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
+
+
+            angle = (angle < 180) ? angle : angle - 360; 
+            var axialRot = angle * Mathf.Deg2Rad * axis;
+
+            if (angle != 0)
             {
-                Debug.Log($"Torque: {torque}");
+                var torque = axialRot * torqueCoeff;
+                // ab.AddTorque(torque);
+            
+                var angularVelocity = axialRot / Time.fixedDeltaTime;
+                ab.angularVelocity = angularVelocity;
+
+                if (debug)
+                {
+                    Debug.Log($"Torque: {torque}");
+                }
             }
         }
-    }
 
 
-    /*
+        /*
     void RotateFingersToTargetRotation()
     {
         var count = SrcBones.Count;
@@ -114,9 +112,10 @@ public class HandPhysicsAB : MonoBehaviour
     }
     */
 
-    void FixedUpdate()
-    {
-        MoveHandToTargetOrientation();
-        // RotateFingersToTargetRotation();
+        void FixedUpdate()
+        {
+            MoveHandToTargetOrientation();
+            // RotateFingersToTargetRotation();
+        }
     }
 }

@@ -2,7 +2,7 @@ using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace com.davidhopetech.core.Run_Time.DTH.Scripts
+namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     public class HandActuator : MonoBehaviour
     {

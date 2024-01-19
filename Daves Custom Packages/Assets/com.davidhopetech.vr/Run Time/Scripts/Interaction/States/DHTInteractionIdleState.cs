@@ -1,13 +1,10 @@
 using System;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DTH.Interaction.States;
-using com.davidhopetech.core.Run_Time.DTH.Scripts;
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Animations;
 
-namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
 	[Serializable]
 	public class DHTInteractionIdleState : DHTInteractionState

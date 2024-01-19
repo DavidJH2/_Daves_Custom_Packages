@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
 	[RequireComponent(typeof(Transform))]
 	public class DHTInteractable : MonoBehaviour

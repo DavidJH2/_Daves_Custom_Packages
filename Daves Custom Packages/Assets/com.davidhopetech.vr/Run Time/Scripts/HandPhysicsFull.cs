@@ -1,32 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
 using com.davidhopetech.core.Run_Time.Extensions;
+using UnityEngine;
 
-public class HandPhysicsFull : MonoBehaviour
+namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    [SerializeField] private float     torqueCoeff;
-    [SerializeField] private bool      debug;
-    [SerializeField] private Transform target;
+    public class HandPhysicsFull : MonoBehaviour
+    {
+        [SerializeField] private float     torqueCoeff;
+        [SerializeField] private bool      debug;
+        [SerializeField] private Transform target;
     
-    private Rigidbody rb;
-    /*
+        private Rigidbody rb;
+        /*
     [SerializeField] private Transform       firstSourceBone;
     
     private List<Transform> SrcBones = new List<Transform>();
     private List<Transform> DestBones = new List<Transform>();
     */
     
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        //GetBones(firstSourceBone);
-    }
+        void Start()
+        {
+            rb = GetComponent<Rigidbody>();
+            //GetBones(firstSourceBone);
+        }
 
     
-    /*
+        /*
     Transform FindGameObjectByName(Transform parent, string name)
     {
         if (parent.name == name) return parent;
@@ -60,11 +58,11 @@ public class HandPhysicsFull : MonoBehaviour
     }
     */
 
-    void MoveHandToTargetOrientation()
-    {
-        rb.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
+        void MoveHandToTargetOrientation()
+        {
+            rb.SetVelocty((target.position - transform.position) / Time.fixedDeltaTime);
         
-        /*
+            /*
         var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
 
         deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
@@ -87,11 +85,11 @@ public class HandPhysicsFull : MonoBehaviour
             }
         }
         */
-        rb.MoveRotation(target.rotation);
-    }
+            rb.MoveRotation(target.rotation);
+        }
 
 
-    /*
+        /*
     void RotateFingersToTargetRotation()
     {
         var count = SrcBones.Count;
@@ -117,9 +115,10 @@ public class HandPhysicsFull : MonoBehaviour
     }
     */
 
-    void FixedUpdate()
-    {
-        MoveHandToTargetOrientation();
-        // RotateFingersToTargetRotation();
+        void FixedUpdate()
+        {
+            MoveHandToTargetOrientation();
+            // RotateFingersToTargetRotation();
+        }
     }
 }

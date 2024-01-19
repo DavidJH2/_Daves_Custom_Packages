@@ -1,7 +1,6 @@
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
 using UnityEngine;
 
-namespace com.davidhopetech.core.Run_Time.DTH.Scripts
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
     public class DHTSpatialLock : DHTInteractable
     {

@@ -2,7 +2,7 @@ using System;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 
-namespace com.davidhopetech.core.Run_Time.Scripts.Interaction.States
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
 
 	[Serializable]

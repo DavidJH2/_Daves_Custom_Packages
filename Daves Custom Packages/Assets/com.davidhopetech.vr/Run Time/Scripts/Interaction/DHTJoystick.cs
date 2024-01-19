@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace com.davidhopetech.core.Run_Time.DTH.Interaction
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
     public class DHTJoystick : MonoBehaviour
     {

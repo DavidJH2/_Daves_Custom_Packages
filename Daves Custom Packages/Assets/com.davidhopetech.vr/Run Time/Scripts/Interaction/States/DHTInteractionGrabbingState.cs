@@ -1,11 +1,8 @@
 using System;
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
-using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.Serialization;
 
-namespace com.davidhopetech.core.Run_Time.DTH.Interaction.States
+namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
 	[Serializable]
 	public class DHTInteractionGrabbingState : DHTInteractionState

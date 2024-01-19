@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using com.davidhopetech.core.Run_Time.DTH.Scripts.Interaction;
+using com.davidhopetech.core.Run_Time.Scripts;
 using com.davidhopetech.core.Run_Time.Scripts.Interaction.States;
+using com.davidhopetech.vr.Run_Time.Scripts;
+using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
