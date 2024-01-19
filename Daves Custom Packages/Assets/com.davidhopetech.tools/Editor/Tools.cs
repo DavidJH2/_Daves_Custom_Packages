@@ -151,7 +151,7 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		}
 
 
-		static void SelectAllGameObjectTypes<T>() where T : Component
+		internal static void SelectAllGameObjectTypes<T>() where T : Component
 		{
 			// get root objects in scene
 			List<GameObject> rootObjects = new List<GameObject>();
