@@ -98,7 +98,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     
         public void SetGrabFlags()
         {
-            if (name.Contains("Right"))
+            if (name.Contains("Left"))
             {
                 _debugPanel.SetElement(0, $"Trigger Pulled: {TriggerPulled}");
             }
