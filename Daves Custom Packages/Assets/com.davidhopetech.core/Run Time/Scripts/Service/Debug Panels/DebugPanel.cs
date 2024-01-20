@@ -8,13 +8,8 @@ public class DebugPanel : MonoBehaviour
 {
     [SerializeField] private DebugPanelElement[] elements;
 
-    private void Start()
-    {
-        var element = GetComponentsInChildren<DebugPanelElement>();
-        elements =  elements.Concat(element).ToArray();
-    }
-
-    public void SetElement(int elemNum,  string newValue)
+    
+    public void SetElement(int elemNum, string newValue)
     {
         var elem = elements[elemNum];
         elem.Set(newValue);

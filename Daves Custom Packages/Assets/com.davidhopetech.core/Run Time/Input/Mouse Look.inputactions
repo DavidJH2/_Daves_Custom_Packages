@@ -1,0 +1,54 @@
+{
+    "name": "Mouse Look",
+    "maps": [
+        {
+            "name": "action map",
+            "id": "5037938f-0d91-482c-9d9c-e8fe8fff93a7",
+            "actions": [
+                {
+                    "name": "Mouse Look",
+                    "type": "Value",
+                    "id": "6e468529-740b-47cc-8db7-50cf4f5291e7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Mouse Look Button",
+                    "type": "Button",
+                    "id": "37b0a07e-78dd-4958-9cd2-7c5370f742e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c063eb9c-19ab-42ce-97e5-93b9e2a02d3d",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "667f29c1-ffc9-407c-a601-35786876237b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Look Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

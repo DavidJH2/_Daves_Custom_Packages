@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class CameraController : MonoBehaviour
+    public class MouseLookController : MonoBehaviour
     {
-        Vector2      camRotation;
-        private bool mouseLookButton;
+        Vector2                       camRotation;
+        private                  bool mouseLookButton;
+        [SerializeField] private bool snapBack = true;
 
     
         void Start()
@@ -18,7 +19,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         public void MouseLookButton(InputAction.CallbackContext context)
         {
             mouseLookButton = context.ReadValueAsButton();
-            if (!mouseLookButton)
+            if (!mouseLookButton && snapBack)
             {
                 camRotation = Vector2.zero;
             }
