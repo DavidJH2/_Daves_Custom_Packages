@@ -4478,7 +4478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7537767975106509610}
   - component: {fileID: 4890831940911640247}
-  - component: {fileID: 8809934479583336562}
+  - component: {fileID: 315809395683089882}
   m_Layer: 5
   m_Name: HudUI
   m_TagString: Untagged
@@ -4512,10 +4512,10 @@ ParentConstraint:
   m_Enabled: 1
   serializedVersion: 2
   m_Weight: 1
-  m_TranslationAtRest: {x: -1.7929997, y: 0.17760015, z: -0.6393}
-  m_RotationAtRest: {x: 0, y: 90, z: 0}
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 1.6792974, y: 14.768911, z: -91.515396}
   m_TranslationOffsets:
-  - {x: -1.4900002, y: 0, z: 0}
+  - {x: -1.5, y: 0, z: 0}
   m_RotationOffsets:
   - {x: 0, y: 0, z: 0}
   m_AffectTranslationX: 1
@@ -4529,7 +4529,7 @@ ParentConstraint:
   m_Sources:
   - sourceTransform: {fileID: 0}
     weight: 1
---- !u!114 &8809934479583336562
+--- !u!114 &315809395683089882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4538,10 +4538,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3816105108844214529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d79333075b152b479efcee95a8f5c68, type: 3}
+  m_Script: {fileID: 11500000, guid: bebe4d547f37b0e4f9da04060c0c4a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropDown: {fileID: 2232438165396775959}
+  dhtXROrigin: {fileID: 0}
 --- !u!1 &3819484686398232787
 GameObject:
   m_ObjectHideFlags: 0
@@ -7411,6 +7412,7 @@ GameObject:
   - component: {fileID: 7842707618031955162}
   - component: {fileID: 6495739695326959062}
   - component: {fileID: 2232438165396775959}
+  - component: {fileID: 4085113145607596249}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -7535,20 +7537,31 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: com.davidhopetech.core.Run_Time.Scripts.Interaction.DHTPlayerController,
-          DavidHopeTechCore
-        m_MethodName: SetVRMode
-        m_Mode: 2
+      - m_Target: {fileID: 315809395683089882}
+        m_TargetAssemblyTypeName: com.davidhopetech.vr.Run_Time.Scripts.HUD, DavidHopeTechVR
+        m_MethodName: VRModeSelected
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2232438165396775959}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &4085113145607596249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6293104552639569745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daecbe57ca6d24040854b53b36dcce02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6310241657501883520
 GameObject:
   m_ObjectHideFlags: 0

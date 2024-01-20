@@ -6871,8 +6871,8 @@ MonoBehaviour:
   m_SetLineColorGradient: 1
   m_ValidColorGradient:
     serializedVersion: 2
-    key0: {r: 0.064768076, g: 1, b: 0, a: 1}
-    key1: {r: 0, g: 1, b: 0.04070711, a: 1}
+    key0: {r: 1, g: 0.975386, b: 0, a: 1}
+    key1: {r: 1, g: 0.9530351, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0.8117647}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6931,8 +6931,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    key1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6982,7 +6982,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!1 &8105813273067415010
 GameObject:
@@ -7499,7 +7499,7 @@ LineRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
@@ -7550,8 +7550,8 @@ MonoBehaviour:
   m_SetLineColorGradient: 1
   m_ValidColorGradient:
     serializedVersion: 2
-    key0: {r: 0.064768076, g: 1, b: 0, a: 1}
-    key1: {r: 0, g: 1, b: 0.04070711, a: 1}
+    key0: {r: 1, g: 0.975386, b: 0, a: 1}
+    key1: {r: 1, g: 0.9530351, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0.8117647}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -7610,8 +7610,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-    key1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -7713,6 +7713,7 @@ GameObject:
   - component: {fileID: 8105813273936344097}
   - component: {fileID: 8105813273936344099}
   - component: {fileID: 1584825885558724039}
+  - component: {fileID: 8285134703543709654}
   m_Layer: 0
   m_Name: Daves XR Origin
   m_TagString: Untagged
@@ -7854,6 +7855,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xrOrigin: {fileID: 8105813273936344152}
+--- !u!114 &8285134703543709654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105813273936344158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39eaa9c3bcfc194bb8200ec411ed57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xrOrigin: {fileID: 0}
 --- !u!1 &8105813274295009459
 GameObject:
   m_ObjectHideFlags: 0
