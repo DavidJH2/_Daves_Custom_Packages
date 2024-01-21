@@ -26,11 +26,14 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugTeleportEvent TeleportEvent;
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
 
-        private DebugPanel        _debugPanel;
+        private DebugPanel    _debugPanel;
+        private DTHLogService logService;
 
     
         void Start()
         {
+            logService = DHTServiceLocator.Get<DTHLogService>();
+
              //_debugPanel = FindObjectOfType<DebugPanel>(true);
             _debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
             
@@ -103,9 +106,22 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             if (name.Contains("Left"))
             {
-                _debugPanel.SetElement(0, $"Trigger Pulled: {TriggerPulled}");
+                if(_debugPanel) _debugPanel.SetElement(0, $"Trigger Pulled: {TriggerPulled}");
             }
 
+            if (IsGrabbing != _lastIsGrabbing)
+            {
+                if (logService)
+                {
+                    if (IsGrabbing)
+                        logService.Log($"{name} is grabbing\n");
+                    else
+                    {
+                        logService.Log($"{name} is not grabbing\n");
+                    }
+                }
+            }
+            
             grabStarted     = (IsGrabbing && !_lastIsGrabbing);
             grabStopped     = (!IsGrabbing && _lastIsGrabbing);
             _lastIsGrabbing = IsGrabbing;

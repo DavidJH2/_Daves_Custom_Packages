@@ -41,6 +41,7 @@ public class DHTBootstrapper : MonoBehaviour
 		}
 		else
 		{
+			/*
 			// Activate Bootstrapper
 			var lastActiveScene     = activeScene;
 			var lastActiveSceneName = lastActiveScene.name;
@@ -59,6 +60,7 @@ public class DHTBootstrapper : MonoBehaviour
 			
 			var scene = SceneManager.GetSceneByName(lastActiveSceneName);
 			SceneManager.SetActiveScene(scene);
+			*/
 		}
 	}
 }
