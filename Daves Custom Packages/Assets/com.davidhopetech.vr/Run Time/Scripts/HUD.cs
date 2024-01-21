@@ -14,7 +14,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         // Start is called before the first frame update
         void Start()
         {
+#if UNITY_2022_1_OR_NEWER && !UNITY_2022
+            _playerController = FindFirstObjectByType<DHTPlayerController>();
+#else					
             _playerController = FindObjectOfType<DHTPlayerController>();
+#endif
 
             if (_playerController != null)
             {

@@ -26,7 +26,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 		{
 			Controller      = GetComponent<DHTPlayerController>();
 			// dhtEventService = DHTServiceLocator.dhtEventService;
-			dhtEventService = DHTServiceLocator.Instance.Get<DHTEventService>();
+			dhtEventService = DHTServiceLocator.Get<DHTEventService>();
 
 			DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
 			TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;

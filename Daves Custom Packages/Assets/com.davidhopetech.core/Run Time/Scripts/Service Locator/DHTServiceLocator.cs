@@ -1,14 +1,13 @@
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 {
     public class DHTServiceLocator : Singleton<DHTServiceLocator>
     {
-        public ServiceType Get<ServiceType>() where ServiceType : Object
+        public static TServiceType Get<TServiceType>() where TServiceType : Object
         {
-            ServiceType service;
-            service = FindObjectOfType<ServiceType>(true);
-            return service;
+            return ObjectExtentions.DHTFindObjectOfType<TServiceType>(true);
         }
     }
 }

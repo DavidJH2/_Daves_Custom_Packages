@@ -15,7 +15,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         
         private void Start()
         {
-            var service = DHTServiceLocator.Instance.Get<DHTHMDService>();
+            var service = DHTServiceLocator.Get<DHTHMDService>();
             service.UserPresence.AddListener(OnUserPresence);
         }
 

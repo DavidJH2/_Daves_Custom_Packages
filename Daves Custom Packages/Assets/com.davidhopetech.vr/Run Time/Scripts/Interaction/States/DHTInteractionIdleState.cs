@@ -41,7 +41,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			var interactable = orderedInteractables.First();
 			
 			// Debug.Log($"Mirror Hand: {MirrorHand.name}");
-			var debugPanel = DHTServiceLocator.Instance.Get<DHTDebugPanelService>().debugPanel1;
+			var debugPanel = DHTServiceLocator.Get<DHTDebugPanelService>().debugPanel1;
 			var dist       = interactable.Dist(interactorPos).ToString();
 			
 			if (interactable.InRange(interactorPos))

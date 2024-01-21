@@ -31,12 +31,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     
         void Start()
         {
-            _debugPanel = FindObjectOfType<DebugPanel>(true);
+             //_debugPanel = FindObjectOfType<DebugPanel>(true);
+            _debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
             
-            dhtEventService  = DHTServiceLocator.Instance.Get<DHTEventService>();
+            dhtEventService  = DHTServiceLocator.Get<DHTEventService>();
+            
             DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
             TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
             DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
+            
             rb               = GetComponent<Rigidbody>();
         }
 

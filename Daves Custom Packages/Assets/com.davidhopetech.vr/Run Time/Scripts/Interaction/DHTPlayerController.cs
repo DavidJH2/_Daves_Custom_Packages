@@ -47,7 +47,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 
 			Interactables = FindObjectsByType<DHTInteractable>(FindObjectsSortMode.None).ToList();
 
-			Debug.Log($"Number of Grabables: {Interactables.Count}");
+			// Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
 
 

@@ -14,8 +14,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 			{
 				if (!_isInitialized)
 				{
+#if UNITY_2022_1_OR_NEWER && !UNITY_2022
+					T[] instances = FindObjectsByType<T>(FindObjectsSortMode.None);
+#else					
 					T[] instances = FindObjectsOfType<T>();
-
+#endif
 					if (instances.Length > 0)
 					{
 						if (instances.Length > 1)

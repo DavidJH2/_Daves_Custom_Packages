@@ -17,11 +17,14 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
         private void Awake()
         {
-            EventService = DHTServiceLocator.Instance.Get<DHTEventService>();
+            EventService = DHTServiceLocator.Get<DHTEventService>();
 
-            DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
-            TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
-            DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
+            if (EventService)
+            {
+                DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
+                TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
+                DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
+            }
         }
 
         
