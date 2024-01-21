@@ -55,7 +55,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Update()
 		{
 			bool menuButtonValue = menuButton.action.ReadValue<bool>();
-			if(_debugPanelService) _debugPanelService.debugPanel1.SetElement(0,$"Menu Button Value: {menuButtonValue}");
+			if(_debugPanelService && _debugPanelService.debugPanel1) _debugPanelService.debugPanel1.SetElement(0,$"Menu Button Value: {menuButtonValue}");
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{
