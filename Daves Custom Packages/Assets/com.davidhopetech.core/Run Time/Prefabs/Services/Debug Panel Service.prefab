@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 308705241471216349}
   - component: {fileID: 1544489123055691396}
   m_Layer: 0
-  m_Name: Debug Service
+  m_Name: Debug Panel Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

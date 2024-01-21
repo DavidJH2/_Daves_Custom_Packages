@@ -22,6 +22,6 @@ public class DTHLogService : MonoBehaviour
 
     public void Log(string message)
     {
-        LogScreenTMPText.text += message;
+        if(LogScreenTMPText) LogScreenTMPText.text += message;
     }
 }

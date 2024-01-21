@@ -4516,6 +4516,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropDown: {fileID: 2232438165396775959}
   dhtXROrigin: {fileID: 0}
+  menuButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Menu Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e1ecb9d9-6690-423f-81a1-a3be48238b59
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -6875927204656083125, guid: 5463918a6a50cec4093218c0a965d479, type: 3}
 --- !u!1773428102 &4890831940911640247
 ParentConstraint:
   m_ObjectHideFlags: 0

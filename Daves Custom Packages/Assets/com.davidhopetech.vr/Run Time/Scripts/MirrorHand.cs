@@ -38,11 +38,14 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             _debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
             
             dhtEventService  = DHTServiceLocator.Get<DHTEventService>();
-            
-            DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
-            TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
-            DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
-            
+
+            if (dhtEventService)
+            {
+                DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
+                TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
+                DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
+            }
+
             rb               = GetComponent<Rigidbody>();
         }
 
