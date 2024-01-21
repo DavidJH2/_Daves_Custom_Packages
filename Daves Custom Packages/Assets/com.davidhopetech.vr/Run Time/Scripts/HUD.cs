@@ -1,4 +1,5 @@
 using Codice.Client.Commands.WkTree;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
@@ -15,13 +16,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		private DHTPlayerController  _playerController;
 		private DTHLogService        _logService;
-		private DHTDebugPanelService _debugPanelService;
+		private DebugPanel           _debugPanel;
 
 		// Start is called before the first frame update
 		void Start()
 		{
 			_logService        = DHTServiceLocator.Get<DTHLogService>();
-			_debugPanelService = DHTServiceLocator.Get<DHTDebugPanelService>();
+			
+			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
+			
 #if UNITY_2022_1_OR_NEWER && !UNITY_2022
             _playerController = FindFirstObjectByType<DHTPlayerController>();
 #else
@@ -55,7 +58,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Update()
 		{
 			bool menuButtonValue = menuButton.action.ReadValue<bool>();
-			if(_debugPanelService && _debugPanelService.debugPanel1) _debugPanelService.debugPanel1.SetElement(0,$"Menu Button Value: {menuButtonValue}");
+			if(_debugPanel) _debugPanel.SetElement(2,$"Menu Button Value: {menuButtonValue}", "");
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{
