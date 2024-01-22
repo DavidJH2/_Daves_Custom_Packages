@@ -12,6 +12,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 	{
 		[SerializeField] private  TMP_Dropdown        dropDown;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
+		[SerializeField] internal GameObject          hudUI;
 		[SerializeField] internal InputActionProperty menuButton;
 
 		private DHTPlayerController  _playerController;
@@ -21,8 +22,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		// Start is called before the first frame update
 		void Start()
 		{
-			_logService        = DHTServiceLocator.Get<DTHLogService>();
-			
+			_logService = DHTServiceLocator.Get<DTHLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			
 #if UNITY_2022_1_OR_NEWER && !UNITY_2022
@@ -53,19 +53,28 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			dhtXROrigin.SetVRMode(dropDown.value == 0);
 		}
 
-		private bool lastmenuButtonValuel = false;
-		// Update is called once per frame
+
+		public void Toggle(InputAction.CallbackContext context)
+		{
+			_logService.Log("--------  Toggle  --------\n");
+			if (context.performed)
+			{
+				hudUI.SetActive(!hudUI.activeSelf);
+			}
+		}
+		
+		
+		private float lastmenuButtonValuel = -1f;
+
 		void Update()
 		{
-			bool menuButtonValue = menuButton.action.ReadValue<bool>();
-			if(_debugPanel) _debugPanel.SetElement(2,$"Menu Button Value: {menuButtonValue}", "");
+			float menuButtonValue = menuButton.action.ReadValue<float>();
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{
-				_logService.Log($"Menu Button: {menuButtonValue}\n");
+				if(menuButtonValue > 0.9f) hudUI.SetActive(!hudUI.activeSelf);
 				lastmenuButtonValuel = menuButtonValue;
 			}
 		}
 	}
-
 }

@@ -2487,7 +2487,7 @@ MonoBehaviour:
   m_text: 'VR Mode:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 385f176f5c2a7cd4bb1fa1c79d840c55, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4480,7 +4480,7 @@ GameObject:
   - component: {fileID: 315809395683089882}
   - component: {fileID: 4890831940911640247}
   m_Layer: 5
-  m_Name: HudUI
+  m_Name: Hud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4494,12 +4494,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3816105108844214529}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5611731, y: 0.5590085, z: -0.44531125, w: 0.41748315}
-  m_LocalPosition: {x: -1.9335965, y: 1.5754763, z: -2.1137562}
+  m_LocalRotation: {x: -0.081926644, y: 0.10007364, z: -0.71169174, w: 0.69048405}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2060562614388001134}
+  - {fileID: 6231905259404288800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &315809395683089882
@@ -4516,6 +4516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropDown: {fileID: 2232438165396775959}
   dhtXROrigin: {fileID: 0}
+  hudUI: {fileID: 4188396344205064328}
   menuButton:
     m_UseReference: 1
     m_Action:
@@ -4527,7 +4528,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -6875927204656083125, guid: 5463918a6a50cec4093218c0a965d479, type: 3}
+    m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1773428102 &4890831940911640247
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -5099,6 +5100,38 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4188396344205064328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6231905259404288800}
+  m_Layer: 0
+  m_Name: HudUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6231905259404288800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188396344205064328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44747788, y: 1.1782728, z: -0.5786518}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2060562614388001134}
+  m_Father: {fileID: 7537767975106509610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4292925459605324278
 GameObject:
   m_ObjectHideFlags: 0
@@ -7136,13 +7169,13 @@ Transform:
   m_GameObject: {fileID: 5776885047824833395}
   serializedVersion: 2
   m_LocalRotation: {x: 0.31992885, y: -0.29552463, z: 0.66123796, w: 0.6107988}
-  m_LocalPosition: {x: 1263.7468, y: -33.335327, z: -12.165502}
+  m_LocalPosition: {x: 1264.1945, y: -34.513596, z: -11.586854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 989851720175028037}
   - {fileID: 2931676775811542198}
-  m_Father: {fileID: 7537767975106509610}
+  m_Father: {fileID: 6231905259404288800}
   m_LocalEulerAnglesHint: {x: 51.412, y: 5.713, z: 97.293}
 --- !u!1 &6096725483605479732
 GameObject:
@@ -9864,7 +9897,7 @@ MonoBehaviour:
   m_text: 'Player Name:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 385f176f5c2a7cd4bb1fa1c79d840c55, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
