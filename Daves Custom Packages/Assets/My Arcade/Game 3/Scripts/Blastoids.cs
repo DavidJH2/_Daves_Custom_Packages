@@ -78,18 +78,6 @@ public class Blastoids : MonoBehaviour
 	private  int       score;
 	private  bool      thrusting;
 	
-	void OnEnable()
-	{
-		Application.logMessageReceived += LogCallback;
-	}
-
-	private void LogCallback(string condition, string stacktrace, LogType type)
-	{
-		if (type != LogType.Log)
-		{
-			exceptionScreenTMP.text += $"Log Type:\n{type}\n\nCondition:\n{condition}\n\nStack Trace:\n{stacktrace}";
-		}
-	}
 
 	void Start()
 	{

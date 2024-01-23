@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class DTHLogService : MonoBehaviour
 {
-    //[SerializeField] private GameObject LogScreenGO;
-    [SerializeField] private TMP_Text   LogScreenTMPText;
+    [SerializeField] private TMP_Text LogScreenTMPText;
 
     
     void Awake()

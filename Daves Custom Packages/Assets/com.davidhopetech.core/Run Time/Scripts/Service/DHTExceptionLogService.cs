@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class DHTExceptionLogService : MonoBehaviour
 {
-    public UnityEvent<LogEntry> LogEvent = new UnityEvent<LogEntry>();
+    public UnityEvent<LogEntry> LogEvent = new();
     public struct LogEntry
     {
         public string condition;
@@ -21,7 +21,7 @@ public class DHTExceptionLogService : MonoBehaviour
         }
     }
 
-    public List<LogEntry> log = new List<LogEntry>();
+    public List<LogEntry> log = new();
     
     void Awake()
     {

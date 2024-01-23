@@ -9,42 +9,26 @@ using UnityEngine;
 
 public class DHTExceptionScreen : MonoBehaviour
 {
-	//[SerializeField] private GameObject ExceptionScreenGO;
+	[SerializeField] private bool     ShowTrace = false;
 	[SerializeField] private TMP_Text ExceptionScreenTMPText;
 	
 	private string                 log;
 	private DHTExceptionLogService service;
 
-	
-	void Start()
+	private void Awake()
 	{
-		service                = DHTServiceLocator.Get<DHTExceptionLogService>();
-
 		if (ExceptionScreenTMPText == null)
 		{
 			ExceptionScreenTMPText = GetComponentInChildren<TMP_Text>();
 		}
 
+		ExceptionScreenTMPText.text = "";
+	}
+
+	void Start()
+	{
+		service = DHTServiceLocator.Get<DHTExceptionLogService>();
 		service.LogEvent.AddListener(AddLogEntry);
-		// InitLog();
-		ExceptionScreenTMPText.text = log;
-		
-		//GenerateException();
-	}
-
-	private int count;
-
-	private void Update()
-	{
-	}
-	
-	void GenerateExceptionsAtInterval()
-	{
-		count++;
-		if (count % 90 == 0)
-		{
-			GenerateException();
-		}
 	}
 
 	void GenerateException()
@@ -54,23 +38,17 @@ public class DHTExceptionScreen : MonoBehaviour
 	}
 
 
-	void InitLog()
-	{
-		foreach (var logEntry in service.log)
-		{
-			AddLogEntry(logEntry);
-		}
-	}
-
-	void OnNewException()
-	{
-		
-	}
-	
 	void AddLogEntry(DHTExceptionLogService.LogEntry logEntry)
 	{
-		//log                         += logEntry.stackTrace;
-		ExceptionScreenTMPText.text += $"{logEntry.condition}\n{logEntry.stackTrace}\n\n";
+		var message = $"{logEntry.condition}\n";
+		
+		if (ShowTrace)
+		{
+			message += $"{logEntry.stackTrace}\n";
+		}
+		message                     += "\n";
+		
+		ExceptionScreenTMPText.text += message;
 	}
 
 

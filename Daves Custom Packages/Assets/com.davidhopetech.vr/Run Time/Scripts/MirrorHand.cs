@@ -109,7 +109,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             if (name.Contains("Left"))
             {
-                if(_debugPanel) _debugPanel.SetElement(0, $"Trigger Pulled: {TriggerPulled}", "");
+                if(_debugPanel) _debugPanel.SetElement(0, $"Left Trigger Pulled: {TriggerPulled}", "");
+            }
+            else
+            {
+                if(_debugPanel) _debugPanel.SetElement(1, $"Right Trigger Pulled: {TriggerPulled}", "");
             }
 
             grabStarted     = (IsGrabbing && !_lastIsGrabbing);

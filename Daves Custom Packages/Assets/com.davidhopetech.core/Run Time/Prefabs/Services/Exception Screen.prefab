@@ -120,8 +120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6926284697817106430}
   m_HandleRect: {fileID: 4265104185751265696}
   m_Direction: 2
-  m_Value: 0.9999959
-  m_Size: 0.092675
+  m_Value: 0.99999547
+  m_Size: 0.09267499
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -532,7 +532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -248.08998, y: -0.014981516}
+  m_AnchoredPosition: {x: -248.08998, y: 0.016268484}
   m_SizeDelta: {x: 484.7, y: 4000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6587366194505156446
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2617978102656331944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c23e60658b10774596afd04c96486f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTrace: 0
   ExceptionScreenTMPText: {fileID: 0}
 --- !u!1 &7245410613992233046
 GameObject:
@@ -812,7 +813,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is a test of the exception screen
+  m_text: '* * *  This is a test of the exception screen * * *'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -839,7 +840,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 10
   m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
