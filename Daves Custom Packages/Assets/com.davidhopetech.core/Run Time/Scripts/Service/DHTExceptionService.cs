@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DHTExceptionLogService : MonoBehaviour
+public class DHTExceptionService : MonoBehaviour
 {
     public UnityEvent<LogEntry> LogEvent = new();
     public struct LogEntry

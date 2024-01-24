@@ -27,12 +27,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
 
         private DebugPanel    _debugPanel;
-        private DTHLogService logService;
+        private DHTLogService logService;
 
     
         void Start()
         {
-            logService = DHTServiceLocator.Get<DTHLogService>();
+            logService = DHTServiceLocator.Get<DHTLogService>();
 
              //_debugPanel = FindObjectOfType<DebugPanel>(true);
             _debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);

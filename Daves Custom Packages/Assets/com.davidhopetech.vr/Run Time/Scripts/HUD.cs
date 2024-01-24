@@ -15,13 +15,13 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] internal InputActionProperty menuButton;
 
 		private DHTPlayerController  _playerController;
-		private DTHLogService        _logService;
+		private DHTLogService        _logService;
 		private DebugPanel           _debugPanel;
 
 		// Start is called before the first frame update
 		void Start()
 		{
-			_logService = DHTServiceLocator.Get<DTHLogService>();
+			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			
 #if UNITY_2022_1_OR_NEWER && !UNITY_2022

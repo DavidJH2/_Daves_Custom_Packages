@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DHTExceptionScreen : MonoBehaviour
@@ -13,7 +8,7 @@ public class DHTExceptionScreen : MonoBehaviour
 	[SerializeField] private TMP_Text ExceptionScreenTMPText;
 	
 	private string                 log;
-	private DHTExceptionLogService service;
+	private DHTExceptionService service;
 
 	private void Awake()
 	{
@@ -27,7 +22,7 @@ public class DHTExceptionScreen : MonoBehaviour
 
 	void Start()
 	{
-		service = DHTServiceLocator.Get<DHTExceptionLogService>();
+		service = DHTServiceLocator.Get<DHTExceptionService>();
 		service.LogEvent.AddListener(AddLogEntry);
 	}
 
@@ -38,7 +33,7 @@ public class DHTExceptionScreen : MonoBehaviour
 	}
 
 
-	void AddLogEntry(DHTExceptionLogService.LogEntry logEntry)
+	void AddLogEntry(DHTExceptionService.LogEntry logEntry)
 	{
 		var message = $"{logEntry.condition}\n";
 		
