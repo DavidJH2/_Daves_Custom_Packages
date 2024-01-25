@@ -21,7 +21,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
         public void OnUserPresence(bool hmdMounted)
         {
-#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
             if (hmdMounted)
             {
                 Debug.Log("User Presence");
@@ -38,10 +38,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                 
                 CameraChange.Invoke(cam);
             }
-#endif
+#else
 #if PLATFORM_ANDROID
         vrCam.SetActive(true);
         cam.SetActive(false);
+#endif
 #endif
         }
     }
