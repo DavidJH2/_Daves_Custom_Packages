@@ -7,36 +7,36 @@ using UnityEngine.Events;
 
 public class DHTLogScreen : MonoBehaviour
 {
-    [SerializeField] private TMP_Text LogScreenTMPText;
+	[SerializeField] private TMP_Text LogScreenTMPText;
 
-    private DHTLogService service;
+	private DHTLogService service;
 
-    void Awake()
-    {
-        if (LogScreenTMPText == null)
-        {
-            LogScreenTMPText = GetComponentInChildren<TMP_Text>();
-        }
+	void Awake()
+	{
+		if (LogScreenTMPText == null)
+		{
+			LogScreenTMPText = GetComponentInChildren<TMP_Text>();
+		}
 
-        LogScreenTMPText.text = "";
-    }
+		LogScreenTMPText.text = "";
+	}
 
-    
-    void Start()
-    {
-        service = DHTServiceLocator.Get<DHTLogService>();
-        service.LogEvent.AddListener(Log);
-    }
-
-
-    public void Log(string message)
-    {
-        if(LogScreenTMPText) LogScreenTMPText.text += message;
-    }
+	
+	void Start()
+	{
+		service = DHTServiceLocator.Get<DHTLogService>(); 
+		if(service) service.LogEvent.AddListener(Log);
+	}
 
 
-    private void OnDisable()
-    {
-        service.LogEvent.RemoveListener(Log);
-    }
+	public void Log(string message)
+	{
+		if(LogScreenTMPText) LogScreenTMPText.text += message;
+	}
+
+
+	private void OnDisable()
+	{
+		service.LogEvent.RemoveListener(Log);
+	}
 }

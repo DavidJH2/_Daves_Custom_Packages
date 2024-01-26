@@ -23,7 +23,7 @@ public class DHTExceptionScreen : MonoBehaviour
 	void Start()
 	{
 		service = DHTServiceLocator.Get<DHTExceptionService>();
-		service.LogEvent.AddListener(AddLogEntry);
+		if(service) service.LogEvent.AddListener(AddLogEntry);
 	}
 
 	void GenerateException()
