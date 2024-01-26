@@ -1,4 +1,5 @@
 using com.davidhopetech.core.Run_Time.Extensions;
+using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -41,12 +42,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
             if (dhtEventService)
             {
-                DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
-                TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
-                DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
+                DebugMiscEvent   = dhtEventService.Get<DHTUpdateDebugMiscEvent>();
+                TeleportEvent    = dhtEventService.Get<DHTUpdateDebugTeleportEvent>();
+                DebugValue1Event = dhtEventService.Get<DHTUpdateDebugValue1Event>();
             }
 
-            rb               = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
         }
 
 

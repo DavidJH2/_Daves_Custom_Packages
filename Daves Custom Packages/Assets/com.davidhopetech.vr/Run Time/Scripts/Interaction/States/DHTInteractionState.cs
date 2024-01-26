@@ -1,6 +1,8 @@
 using System;
+using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
@@ -8,9 +10,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 	[Serializable]
 	public abstract class DHTInteractionState : MonoBehaviour
 	{
-		protected DHTUpdateDebugMiscEvent     DebugMiscEvent;
-		protected DHTUpdateDebugTeleportEvent TeleportEvent;
-		protected DHTUpdateDebugValue1Event   DebugValue1Event;
+		protected UnityEvent<string> DebugMiscEvent;
+		protected UnityEvent<string> TeleportEvent;
+		protected UnityEvent<string> DebugValue1Event;
 
 		protected DHTEventService     dhtEventService;
 		protected DHTPlayerController Controller;
@@ -28,9 +30,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			// dhtEventService = DHTServiceLocator.dhtEventService;
 			dhtEventService = DHTServiceLocator.Get<DHTEventService>();
 
-			DebugMiscEvent   = dhtEventService.dhtUpdateDebugMiscEvent;
-			TeleportEvent    = dhtEventService.dhtUpdateDebugTeleportEvent;
-			DebugValue1Event = dhtEventService.dhtUpdateDebugValue1Event;
+			DebugMiscEvent   = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
+			TeleportEvent    = dhtEventService.Get<DHTUpdateDebugTeleportEvent>()?._event;
+			DebugValue1Event = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
 		}
 
 

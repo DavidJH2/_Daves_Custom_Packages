@@ -1,3 +1,4 @@
+using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,9 +22,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
             if (EventService)
             {
-                DebugMiscEvent   = EventService.dhtUpdateDebugMiscEvent;
-                TeleportEvent    = EventService.dhtUpdateDebugTeleportEvent;
-                DebugValue1Event = EventService.dhtUpdateDebugValue1Event;
+                DebugMiscEvent   = EventService.Get<DHTUpdateDebugMiscEvent>();
+                TeleportEvent    = EventService.Get<DHTUpdateDebugTeleportEvent>();
+                DebugValue1Event = EventService.Get<DHTUpdateDebugValue1Event>();
             }
         }
 

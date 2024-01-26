@@ -4,7 +4,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     [RequireComponent(typeof(LineRenderer))]
     [ExecuteInEditMode]
-    public class DTHLineRenderer : MonoBehaviour
+    public class DHTLineRenderer : MonoBehaviour
     {
         public Vector3[] points;
 
