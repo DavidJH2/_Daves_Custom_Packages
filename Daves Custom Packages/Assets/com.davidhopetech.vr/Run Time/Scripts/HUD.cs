@@ -23,12 +23,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
-			
-#if UNITY_2022_1_OR_NEWER && !UNITY_2022
-            _playerController = FindFirstObjectByType<DHTPlayerController>();
-#else
-			_playerController = FindObjectOfType<DHTPlayerController>();
-#endif
+
+			_playerController = ObjectExtentions.DHTFindObjectOfType<DHTPlayerController>(false);
 
 			if (_playerController != null)
 			{
@@ -36,15 +32,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			}
 
 			// menuButton.action.performed += MenubuttonPressed;
-		}
-
-
-		void MenubuttonPressed(InputAction.CallbackContext context)
-		{
-			if (true)
-			{
-				
-			}
 		}
 
 		public void VRModeSelected()
@@ -68,6 +55,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Update()
 		{
 			float menuButtonValue = menuButton.action.ReadValue<float>();
+
+			DHTServiceLocator.Get<DebugPanel>().SetElement(3,$"Menu Button:{menuButtonValue}");
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{
