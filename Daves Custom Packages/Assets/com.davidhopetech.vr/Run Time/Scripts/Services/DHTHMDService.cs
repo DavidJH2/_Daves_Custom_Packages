@@ -10,6 +10,7 @@ public class DHTHMDService : MonoBehaviour
 {
     public UnityEvent<bool> UserPresence = new UnityEvent<bool>();
 
+    #if true
     private InputDevice inputDevice ;
     private Action      state;
     private bool        lastHmdMounted;
@@ -51,6 +52,7 @@ public class DHTHMDService : MonoBehaviour
     {
         Vector3 velocity;
         inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
+        
         var hmdMounted =  (velocity != Vector3.zero);
         if (hmdMounted != lastHmdMounted)
         {
@@ -59,7 +61,7 @@ public class DHTHMDService : MonoBehaviour
         }
     }
 
-    /*
+    #else
     private void Start()
     {
         // Subscribe to the session state change event
@@ -91,5 +93,5 @@ public class DHTHMDService : MonoBehaviour
         // Return true to allow the session to restart, or false to prevent it
         return true;
     }    
-    */
+    #endif
 }

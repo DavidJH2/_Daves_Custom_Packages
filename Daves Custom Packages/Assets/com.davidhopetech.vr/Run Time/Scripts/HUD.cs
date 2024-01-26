@@ -14,9 +14,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] internal GameObject          hudUI;
 		[SerializeField] internal InputActionProperty menuButton;
 
-		private DHTPlayerController  _playerController;
-		private DHTLogService        _logService;
-		private DebugPanel           _debugPanel;
+		private DHTPlayerController _playerController;
+		private DHTLogService       _logService;
+		private DebugPanel          _debugPanel;
 
 		// Start is called before the first frame update
 		void Start()
@@ -54,9 +54,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		void Update()
 		{
-			float menuButtonValue = menuButton.action.ReadValue<float>();
+			var menuButtonValue = menuButton.action.ReadValue<float>();
 
-			DHTServiceLocator.Get<DebugPanel>().SetElement(3,$"Menu Button:{menuButtonValue}");
+			if (_debugPanel) _debugPanel.SetElement(3,$"Menu Button:{menuButtonValue}");
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{
