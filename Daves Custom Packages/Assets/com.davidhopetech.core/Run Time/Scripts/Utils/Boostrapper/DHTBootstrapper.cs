@@ -9,8 +9,9 @@ using UnityEngine.Serialization;
 
 public class DHTBootstrapper : MonoBehaviour
 {
-	[FormerlySerializedAs("firstScene")] [SerializeField] private string firstSceneName;
-	public static readonly   string ServicesSceneName = "Services Scene";
+	public static readonly   int    ServicesSceneBuildIndex = 0;
+
+	[SerializeField] private string firstSceneName;
 
 	async void Start()
 	{
@@ -20,14 +21,15 @@ public class DHTBootstrapper : MonoBehaviour
 
 	async Task LoadAndSetActiveScene()
 	{
-		if (gameObject.scene.name != ServicesSceneName)
+		var servicesSceneName = SceneManager.GetSceneByBuildIndex(ServicesSceneBuildIndex).name;
+		if (gameObject.scene.name != servicesSceneName)
 		{
-			throw new Exception($"Class: {this.name} should ONLY be in {DHTBootstrapper.ServicesSceneName}");
+			throw new Exception($"Class: {this.name} should ONLY be in {SceneManager.GetSceneByBuildIndex( DHTBootstrapper.ServicesSceneBuildIndex).name}");
 		}
 
 		var activeScene = SceneManager.GetActiveScene();
 
-		if (activeScene.name == ServicesSceneName)
+		if (activeScene.name == servicesSceneName)
 		{
 			// Load first scene and make active
 			var asyncLoad = SceneManager.LoadSceneAsync(firstSceneName, LoadSceneMode.Additive);

@@ -16,7 +16,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
         protected DHTEventService             EventService ;
 
-        private void Awake()
+        private void Start()
         {
             EventService = DHTServiceLocator.Get<DHTEventService>();
 
