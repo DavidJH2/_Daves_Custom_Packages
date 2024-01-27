@@ -23,12 +23,12 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
 
     public void OnUpdatePos(Vector2 arg0)
     {
-       UpdatePos();
+        UpdatePos();
     }
 
     public void UpdatePos()
     {
-        if(scrollToBottom && !_customScrollbar.scrollbarBeingDragged) _scrollRect.verticalNormalizedPosition = 0;
+        if (scrollToBottom && !_customScrollbar.scrollbarBeingDragged) _scrollRect.verticalNormalizedPosition = 0;
     }
 
     private void Start()
@@ -44,7 +44,9 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
 
     public void OnScrollBarDraged(Single delta)
     {
-        _logScreen.Log($"OnDrag called with data: {delta}\n");
+        /*
+    _logScreen.Log($"OnDrag called with data: {delta}\n");
+    */
     }
 
     public void OnScrollbarDraggingStateChange(bool state)
@@ -53,18 +55,20 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
 
         if (state == false)
         {
+            /*
             _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition},{atBottom}\n");
-             if (atBottom)
+            */
+            if (atBottom)
                 scrollToBottom = true;
             else
                 scrollToBottom = false;
         }
     }
 
-    
+
     public void OnDrag(PointerEventData eventData)
     {
-        if (_scrollRect.normalizedPosition.y <=0.02f)
+        if (_scrollRect.normalizedPosition.y <= 0.02f)
             scrollToBottom = true;
         else
             scrollToBottom = false;
@@ -72,8 +76,8 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
         var parent = this.GetComponentInParent<DHTLogScreen>();
         if (!parent)
         {
-            _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
             /*
+            _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
              _logScreen.Log($"OnDrag called with data: {eventData}\n");
              */
         }
