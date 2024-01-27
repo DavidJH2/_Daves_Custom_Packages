@@ -44,7 +44,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			var service = DHTServiceLocator.Get<DHTHMDService>();
 			if(service) service.UserPresence.AddListener(OnUserPresence);
-			_canvasList = ObjectExtentions.FindObjectsByType<Canvas>();
+			_canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
 		}
 
 		public void OnUserPresence(bool hmdMounted)

@@ -8,12 +8,17 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
     {
         public static TServiceType Get<TServiceType>() where TServiceType : Object
         {
-            var service = ObjectExtentions.DHTFindObjectOfType<TServiceType>(true);
-            
-            if(service==null)
+            var services = ObjectExtentions.DHTFindObjectsByType<TServiceType>(FindObjectsSortMode.None);
+
+            if (services.Length == 0)
+            {
                 Debug.Log($"DHT Service '{typeof(TServiceType).Name}' Not In Scene");
+                return null;
+            }
+            else if(services.Length>1)
+                Debug.Log($"There should only be one DHT Service '{typeof(TServiceType).Name}' In Scene");
             
-            return service;
+            return services[0];
         }
     }
 }
