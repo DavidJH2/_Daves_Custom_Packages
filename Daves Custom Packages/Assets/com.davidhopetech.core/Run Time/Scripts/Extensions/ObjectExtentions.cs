@@ -7,7 +7,7 @@ namespace com.davidhopetech.core.Run_Time.Extensions
 	{
 		private static HashSet<Object> cache = new();
 
-		public static T DHTFindObjectOfType<T>(bool findObjectInactiveFlag) where T : Object
+		public static T DHTFindObjectOfType<T>(bool findObjectInactiveFlag = false) where T : Object
 		{
 #if UNITY_2022_1_OR_NEWER && !UNITY_2022
 			FindObjectsInactive findObjectInactive =
