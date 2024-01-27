@@ -36,15 +36,15 @@ public class DHTExceptionScreen : MonoBehaviour
 	}
 
 
+	#if false
 	private int count = 0;
 	private void Update()
 	{
-		/*
 		if(count%2==0) ExceptionScreenTMPText.text += $"Count = {count}\n";
 		_scrollRect.UpdatePos();
 		count++;
-		*/
 	}
+	#endif
 	
 
 	void GenerateException()
