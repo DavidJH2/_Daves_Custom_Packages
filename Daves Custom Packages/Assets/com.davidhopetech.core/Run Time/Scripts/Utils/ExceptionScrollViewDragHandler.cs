@@ -72,8 +72,10 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
         var parent = this.GetComponentInParent<DHTLogScreen>();
         if (!parent)
         {
-            //_logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
-            // _logScreen.Log($"OnDrag called with data: {eventData}\n");
+            _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
+            /*
+             _logScreen.Log($"OnDrag called with data: {eventData}\n");
+             */
         }
     }
 }

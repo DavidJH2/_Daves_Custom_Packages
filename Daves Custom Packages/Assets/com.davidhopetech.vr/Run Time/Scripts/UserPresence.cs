@@ -1,49 +1,85 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class UserPresence : MonoBehaviour
-    {
-        [SerializeField] private GameObject vrCam;
-        [SerializeField] private GameObject cam;
+	public class UserPresence : MonoBehaviour
+	{
+		[SerializeField] private GameObject vrCamGO;
+		[SerializeField] private GameObject pancakeCamGO;
 
 
-        public UnityEvent<GameObject> CameraChange = new UnityEvent<GameObject>();
-        
-        private void Start()
-        {
-            var service = DHTServiceLocator.Get<DHTHMDService>();
-            if(service) service.UserPresence.AddListener(OnUserPresence);
-        }
+		public  UnityEvent<GameObject> CameraChange = new();
+		private Canvas[]               _canvasList;
+		private GameObject             currentCameraGO;
+		
+		
+		private void Start()
+		{
+			GetCurrentCamera();
+			InitializeServices();	
+		}
 
-        public void OnUserPresence(bool hmdMounted)
-        {
+
+		private void GetCurrentCamera()
+		{
+			if (vrCamGO.activeSelf)
+			{
+				currentCameraGO = vrCamGO;
+			}
+			else if(pancakeCamGO.activeSelf)
+			{
+				currentCameraGO = pancakeCamGO;
+			}
+		}
+		
+
+		private void InitializeServices()
+		{
+			var service = DHTServiceLocator.Get<DHTHMDService>();
+			if(service) service.UserPresence.AddListener(OnUserPresence);
+			_canvasList = ObjectExtentions.FindObjectsByType<Canvas>();
+		}
+
+		public void OnUserPresence(bool hmdMounted)
+		{
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-            if (hmdMounted)
-            {
-                Debug.Log("User Presence");
-                vrCam.SetActive(true);
-                cam.SetActive(false);
-                
-                CameraChange.Invoke(vrCam);
-            }
-            else
-            {
-                Debug.Log("No User Presence");
-                vrCam.SetActive(false);
-                cam.SetActive(true);
-                
-                CameraChange.Invoke(cam);
-            }
+			if (hmdMounted)
+			{
+				Debug.Log("User Presence");
+				ChangeCamera(vrCamGO);
+			}
+			else
+			{
+				Debug.Log("No User Presence");
+				
+				ChangeCamera(pancakeCamGO);
+			}
 #else
 #if PLATFORM_ANDROID
-        vrCam.SetActive(true);
-        cam.SetActive(false);
+		vrCamGO.SetActive(true);
+		pancakeCamGO.SetActive(false);
 #endif
 #endif
-        }
-    }
+		}
+
+		private void ChangeCamera(GameObject newCameraGo)
+		{
+			if(currentCameraGO) currentCameraGO.SetActive(false);
+			newCameraGo.SetActive(true);
+			currentCameraGO = newCameraGo;
+			
+			foreach (var canvas in _canvasList)
+			{
+				canvas.worldCamera = newCameraGo.GetComponent<Camera>();
+			}
+			CameraChange.Invoke(pancakeCamGO);
+		}
+	}
 }

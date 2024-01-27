@@ -65,6 +65,7 @@ public class DHTExceptionScreen : MonoBehaviour
 		message                     += "\n";
 		
 		ExceptionScreenTMPText.text += message;
+		_scrollRect.UpdatePos();
 	}
 
 

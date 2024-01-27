@@ -801,6 +801,14 @@ PrefabInstance:
       propertyPath: vrCam
       value: 
       objectReference: {fileID: 2009056446112786699}
+    - target: {fileID: 5582121118860677490, guid: 4a429b54d520f024a8aed0057ec29774, type: 3}
+      propertyPath: vrCamGO
+      value: 
+      objectReference: {fileID: 2009056446112786699}
+    - target: {fileID: 5582121118860677490, guid: 4a429b54d520f024a8aed0057ec29774, type: 3}
+      propertyPath: pancakeCamGO
+      value: 
+      objectReference: {fileID: 1637444130965753687}
     - target: {fileID: 6895250623847238829, guid: 4a429b54d520f024a8aed0057ec29774, type: 3}
       propertyPath: m_Name
       value: VRCrossPlay
