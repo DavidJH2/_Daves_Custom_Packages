@@ -28,18 +28,6 @@ public class DHTExceptionScreen : MonoBehaviour
 		if (ResetOnRun) ExceptionScreenTMPText.text = "";
 	}
 
-	
-	/*
-	public void OnDrag(PointerEventData pos)
-	{
-		if (_scrollRect.normalizedPosition.y == 0)
-			scrollToBottom = true;
-		else
-			scrollToBottom = false;
-	}
-	*/
-
-
 	void Start()
 	{
 		if (_scrollRect == null) _scrollRect = GetComponentInChildren<ExceptionScrollViewDragHandler>();
@@ -51,9 +39,11 @@ public class DHTExceptionScreen : MonoBehaviour
 	private int count = 0;
 	private void Update()
 	{
-			if(count%100==0) ExceptionScreenTMPText.text += $"Count = {count}\n";
-//		_scrollRect.UpdatePos();
+		/*
+		if(count%2==0) ExceptionScreenTMPText.text += $"Count = {count}\n";
+		_scrollRect.UpdatePos();
 		count++;
+		*/
 	}
 	
 

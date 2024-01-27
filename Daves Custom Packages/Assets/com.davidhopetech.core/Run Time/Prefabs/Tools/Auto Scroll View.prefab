@@ -121,9 +121,13 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3485782355174492846}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.92408955
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  scrollbarBeingDragged: 0
+  ScrollbarDraggingStateChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2264718720363085796

@@ -1,22 +1,24 @@
-using System;using System.Collections;
-using System.Collections.Generic;
-using com.davidhopetech.core.Run_Time.Extensions;
+using System;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
-public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler
+public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBeginDragHandler
 {
-    [SerializeField] private bool         scrollToBottom = true;
-    [SerializeField] private ScrollRect   _scrollRect;
-    private                  DHTLogScreen _logScreen;
+    [SerializeField] private bool            scrollToBottom = true;
+    [SerializeField] private ScrollRect      _scrollRect;
+    private                  DHTLogScreen    _logScreen;
+    private                  CustomScrollbar _customScrollbar;
 
 
     private void Awake()
     {
-        _logScreen = DHTServiceLocator.Get<DHTLogScreen>();
+        _logScreen       = DHTServiceLocator.Get<DHTLogScreen>();
+        _customScrollbar = GetComponentInChildren<CustomScrollbar>();
+        _customScrollbar.ScrollbarDraggingStateChange.AddListener(OnScrollbarDraggingStateChange);
     }
 
     public void OnUpdatePos(Vector2 arg0)
@@ -26,7 +28,7 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler
 
     public void UpdatePos()
     {
-        if(scrollToBottom) _scrollRect.verticalNormalizedPosition = 0;
+        if(scrollToBottom && !_customScrollbar.scrollbarBeingDragged) _scrollRect.verticalNormalizedPosition = 0;
     }
 
     private void Start()
@@ -35,15 +37,34 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler
         _scrollRect.onValueChanged.AddListener(OnUpdatePos);
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // _logScreen.Log($"OnBeginDrag : {eventData}\n");
+    }
 
     public void OnScrollBarDraged(Single delta)
     {
         _logScreen.Log($"OnDrag called with data: {delta}\n");
     }
 
+    public void OnScrollbarDraggingStateChange(bool state)
+    {
+        var atBottom = _scrollRect.normalizedPosition.y <= 0.02f;
+
+        if (state == false)
+        {
+            _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition},{atBottom}\n");
+             if (atBottom)
+                scrollToBottom = true;
+            else
+                scrollToBottom = false;
+        }
+    }
+
+    
     public void OnDrag(PointerEventData eventData)
     {
-        if (_scrollRect.normalizedPosition.y <=0f)
+        if (_scrollRect.normalizedPosition.y <=0.02f)
             scrollToBottom = true;
         else
             scrollToBottom = false;
@@ -51,7 +72,7 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler
         var parent = this.GetComponentInParent<DHTLogScreen>();
         if (!parent)
         {
-            _logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
+            //_logScreen.Log($"OnDrag called with data: {_scrollRect.normalizedPosition}\n");
             // _logScreen.Log($"OnDrag called with data: {eventData}\n");
         }
     }
