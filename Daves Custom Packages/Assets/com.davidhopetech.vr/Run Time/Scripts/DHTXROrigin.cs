@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,14 +14,18 @@ public class DHTXROrigin : MonoBehaviour
 	[SerializeField] private TeleportationProvider teleportationProvider;
 	[SerializeField] private GameObject            startOrientation;
 
+	private DHTLogService _logService;
+
 	void OnEnable()
 	{
 	}
 	
 	void Start()
 	{
+		_logService = DHTServiceLocator.Get<DHTLogService>();
+		
 		HMDInitialization hmdInitialization = GetComponent<HMDInitialization>(); 
-		hmdInitialization.onHMDInitialized += InitializePosition;
+		hmdInitialization.onHMDInitialized += ResetPosition;
 		teleportationProvider         = GetComponent<TeleportationProvider>();
 		
 		if(startOrientation == null) startOrientation = gameObject;
@@ -32,8 +37,10 @@ public class DHTXROrigin : MonoBehaviour
 		}
 	}
 
-	public void InitializePosition()
+	private int resetCount = 0;
+	public void ResetPosition()
 	{
+		if(_logService)	_logService.Log($"--------  Resetting Position ({resetCount++})  ------\n");
 		TeleportRequest request = new TeleportRequest()
 		{
 			destinationPosition = startOrientation.transform.position,
@@ -58,6 +65,6 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
-		GetComponent<HMDInitialization>().onHMDInitialized -= InitializePosition;
+		GetComponent<HMDInitialization>().onHMDInitialized -= ResetPosition;
 	}
 }
