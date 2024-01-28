@@ -7677,6 +7677,8 @@ GameObject:
   - component: {fileID: 8105813273936344097}
   - component: {fileID: 8105813273936344099}
   - component: {fileID: 1584825885558724039}
+  - component: {fileID: 2768140687187358607}
+  - component: {fileID: 7297531003246965615}
   - component: {fileID: 2480214711230116990}
   m_Layer: 0
   m_Name: Daves XR Origin
@@ -7817,6 +7819,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xrOrigin: {fileID: 8105813273936344152}
+  teleportationProvider: {fileID: 0}
+  startOrientation: {fileID: 0}
+--- !u!114 &2768140687187358607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105813273936344158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d989b4b624336ab4294edb271207e9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7297531003246965615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105813273936344158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0054a139f938b574a85c9fb04b37e391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2480214711230116990
 MonoBehaviour:
   m_ObjectHideFlags: 0

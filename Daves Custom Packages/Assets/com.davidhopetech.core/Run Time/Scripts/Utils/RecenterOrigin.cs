@@ -9,7 +9,7 @@ public class RecenterOrigin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Recenter();
+        // Recenter();
     }
 
     
