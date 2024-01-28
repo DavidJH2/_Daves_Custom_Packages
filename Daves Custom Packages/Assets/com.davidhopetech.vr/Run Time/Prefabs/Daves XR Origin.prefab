@@ -7678,6 +7678,8 @@ GameObject:
   - component: {fileID: 8105813273936344099}
   - component: {fileID: 1584825885558724039}
   - component: {fileID: 2480214711230116990}
+  - component: {fileID: 4035167559809482982}
+  - component: {fileID: 6396402297726599761}
   m_Layer: 0
   m_Name: Daves XR Origin
   m_TagString: Untagged
@@ -7839,6 +7841,30 @@ MonoBehaviour:
   handDampCoeeff: 0
   dhtJoystick: {fileID: 0}
   Interactables: []
+--- !u!114 &4035167559809482982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105813273936344158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d989b4b624336ab4294edb271207e9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6396402297726599761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105813273936344158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0054a139f938b574a85c9fb04b37e391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8105813274295009459
 GameObject:
   m_ObjectHideFlags: 0
