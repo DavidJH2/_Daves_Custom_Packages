@@ -23,6 +23,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
+			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
 
 			_playerController = ObjectExtentions.DHTFindObjectOfType<DHTPlayerController>(false);
 
@@ -34,6 +35,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			// menuButton.action.performed += MenubuttonPressed;
 		}
 
+
+		public void ResetXROriginPosition()
+		{
+			dhtXROrigin.ResetPosition();
+		}
+		
 		public void VRModeSelected()
 		{
 			dhtXROrigin.SetVRMode(dropDown.value == 0);
@@ -56,7 +63,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			var menuButtonValue = menuButton.action.ReadValue<float>();
 
-			if (_debugPanel) _debugPanel.SetElement(3,$"Menu Button:{menuButtonValue}");
+			if (_debugPanel) _debugPanel.SetElement(3,$"Menu Button:{menuButtonValue}","");
 			
 			if (menuButtonValue != lastmenuButtonValuel)
 			{

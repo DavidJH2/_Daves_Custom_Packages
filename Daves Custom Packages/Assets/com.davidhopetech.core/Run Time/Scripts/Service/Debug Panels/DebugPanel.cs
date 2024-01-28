@@ -8,23 +8,33 @@ using UnityEngine;
 public class DebugPanel : MonoBehaviour
 {
     [SerializeField] private DebugPanelElement[] elements;
-
+    [SerializeField] private bool                _resetOnStart = true;
 
     private void Start()
     {
         var service                     = DHTServiceLocator.Get<DHTDebugPanelService>();
         if(service) service.debugPanel1 = this;
+
+        if (_resetOnStart) ResetOnStart();
+    }
+
+    private void ResetOnStart()
+    {
+        foreach (var element in elements)
+        {
+            element.Reset();
+        }
     }
 
     public void SetElement(int elemNum, string newValue)
     {
-        var elem = elements[elemNum];
-        elem.Set(newValue);
+        var element = elements[elemNum];
+        element.Set(newValue);
     }
 
     public void SetElement(int elemNum, string newLabel, string newValue)
     {
-        var elem = elements[elemNum];
-        elem.Set(newLabel, newValue);
+        var element = elements[elemNum];
+        element.Set(newLabel, newValue);
     }
 }

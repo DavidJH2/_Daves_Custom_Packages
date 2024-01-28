@@ -11,6 +11,7 @@ public class DHTLogService : MonoBehaviour
 
     public void Log(string message)
     {
-        LogEvent.Invoke(message);
+        Debug.Log(message);
+        LogEvent.Invoke(message + "\n");
     }
 }

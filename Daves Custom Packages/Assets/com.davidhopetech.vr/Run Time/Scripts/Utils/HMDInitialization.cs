@@ -9,11 +9,13 @@ public class HMDInitialization : MonoBehaviour
 
 	void Start()
 	{
+		Debug.Log("------  HMDInitialization Start()  ------");
 		StartCoroutine(WaitForHMDTracking());
 	}
 
 	IEnumerator WaitForHMDTracking()
 	{
+		Debug.Log("------  HMDInitialization WaitForHMDTracking() coroutine started  ------");
 		XRNodeState hmdState   = new XRNodeState();
 		bool        isTracking = false;
 
@@ -38,6 +40,7 @@ public class HMDInitialization : MonoBehaviour
 			}
 		}
 
+		Debug.Log("------  HMD Initialized  ------");
 		// Once tracking is confirmed, invoke the callback
 		onHMDInitialized?.Invoke();
 	}

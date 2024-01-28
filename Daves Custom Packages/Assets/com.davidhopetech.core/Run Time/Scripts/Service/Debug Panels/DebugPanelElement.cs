@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,5 +19,11 @@ public class DebugPanelElement : MonoBehaviour
     {
         label.text = newLabel;
         value.text = newValue;
+    }
+
+    public void Reset()
+    {
+        label.text = "";
+        value.text = "";
     }
 }

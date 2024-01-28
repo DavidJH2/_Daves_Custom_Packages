@@ -56,13 +56,14 @@ public class DHTExceptionScreen : MonoBehaviour
 
 	void AddLogEntry(DHTExceptionService.LogEntry logEntry)
 	{
-		var message = $"{logEntry.condition}\n";
+		var message = $"{logEntry.condition}";
 		
 		if (ShowTrace)
 		{
-			message += $"{logEntry.stackTrace}\n";
+			message += $"\n{logEntry.stackTrace}";
 		}
-		message                     += "\n";
+
+		message += "\n";
 		
 		ExceptionScreenTMPText.text += message;
 		_scrollRect.UpdatePos();
