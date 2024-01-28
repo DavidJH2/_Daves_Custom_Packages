@@ -15,11 +15,12 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnEnable()
 	{
-		GetComponent<HMDInitialization>().onHMDInitialized += InitializePosition;
 	}
 	
 	void Start()
 	{
+		HMDInitialization hmdInitialization = GetComponent<HMDInitialization>(); 
+		hmdInitialization.onHMDInitialized += InitializePosition;
 		teleportationProvider         = GetComponent<TeleportationProvider>();
 		
 		if(startOrientation == null) startOrientation = gameObject;
