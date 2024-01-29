@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 8643921350846617063}
   - {fileID: 14915217688317457}
   - {fileID: 5470622053786701531}
+  _resetOnStart: 1
 --- !u!1 &8687604946978352567
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +92,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3254165357024928161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -192,7 +193,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1000, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!223 &6008407078879980260
 Canvas:
   m_ObjectHideFlags: 0

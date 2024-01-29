@@ -30,9 +30,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			// dhtEventService = DHTServiceLocator.dhtEventService;
 			dhtEventService = DHTServiceLocator.Get<DHTEventService>();
 
-			DebugMiscEvent   = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
-			TeleportEvent    = dhtEventService.Get<DHTUpdateDebugTeleportEvent>()?._event;
-			DebugValue1Event = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
+			if (dhtEventService)
+			{
+				DebugMiscEvent   = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
+				TeleportEvent    = dhtEventService.Get<DHTUpdateDebugTeleportEvent>()?._event;
+				DebugValue1Event = dhtEventService.Get<DHTUpdateDebugMiscEvent>()?._event;
+			}
 		}
 
 

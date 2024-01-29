@@ -37,6 +37,6 @@ public class DHTLogScreen : MonoBehaviour
 
 	private void OnDisable()
 	{
-		service.LogEvent.RemoveListener(Log);
+		if(service) service.LogEvent.RemoveListener(Log);
 	}
 }

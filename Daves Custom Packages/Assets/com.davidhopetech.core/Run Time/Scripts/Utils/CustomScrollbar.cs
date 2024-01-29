@@ -1,3 +1,4 @@
+using System;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,7 +16,8 @@ public class CustomScrollbar : Scrollbar
 	protected override void Start()
 	{
 		base.Start();
-		logService = DHTServiceLocator.Get<DHTLogService>();
+
+		logService = (Application.isPlaying ? DHTServiceLocator.Get<DHTLogService>(false) : null);
 	}
 
 	public override void OnBeginDrag(PointerEventData eventData)

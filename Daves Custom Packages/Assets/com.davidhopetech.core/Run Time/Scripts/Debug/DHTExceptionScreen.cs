@@ -72,6 +72,6 @@ public class DHTExceptionScreen : MonoBehaviour
 
 	private void OnDisable()
 	{
-		service.LogEvent.RemoveListener(AddLogEntry);
+		if(service) service.LogEvent.RemoveListener(AddLogEntry);
 	}
 }

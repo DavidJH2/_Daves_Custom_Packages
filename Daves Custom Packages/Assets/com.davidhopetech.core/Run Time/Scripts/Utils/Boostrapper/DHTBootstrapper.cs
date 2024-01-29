@@ -1,68 +1,38 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+
 
 public class DHTBootstrapper : MonoBehaviour
 {
-	public static readonly   int    ServicesSceneBuildIndex = 0;
-
 	[SerializeField] private string firstSceneName;
 
-	async void Start()
+	void Start()
 	{
-		await LoadAndSetActiveScene();
-	}
+		var serviceLoader                    = ObjectExtentions.DHTFindObjectOfType<DHTServicesLoader>();
+		var serviceLoaderInBootstrapperScene = (serviceLoader.gameObject.scene == gameObject.scene);
+		if (serviceLoaderInBootstrapperScene)
+			throw new Exception(
+				$"{typeof(DHTServicesLoader).Name} should not be in the same scene as {typeof(DHTBootstrapper).Name}");
 
+		var firstScene           = SceneManager.GetSceneByName(firstSceneName);
+		var firstSceneIsNotValid = !firstScene.IsValid();
 
-	async Task LoadAndSetActiveScene()
-	{
-		var servicesSceneName = SceneManager.GetSceneByBuildIndex(ServicesSceneBuildIndex).name;
-		if (gameObject.scene.name != servicesSceneName)
+		if (firstSceneIsNotValid) throw new Exception($"Fist scene not be found");
+
+		var bootstrappers = ObjectExtentions.DHTFindObjectsByType<DHTBootstrapper>();
+		if (bootstrappers.Length > 1) Debug.Log("------  Too Many Bootstrappers  ------");
+		var bootstrapper = bootstrappers[0];
+
+		if (SceneManager.GetActiveScene() == bootstrapper.gameObject.scene)
 		{
-			throw new Exception($"Class: {this.name} should ONLY be in {SceneManager.GetSceneByBuildIndex( DHTBootstrapper.ServicesSceneBuildIndex).name}");
-		}
-
-		var activeScene = SceneManager.GetActiveScene();
-
-		if (activeScene.name == servicesSceneName)
-		{
-			// Load first scene and make active
-			var asyncLoad = SceneManager.LoadSceneAsync(firstSceneName, LoadSceneMode.Additive);
-		 
-			while (!asyncLoad.isDone)
+			var firstSceneNotLoaded = !firstScene.isLoaded;
+			if (firstSceneNotLoaded)
 			{
-				await Task.Yield();
+				SceneManager.LoadSceneAsync(firstSceneName, LoadSceneMode.Additive);
 			}
-			
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(firstSceneName));
-		}
-		else
-		{
-			/*
-			// Activate Bootstrapper
-			var lastActiveScene     = activeScene;
-			var lastActiveSceneName = lastActiveScene.name;
-			
-			Scene loadedScene = SceneManager.GetSceneByName(ServicesSceneName);
-			SceneManager.SetActiveScene(loadedScene);
-				
-			// Unload and reload scene to activate it after the Bootstrapper is loaded
-			SceneManager.UnloadSceneAsync(lastActiveScene);
-
-			var asyncLoad = SceneManager.LoadSceneAsync(lastActiveSceneName, LoadSceneMode.Additive);
-			while (!asyncLoad.isDone)
-			{
-				await Task.Yield();
-			}
-			
-			var scene = SceneManager.GetSceneByName(lastActiveSceneName);
-			SceneManager.SetActiveScene(scene);
-			*/
 		}
 	}
 }
