@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -32,7 +33,7 @@ public class RecenterOrigin : MonoBehaviour
 		Debug.Log("------  Attempting to recenter  ------");
 		var service =  DHTServiceLocator.Get<DHTLogService>();
 		
-		if (service) service.Log("------  Attempting to recenter  ------\n");
+		if (DTH.ShowPostionResetDebug && service) service.Log("------  Attempting to recenter  ------\n");
 		List<XRInputSubsystem> subsystems = new List<XRInputSubsystem>();
 		SubsystemManager.GetInstances<XRInputSubsystem>(subsystems);
 

@@ -9,10 +9,6 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
     public class DHTEventService : MonoBehaviour
     {
         private static HashSet<Object> cache = new();
-        
-        // public         DHTUpdateDebugValue1Event   dhtUpdateDebugValue1Event   = new DHTUpdateDebugValue1Event();
-        // public         DHTUpdateDebugTeleportEvent dhtUpdateDebugTeleportEvent = new DHTUpdateDebugTeleportEvent();
-        // public DHTUpdateDebugMiscEvent     dhtUpdateDebugMiscEvent     = new DHTUpdateDebugMiscEvent();
     
         
         public void AddNewEvent<T>() where T : Component

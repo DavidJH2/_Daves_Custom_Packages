@@ -1,3 +1,5 @@
+
+
 using UnityEngine;
 using UnityEngine.XR;
 using System.Collections;
@@ -46,14 +48,17 @@ public class HMDInitialization : MonoBehaviour
 		}
 
 		onHMDInitialized?.Invoke();
-		_logService?.Log("------  Wait for XR General Settings  ------");
+		
+		if(DTH.ShowPostionResetDebug) _logService?.Log("------  Wait for XR General Settings  ------");
 		yield return new WaitUntil(() => XRGeneralSettings.Instance.Manager.isInitializationComplete);
 
 		// Once tracking is confirmed, invoke the callback
 		onHMDInitialized?.Invoke();
-		_logService?.Log("------  Wait 0.2 sec  ------");
+		if(DTH.ShowPostionResetDebug) _logService?.Log("------  Wait 0.2 sec  ------");
+		
 		yield return new WaitForSeconds(.2f);			// <--- Required only for Quest 3
 		onHMDInitialized?.Invoke();
-		_logService?.Log("------  Done  ------");
+		
+		if(DTH.ShowPostionResetDebug) _logService?.Log("------  Done  ------");
 	}
 }

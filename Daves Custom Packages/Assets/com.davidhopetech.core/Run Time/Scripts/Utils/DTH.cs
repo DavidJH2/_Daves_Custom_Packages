@@ -7,6 +7,8 @@ namespace com.davidhopetech.core.Run_Time.Utils
 {
 	public static class DTH
 	{
+		public static bool ShowPostionResetDebug = false;
+
 		public static string DecoratedMethodeInfo(GameObject go)
 		{
 			return $">>>>>>>>>>>>>>>>>>>>  {MethodeInfo(go, 1)}  <<<<<<<<<<<<<<<<<<<";

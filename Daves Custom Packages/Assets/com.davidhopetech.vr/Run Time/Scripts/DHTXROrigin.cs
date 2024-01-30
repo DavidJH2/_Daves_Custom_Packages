@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Utils;
+using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
+
+
 
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
 public class DHTXROrigin : MonoBehaviour
@@ -30,11 +30,11 @@ public class DHTXROrigin : MonoBehaviour
 		hmdInitialization.onHMDInitialized += HMDInitialized;
 		teleportationProvider         = GetComponent<TeleportationProvider>();
 		
+		if(startOrientation == null) startOrientation = ObjectExtentions.DHTFindObjectOfType<StartPosition>().gameObject;
 		if(startOrientation == null) startOrientation = gameObject;
 		
 		if (xrOrigin == null)
 		{
-			
 			xrOrigin = GetComponent<XROrigin>();
 		}
 	}
@@ -53,8 +53,14 @@ public class DHTXROrigin : MonoBehaviour
 
 	public void ResetPosition()
 	{
+		if (startOrientation == null)
+		{
+			if (_logService) _logService.Log($"--------  No Start Position to Reset To  ------");
+			return;
+		}
+		
 		resetCount++;
-		if (_logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
+		if (DTH.ShowPostionResetDebug && _logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
 		TeleportRequest request = new TeleportRequest()
 		{
 			destinationPosition = startOrientation.transform.position,
@@ -67,6 +73,7 @@ public class DHTXROrigin : MonoBehaviour
 
 	public void SetVRMode(bool vrSittingMode)
 	{
+		
 		if (vrSittingMode)
 		{
 			xrOrigin.RequestedTrackingOriginMode = XROrigin.TrackingOriginMode.Device;
