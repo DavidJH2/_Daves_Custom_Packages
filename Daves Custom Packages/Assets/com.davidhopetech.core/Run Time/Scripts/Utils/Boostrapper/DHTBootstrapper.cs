@@ -1,6 +1,9 @@
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using com.davidhopetech.core.Run_Time.Extensions;
+using com.davidhopetech.core.Run_Time.Utils;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,26 +12,55 @@ public class DHTBootstrapper : MonoBehaviour
 {
 	[SerializeField] private string firstSceneName;
 
+	private void Awake()
+	{
+		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
+		SceneManager.sceneLoaded += OnSceneLoaded;
+		ErrorChecking();
+	}
+
 	void Start()
 	{
-		var serviceLoader                    = ObjectExtentions.DHTFindObjectOfType<DHTServicesLoader>();
-		var serviceLoaderInBootstrapperScene = (serviceLoader.gameObject.scene == gameObject.scene);
-		if (serviceLoaderInBootstrapperScene)
-			throw new Exception(
-				$"{typeof(DHTServicesLoader).Name} should not be in the same scene as {typeof(DHTBootstrapper).Name}");
+		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
+	}
 
-		var firstScene           = SceneManager.GetSceneByName(firstSceneName);
-		var firstSceneIsNotValid = !firstScene.IsValid();
-
-		if (firstSceneIsNotValid) throw new Exception($"Fist scene not be found");
-
-		var bootstrappers = ObjectExtentions.DHTFindObjectsByType<DHTBootstrapper>();
-		if (bootstrappers.Length > 1) Debug.Log("------  Too Many Bootstrappers  ------");
-		var bootstrapper = bootstrappers[0];
-
-		if (SceneManager.GetActiveScene() == bootstrapper.gameObject.scene)
+	private void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
+	{
+		Debug.Log($"{DTH.DecoratedMethodeInfo(gameObject)}                Scene Loaded: {loadedScene.name}      <--------------------");
+		if (SceneManager.sceneCount == SceneManager.loadedSceneCount)
 		{
-			var firstSceneNotLoaded = !firstScene.isLoaded;
+			Debug.Log("------  All Scenes Loaded  ------");
+			TryLoadFirstScene();
+		}
+
+		var bootstrapperScene = gameObject.scene;
+	}
+
+
+	void ErrorChecking()
+	{
+		if(ObjectExtentions.DHTFindObjectsByType<DHTBootstrapper>().Length>1)
+			Debug.Log($" ----------------------------------------------------  There should only be one {nameof(DHTBootstrapper)}  ----------------------------------------------------");
+		if (gameObject.scene.buildIndex != 0)
+			Debug.Log($"---------------------------------------------------- Scene {gameObject.scene} should be Scene 0 in Build Settings  ----------------------------------------------------");
+	
+		var serviceLoaders = ObjectExtentions.DHTFindObjectsByType<DHTServicesLoader>();
+		foreach (var serviceLoader in serviceLoaders)
+		{
+			var serviceLoaderInBootstrapperScene = (serviceLoader.gameObject.scene == gameObject.scene);
+			if (serviceLoaderInBootstrapperScene) Debug.Log($"----------------------------------------------------  {nameof(DHTServicesLoader)} should not be in the same scene as {nameof(DHTBootstrapper)}" + 
+			                                                "----------------------------------------------------");
+		}
+	}
+
+
+	private void TryLoadFirstScene()
+	{
+		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
+
+		var firstScene = SceneManager.GetSceneByName(firstSceneName);
+		{
+			var firstSceneNotLoaded = (firstScene == null || !firstScene.isLoaded);
 			if (firstSceneNotLoaded)
 			{
 				SceneManager.LoadSceneAsync(firstSceneName, LoadSceneMode.Additive);
@@ -36,3 +68,4 @@ public class DHTBootstrapper : MonoBehaviour
 		}
 	}
 }
+

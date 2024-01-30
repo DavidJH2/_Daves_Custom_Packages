@@ -20,7 +20,7 @@ public class DHTLogService : MonoBehaviour
 
         string formattedMessage = $"{message} (at {fileName}:{lineNumber})";
 
-        Debug.Log(formattedMessage);
+        Debug.Log(message);
         LogEvent.Invoke(message + "\n");
     }
 }

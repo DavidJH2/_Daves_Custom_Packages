@@ -42,8 +42,6 @@ public class DHTXROrigin : MonoBehaviour
 
 	public void HMDInitialized()
 	{
-		// if (_logService) _logService.Log($"------  {this.GetType().Name}.{MethodBase.GetCurrentMethod().Name} Called  ------");
-		// if (_logService) _logService.Log($"------  {this.GetType().Name}.{MethodBase.GetCurrentMethod().Name}: resetPositionOnStart = {resetPositionOnStart}  ------");
 		if (resetPositionOnStart)
 		{
 			ResetPosition();
@@ -56,7 +54,7 @@ public class DHTXROrigin : MonoBehaviour
 	public void ResetPosition()
 	{
 		resetCount++;
-		// if (_logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
+		if (_logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
 		TeleportRequest request = new TeleportRequest()
 		{
 			destinationPosition = startOrientation.transform.position,

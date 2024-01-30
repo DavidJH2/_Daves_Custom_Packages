@@ -31,8 +31,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				_playerController.SetVRMode(dropDown);
 			}
-
-			// menuButton.action.performed += MenubuttonPressed;
 		}
 
 

@@ -2,20 +2,27 @@ using UnityEngine;
 using UnityEngine.XR;
 using System.Collections;
 using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine.XR.Management;
 
 public class HMDInitialization : MonoBehaviour
 {
-	public System.Action onHMDInitialized; // Custom callback action
-
+	public  System.Action onHMDInitialized; // Custom callback action
+	private DHTLogService _logService;
 	void Start()
 	{
+		_logService = DHTServiceLocator.Get<DHTLogService>();
 		StartCoroutine(WaitForHMDTracking());
 	}
 
 	IEnumerator WaitForHMDTracking()
 	{
-		/*
+		bool   isTracking = false;
+		XRNodeState hmdState;
+		
+		_logService?.Log("------  Wait for Node  ------");
+		
 		while (!isTracking)
 		{
 			
@@ -37,18 +44,16 @@ public class HMDInitialization : MonoBehaviour
 				yield return null; // Wait until the next frame to check again
 			}
 		}
-		*/
 
-		// Debug.Log("------  HMD Initialized  ------");
+		onHMDInitialized?.Invoke();
+		_logService?.Log("------  Wait for XR General Settings  ------");
 		yield return new WaitUntil(() => XRGeneralSettings.Instance.Manager.isInitializationComplete);
 
 		// Once tracking is confirmed, invoke the callback
-		// yield return new WaitForSeconds(0.1f);			// <--- Required only for Quest 3
 		onHMDInitialized?.Invoke();
+		_logService?.Log("------  Wait 0.2 sec  ------");
+		yield return new WaitForSeconds(.2f);			// <--- Required only for Quest 3
+		onHMDInitialized?.Invoke();
+		_logService?.Log("------  Done  ------");
 	}
 }
-
-
-
-
-//  well, the XROrigin already supports teleportation when It's ready. I just need to know when it is ready, not the 
