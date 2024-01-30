@@ -16,10 +16,19 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
 
     private void Awake()
     {
+        Init();
+    }
+
+    private void Init()
+    {
         _logScreen       = DHTServiceLocator.Get<DHTLogScreen>();
         _customScrollbar = GetComponentInChildren<CustomScrollbar>();
         _customScrollbar.ScrollbarDraggingStateChange.AddListener(OnScrollbarDraggingStateChange);
+        
+        if (_scrollRect == null) _scrollRect = GetComponentInChildren<ScrollRect>();
+        _scrollRect.onValueChanged.AddListener(OnUpdatePos);
     }
+
 
     public void OnUpdatePos(Vector2 arg0)
     {
@@ -29,12 +38,6 @@ public class ExceptionScrollViewDragHandler : MonoBehaviour, IDragHandler, IBegi
     public void UpdatePos()
     {
         if (scrollToBottom && !_customScrollbar.scrollbarBeingDragged) _scrollRect.verticalNormalizedPosition = 0;
-    }
-
-    private void Start()
-    {
-        if (_scrollRect == null) _scrollRect = GetComponentInChildren<ScrollRect>();
-        _scrollRect.onValueChanged.AddListener(OnUpdatePos);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

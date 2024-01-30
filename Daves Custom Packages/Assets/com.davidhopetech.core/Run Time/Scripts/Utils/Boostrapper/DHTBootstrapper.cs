@@ -1,9 +1,6 @@
 using System;
-using System.Reflection;
-using System.Threading.Tasks;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Utils;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,7 +39,7 @@ public class DHTBootstrapper : MonoBehaviour
 		if(ObjectExtentions.DHTFindObjectsByType<DHTBootstrapper>().Length>1)
 			Debug.Log($" ----------------------------------------------------  There should only be one {nameof(DHTBootstrapper)}  ----------------------------------------------------");
 		if (gameObject.scene.buildIndex != 0)
-			Debug.Log($"---------------------------------------------------- Scene {gameObject.scene} should be Scene 0 in Build Settings  ----------------------------------------------------");
+			throw new Exception($"---------------------------------------------------- Scene {gameObject.scene} Must be Scene 0 in Build Settings  ----------------------------------------------------");
 	
 		var serviceLoaders = ObjectExtentions.DHTFindObjectsByType<DHTServicesLoader>();
 		foreach (var serviceLoader in serviceLoaders)

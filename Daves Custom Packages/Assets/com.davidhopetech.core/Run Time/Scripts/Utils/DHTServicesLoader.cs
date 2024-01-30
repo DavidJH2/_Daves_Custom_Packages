@@ -1,12 +1,16 @@
 using System;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Utils;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class DHTServicesLoader : MonoBehaviour
 {
+#if UNITY_EDITOR
 	ServicesSceneSettings servicesSceneSettings
 	{
 		get
@@ -83,14 +87,8 @@ public class DHTServicesLoader : MonoBehaviour
 		if (bootstrappers.Length > 1) Debug.Log("------  Too Many Bootstrappers  ------");
 
 		var bootstrapperScene = bootstrappers[0].gameObject.scene;
-	
-		/*
-		if (bootstrapperScene.name != servicesSceneName)
-			throw new Exception($"{typeof(DHTBootstrapper).Name} should only be in Services Scene");
 
-		if (gameObject.scene == bootstrapperScene)
-			throw new Exception($"{typeof(DHTServicesLoader).Name} should not be in the same scene as {typeof(DHTBootstrapper).Name}");
-		*/
 		return bootstrappers[0];
 	}
+#endif
 }
