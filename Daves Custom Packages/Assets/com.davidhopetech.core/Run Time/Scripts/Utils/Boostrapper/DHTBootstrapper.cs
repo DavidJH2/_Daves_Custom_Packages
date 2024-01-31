@@ -1,6 +1,7 @@
 using System;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Utils;
+using DHT;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,23 +12,21 @@ public class DHTBootstrapper : MonoBehaviour
 
 	private void Awake()
 	{
-		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
 		SceneManager.sceneLoaded += OnSceneLoaded;
 		ErrorChecking();
 	}
 
 	void Start()
 	{
-		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
 	}
 
 	private void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
 	{
-		Debug.Log($"{DTH.DecoratedMethodeInfo(gameObject)}                Scene Loaded: {loadedScene.name}      <--------------------");
+		DHTDebug.LogTag($"  ----------->  Scene Loaded:",this);
 		if (SceneManager.sceneCount == SceneManager.loadedSceneCount)
 		{
-			Debug.Log("------  All Scenes Loaded  ------");
-			TryLoadFirstScene();
+			DHTDebug.LogTag("------  All Scenes Loaded  ------",this);
+			OnAllScenesLoaded();
 		}
 
 		var bootstrapperScene = gameObject.scene;
@@ -50,11 +49,13 @@ public class DHTBootstrapper : MonoBehaviour
 		}
 	}
 
+	void OnAllScenesLoaded()
+	{
+		TryLoadFirstScene();
+	}
 
 	private void TryLoadFirstScene()
 	{
-		Debug.Log(DTH.DecoratedMethodeInfo(gameObject));
-
 		var firstScene = SceneManager.GetSceneByName(firstSceneName);
 		{
 			var firstSceneNotLoaded = (firstScene == null || !firstScene.isLoaded);

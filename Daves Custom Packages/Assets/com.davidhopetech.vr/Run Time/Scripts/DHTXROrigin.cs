@@ -44,14 +44,14 @@ public class DHTXROrigin : MonoBehaviour
 	{
 		if (resetPositionOnStart)
 		{
-			ResetPosition();
+			Recenter();
 		}
 	}
 
 	
 	private int resetCount = 0;
 
-	public void ResetPosition()
+	public void Recenter()
 	{
 		if (startOrientation == null)
 		{
@@ -60,7 +60,7 @@ public class DHTXROrigin : MonoBehaviour
 		}
 		
 		resetCount++;
-		if (DTH.ShowPostionResetDebug && _logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
+		if (_logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
 		TeleportRequest request = new TeleportRequest()
 		{
 			destinationPosition = startOrientation.transform.position,

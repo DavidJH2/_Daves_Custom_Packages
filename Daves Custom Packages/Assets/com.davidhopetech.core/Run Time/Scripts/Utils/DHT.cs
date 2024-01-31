@@ -5,17 +5,17 @@ using Debug = UnityEngine.Debug;
 
 namespace com.davidhopetech.core.Run_Time.Utils
 {
-	public static class DTH
+	public static class DHT
 	{
 		public static bool ShowPostionResetDebug = false;
 
-		public static string DecoratedMethodeInfo(GameObject go)
+		public static string DecoratedMethodeInfo2(GameObject go)
 		{
-			return $">>>>>>>>>>>>>>>>>>>>  {MethodeInfo(go, 1)}  <<<<<<<<<<<<<<<<<<<";
+			return $">>>>>>>>>>>>>>>>>>>>  {MethodeInfo2(go, 1)}  <<<<<<<<<<<<<<<<<<<";
 		}
 
 
-		public static string MethodeInfo(GameObject go, int stackFramOffset = 0)
+		public static string MethodeInfo2(GameObject go, int stackFramOffset = 0)
 		{
 			StackTrace   stackTrace  = new StackTrace();
 			StackFrame[] stackFrames = stackTrace.GetFrames();

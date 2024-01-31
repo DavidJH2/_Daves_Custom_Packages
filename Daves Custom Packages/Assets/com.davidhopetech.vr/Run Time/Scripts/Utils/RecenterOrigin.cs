@@ -33,7 +33,7 @@ public class RecenterOrigin : MonoBehaviour
 		Debug.Log("------  Attempting to recenter  ------");
 		var service =  DHTServiceLocator.Get<DHTLogService>();
 		
-		if (DTH.ShowPostionResetDebug && service) service.Log("------  Attempting to recenter  ------\n");
+		if (com.davidhopetech.core.Run_Time.Utils.DHT.ShowPostionResetDebug && service) service.Log("------  Attempting to recenter  ------\n");
 		List<XRInputSubsystem> subsystems = new List<XRInputSubsystem>();
 		SubsystemManager.GetInstances<XRInputSubsystem>(subsystems);
 
