@@ -30,8 +30,7 @@ public class RecenterOrigin : MonoBehaviour
 
 	public void Recenter()
 	{
-		return;
-		
+	#if false	
 		Debug.Log("------  Attempting to recenter  ------");
 		var service =  DHTServiceLocator.Get<DHTLogService>();
 		
@@ -49,6 +48,7 @@ public class RecenterOrigin : MonoBehaviour
 				if (service) service.Log($"{succesStr}\n");
 			}
 		}
+#endif
 	}
 }
 

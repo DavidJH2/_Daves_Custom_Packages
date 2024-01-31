@@ -28,6 +28,7 @@ public class DHTXROrigin : MonoBehaviour
 	void Start()
 	{
 		StartCoroutine(nameof(InitializeXR));
+		
 		_logService = DHTServiceLocator.Get<DHTLogService>();
 		_service = DHTServiceLocator.Get<DHTHMDService>();
 		
@@ -49,11 +50,34 @@ public class DHTXROrigin : MonoBehaviour
 
 	public IEnumerator  InitializeXR()
 	{
+		if (XRGeneralSettings.Instance != null && XRGeneralSettings.Instance.Manager != null)
+		{
 #if UNITY_EDITOR || !PLATFORM_ANDROID 
-		XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+			// Initialize the XR Loader synchronously
+			XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
 #endif
-		XRGeneralSettings.Instance.Manager.StartSubsystems();
-		return null;
+
+			// Check if the Loader was successfully initialized
+			if (XRGeneralSettings.Instance.Manager.activeLoader != null)
+			{
+				Debug.Log("XR Loader initialized successfully.");
+
+				// Wait until the next frame to start subsystems, ensuring the loader is fully operational
+				yield return null;
+
+				XRGeneralSettings.Instance.Manager.StartSubsystems();
+				Debug.Log("XR Subsystems started.");
+			}
+			else
+			{
+				// yield return null;
+				//Debug.LogError("Failed to initialize XR Loader.");
+			}
+		}
+		else
+		{
+			Debug.LogError("XRGeneralSettings or its Manager is null.");
+		}
 	}
 	
 	
