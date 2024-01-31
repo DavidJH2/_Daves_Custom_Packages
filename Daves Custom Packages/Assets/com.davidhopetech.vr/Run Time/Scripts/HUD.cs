@@ -55,7 +55,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		}
 		
 		
-		private float lastmenuButtonValuel = -1f;
+		private float lastMenuButtonValuel = -1f;
 
 		void Update()
 		{
@@ -63,10 +63,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 			if (_debugPanel) _debugPanel.SetElement(3,$"Menu Button:{menuButtonValue}","");
 			
-			if (menuButtonValue != lastmenuButtonValuel)
+			if (menuButtonValue != lastMenuButtonValuel)
 			{
 				if(menuButtonValue > 0.9f) hudUI.SetActive(!hudUI.activeSelf);
-				lastmenuButtonValuel = menuButtonValue;
+				lastMenuButtonValuel = menuButtonValue;
 			}
 		}
 	}

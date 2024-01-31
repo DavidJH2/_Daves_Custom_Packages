@@ -1,23 +1,34 @@
 using System;
 using System.Collections.Generic;
-
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.XR;
 using UnityEngine.XR.OpenXR;
+using CommonUsages = UnityEngine.XR.CommonUsages;
+using InputDevice = UnityEngine.XR.InputDevice;
 
 public class DHTHMDService : MonoBehaviour
 {
-    public UnityEvent<bool> UserPresence = new UnityEvent<bool>();
+    public UnityEvent<bool> UserPresenceEvent  = new UnityEvent<bool>();
+    public UnityEvent       HMDFirstMountEvent = new UnityEvent();
+    
+    [SerializeField] internal InputActionProperty menuButton;
 
-    #if true
+#if true
     private InputDevice inputDevice ;
     private Action      state;
-    private bool        lastHmdMounted;
+    private bool        lastHmdMounted = true;
 
+    private                  DHTLogService logService;
+    [SerializeField] private bool          loggingState = true;
+    
     
     void Start()
     {
+        logService = DHTServiceLocator.Get<DHTLogService>();
         SetState(FindHMD);
     }
     
@@ -48,20 +59,46 @@ public class DHTHMDService : MonoBehaviour
         }
     }
 
+
+    private float lastButtonValuel  = -1f;
+    private bool  HMDHasBeenMounted = false;
+    
     void UpdateHMDUserPresence()
     {
-        Vector3 velocity;
-        inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
+        UpdateLoggingState();
+        var hmdMounted =  GetHMDMounted();
+        if (!HMDHasBeenMounted && hmdMounted)
+        {
+            
+        }
         
-        var hmdMounted =  (velocity != Vector3.zero);
         if (hmdMounted != lastHmdMounted)
         {
-            UserPresence.Invoke(hmdMounted);
+            logService.Log($"   ---->  hmdMounted = {hmdMounted}");
+            UserPresenceEvent.Invoke(hmdMounted);
             lastHmdMounted = hmdMounted;
         }
     }
 
-    #else
+    void UpdateLoggingState()
+    {
+        var buttonValue = menuButton.action.ReadValue<float>();
+        if (buttonValue != lastButtonValuel)
+            if(buttonValue >0.9f)
+                loggingState = !loggingState;
+    }
+
+    bool GetHMDMounted()
+    {
+        Vector3 velocity;
+        
+        inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
+        if(loggingState) logService.Log($"HMD Velocity: {velocity}\t\tlastHmdMounted = {lastHmdMounted}");
+        var hmdMounted =  (velocity != Vector3.zero);
+        
+        return hmdMounted;
+    }
+#else
     private void Start()
     {
         // Subscribe to the session state change event
@@ -78,7 +115,7 @@ public class DHTHMDService : MonoBehaviour
 
     private bool OnSessionEnding()
     {
-        UserPresence.Invoke(false);     // HMD removed
+        UserPresenceEvent.Invoke(false);     // HMD removed
         
         Debug.Log("OpenXR session is ending");
         // Return true to allow the session to end, or false to prevent it
@@ -87,11 +124,11 @@ public class DHTHMDService : MonoBehaviour
 
     private bool OnSessionRestarting()
     {
-        UserPresence.Invoke(true);      // HMD put on
+        UserPresenceEvent.Invoke(true);      // HMD put on
         
         Debug.Log("OpenXR session is restarting");
         // Return true to allow the session to restart, or false to prevent it
         return true;
     }    
-    #endif
+#endif
 }

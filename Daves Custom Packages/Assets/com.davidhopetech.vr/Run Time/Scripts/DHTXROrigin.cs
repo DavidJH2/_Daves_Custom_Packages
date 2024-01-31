@@ -1,11 +1,13 @@
+using System.Collections;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
+using DHT;
 using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-
+using UnityEngine.XR.Management;
 
 
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
@@ -17,6 +19,7 @@ public class DHTXROrigin : MonoBehaviour
 	[SerializeField] private GameObject            startOrientation;
 
 	private DHTLogService _logService;
+	private DHTHMDService _service;
 
 	void OnEnable()
 	{
@@ -24,10 +27,15 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
+		StartCoroutine(nameof(InitializeXR));
 		_logService = DHTServiceLocator.Get<DHTLogService>();
+		_service = DHTServiceLocator.Get<DHTHMDService>();
 		
 		HMDInitialization hmdInitialization = GetComponent<HMDInitialization>(); 
 		hmdInitialization.onHMDInitialized += HMDInitialized;
+		
+		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
+
 		teleportationProvider         = GetComponent<TeleportationProvider>();
 		
 		if(startOrientation == null) startOrientation = ObjectExtentions.DHTFindObjectOfType<StartPosition>().gameObject;
@@ -39,15 +47,32 @@ public class DHTXROrigin : MonoBehaviour
 		}
 	}
 
-
-	public void HMDInitialized()
+	public IEnumerator  InitializeXR()
 	{
-		if (resetPositionOnStart)
-		{
-			Recenter();
-		}
+#if UNITY_EDITOR || !PLATFORM_ANDROID 
+		XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+#endif
+		XRGeneralSettings.Instance.Manager.StartSubsystems();
+		return null;
+	}
+	
+	
+
+	private void HMDInitialized()
+	{
+		_logService.Log($"{DHTDebug.MethodeInfo(this)}:   HMDInitialized() event received");
 	}
 
+
+	public void OnUserPresence(bool state)
+	{
+		if (resetPositionOnStart && state)
+		{
+			Recenter();
+			_service.UserPresenceEvent.RemoveListener(OnUserPresence);
+		}
+	}
+	
 	
 	private int resetCount = 0;
 
@@ -86,6 +111,8 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
-		GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
+		// GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
+		_service.UserPresenceEvent.RemoveListener(OnUserPresence);
+		XRGeneralSettings.Instance.Manager.DeinitializeLoader();
 	}
 }

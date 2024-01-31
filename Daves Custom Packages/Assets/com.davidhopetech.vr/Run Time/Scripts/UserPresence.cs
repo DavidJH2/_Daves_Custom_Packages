@@ -22,8 +22,20 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		
 		private void Start()
 		{
+			InitCams();
 			GetCurrentCamera();
 			InitializeServices();	
+		}
+
+		void InitCams()
+		{
+#if PLATFORM_ANDROID && !UNITY_EDITOR 
+			vrCamGO.SetActive(true);
+			pancakeCamGO.SetActive(false);
+#else
+			vrCamGO.SetActive(false);
+			pancakeCamGO.SetActive(true);
+#endif
 		}
 
 
@@ -38,13 +50,21 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 				currentCameraGO = pancakeCamGO;
 			}
 		}
-		
 
 		private void InitializeServices()
 		{
 			var service = DHTServiceLocator.Get<DHTHMDService>();
-			if(service) service.UserPresence.AddListener(OnUserPresence);
+			if (service)
+			{
+				service.UserPresenceEvent.AddListener(OnUserPresence);
+				service.HMDFirstMountEvent.AddListener(OnHMDFirstMount);
+			}
+			
 			_canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
+		}
+
+		void OnHMDFirstMount()
+		{
 		}
 
 		public void OnUserPresence(bool hmdMounted)
