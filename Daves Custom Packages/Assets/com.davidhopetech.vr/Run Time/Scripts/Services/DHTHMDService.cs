@@ -74,7 +74,6 @@ public class DHTHMDService : MonoBehaviour
         
         if (hmdMounted != lastHmdMounted)
         {
-            logService.Log($"   ---->  hmdMounted = {hmdMounted}");
             UserPresenceEvent.Invoke(hmdMounted);
             lastHmdMounted = hmdMounted;
         }

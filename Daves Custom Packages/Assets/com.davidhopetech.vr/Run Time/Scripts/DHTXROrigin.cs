@@ -84,7 +84,7 @@ public class DHTXROrigin : MonoBehaviour
 
 	private void HMDInitialized()
 	{
-		_logService.Log($"{DHTDebug.MethodeInfo(this)}:   HMDInitialized() event received");
+		// _logService.Log($"{DHTDebug.MethodeInfo(this)}:   HMDInitialized() event received");
 	}
 
 

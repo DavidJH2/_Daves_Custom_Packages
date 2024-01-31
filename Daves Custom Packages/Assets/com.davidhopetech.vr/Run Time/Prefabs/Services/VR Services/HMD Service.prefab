@@ -44,18 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0cbbbdd10ad16488bcf7917911f671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UserPresence:
+  UserPresenceEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UserPresence, DavidHopeTechVR
-        m_MethodName: OnUserPresence
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  HMDFirstMountEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  menuButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Menu Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: fa425a5e-515e-4501-b28f-422910168e1a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -2382314469574091145, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  loggingState: 0
