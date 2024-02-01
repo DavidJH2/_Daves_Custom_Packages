@@ -10,7 +10,7 @@ public class DHTConsole : EditorWindow
     private float dividerPosition;
     private bool isResizing;
     private System.Collections.Generic.List<LogEntry> logEntries = new System.Collections.Generic.List<LogEntry>();
-    private const float DividerHeight = 5f; // Height of the divider
+    private const float DividerHeight = 2f; // Height of the divider
 
     [MenuItem("Window/Custom Console")]
     public static void ShowWindow()
@@ -63,6 +63,7 @@ public class DHTConsole : EditorWindow
         GUILayout.Box("", GUILayout.Height(DividerHeight), GUILayout.ExpandWidth(true));
 
         Rect dividerRect = GUILayoutUtility.GetLastRect();
+        EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
         EditorGUIUtility.AddCursorRect(dividerRect, MouseCursor.ResizeVertical);
 
         if (Event.current.type == EventType.MouseDown && dividerRect.Contains(Event.current.mousePosition))
