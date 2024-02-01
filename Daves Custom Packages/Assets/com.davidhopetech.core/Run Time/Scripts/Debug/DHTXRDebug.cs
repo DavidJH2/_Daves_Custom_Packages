@@ -20,7 +20,7 @@ namespace com.davidhopetech.core.Run_Time.DHTDebug
 		
 		void Start()
 		{
-			
+			Debug.unityLogger.Log("This is a Test");	
 			// var eventService = DHTServiceLocator.dhtEventService;
 			var eventService = DHTServiceLocator.Get<DHTEventService>();
 			

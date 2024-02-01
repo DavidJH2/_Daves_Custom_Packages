@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Utils;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using DHT;
 using TMPro;
@@ -26,7 +27,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		// Start is called before the first frame update
 		void Start()
 		{
-			DHTDebug.Tag(this);
+			DHTDebug2.TestLog("------  Test Message  ------");
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);

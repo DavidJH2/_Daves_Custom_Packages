@@ -12,16 +12,16 @@ public class DHTConsole : EditorWindow
     private System.Collections.Generic.List<LogEntry> logEntries = new System.Collections.Generic.List<LogEntry>();
     private const float DividerHeight = 2f; // Height of the divider
 
-    [MenuItem("Window/Custom Console")]
+    [MenuItem("Window/DHT Console")]
     public static void ShowWindow()
     {
-        GetWindow<DHTConsole>("Custom Console");
+        GetWindow<DHTConsole>("DHT Console");
     }
 
     private void OnEnable()
     {
-        dividerPosition = position.height / 2; // Initialize divider position to half of window height
         Application.logMessageReceived += HandleLog;
+        dividerPosition = position.height / 2; // Initialize divider position to half of window height
     }
 
     private void OnDisable()
@@ -124,6 +124,35 @@ public class DHTConsole : EditorWindow
 
     private void ExtractFilePathAndLineNumber(string stackTrace, out string filePath, out int lineNumber)
     {
+#if true
+    filePath = string.Empty;
+    lineNumber = 0;
+
+    // Pattern to extract the file path and line number
+    string pattern = @"\(at\s+(.*?):(\d+)\)";
+
+    // Find all matches in the stack trace
+    MatchCollection matches = Regex.Matches(stackTrace, pattern);
+
+    foreach (Match match in matches)
+    {
+        if (match.Success && match.Groups.Count > 2)
+        {
+            string tempFilePath = match.Groups[1].Value;
+
+            // Check if the file path contains the "No Trace" folder
+            if (!tempFilePath.Contains("/No Trace/") && !tempFilePath.Contains("\\No Trace\\"))
+            {
+                filePath = NormalizeFilePath(tempFilePath);
+                lineNumber = int.Parse(match.Groups[2].Value);
+
+                // Since a valid file path and line number have been found, break out of the loop
+                break;
+            }
+        }
+    }
+#else
+        
         filePath   = string.Empty;
         lineNumber = 0;
 
@@ -140,6 +169,7 @@ public class DHTConsole : EditorWindow
             // Normalize the file path
             filePath = NormalizeFilePath(filePath);
         }
+#endif
     }
 
     private string NormalizeFilePath(string filePath)

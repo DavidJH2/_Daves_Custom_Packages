@@ -5,7 +5,7 @@ using Debug = UnityEngine.Debug;
 
 namespace com.davidhopetech.core.Run_Time.Utils
 {
-	public static class DHT
+	 public static partial class DHTDebug2
 	{
 		public static bool ShowPostionResetDebug = false;
 	}
