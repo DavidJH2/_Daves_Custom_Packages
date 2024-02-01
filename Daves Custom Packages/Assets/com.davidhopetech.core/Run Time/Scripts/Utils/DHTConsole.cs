@@ -1,32 +1,27 @@
-using UnityEditor;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
+using UnityEditor;
 using UnityEditorInternal;
+using UnityEngine;
 
 public class DHTConsole : EditorWindow
 {
-    private       Vector2        scrollPosition1;
-    private       Vector2        scrollPosition2;
-    private       List<LogEntry> logEntries      = new List<LogEntry>();
+    private Vector2 logScrollPosition;
+    private Vector2 stackTraceScrollPosition;
+    private float dividerPosition;
+    private bool isResizing;
+    private System.Collections.Generic.List<LogEntry> logEntries = new System.Collections.Generic.List<LogEntry>();
+    private const float DividerHeight = 5f; // Height of the divider
 
-    private class LogEntry
-    {
-        public string Message { get; set; }
-        public string StackTrace { get; set; }
-        public LogType Type { get; set; }
-    }
-
-    [MenuItem("Tools/DHT Console")] //
+    [MenuItem("Window/Custom Console")]
     public static void ShowWindow()
     {
-        GetWindow<DHTConsole>("DHT Console");
+        GetWindow<DHTConsole>("Custom Console");
     }
 
     private void OnEnable()
     {
-        Application.logMessageReceived += HandleLog; //
+        dividerPosition = position.height / 2; // Initialize divider position to half of window height
+        Application.logMessageReceived += HandleLog;
     }
 
     private void OnDisable()
@@ -36,73 +31,96 @@ public class DHTConsole : EditorWindow
 
     private void HandleLog(string logString, string stackTrace, LogType type)
     {
-        logEntries.Add(new LogEntry { Message = logString, StackTrace = stackTrace, Type = type });
+        logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type });
         Repaint();
     }
 
-    
-    private string stackTrace = "";
     private void OnGUI()
     {
-        GUIStyle labelStyle = new GUIStyle(EditorStyles.label)
-        {
-            wordWrap = true, // Enable word wrapping
-            fontSize = 6, // Adjust font size as needed
-            // Set fixed height and padding for each label
-            fixedHeight = 60, // Adjust fixed height as needed
-            padding     = new RectOffset(5, 5, 5, 5) // Adjust padding as needed (left, right, top, bottom)
-        };
-        
-        Event          currentEvent = Event.current;
-        Rect           labelRect;
-        
-        scrollPosition1 = EditorGUILayout.BeginScrollView(scrollPosition1);
+        DrawLogs();
+        DrawDivider();
+        DrawStackTrace();
+        ProcessEvents(Event.current);
+    }
 
-        for (int i = 0; i < logEntries.Count; i++)
-        {
-            EditorGUILayout.LabelField(logEntries[i].Message, EditorStyles.largeLabel);
-            labelRect = GUILayoutUtility.GetLastRect(); // Get the rect of the label we just drew
+    private void DrawLogs()
+    {
+        logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(dividerPosition - DividerHeight / 2));
 
-            // Check for mouse click within the last drawn label rect
-            if (labelRect.Contains(currentEvent.mousePosition))
-            {
-                if (currentEvent.type == EventType.MouseDown)
+        foreach (var entry in logEntries)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
+            HandleEntryClick(entry);
+            EditorGUILayout.EndHorizontal();
+        }
+
+        EditorGUILayout.EndScrollView();
+    }
+
+    private void DrawDivider()
+    {
+        GUILayout.Box("", GUILayout.Height(DividerHeight), GUILayout.ExpandWidth(true));
+
+        Rect dividerRect = GUILayoutUtility.GetLastRect();
+        EditorGUIUtility.AddCursorRect(dividerRect, MouseCursor.ResizeVertical);
+
+        if (Event.current.type == EventType.MouseDown && dividerRect.Contains(Event.current.mousePosition))
+        {
+            isResizing = true;
+        }
+    }
+
+    private string stackTrace = "";
+
+    private void DrawStackTrace()
+    {
+        stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2));
+        GUILayout.Label(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
+        EditorGUILayout.EndScrollView();
+    }
+
+    private void ProcessEvents(Event e)
+    {
+        switch (e.type)
+        {
+            case EventType.MouseDrag:
+                if (isResizing)
                 {
-                    if (currentEvent.clickCount == 1)
-                    {
-                        stackTrace = logEntries[i].StackTrace;
-                        Repaint();
-                    }
-                    else if (currentEvent.clickCount == 2)
-                    {
-                        OpenLogInEditor(logEntries[i]);
-                    }
+                    dividerPosition += e.delta.y;
+                    Repaint();
                 }
+                break;
+            case EventType.MouseUp:
+                isResizing = false;
+                break;
+        }
+    }
+
+    private void HandleEntryClick(LogEntry entry)
+    {
+        if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+        {
+            if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
+            {
+                stackTrace = entry.StackTrace;
+                Repaint();
+            }
+            else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
+            {
+                OpenLogInDefaultEditor(entry.StackTrace);
             }
         }
-
-
-        EditorGUILayout.EndScrollView();
-
-        // -----------------------------------------------------
-        
-        scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2);
-        GUILayout.Label(stackTrace);
-        EditorGUILayout.EndScrollView();
-
-        if (GUILayout.Button("Clear Logs"))
-        {
-            logEntries.Clear();
-            stackTrace = "";
-        }
     }
 
-    private void OpenLogInEditor(LogEntry logEntry)
+    private void OpenLogInDefaultEditor(string stackTrace)
     {
-        ExtractFilePathAndLineNumber(logEntry.StackTrace, out var filePath, out var lineNumber);
+        string filePath;
+        int    lineNumber;
+        ExtractFilePathAndLineNumber(stackTrace, out filePath, out lineNumber);
         InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);
     }
-    
+
     private void ExtractFilePathAndLineNumber(string stackTrace, out string filePath, out int lineNumber)
     {
         filePath   = string.Empty;
@@ -136,4 +154,11 @@ public class DHTConsole : EditorWindow
 
         // If not, prepend the project's base path to make it absolute
         return Application.dataPath.Replace("/Assets", "") + "/" + normalizedPath;
-    }}
+    }
+    private class LogEntry
+    {
+        public string Log;
+        public string StackTrace;
+        public LogType Type;
+    }
+}
