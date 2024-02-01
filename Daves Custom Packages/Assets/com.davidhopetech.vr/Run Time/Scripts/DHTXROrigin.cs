@@ -2,7 +2,6 @@ using System.Collections;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
-using DHT;
 using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -27,7 +26,7 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
-		DHTDebug.Tag(this);
+		DhtDebug.Tag(this);
 		StartCoroutine(nameof(InitializeXR));
 		
 		_logService = DHTServiceLocator.Get<DHTLogService>();

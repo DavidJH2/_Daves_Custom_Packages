@@ -3,7 +3,6 @@ using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
-using DHT;
 using TMPro;
 using UnityEditor;
 using UnityEditorInternal;
@@ -27,7 +26,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		// Start is called before the first frame update
 		void Start()
 		{
-			DHTDebug2.TestLog("------  Test Message  ------");
+			DhtDebug.Log("------  Test Message  ------");
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
@@ -91,7 +90,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			foreach (var frame in stackFrames)
 			{
 				string fileName = frame.GetFileName();
-				DHTDebug.Log($"File: {frame.GetFileName()}\t\tMethod: {frame.GetMethod().Name}");
+				DhtDebug.Log($"File: {frame.GetFileName()}\t\tMethod: {frame.GetMethod().Name}");
 			}
 			
 

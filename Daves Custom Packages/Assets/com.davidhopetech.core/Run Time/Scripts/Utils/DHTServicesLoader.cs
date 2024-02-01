@@ -1,5 +1,4 @@
 using com.davidhopetech.core.Run_Time.Utils;
-using DHT;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,10 +17,10 @@ public class DHTServicesLoader : MonoBehaviour
 
 	private void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
 	{
-		DHTDebug.LogTag($"  ----------->  Scene Loaded:",this);
+		DhtDebug.LogTag($"  ----------->  Scene Loaded:",this);
 		if (SceneManager.sceneCount == SceneManager.loadedSceneCount)
 		{
-			DHTDebug.LogTag("------  All Scenes Loaded  ------", this);
+			DhtDebug.LogTag("------  All Scenes Loaded  ------", this);
 			OnAllScenesLoaded();
 		}
 	}
