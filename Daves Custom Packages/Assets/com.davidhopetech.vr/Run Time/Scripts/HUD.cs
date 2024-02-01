@@ -1,9 +1,14 @@
+using System.Diagnostics;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
+using DHT;
 using TMPro;
+using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
@@ -21,6 +26,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		// Start is called before the first frame update
 		void Start()
 		{
+			DHTDebug.Tag(this);
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
@@ -65,9 +71,32 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			
 			if (menuButtonValue != lastMenuButtonValuel)
 			{
-				if(menuButtonValue > 0.9f) hudUI.SetActive(!hudUI.activeSelf);
+				if (menuButtonValue > 0.9f)
+				{
+					hudUI.SetActive(!hudUI.activeSelf);
+					
+					// StackTrace();
+				}
 				lastMenuButtonValuel = menuButtonValue;
 			}
+		}
+
+		void StackTrace()
+		{
+			StackTrace   stackTrace  = new StackTrace(true); // Set 'true' to capture file information
+			StackFrame[] stackFrames = stackTrace.GetFrames();
+
+			// Look through the call stack for the first frame that has a file name
+			foreach (var frame in stackFrames)
+			{
+				string fileName = frame.GetFileName();
+				DHTDebug.Log($"File: {frame.GetFileName()}\t\tMethod: {frame.GetMethod().Name}");
+			}
+			
+
+			string scriptPath = "D:\\Git Hub (D drive)\\_Daves_Custom_Packages\\Daves Custom Packages\\Assets\\com.davidhopetech.vr\\Run Time\\Scripts\\HUD.cs";
+					
+			var result = InternalEditorUtility.OpenFileAtLineExternal(scriptPath, 83);
 		}
 	}
 }

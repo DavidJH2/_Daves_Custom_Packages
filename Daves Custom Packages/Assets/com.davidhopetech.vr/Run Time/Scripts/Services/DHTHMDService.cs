@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using DHT;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -28,6 +29,7 @@ public class DHTHMDService : MonoBehaviour
     
     void Start()
     {
+        DHTDebug.Tag(this);
         logService = DHTServiceLocator.Get<DHTLogService>();
         SetState(FindHMD);
     }
@@ -35,6 +37,7 @@ public class DHTHMDService : MonoBehaviour
     
     void SetState(Action newState)
     {
+        DHTDebug.Tag(this);
         state = newState;
     }
 
