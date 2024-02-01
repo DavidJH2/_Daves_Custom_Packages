@@ -3,12 +3,13 @@ using System.Diagnostics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+
 namespace com.davidhopetech.core.Run_Time.Utils
 {
 	public static partial class DhtDebug
 	{
-		private static Func<UnityEngine.Object, GameObject> toGameObject = (obj) => (obj is GameObject) ? ((GameObject)obj) : ((obj is Component) ? (((Component)obj).gameObject) : null);
-		private static Func<UnityEngine.Object, string>     scene        = (obj) => (toGameObject(obj)) ? (toGameObject(obj).scene.name) : "";
+		private static Func<Object, GameObject> toGameObject = (obj) => (obj is GameObject) ? ((GameObject)obj) : ((obj is Component) ? (((Component)obj).gameObject) : null);
+		private static Func<Object, string>            scene        = (obj) => (toGameObject(obj)) ? (toGameObject(obj).scene.name) : "";
 
 		
 		public static bool ShowPostionResetDebug = false;
