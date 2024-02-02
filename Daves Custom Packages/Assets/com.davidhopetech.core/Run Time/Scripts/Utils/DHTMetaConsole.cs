@@ -40,7 +40,7 @@ public class DHTMetaConsole : EditorWindow
 
 	private void DrawLogs()
 	{
-		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(position.height));
+		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(position.height - ClearButtonHeight));
 
 		foreach (var entry in logEntries)
 		{

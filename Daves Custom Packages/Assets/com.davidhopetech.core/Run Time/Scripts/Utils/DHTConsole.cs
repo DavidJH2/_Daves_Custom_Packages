@@ -157,19 +157,18 @@ public class DHTConsole : EditorWindow
 			}
 			else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
 			{
-				OpenLogInDefaultEditor(entry.StackTrace);
+				ExtractFilePathAndLineNumber(stackTrace, out var filePath, out var lineNumber);
+
+				DHTMetaLogService.MetaLogEvent.Invoke($"-----------  File: {filePath}, Line: {lineNumber}  -----------");
+				if (filePath != "")
+				{
+					InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);
+				}
 			}
 		}
 	}
 
-	private void OpenLogInDefaultEditor(string stackTrace)
-	{
-		string filePath;
-		int    lineNumber;
-		ExtractFilePathAndLineNumber(stackTrace, out filePath, out lineNumber);
-		InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);
-	}
-
+	
 	private void ExtractFilePathAndLineNumber(string stackTrace, out string filePath, out int lineNumber)
 	{
 		filePath   = string.Empty;
@@ -187,38 +186,20 @@ public class DHTConsole : EditorWindow
 			if (match.Groups.Count == 3) // Ensure we have both file path and line number groups
 			{
 				string filePath2   = match.Groups[1].Value;
-				string lineNumber2 = match.Groups[2].Value;
+				int lineNumber2 = int.Parse( match.Groups[2].Value);
 				DHTMetaLogService.MetaLogEvent.Invoke($"File: {filePath2}, Line: {lineNumber2}");
-			}
-		}
-		DHTMetaLogService.MetaLogEvent.Invoke($"-----------------------------");
 
-		
-		/*
-		// Pattern to extract the file path and line number
-		string pattern = @"\(at\s+(.*?):(\d+)\)";
-
-		// Find all matches in the stack trace
-		MatchCollection matches = Regex.Matches(stackTrace, pattern);
-
-		foreach (Match match in matches)
-		{
-			if (match.Success && match.Groups.Count > 2)
-			{
-				string tempFilePath = match.Groups[1].Value;
-
-				// Check if the file path contains the "No Trace" folder
-				if (!tempFilePath.Contains("/No Trace/") && !tempFilePath.Contains("\\No Trace\\"))
+				if (filePath == "")
 				{
-					filePath   = NormalizeFilePath(tempFilePath);
-					lineNumber = int.Parse(match.Groups[2].Value);
-
-					// Since a valid file path and line number have been found, break out of the loop
-					break;
+					if (lineNumber2!=0 && !filePath2.Contains("No Trace", StringComparison.InvariantCultureIgnoreCase))
+					{
+						filePath   = filePath2;
+						lineNumber = lineNumber2;
+					}
 				}
 			}
 		}
-		*/
+		DHTMetaLogService.MetaLogEvent.Invoke($"------------------------------------------------------------------------------------------------");
 	}
 
 	private string NormalizeFilePath(string filePath)
