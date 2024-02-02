@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -44,7 +45,7 @@ public class DHTConsole : EditorWindow
 	private void HandleLog(string logString, string stackTrace, LogType type, Object context)
 	{
 		if (stackTrace == "") stackTrace = "{No Stack Trace}";
-		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type});
+		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type, Context = context});
 		Repaint();
 	}
 
@@ -135,8 +136,16 @@ public class DHTConsole : EditorWindow
 		{
 			if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
 			{
-				stackTrace = entry.StackTrace;
+				Selection.activeObject = entry.Context;
 
+#if false
+				if (SceneView.lastActiveSceneView != null)
+				{
+					SceneView.lastActiveSceneView.FrameSelected();
+				}
+#endif
+
+				stackTrace = entry.StackTrace;
 				
 				foreach (var line in stackTrace.Split('\n'))
 				{
@@ -221,5 +230,6 @@ public class DHTConsole : EditorWindow
 		public string  Log;
 		public string  StackTrace;
 		public LogType Type;
+		public Object  Context;
 	}
 }

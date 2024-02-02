@@ -8,8 +8,8 @@ namespace com.davidhopetech.core.Run_Time.Utils
 {
 	public static partial class DhtDebug
 	{
-		private static Func<Object, GameObject> toGameObject = (obj) => (obj is GameObject) ? ((GameObject)obj) : ((obj is Component) ? (((Component)obj).gameObject) : null);
-		private static Func<Object, string>            scene        = (obj) => (toGameObject(obj)) ? (toGameObject(obj).scene.name) : "";
+		public static Func<Object, GameObject> toGameObject = (obj) => (obj is GameObject) ? ((GameObject)obj) : ((obj is Component) ? (((Component)obj).gameObject) : null);
+		public static Func<Object, string>     scene        = (obj) => (toGameObject(obj)) ? (toGameObject(obj).scene.name) : "";
 
 		
 		public static bool ShowPostionResetDebug = false;
