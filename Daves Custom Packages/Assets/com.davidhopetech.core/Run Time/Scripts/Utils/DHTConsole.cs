@@ -1,195 +1,244 @@
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class DHTConsole : EditorWindow
 {
-    private Vector2 logScrollPosition;
-    private Vector2 stackTraceScrollPosition;
-    private float dividerPosition;
-    private bool isResizing;
-    private System.Collections.Generic.List<LogEntry> logEntries = new System.Collections.Generic.List<LogEntry>();
-    private const float DividerHeight = 2f; // Height of the divider
+	private       Vector2        logScrollPosition;
+	private       Vector2        stackTraceScrollPosition;
+	private       float          dividerPosition;
+	private       bool           isResizing;
+	private       List<LogEntry> logEntries        = new();
+	private const float          DividerHeight     = 2f; // Height of the divider
+	private const float          ClearButtonHeight = 25;
 
-    [MenuItem("Window/DHT Console")]
-    public static void ShowWindow()
-    {
-        GetWindow<DHTConsole>("DHT Console");
-    }
 
-    private void OnEnable()
-    {
-        Application.logMessageReceived += HandleLog;
-        dividerPosition = position.height / 2; // Initialize divider position to half of window height
-    }
+	[MenuItem("Window/DHT Console")]
+	public static void ShowWindow()
+	{
+		GetWindow<DHTConsole>("DHT Console");
+	}
 
-    private void OnDisable()
-    {
-        Application.logMessageReceived -= HandleLog;
-    }
+	
+	private void OnEnable()
+	{
+		// Application.logMessageReceived += HandleLog;
+		DHTLogHandler.LogEvent += HandleLog;
+		
+		var defaultLogHandler = Debug.unityLogger.logHandler;
+		Debug.unityLogger.logHandler = new DHTLogHandler(defaultLogHandler);
 
-    private void HandleLog(string logString, string stackTrace, LogType type)
-    {
-        logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type });
-        Repaint();
-    }
+		dividerPosition = position.height / 2; // Initialize divider position to half of window height
+	}
 
-    private void OnGUI()
-    {
-        DrawLogs();
-        DrawDivider();
-        DrawStackTrace();
-        ProcessEvents(Event.current);
-    }
+	private void OnDisable()
+	{
+		DHTLogHandler.LogEvent -= HandleLog;
+		// Application.logMessageReceived -= HandleLog;
+	}
 
-    private void DrawLogs()
-    {
-        logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(dividerPosition - DividerHeight / 2));
+	private void HandleLog(string logString, string stackTrace, LogType type, Object context)
+	{
+		if (stackTrace == "") stackTrace = "{No Stack Trace}";
+		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type});
+		Repaint();
+	}
 
-        foreach (var entry in logEntries)
-        {
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
-            HandleEntryClick(entry);
-            EditorGUILayout.EndHorizontal();
-        }
+	private void OnGUI()
+	{
+		DrawClearButton();
+		DrawLogs();
+		DrawDivider();
+		DrawStackTrace();
+		ProcessEvents(Event.current);
+	}
 
-        EditorGUILayout.EndScrollView();
-    }
+	private void DrawLogs()
+	{
+		List<string> metaLogs = new();
+		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(dividerPosition - DividerHeight / 2));
 
-    private void DrawDivider()
-    {
-        GUILayout.Box("", GUILayout.Height(DividerHeight), GUILayout.ExpandWidth(true));
+		foreach (var entry in logEntries)
+		{
+			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
+			HandleEntryClick(entry, metaLogs);
+			EditorGUILayout.EndHorizontal();
+		}
 
-        Rect dividerRect = GUILayoutUtility.GetLastRect();
-        EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
-        EditorGUIUtility.AddCursorRect(dividerRect, MouseCursor.ResizeVertical);
+		EditorGUILayout.EndScrollView();
+		if(metaLogs.Count>0)
+			Debug.Log("-------------------------");
+		foreach (var log in metaLogs)
+		{
+			Debug.Log(log);
+		}
+	}
 
-        if (Event.current.type == EventType.MouseDown && dividerRect.Contains(Event.current.mousePosition))
-        {
-            isResizing = true;
-        }
-    }
+	private void DrawDivider()
+	{
+		GUILayout.Box("", GUILayout.Height(DividerHeight), GUILayout.ExpandWidth(true));
 
-    private string stackTrace = "";
+		Rect dividerRect = GUILayoutUtility.GetLastRect();
+		EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
+		EditorGUIUtility.AddCursorRect(dividerRect, MouseCursor.ResizeVertical);
 
-    private void DrawStackTrace()
-    {
-        stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2));
-        GUILayout.Label(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
-        EditorGUILayout.EndScrollView();
-    }
+		if (Event.current.type == EventType.MouseDown && dividerRect.Contains(Event.current.mousePosition))
+		{
+			isResizing = true;
+		}
+	}
 
-    private void ProcessEvents(Event e)
-    {
-        switch (e.type)
-        {
-            case EventType.MouseDrag:
-                if (isResizing)
-                {
-                    dividerPosition += e.delta.y;
-                    Repaint();
-                }
-                break;
-            case EventType.MouseUp:
-                isResizing = false;
-                break;
-        }
-    }
+	private string stackTrace = "";
 
-    private void HandleEntryClick(LogEntry entry)
-    {
-        if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
-        {
-            if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
-            {
-                stackTrace = entry.StackTrace;
-                Repaint();
-            }
-            else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
-            {
-                OpenLogInDefaultEditor(entry.StackTrace);
-            }
-        }
-    }
+	private void DrawStackTrace()
+	{
+		stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2-ClearButtonHeight));
+		GUILayout.Label(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
+		EditorGUILayout.EndScrollView();
+	}
 
-    private void OpenLogInDefaultEditor(string stackTrace)
-    {
-        string filePath;
-        int    lineNumber;
-        ExtractFilePathAndLineNumber(stackTrace, out filePath, out lineNumber);
-        InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);
-    }
+	private void DrawClearButton()
+	{
+		Rect buttonRect = GUILayoutUtility.GetRect(100, 100, ClearButtonHeight, ClearButtonHeight);
+		buttonRect.width = Mathf.Min(buttonRect.width, 200); // Constrain the width to a maximum of 200
+		if (GUI.Button(buttonRect, "Clear")) {
+			logEntries.Clear();
+			stackTrace = "";
+		}
+	}
 
-    private void ExtractFilePathAndLineNumber(string stackTrace, out string filePath, out int lineNumber)
-    {
-#if true
-    filePath = string.Empty;
-    lineNumber = 0;
+	private void ProcessEvents(Event e)
+	{
+		switch (e.type)
+		{
+			case EventType.MouseDrag:
+				if (isResizing)
+				{
+					dividerPosition += e.delta.y;
+					Repaint();
+				}
+				break;
+			case EventType.MouseUp:
+				isResizing = false;
+				break;
+		}
+	}
 
-    // Pattern to extract the file path and line number
-    string pattern = @"\(at\s+(.*?):(\d+)\)";
+	private void HandleEntryClick(LogEntry entry, List<string> metaLogs)
+	{
+		if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+		{
+			if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
+			{
+				stackTrace = entry.StackTrace;
 
-    // Find all matches in the stack trace
-    MatchCollection matches = Regex.Matches(stackTrace, pattern);
+				
+				foreach (var line in stackTrace.Split('\n'))
+				{
+					// Check if the line includes file path but not "No Trace"
+					if (line.Contains("at ") && !line.Contains("No Trace"))
+					{
+						var match = Regex.Match(line, @"(?<class>[^ ]+):[^ ]+\s*\(.*\) \(at ");
+						if (match.Success)
+						{
+							metaLogs.Add($"Found class: {match.Groups["class"].Value}");
+							//break; // Stop after finding the first match
+						}
+					}
+				}
+				
+				
+				Repaint();
+			}
+			else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
+			{
+				OpenLogInDefaultEditor(entry.StackTrace);
+			}
+		}
+	}
 
-    foreach (Match match in matches)
-    {
-        if (match.Success && match.Groups.Count > 2)
-        {
-            string tempFilePath = match.Groups[1].Value;
+	private void OpenLogInDefaultEditor(string stackTrace)
+	{
+		string filePath;
+		int    lineNumber;
+		ExtractFilePathAndLineNumber(stackTrace, out filePath, out lineNumber);
+		InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);
+	}
 
-            // Check if the file path contains the "No Trace" folder
-            if (!tempFilePath.Contains("/No Trace/") && !tempFilePath.Contains("\\No Trace\\"))
-            {
-                filePath = NormalizeFilePath(tempFilePath);
-                lineNumber = int.Parse(match.Groups[2].Value);
+	private void ExtractFilePathAndLineNumber(string stackTrace, out string filePath, out int lineNumber)
+	{
+		filePath   = string.Empty;
+		lineNumber = 0;
 
-                // Since a valid file path and line number have been found, break out of the loop
-                break;
-            }
-        }
-    }
-#else
-        
-        filePath   = string.Empty;
-        lineNumber = 0;
+		
+		string pattern = @"in (.*?):(\d+)";
 
-        // Pattern to extract the file path and line number
-        string pattern = @"\(at\s+(.*?):(\d+)\)";
+		// Find matches
+		MatchCollection matches = Regex.Matches(stackTrace, pattern);
 
-        Match match = Regex.Match(stackTrace, pattern);
+		// Iterate over matches and print file paths and line numbers
+		foreach (Match match in matches)
+		{
+			if (match.Groups.Count == 3) // Ensure we have both file path and line number groups
+			{
+				string filePath2   = match.Groups[1].Value;
+				string lineNumber2 = match.Groups[2].Value;
+				DHTMetaLogService.MetaLogEvent.Invoke($"File: {filePath2}, Line: {lineNumber2}");
+			}
+		}
+		DHTMetaLogService.MetaLogEvent.Invoke($"-----------------------------");
 
-        if (match.Success && match.Groups.Count > 2)
-        {
-            filePath   = match.Groups[1].Value;
-            lineNumber = int.Parse(match.Groups[2].Value);
+		
+		/*
+		// Pattern to extract the file path and line number
+		string pattern = @"\(at\s+(.*?):(\d+)\)";
 
-            // Normalize the file path
-            filePath = NormalizeFilePath(filePath);
-        }
-#endif
-    }
+		// Find all matches in the stack trace
+		MatchCollection matches = Regex.Matches(stackTrace, pattern);
 
-    private string NormalizeFilePath(string filePath)
-    {
-        // Replace backslashes with forward slashes for consistency
-        string normalizedPath = filePath.Replace("\\", "/");
+		foreach (Match match in matches)
+		{
+			if (match.Success && match.Groups.Count > 2)
+			{
+				string tempFilePath = match.Groups[1].Value;
 
-        // If the path starts with a drive letter, it's already absolute
-        if (Regex.IsMatch(normalizedPath, @"^[a-zA-Z]:/"))
-        {
-            return normalizedPath;
-        }
+				// Check if the file path contains the "No Trace" folder
+				if (!tempFilePath.Contains("/No Trace/") && !tempFilePath.Contains("\\No Trace\\"))
+				{
+					filePath   = NormalizeFilePath(tempFilePath);
+					lineNumber = int.Parse(match.Groups[2].Value);
 
-        // If not, prepend the project's base path to make it absolute
-        return Application.dataPath.Replace("/Assets", "") + "/" + normalizedPath;
-    }
-    private class LogEntry
-    {
-        public string Log;
-        public string StackTrace;
-        public LogType Type;
-    }
+					// Since a valid file path and line number have been found, break out of the loop
+					break;
+				}
+			}
+		}
+		*/
+	}
+
+	private string NormalizeFilePath(string filePath)
+	{
+		// Replace backslashes with forward slashes for consistency
+		string normalizedPath = filePath.Replace("\\", "/");
+
+		// If the path starts with a drive letter, it's already absolute
+		if (Regex.IsMatch(normalizedPath, @"^[a-zA-Z]:/"))
+		{
+			return normalizedPath;
+		}
+
+		// If not, prepend the project's base path to make it absolute
+		return Application.dataPath.Replace("/Assets", "") + "/" + normalizedPath;
+	}
+	private class LogEntry
+	{
+		public string  Log;
+		public string  StackTrace;
+		public LogType Type;
+	}
 }
