@@ -35,9 +35,6 @@ public class DHTLogHandler : ILogHandler
 
 	public void LogFormat(LogType logType, Object context, string format, params object[] args)
 	{
-		
-		StackTrace stackTrace       = new StackTrace(true); // 'true' to capture the file name, line number, and column number
-		string     stackTraceString = stackTrace.ToString();
 
 		if (args == null || args.Length == 0)
 		{
@@ -45,6 +42,9 @@ public class DHTLogHandler : ILogHandler
 		}
 		else
 		{
+			StackTrace stackTrace       = new StackTrace(true); // 'true' to capture the file name, line number, and column number
+			string     stackTraceString = stackTrace.ToString();
+
 			LogEvent.Invoke(args[0].ToString(), stackTraceString, logType, context);
 			defaultLogHandler.LogFormat(logType, context, format, args);
 		}
@@ -54,5 +54,6 @@ public class DHTLogHandler : ILogHandler
 	{
 		// Forward exceptions to the default console log handler
 		defaultLogHandler.LogException(exception, context);//
+		LogEvent.Invoke(exception.Message, exception.StackTrace, UnityEngine.LogType.Exception, context);
 	}
 }

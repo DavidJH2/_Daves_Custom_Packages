@@ -10,6 +10,7 @@ public class DHTMetaConsole : EditorWindow
 	private       List<LogEntry> logEntries        = new();
 	private const float          ClearButtonHeight = 25;
 
+	private bool entryAdded = false;
 
 	private void OnEnable()
 	{
@@ -30,18 +31,24 @@ public class DHTMetaConsole : EditorWindow
 	public void MetaLog(string message)
 	{
 		logEntries.Add(new LogEntry { Message = message});
-		Repaint();
+		logScrollPosition.y = float.MaxValue;
+		entryAdded          = true;
 	}
 
 	private void OnGUI()
 	{
+		if (entryAdded)
+		{
+			Repaint();
+			entryAdded = false;
+		}
 		DrawClearButton();
 		DrawLogs();
 	}
 
 	private void DrawLogs()
 	{
-		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(position.height - ClearButtonHeight));
+		logScrollPosition   = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(position.height - ClearButtonHeight));
 
 		foreach (var entry in logEntries)
 		{

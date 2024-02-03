@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Codice.Client.Common.WebApi;
 using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -17,9 +18,11 @@ public class DHTConsole : EditorWindow
 	private       Vector2        stackTraceScrollPosition;
 	private       float          dividerPosition;
 	private       bool           isResizing;
-	private       List<LogEntry> logEntries        = new();
-	private const float          DividerHeight     = 2f; // Height of the divider
-	private const float          ClearButtonHeight = 25;
+	private       List<LogEntry> logEntries         = new();
+	private const float          DividerHeight      = 2f; // Height of the divider
+	private const float          ClearButtonHeight  = 25;
+	private       bool           LogEntryAdded      = false;
+	private       bool           isScrolledToBottom = false;
 
 
 	[MenuItem("David's Tools/DHT Console")]
@@ -63,7 +66,8 @@ public class DHTConsole : EditorWindow
 		
 		if (stackTrace == "") stackTrace = "{No Stack Trace}";
 		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type, Context = context, GameObjectPath = path});
-		// Repaint();
+
+		LogEntryAdded = true;
 	}
 
 	private void OnGUI()
@@ -73,25 +77,74 @@ public class DHTConsole : EditorWindow
 		DrawDivider();
 		DrawStackTrace();
 		ProcessEvents(Event.current);
+		
+		if(Event.current.type != EventType.Repaint)
+			Repaint();
+	}
+
+	private void DrawClearButton()
+	{
+		Rect buttonRect = GUILayoutUtility.GetRect(100, 100, ClearButtonHeight, ClearButtonHeight);
+		buttonRect.width = Mathf.Min(buttonRect.width, 200); // Constrain the width to a maximum of 200
+		if (GUI.Button(buttonRect, "Clear")) {
+			logEntries.Clear();
+			stackTrace = "";
+		}
 	}
 
 	private void DrawLogs()
 	{
+		Rect lastRect;
+		float startY = 0;
+		
+		if (Event.current.type == EventType.Repaint)
+		{
+			lastRect = GUILayoutUtility.GetLastRect();
+			startY = lastRect.y + lastRect.height;
+		}
+
+
+		if (LogEntryAdded && isScrolledToBottom)
+		{
+			ScrollLogWindowToBottom();
+		}
+
 		var          error    = "";
 		List<string> metaLogs = new();
-		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(dividerPosition - DividerHeight / 2));
 
+		var logScrollViewHeight = dividerPosition - DividerHeight / 2 - ClearButtonHeight;
+		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(logScrollViewHeight));
+		
+		var totalContentHeight = 0.0;
 		foreach (var entry in logEntries)
 		{
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
+			
 			var newError              = HandleEntryClick(entry, metaLogs);
 			if (newError != "") error = newError;
 			EditorGUILayout.EndHorizontal();
-		}
+		} //
 
+		if (Event.current.type == EventType.Repaint)
+		{
+			if (logEntries.Count != 0)
+			{
+				lastRect = GUILayoutUtility.GetLastRect();
+
+				var endY = lastRect.y + lastRect.height;
+				totalContentHeight = endY - startY;
+			}
+
+			isScrolledToBottom = (logScrollPosition.y + logScrollViewHeight) >= (totalContentHeight);
+			
+			// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}");
+		}
 		EditorGUILayout.EndScrollView();
-		
+
+		// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}    Event Type {Event.current.type}");
+
+		/*
 		if(error!="")
 			DhtDebug.Log(error);
 		
@@ -101,6 +154,8 @@ public class DHTConsole : EditorWindow
 		{
 			Debug.Log(log);
 		}
+		Repaint();
+		*/		
 	}
 
 	private void DrawDivider()
@@ -129,16 +184,6 @@ public class DHTConsole : EditorWindow
 		EditorGUILayout.EndScrollView();
 	}
 
-	private void DrawClearButton()
-	{
-		Rect buttonRect = GUILayoutUtility.GetRect(100, 100, ClearButtonHeight, ClearButtonHeight);
-		buttonRect.width = Mathf.Min(buttonRect.width, 200); // Constrain the width to a maximum of 200
-		if (GUI.Button(buttonRect, "Clear")) {
-			logEntries.Clear();
-			stackTrace = "";
-		}
-	}
-
 	private void ProcessEvents(Event e)
 	{
 		switch (e.type)
@@ -147,7 +192,8 @@ public class DHTConsole : EditorWindow
 				if (isResizing)
 				{
 					dividerPosition += e.delta.y;
-					Repaint();
+					//if(Event.current.type != EventType.Repaint)
+					//	Repaint();
 				}
 				break;
 			case EventType.MouseUp:
@@ -211,7 +257,8 @@ public class DHTConsole : EditorWindow
 				}
 				
 				
-				Repaint();
+				//if(Event.current.type != EventType.Repaint)
+				//	Repaint();
 			}
 			else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
 			{
@@ -276,6 +323,19 @@ public class DHTConsole : EditorWindow
 		// If not, prepend the project's base path to make it absolute
 		return Application.dataPath.Replace("/Assets", "") + "/" + normalizedPath;
 	}
+	
+	
+	private void ScrollLogWindowToBottom()
+	{
+		// DHTMetaLogService.MetaLog("------ Scroll Log Window to Bottom  ------");
+		// Setting y to a very high value to ensure scrolling to the bottom
+		logScrollPosition.y = float.MaxValue;
+		LogEntryAdded       = false;
+		// Repaint the editor window to immediately reflect the change
+		//Repaint();
+	}
+
+	
 	private class LogEntry
 	{
 		public string  Log;

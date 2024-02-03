@@ -33,7 +33,7 @@ public class DHTMetaLogService : Object
 	
 	
 
-	public void MetaLog(string message)
+	public static void MetaLog(string message)
 	{
 		MetaLogEvent.Invoke(message);
 	}
