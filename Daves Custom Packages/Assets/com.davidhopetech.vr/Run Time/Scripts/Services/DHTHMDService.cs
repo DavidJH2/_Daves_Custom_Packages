@@ -27,7 +27,6 @@ public class DHTHMDService : MonoBehaviour
     
     void Start()
     {
-        DhtDebug.Tag(this);
         logService = DHTServiceLocator.Get<DHTLogService>();
         SetState(FindHMD);
     }
@@ -35,7 +34,6 @@ public class DHTHMDService : MonoBehaviour
     
     void SetState(Action newState)
     {
-        DhtDebug.Tag(this);
         state = newState;
     }
 

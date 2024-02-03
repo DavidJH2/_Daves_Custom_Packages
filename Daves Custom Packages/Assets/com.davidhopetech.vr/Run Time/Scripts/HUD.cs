@@ -29,8 +29,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		// Start is called before the first frame update
 		void Start()
 		{
-			Debug.Log("Unity Debug.Log()", this);
-			DhtDebug.Log("------  Test Message  ------", this);
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);

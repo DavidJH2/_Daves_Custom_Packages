@@ -28,7 +28,6 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
-		DhtDebug.Tag(this);
 		StartCoroutine(nameof(InitializeXR));
 		
 		_logService = DHTServiceLocator.Get<DHTLogService>();

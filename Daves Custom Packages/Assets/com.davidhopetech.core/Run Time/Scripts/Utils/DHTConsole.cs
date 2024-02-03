@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using UnityEditor;
@@ -47,9 +48,22 @@ public class DHTConsole : EditorWindow
 
 	private void HandleLog(string logString, string stackTrace, LogType type, Object context)
 	{
+		var        path       = "";
+		
+		GameObject gameObject = DhtDebug.toGameObject(context);
+
+		if (context is GameObject)
+		{
+			gameObject = ((GameObject) context);
+		}
+
+		path = gameObject.GetPath();
+		/*
+		*/
+		
 		if (stackTrace == "") stackTrace = "{No Stack Trace}";
-		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type, Context = context});
-		Repaint();
+		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type, Context = context, GameObjectPath = path});
+		// Repaint();
 	}
 
 	private void OnGUI()
@@ -63,6 +77,7 @@ public class DHTConsole : EditorWindow
 
 	private void DrawLogs()
 	{
+		var          error    = "";
 		List<string> metaLogs = new();
 		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(dividerPosition - DividerHeight / 2));
 
@@ -70,11 +85,16 @@ public class DHTConsole : EditorWindow
 		{
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
-			HandleEntryClick(entry, metaLogs);
+			var newError              = HandleEntryClick(entry, metaLogs);
+			if (newError != "") error = newError;
 			EditorGUILayout.EndHorizontal();
 		}
 
 		EditorGUILayout.EndScrollView();
+		
+		if(error!="")
+			DhtDebug.Log(error);
+		
 		if(metaLogs.Count>0)
 			Debug.Log("-------------------------");
 		foreach (var log in metaLogs)
@@ -99,10 +119,13 @@ public class DHTConsole : EditorWindow
 
 	private string stackTrace = "";
 
+
+	//private string selectableText;
+	
 	private void DrawStackTrace()
 	{
 		stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2-ClearButtonHeight));
-		GUILayout.Label(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
+		EditorGUILayout.TextArea(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
 		EditorGUILayout.EndScrollView();
 	}
 
@@ -133,13 +156,36 @@ public class DHTConsole : EditorWindow
 		}
 	}
 
-	private void HandleEntryClick(LogEntry entry, List<string> metaLogs)
+	private string HandleEntryClick(LogEntry entry, List<string> metaLogs)
 	{
+		var error = "";
+		
 		if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 		{
 			if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
 			{
-				Selection.activeObject = entry.Context;
+				if (entry.Context)
+				{
+					Selection.activeObject = entry.Context;//
+				}
+				else
+				{
+					if (!ReferenceEquals(entry.Context, null))
+					{
+						GameObject gameObject = GameObject.Find(entry.GameObjectPath);
+
+						if (gameObject)
+						{
+							Selection.activeObject = gameObject; //
+						}
+						else
+						{
+							error = "Referenced Object no longer exist (Playmode mode references are no longer valid after Playmode is stopped.)";
+						}
+					}
+				}
+
+
 
 #if false
 				if (SceneView.lastActiveSceneView != null)
@@ -148,7 +194,7 @@ public class DHTConsole : EditorWindow
 				}
 #endif
 
-				stackTrace = entry.StackTrace;
+				stackTrace = $"{entry.Log}\n{entry.StackTrace}";
 				
 				foreach (var line in stackTrace.Split('\n'))
 				{
@@ -178,6 +224,8 @@ public class DHTConsole : EditorWindow
 				}
 			}
 		}
+
+		return error;
 	}
 
 	
@@ -199,7 +247,7 @@ public class DHTConsole : EditorWindow
 			{
 				string filePath2   = match.Groups[1].Value;
 				int lineNumber2 = int.Parse( match.Groups[2].Value);
-				DHTMetaLogService.MetaLogEvent.Invoke($"File: {filePath2}, Line: {lineNumber2}");
+				// DHTMetaLogService.MetaLogEvent.Invoke($"File: {filePath2}, Line: {lineNumber2}");
 
 				if (filePath == "")
 				{
@@ -211,7 +259,7 @@ public class DHTConsole : EditorWindow
 				}
 			}
 		}
-		DHTMetaLogService.MetaLogEvent.Invoke($"------------------------------------------------------------------------------------------------");
+		// DHTMetaLogService.MetaLogEvent.Invoke($"------------------------------------------------------------------------------------------------");
 	}
 
 	private string NormalizeFilePath(string filePath)
@@ -234,6 +282,7 @@ public class DHTConsole : EditorWindow
 		public string  StackTrace;
 		public LogType Type;
 		public Object  Context;
+		public string  GameObjectPath;
 	}
 }
 
