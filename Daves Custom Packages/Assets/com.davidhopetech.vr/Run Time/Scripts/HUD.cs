@@ -4,11 +4,14 @@ using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
-using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+
+#if UNITY_EDITOR
+using UnityEditorInternal;
+#endif
+
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
@@ -97,7 +100,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 			string scriptPath = "D:\\Git Hub (D drive)\\_Daves_Custom_Packages\\Daves Custom Packages\\Assets\\com.davidhopetech.vr\\Run Time\\Scripts\\HUD.cs";
 					
+#if UNITY_EDITOR			
 			var result = InternalEditorUtility.OpenFileAtLineExternal(scriptPath, 83);
+#endif			
 		}
 	}
 }

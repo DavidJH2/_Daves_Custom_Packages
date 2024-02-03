@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
@@ -38,14 +39,20 @@ public class DHTLogHandler : ILogHandler
 		StackTrace stackTrace       = new StackTrace(true); // 'true' to capture the file name, line number, and column number
 		string     stackTraceString = stackTrace.ToString();
 
-
-		LogEvent.Invoke(args[0].ToString(), stackTraceString, logType, context);
-		defaultLogHandler.LogFormat(logType, context, format, args);
+		if (args == null || args.Length == 0)
+		{
+			DHTMetaLogService.MetaLogEvent($"{DhtDebug.MethodeInfo()} - No Args");
+		}
+		else
+		{
+			LogEvent.Invoke(args[0].ToString(), stackTraceString, logType, context);
+			defaultLogHandler.LogFormat(logType, context, format, args);
+		}
 	}
 
 	public void LogException(Exception exception, Object context)
 	{
 		// Forward exceptions to the default console log handler
-		defaultLogHandler.LogException(exception, context);
+		defaultLogHandler.LogException(exception, context);//
 	}
 }

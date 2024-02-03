@@ -5,6 +5,7 @@ using com.davidhopetech.core.Run_Time.Utils;
 using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Management;
 
@@ -12,10 +13,11 @@ using UnityEngine.XR.Management;
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
 public class DHTXROrigin : MonoBehaviour
 {
-	[SerializeField] private bool                  resetPositionOnStart = true;
-	[SerializeField] private XROrigin              xrOrigin;
-	[SerializeField] private TeleportationProvider teleportationProvider;
-	[SerializeField] private GameObject            startOrientation;
+	[SerializeField]                                            private bool                  resetPositionOnStart = true;
+	[SerializeField]                                            private XROrigin              xrOrigin;
+	[SerializeField]                                            private TeleportationProvider teleportationProvider;
+
+	[FormerlySerializedAs("startOrientation")] [SerializeField] private GameObject startOrientationGO = null;
 
 	private DHTLogService _logService;
 	private DHTHMDService _service;
@@ -38,9 +40,20 @@ public class DHTXROrigin : MonoBehaviour
 		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
 
 		teleportationProvider         = GetComponent<TeleportationProvider>();
-		
-		if(startOrientation == null) startOrientation = ObjectExtentions.DHTFindObjectOfType<StartPosition>().gameObject;
-		if(startOrientation == null) startOrientation = gameObject;
+
+		if (startOrientationGO == null)
+		{
+			var startOrientation = ObjectExtentions.DHTFindObjectOfType<StartPosition>();
+			if (startOrientation)
+			{
+				startOrientationGO = startOrientation.gameObject;
+			}
+			else
+			{
+				startOrientationGO = gameObject;
+			}
+		}
+
 		
 		if (xrOrigin == null)
 		{
@@ -102,7 +115,7 @@ public class DHTXROrigin : MonoBehaviour
 
 	public void Recenter()
 	{
-		if (startOrientation == null)
+		if (startOrientationGO == null)
 		{
 			if (_logService) _logService.Log($"--------  No Start Position to Reset To  ------");
 			return;
@@ -112,8 +125,8 @@ public class DHTXROrigin : MonoBehaviour
 		if (_logService) _logService.Log($"--------  Resetting Position ({resetCount})  ------");
 		TeleportRequest request = new TeleportRequest()
 		{
-			destinationPosition = startOrientation.transform.position,
-			destinationRotation = startOrientation.transform.rotation,
+			destinationPosition = startOrientationGO.transform.position,
+			destinationRotation = startOrientationGO.transform.rotation,
 			matchOrientation    = MatchOrientation.TargetUpAndForward
 		};
 		teleportationProvider.QueueTeleportRequest(request);

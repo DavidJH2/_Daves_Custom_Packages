@@ -1,11 +1,14 @@
+#if UNITY_EDITOR
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using com.davidhopetech.core.Run_Time.Utils;
-using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UnityEditor;
+using UnityEditorInternal;
+
+
 
 public class DHTConsole : EditorWindow
 {
@@ -18,7 +21,7 @@ public class DHTConsole : EditorWindow
 	private const float          ClearButtonHeight = 25;
 
 
-	[MenuItem("Window/DHT Console")]
+	[MenuItem("David's Tools/DHT Console")]
 	public static void ShowWindow()
 	{
 		GetWindow<DHTConsole>("DHT Console");
@@ -233,3 +236,5 @@ public class DHTConsole : EditorWindow
 		public Object  Context;
 	}
 }
+
+#endif

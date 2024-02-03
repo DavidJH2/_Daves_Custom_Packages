@@ -15,7 +15,7 @@ namespace com.davidhopetech.core.Run_Time.Utils
 		public static bool ShowPostionResetDebug = false;
 
 		
-		public static string MethodeInfo(Object context, int stackFramOffset = 0)
+		public static string MethodeInfo(Object context = null, int stackFramOffset = 0)
 		{
 			StackTrace   stackTrace  = new StackTrace();
 			StackFrame[] stackFrames = stackTrace.GetFrames();

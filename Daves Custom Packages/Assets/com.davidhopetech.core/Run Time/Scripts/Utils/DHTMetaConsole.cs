@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
+#if UNITY_EDITOR
 public class DHTMetaConsole : EditorWindow
 {
 	private       Vector2        logScrollPosition;
@@ -20,10 +21,10 @@ public class DHTMetaConsole : EditorWindow
 		DHTMetaLogService.MetaLogEvent -= MetaLog;
 	}
 
-	[MenuItem("Window/DHT Meta Console")]
+	[MenuItem("David's Tools/DHT Meta Console")]
 	public static void ShowWindow()
 	{
-		GetWindow<DHTConsole>("DHT Meta Console");
+		GetWindow<DHTMetaConsole>("DHT Meta Console");
 	}
 
 	public void MetaLog(string message)
@@ -65,3 +66,5 @@ public class DHTMetaConsole : EditorWindow
 		public string  Message;
 	}
 }
+
+#endif

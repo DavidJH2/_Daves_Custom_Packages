@@ -14,7 +14,7 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		[SerializeField] private GameObject srcGO;
 
 
-		[MenuItem("Tools/Setup/Create Default Folders")]
+		[MenuItem("David's Tools/Setup/Create Default Folders")]
 		public static void CreateDefaultFolders()
 		{
 			CreateFolders("_Project", "Art", "Prefabs", "Scripts", "Scenes");
