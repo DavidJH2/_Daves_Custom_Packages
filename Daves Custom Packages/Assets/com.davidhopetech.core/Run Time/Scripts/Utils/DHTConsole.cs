@@ -34,7 +34,6 @@ public class DHTConsole : EditorWindow
 	
 	private void OnEnable()
 	{
-		// Application.logMessageReceived += HandleLog;
 		DHTLogHandler.LogEvent += HandleLog;
 		
 		var defaultLogHandler = Debug.unityLogger.logHandler;
@@ -46,7 +45,6 @@ public class DHTConsole : EditorWindow
 	private void OnDisable()
 	{
 		DHTLogHandler.LogEvent -= HandleLog;
-		// Application.logMessageReceived -= HandleLog;
 	}
 
 	private void HandleLog(string logString, string stackTrace, LogType type, Object context)
@@ -94,19 +92,10 @@ public class DHTConsole : EditorWindow
 
 	private void DrawLogs()
 	{
-		Rect lastRect;
-		float startY = 0;
-		
-		if (Event.current.type == EventType.Repaint)
-		{
-			lastRect = GUILayoutUtility.GetLastRect();
-			startY = lastRect.y + lastRect.height;
-		}
-
-
 		if (LogEntryAdded && isScrolledToBottom)
 		{
 			ScrollLogWindowToBottom();
+			LogEntryAdded = false;
 		}
 
 		var          error    = "";
@@ -115,36 +104,34 @@ public class DHTConsole : EditorWindow
 		var logScrollViewHeight = dividerPosition - DividerHeight / 2 - ClearButtonHeight;
 		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(logScrollViewHeight));
 		
-		var totalContentHeight = 0.0;
 		foreach (var entry in logEntries)
 		{
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
-			
+
 			var newError              = HandleEntryClick(entry, metaLogs);
 			if (newError != "") error = newError;
+
 			EditorGUILayout.EndHorizontal();
-		} //
+		}
 
 		if (Event.current.type == EventType.Repaint)
 		{
-			if (logEntries.Count != 0)
+			if (logEntries.Count == 0)
 			{
-				lastRect = GUILayoutUtility.GetLastRect();
-
-				var endY = lastRect.y + lastRect.height;
-				totalContentHeight = endY - startY;
+				isScrolledToBottom = true;
 			}
-
-			isScrolledToBottom = (logScrollPosition.y + logScrollViewHeight) >= (totalContentHeight);
-			
-			// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}");
+			else
+			{
+				var lastRect = GUILayoutUtility.GetLastRect();
+				var totalContentHeight= lastRect.y + lastRect.height;
+				isScrolledToBottom = (logScrollPosition.y + logScrollViewHeight) >= (totalContentHeight);
+				// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}");
+			}
 		}
+
 		EditorGUILayout.EndScrollView();
 
-		// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}    Event Type {Event.current.type}");
-
-		/*
 		if(error!="")
 			DhtDebug.Log(error);
 		
@@ -154,8 +141,6 @@ public class DHTConsole : EditorWindow
 		{
 			Debug.Log(log);
 		}
-		Repaint();
-		*/		
 	}
 
 	private void DrawDivider()
@@ -173,9 +158,6 @@ public class DHTConsole : EditorWindow
 	}
 
 	private string stackTrace = "";
-
-
-	//private string selectableText;
 	
 	private void DrawStackTrace()
 	{
@@ -192,8 +174,6 @@ public class DHTConsole : EditorWindow
 				if (isResizing)
 				{
 					dividerPosition += e.delta.y;
-					//if(Event.current.type != EventType.Repaint)
-					//	Repaint();
 				}
 				break;
 			case EventType.MouseUp:
@@ -231,15 +211,6 @@ public class DHTConsole : EditorWindow
 					}
 				}
 
-
-
-#if false
-				if (SceneView.lastActiveSceneView != null)
-				{
-					SceneView.lastActiveSceneView.FrameSelected();
-				}
-#endif
-
 				stackTrace = $"{entry.Log}\n{entry.StackTrace}";
 				
 				foreach (var line in stackTrace.Split('\n'))
@@ -255,10 +226,6 @@ public class DHTConsole : EditorWindow
 						}
 					}
 				}
-				
-				
-				//if(Event.current.type != EventType.Repaint)
-				//	Repaint();
 			}
 			else if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
 			{
@@ -327,12 +294,7 @@ public class DHTConsole : EditorWindow
 	
 	private void ScrollLogWindowToBottom()
 	{
-		// DHTMetaLogService.MetaLog("------ Scroll Log Window to Bottom  ------");
-		// Setting y to a very high value to ensure scrolling to the bottom
 		logScrollPosition.y = float.MaxValue;
-		LogEntryAdded       = false;
-		// Repaint the editor window to immediately reflect the change
-		//Repaint();
 	}
 
 	

@@ -7,8 +7,9 @@ using UnityEngine;
 public class DHTMetaConsole : EditorWindow
 {
 	private       Vector2        logScrollPosition;
-	private       List<LogEntry> logEntries        = new();
-	private const float          ClearButtonHeight = 25;
+	private       List<LogEntry> logEntries         = new();
+	private const float          ClearButtonHeight  = 25;
+	private       bool           isScrolledToBottom = false;
 
 	private bool entryAdded = false;
 
@@ -31,24 +32,39 @@ public class DHTMetaConsole : EditorWindow
 	public void MetaLog(string message)
 	{
 		logEntries.Add(new LogEntry { Message = message});
-		logScrollPosition.y = float.MaxValue;
 		entryAdded          = true;
 	}
 
 	private void OnGUI()
 	{
-		if (entryAdded)
+		if (entryAdded && isScrolledToBottom)
 		{
-			Repaint();
 			entryAdded = false;
+			ScrollLogWindowToBottom();
 		}
+
 		DrawClearButton();
 		DrawLogs();
+		
+		if (Event.current.type != EventType.Repaint)
+		{
+			Repaint();
+		}
 	}
 
 	private void DrawLogs()
 	{
-		logScrollPosition   = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(position.height - ClearButtonHeight));
+		float startY = 0;
+		
+		if (Event.current.type == EventType.Repaint)
+		{
+			var lastRect = GUILayoutUtility.GetLastRect();
+			startY   = lastRect.y + lastRect.height;
+		}
+		
+		
+		var logScrollViewHeight = position.height - ClearButtonHeight;
+		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(logScrollViewHeight));
 
 		foreach (var entry in logEntries)
 		{
@@ -57,8 +73,27 @@ public class DHTMetaConsole : EditorWindow
 			EditorGUILayout.EndHorizontal();
 		}
 
+		
+		
+		
+		if (Event.current.type == EventType.Repaint)
+		{
+			if (logEntries.Count == 0)
+			{
+				isScrolledToBottom = true;
+			}
+			else
+			{
+				var lastRect           = GUILayoutUtility.GetLastRect();
+				var totalContentHeight = lastRect.y + lastRect.height;
+				isScrolledToBottom = (logScrollPosition.y + logScrollViewHeight) >= (totalContentHeight);
+				// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}");
+			}
+		}
+
 		EditorGUILayout.EndScrollView();
 	}
+
 	private void DrawClearButton()
 	{
 		Rect buttonRect = GUILayoutUtility.GetRect(100, 100, ClearButtonHeight, ClearButtonHeight);
@@ -67,7 +102,14 @@ public class DHTMetaConsole : EditorWindow
 			logEntries.Clear();
 		}
 	}
+	
+	
+	private void ScrollLogWindowToBottom()
+	{
+		logScrollPosition.y = float.MaxValue;
+	}
 
+	
 	private class LogEntry
 	{
 		public string  Message;
