@@ -67,7 +67,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
         void InitInputFieldCallbacks()
         {
-            var tmpifs = FindObjectsByType<TMP_InputField>(FindObjectsSortMode.None);
+            var tmpifs = GameObjectExtensions.FindAllComponentsOfType<TMP_InputField>();
             foreach (var tmpif in tmpifs)
             {
                 var a = tmpif;

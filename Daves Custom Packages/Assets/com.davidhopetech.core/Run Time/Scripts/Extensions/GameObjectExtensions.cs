@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameObjectExtensions
 {
@@ -42,5 +44,34 @@ public static class GameObjectExtensions
 		}
 
 		return path;
+	}
+	
+	
+	// Generic method to find all GameObjects of a type, including inactive ones
+	public static List<T> FindAllComponentsOfType<T>() where T : Component
+	{
+		List<T> componentsList = new List<T>();
+
+		for (int i = 0; i < SceneManager.sceneCount; i++)
+		{
+			Scene scene = SceneManager.GetSceneAt(i);
+			if (!scene.isLoaded)
+				continue;
+
+			// Get all root GameObjects in the scene
+			GameObject[] rootObjects = scene.GetRootGameObjects();
+
+			foreach (GameObject rootObj in rootObjects)
+			{
+				// Get components of type T in root object and its children, including inactive ones
+				T[] components = rootObj.GetComponentsInChildren<T>(true);
+				if (components.Length > 0)
+				{
+					componentsList.AddRange(components);
+				}
+			}
+		}
+
+		return componentsList;
 	}
 }
