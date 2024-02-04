@@ -10031,10 +10031,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4890831940911640247, guid: b145eb57f9d7e9942b565fdf7e96b05e, type: 3}
-      propertyPath: m_Active
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4890831940911640247, guid: b145eb57f9d7e9942b565fdf7e96b05e, type: 3}
       propertyPath: m_RotationAtRest.x
       value: 0
       objectReference: {fileID: 0}
