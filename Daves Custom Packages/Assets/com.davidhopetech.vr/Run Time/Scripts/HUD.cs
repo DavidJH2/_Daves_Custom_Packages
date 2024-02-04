@@ -6,6 +6,7 @@ using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 using Debug = UnityEngine.Debug;
 
 #if UNITY_EDITOR
@@ -21,6 +22,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
 		[SerializeField] internal GameObject          hudUI;
 		[SerializeField] internal InputActionProperty menuButton;
+		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 
 		private DHTPlayerController _playerController;
 		private DHTLogService       _logService;
@@ -53,13 +55,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		}
 
 
-		public void Toggle(InputAction.CallbackContext context)
+		public void Toggle()
 		{
 			_logService.Log("--------  Toggle  --------\n");
-			if (context.performed)
-			{
-				hudUI.SetActive(!hudUI.activeSelf);
-			}
+			hudUI.SetActive(!hudUI.activeSelf);
+			lefthandXRRayInteractor.enabled = !hudUI.activeSelf;
 		}
 		
 		
@@ -75,7 +75,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				if (menuButtonValue > 0.9f)
 				{
-					hudUI.SetActive(!hudUI.activeSelf);
+					Toggle();
 					
 					// StackTrace();
 				}

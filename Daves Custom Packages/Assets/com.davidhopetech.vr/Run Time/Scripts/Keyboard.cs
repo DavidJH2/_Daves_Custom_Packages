@@ -175,6 +175,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                     SetUppercaseIfFirstCharacter();
                     break;
             }
+            tmpInputField.Select();
         }
 
 

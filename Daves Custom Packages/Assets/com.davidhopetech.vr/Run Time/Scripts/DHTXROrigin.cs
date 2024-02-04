@@ -39,7 +39,18 @@ public class DHTXROrigin : MonoBehaviour
 		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
 
 		teleportationProvider         = GetComponent<TeleportationProvider>();
+		InityStartOrientation();
+	
+		if (xrOrigin == null)
+		{
+			xrOrigin = GetComponent<XROrigin>();
+		}
+		
+		Recenter();
+	}
 
+	private void InityStartOrientation()
+	{
 		if (startOrientationGO == null)
 		{
 			var startOrientation = ObjectExtentions.DHTFindObjectOfType<StartPosition>();
@@ -51,12 +62,6 @@ public class DHTXROrigin : MonoBehaviour
 			{
 				startOrientationGO = gameObject;
 			}
-		}
-
-		
-		if (xrOrigin == null)
-		{
-			xrOrigin = GetComponent<XROrigin>();
 		}
 	}
 
