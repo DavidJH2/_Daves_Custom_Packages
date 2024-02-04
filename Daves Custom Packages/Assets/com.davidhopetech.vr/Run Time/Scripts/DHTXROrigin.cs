@@ -13,11 +13,11 @@ using UnityEngine.XR.Management;
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
 public class DHTXROrigin : MonoBehaviour
 {
-	[SerializeField]                                            private bool                  resetPositionOnStart = true;
-	[SerializeField]                                            private XROrigin              xrOrigin;
-	[SerializeField]                                            private TeleportationProvider teleportationProvider;
+	[SerializeField] private bool                  resetPositionOnStart = true;
+	[SerializeField] private XROrigin              xrOrigin;
+	[SerializeField] private TeleportationProvider teleportationProvider;
 
-	[FormerlySerializedAs("startOrientation")] [SerializeField] private GameObject startOrientationGO = null;
+	[SerializeField] private GameObject startOrientationGO = null;
 
 	private DHTLogService _logService;
 	private DHTHMDService _service;

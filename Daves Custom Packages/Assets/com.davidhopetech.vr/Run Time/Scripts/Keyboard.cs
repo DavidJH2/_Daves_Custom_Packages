@@ -1,8 +1,8 @@
 using System;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
+
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
@@ -23,7 +23,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             {
                 var anchorPosition = 0;
                 var focusPosition  = 0;
-                if (tmpInputField != null)
+                // if (tmpInputField != null)
                 {
                     anchorPosition = tmpInputField.selectionStringAnchorPosition;
                     focusPosition  = tmpInputField.selectionStringFocusPosition;
@@ -61,15 +61,20 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         void Start()
         {
             keys = GetComponentsInChildren<KeyboardKey>();
-            CapitalizeFirstCharacter();
-        
-            var tmpifs = EventSystem.FindObjectsByType<TMP_InputField>(FindObjectsSortMode.None);
+            SetUppercaseIfFirstCharacter();
+            InitInputFieldCallbacks();
+        }
+
+        void InitInputFieldCallbacks()
+        {
+            var tmpifs = FindObjectsByType<TMP_InputField>(FindObjectsSortMode.None);
             foreach (var tmpif in tmpifs)
             {
                 var a = tmpif;
                 tmpif.onSelect.AddListener((a) =>
                 {
                     SetCurrentInputField(tmpif);
+                    SetUppercaseIfFirstCharacter();
                 });
             }
         }
@@ -79,8 +84,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             tmpInputField = tmpif;
         }
 
-        void CapitalizeFirstCharacter()
+        void SetUppercaseIfFirstCharacter()
         {
+            if (tmpInputField == null) return;
+            
             if ((SelectionStart == 0 && SelectionEnd == 0) || tmpInputField.text[tmpInputField.caretPosition - 1] == ' ')
             {
                 if (!upercase)
@@ -149,7 +156,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                         tmpInputField.selectionStringFocusPosition  = newPos;
                     }
 
-                    CapitalizeFirstCharacter();
+                    SetUppercaseIfFirstCharacter();
                     break;
             
                 case KeyboardKey.KeyType.ToggleCase:
@@ -165,7 +172,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                     tmpInputField.selectionStringAnchorPosition = newPos;
                     tmpInputField.selectionStringFocusPosition  = newPos;
 
-                    CapitalizeFirstCharacter();
+                    SetUppercaseIfFirstCharacter();
                     break;
             }
         }
