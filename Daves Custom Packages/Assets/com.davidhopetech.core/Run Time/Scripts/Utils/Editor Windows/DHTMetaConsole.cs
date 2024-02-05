@@ -38,6 +38,9 @@ public class DHTMetaConsole : EditorWindow
 		entryAdded          = true;
 	}
 
+	
+
+	
 	private void OnGUI()
 	{
 		if (entryAdded && isScrolledToBottom)

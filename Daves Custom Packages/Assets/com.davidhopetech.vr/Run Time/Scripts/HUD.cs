@@ -28,9 +28,14 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		private DHTLogService       _logService;
 		private DebugPanel          _debugPanel;
 
-		// Start is called before the first frame update
+
+
 		void Start()
 		{
+			string nullExcepton = null;
+			// var    a            = nullExcepton.Length;
+			
+			
 			_logService = DHTServiceLocator.Get<DHTLogService>();
 			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
 			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
