@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace com.davidhopetech.core.Run_Time.DHTDebug
+namespace com.davidhopetech.core.Run_Time.DHTXRDebug
 {
 	public class DHTXRDebug : MonoBehaviour
 	{

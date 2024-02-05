@@ -17,10 +17,10 @@ public class DHTServicesLoader : MonoBehaviour
 
 	private void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
 	{
-		DhtDebug.LogTag($"  ----------->  Scene Loaded:",this);
+		DHTDebug.LogTag($"  ----------->  Scene Loaded:",this);
 		if (SceneManager.sceneCount == SceneManager.loadedSceneCount)
 		{
-			DhtDebug.LogTag("------  All Scenes Loaded  ------", this);
+			DHTDebug.LogTag("------  All Scenes Loaded  ------", this);
 			OnAllScenesLoaded();
 		}
 	}

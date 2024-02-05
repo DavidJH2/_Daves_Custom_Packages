@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class DHTLogService : MonoBehaviour
+public class DHTLogService : DHTService<DHTLogService>
 {
     public UnityEvent<string> LogEvent = new();
 

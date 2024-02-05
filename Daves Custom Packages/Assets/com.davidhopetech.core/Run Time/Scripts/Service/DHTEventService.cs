@@ -6,7 +6,7 @@ using Component = UnityEngine.Component;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service
 {
-    public class DHTEventService : MonoBehaviour
+    public class DHTEventService : DHTService<DHTEventService>
     {
         private static HashSet<Object> cache = new();
     

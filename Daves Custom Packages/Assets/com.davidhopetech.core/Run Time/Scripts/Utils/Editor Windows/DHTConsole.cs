@@ -19,10 +19,14 @@ public class DHTConsole : EditorWindow
 	private       float          dividerPosition;
 	private       bool           isResizing;
 	private       List<LogEntry> logEntries         = new();
-	private const float          DividerHeight      = 2f; // Height of the divider
+	private const float          DividerHeight      = 4f; // Height of the divider
+	private const float          DividerDragHeight  = 10;
 	private const float          ClearButtonHeight  = 25;
 	private       bool           LogEntryAdded      = false;
 	private       bool           isScrolledToBottom = false;
+	private       Rect           DragRect;
+	private       Rect           dividerRect;
+
 
 
 	[MenuItem("David's Tools/DHT Console")]
@@ -51,7 +55,7 @@ public class DHTConsole : EditorWindow
 	{
 		var        path       = "";
 		
-		GameObject gameObject = DhtDebug.toGameObject(context);
+		GameObject gameObject = DHTDebug.toGameObject(context);
 
 		if (context is GameObject)
 		{
@@ -70,14 +74,35 @@ public class DHTConsole : EditorWindow
 
 	private void OnGUI()
 	{
-		DrawClearButton();
-		DrawLogs();
-		DrawDivider();
-		DrawStackTrace();
-		ProcessEvents(Event.current);
+		if(Event.current.type == EventType.MouseDown)
+			DHTMetaLogService.MetaLog($"Event: {Event.current.type}");
 		
-		if(Event.current.type != EventType.Repaint)
-			Repaint();
+		DrawClearButton();
+		
+		if(Event.current.type == EventType.MouseDown)
+			DHTMetaLogService.MetaLog($"*************************");
+		
+		DrawLogs();
+		
+		if(Event.current.type == EventType.MouseDown)
+			DHTMetaLogService.MetaLog($"*************************");
+		
+		DrawDivider();
+		
+		if(Event.current.type == EventType.MouseDown)
+			DHTMetaLogService.MetaLog($"*************************");
+		
+		DrawStackTrace();
+		
+		if(Event.current.type == EventType.MouseDown)
+			DHTMetaLogService.MetaLog($"*************************");
+		
+		if (Event.current.type != EventType.Repaint)
+		{
+			ProcessEvents(Event.current);
+			// Repaint();
+		}
+
 	}
 
 	private void DrawClearButton()
@@ -104,6 +129,7 @@ public class DHTConsole : EditorWindow
 		var logScrollViewHeight = dividerPosition - DividerHeight / 2 - ClearButtonHeight;
 		logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition, GUILayout.Height(logScrollViewHeight));
 		
+		
 		foreach (var entry in logEntries)
 		{
 			EditorGUILayout.BeginHorizontal();
@@ -115,6 +141,7 @@ public class DHTConsole : EditorWindow
 			EditorGUILayout.EndHorizontal();
 		}
 
+		
 		if (Event.current.type == EventType.Repaint)
 		{
 			if (logEntries.Count == 0)
@@ -126,14 +153,13 @@ public class DHTConsole : EditorWindow
 				var lastRect = GUILayoutUtility.GetLastRect();
 				var totalContentHeight= lastRect.y + lastRect.height;
 				isScrolledToBottom = (logScrollPosition.y + logScrollViewHeight) >= (totalContentHeight);
-				// DHTMetaLogService.MetaLog($"isToBottom: {isScrolledToBottom}    Scroll Y: {logScrollPosition.y}     ScrollView Height:{logScrollViewHeight}    Content Height: {totalContentHeight}");
 			}
 		}
 
 		EditorGUILayout.EndScrollView();
 
 		if(error!="")
-			DhtDebug.Log(error);
+			DHTDebug.Log(error);
 		
 		if(metaLogs.Count>0)
 			Debug.Log("-------------------------");
@@ -143,18 +169,31 @@ public class DHTConsole : EditorWindow
 		}
 	}
 
+	
+	private int resizeCount = 0;
 	private void DrawDivider()
 	{
 		GUILayout.Box("", GUILayout.Height(DividerHeight), GUILayout.ExpandWidth(true));
 
-		Rect dividerRect = GUILayoutUtility.GetLastRect();
-		EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
-		EditorGUIUtility.AddCursorRect(dividerRect, MouseCursor.ResizeVertical);
-
-		if (Event.current.type == EventType.MouseDown && dividerRect.Contains(Event.current.mousePosition))
+		if (Event.current.type == EventType.Repaint)
 		{
-			isResizing = true;
+			dividerRect = GUILayoutUtility.GetLastRect();
+
+			float delta = DividerDragHeight - DividerHeight;
+			DragRect        =  dividerRect;
+			DragRect.y      -= delta/2;
+			DragRect.height =  DividerDragHeight;
 		}
+		EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
+
+		EditorGUIUtility.AddCursorRect(DragRect, MouseCursor.ResizeVertical);
+		//===================
+
+		//DHTMetaConsole.Message2 = $"Is Resizing: {isResizing}";
+
+		// DHTMetaLogService.MetaLog($"{Event.current.type.ToString()}      {dividerRect.ToString()}       Mouse Pos: {Event.current.mousePosition}     Resizing = {isResizing}");
+
+		
 	}
 
 	private string stackTrace = "";
@@ -162,22 +201,46 @@ public class DHTConsole : EditorWindow
 	private void DrawStackTrace()
 	{
 		stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2-ClearButtonHeight));
-		EditorGUILayout.TextArea(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel); // Using LargeLabel for stack trace
+		
+		if(Event.current.type==EventType.Repaint || Event.current.type==EventType.Layout) 
+			EditorGUILayout.TextArea("Test of Draw Stack Trace", EditorStyles.largeLabel);
+		 
 		EditorGUILayout.EndScrollView();
 	}
 
 	private void ProcessEvents(Event e)
 	{
+
+		DHTMetaConsole.Message1 = $"DPos = {dividerPosition}    Is Resizing = {isResizing}";
+		DHTMetaConsole.Message2 = $"Event: {Event.current.type}";
+
 		switch (e.type)
 		{
+			case EventType.MouseDown:
+				DHTMetaLogService.MetaLog($"Mouse: {Event.current.mousePosition} \t\t Drag Rect: {DragRect}");
+				if (DragRect.Contains(Event.current.mousePosition))
+				{
+					isResizing = true;
+					resizeCount++;
+					DHTMetaLogService.MetaLog($"*****  Is Resizing  *****");
+					Repaint();
+				}
+				break;
 			case EventType.MouseDrag:
 				if (isResizing)
 				{
-					dividerPosition += e.delta.y;
+					dividerPosition         += e.delta.y;
+					Repaint();
 				}
 				break;
 			case EventType.MouseUp:
-				isResizing = false;
+				if (isResizing)
+				{
+					DHTMetaLogService.MetaLog($"=====  Stop Resizing  =====");
+					isResizing = false;
+				}
+
+				Repaint();
 				break;
 		}
 	}

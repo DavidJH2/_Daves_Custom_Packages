@@ -6,6 +6,7 @@ using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
@@ -16,13 +17,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 
 		public  UnityEvent<GameObject> CameraChange = new();
-		private Canvas[]               _canvasList;
 		private GameObject             currentCameraGO;
 		
 		
 		private void Start()
 		{
-			_canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
 			InitializeServices();	
 			InitCams();
 			GetCurrentCamera();
@@ -102,11 +101,21 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			if(currentCameraGO) currentCameraGO.SetActive(false);
 			newCameraGo.SetActive(true);
 			currentCameraGO = newCameraGo;
-			
+
+			Camera   camera      = newCameraGo.GetComponent<Camera>();
+			Canvas[] _canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
 			foreach (var canvas in _canvasList)
 			{
-				canvas.worldCamera = newCameraGo.GetComponent<Camera>();
+				canvas.worldCamera = camera;
 			}
+
+			TrackedDevicePhysicsRaycaster[] _trackedDevicePhysicsRaycasterList = ObjectExtentions.DHTFindObjectsByType<TrackedDevicePhysicsRaycaster>();
+			foreach (var obj in _trackedDevicePhysicsRaycasterList)
+			{
+				obj.SetEventCamera(camera);
+			}
+
+			
 			CameraChange.Invoke(pancakeCamGO);
 		}
 	}

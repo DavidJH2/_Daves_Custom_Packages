@@ -92,7 +92,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			foreach (var frame in stackFrames)
 			{
 				string fileName = frame.GetFileName();
-				DhtDebug.Log($"File: {frame.GetFileName()}\t\tMethod: {frame.GetMethod().Name}");
+				DHTDebug.Log($"File: {frame.GetFileName()}\t\tMethod: {frame.GetMethod().Name}");
 			}
 			
 

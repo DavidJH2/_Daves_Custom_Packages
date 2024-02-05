@@ -49,16 +49,16 @@ public class HMDInitialization : MonoBehaviour
 
 		onHMDInitialized?.Invoke();
 		
-		if(DhtDebug.ShowPostionResetDebug) _logService?.Log("------  Wait for XR General Settings  ------");
+		if(DHTDebug.ShowPostionResetDebug) _logService?.Log("------  Wait for XR General Settings  ------");
 		yield return new WaitUntil(() => XRGeneralSettings.Instance.Manager.isInitializationComplete);
 
 		// Once tracking is confirmed, invoke the callback
 		onHMDInitialized?.Invoke();
-		if(DhtDebug.ShowPostionResetDebug) _logService?.Log("------  Wait 0.2 sec  ------");
+		if(DHTDebug.ShowPostionResetDebug) _logService?.Log("------  Wait 0.2 sec  ------");
 		
 		yield return new WaitForSeconds(.2f);			// <--- Required only for Quest 3
 		onHMDInitialized?.Invoke();
 		
-		if(DhtDebug.ShowPostionResetDebug) _logService?.Log("------  Done  ------");
+		if(DHTDebug.ShowPostionResetDebug) _logService?.Log("------  Done  ------");
 	}
 }

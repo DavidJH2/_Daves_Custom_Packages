@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class KeyboardKey : MonoBehaviour
+    public class KeyboardKey : MonoBehaviour, IPointerDownHandler
     {
 
         private Keyboard        keyboard;
@@ -84,7 +85,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             tmpInputField = keyboard.tmpInputField;
             tmp           = GetComponentInChildren<TextMeshProUGUI>();
             button        = GetComponent<Button>();
-            button.onClick.AddListener(DoClick);
+            //button.onClick.AddListener(DoClick);
         }
 
 
@@ -107,31 +108,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                 tmp.text = newText;
             }
         }
-    
-        void DoClick()
+
+        public void OnPointerDown(PointerEventData eventData)
         {
             keyboard.KeyPressed(this);
-            /*
-        switch (tmp.text)
-        {
-            case "<":
-                var text = tmpInputField.text;
-                var len  = text.Length;
-                if (len > 0)
-                {
-                    text               = text.Substring(0, len-1);
-                    tmpInputField.text = text;
-                }
-                break;
-            case "^":
-                keyboard.ToggleCase();
-                break;
-                
-            default:
-                keyboard.KeyPressed(this);
-                break;
-        }
-        */
         }
     }
 }

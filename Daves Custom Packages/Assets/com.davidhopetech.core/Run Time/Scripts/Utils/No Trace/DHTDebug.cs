@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Utils
 {
-	public static partial class DhtDebug
+	public static partial class DHTDebug
 	{
 		public static void Tag(Object context, string caps = "----")
 		{

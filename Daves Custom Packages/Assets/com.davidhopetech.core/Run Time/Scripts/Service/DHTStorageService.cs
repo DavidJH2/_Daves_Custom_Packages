@@ -4,7 +4,7 @@ using UnityEngine;
 namespace com.davidhopetech.core.Run_Time.Scripts.Service
 {
 	[System.Serializable] 
-	public class DHTStorageService : MonoBehaviour
+	public class DHTStorageService : DHTService<DHTStorageService>
 	{
 		[System.Serializable] 
 		public class PlayerData

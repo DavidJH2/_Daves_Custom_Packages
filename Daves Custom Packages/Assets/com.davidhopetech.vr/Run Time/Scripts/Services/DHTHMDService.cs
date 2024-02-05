@@ -9,7 +9,7 @@ using UnityEngine.XR;
 using CommonUsages = UnityEngine.XR.CommonUsages;
 using InputDevice = UnityEngine.XR.InputDevice;
 
-public class DHTHMDService : MonoBehaviour
+public class DHTHMDService : DHTService<DHTHMDService>
 {
     public UnityEvent<bool> UserPresenceEvent  = new UnityEvent<bool>();
     public UnityEvent       HMDFirstMountEvent = new UnityEvent();

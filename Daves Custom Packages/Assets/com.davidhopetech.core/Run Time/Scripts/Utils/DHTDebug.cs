@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace com.davidhopetech.core.Run_Time.Utils
 {
-	public static partial class DhtDebug
+	public static partial class DHTDebug
 	{
 		public static Func<Object, GameObject> toGameObject = (obj) => (obj is GameObject) ? ((GameObject)obj) : ((obj is Component) ? (((Component)obj).gameObject) : null);
 		public static Func<Object, string>     scene        = (obj) => (toGameObject(obj)) ? (toGameObject(obj).scene.name) : "";

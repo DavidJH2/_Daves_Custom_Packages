@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DHTSceneManager : MonoBehaviour
+public class DHTSceneManager : DHTService<DHTSceneManager>
 {
     private List<string> scenesLoaded = new List<string>();
 

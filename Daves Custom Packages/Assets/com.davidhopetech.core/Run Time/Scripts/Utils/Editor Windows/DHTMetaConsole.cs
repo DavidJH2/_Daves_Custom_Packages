@@ -10,6 +10,9 @@ public class DHTMetaConsole : EditorWindow
 	private       List<LogEntry> logEntries         = new();
 	private const float          ClearButtonHeight  = 25;
 	private       bool           isScrolledToBottom = false;
+	public static string         Message1;
+	public static string         Message2;
+	public static string         Message3;
 
 	private bool entryAdded = false;
 
@@ -43,7 +46,7 @@ public class DHTMetaConsole : EditorWindow
 			ScrollLogWindowToBottom();
 		}
 
-		DrawClearButton();
+		DrawTopLine();
 		DrawLogs();
 		
 		if (Event.current.type != EventType.Repaint)
@@ -51,6 +54,22 @@ public class DHTMetaConsole : EditorWindow
 			Repaint();
 		}
 	}
+
+	private void DrawTopLine()
+	{
+		GUILayout.BeginHorizontal();
+
+		GUILayout.Space(10); 
+		if (GUILayout.Button("Clear", GUILayout.Width(100), GUILayout.Height(ClearButtonHeight))) {
+			logEntries.Clear();
+		}
+		GUILayout.Space(10); 
+		GUILayout.TextArea(Message1, EditorStyles.largeLabel, GUILayout.Width(300)); // Using LargeLabel for stack trace
+		GUILayout.TextArea(Message2, EditorStyles.largeLabel, GUILayout.Width(300)); // Using LargeLabel for stack trace
+		GUILayout.TextArea(Message3, EditorStyles.largeLabel, GUILayout.Width(300)); // Using LargeLabel for stack trace
+		
+		GUILayout.EndHorizontal();
+	} 
 
 	private void DrawLogs()
 	{
@@ -92,15 +111,6 @@ public class DHTMetaConsole : EditorWindow
 		}
 
 		EditorGUILayout.EndScrollView();
-	}
-
-	private void DrawClearButton()
-	{
-		Rect buttonRect = GUILayoutUtility.GetRect(100, 100, ClearButtonHeight, ClearButtonHeight);
-		buttonRect.width = Mathf.Min(buttonRect.width, 200); // Constrain the width to a maximum of 200
-		if (GUI.Button(buttonRect, "Clear")) {
-			logEntries.Clear();
-		}
 	}
 	
 	

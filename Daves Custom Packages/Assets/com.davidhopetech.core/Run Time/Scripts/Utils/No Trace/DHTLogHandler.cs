@@ -38,7 +38,7 @@ public class DHTLogHandler : ILogHandler
 
 		if (args == null || args.Length == 0)
 		{
-			DHTMetaLogService.MetaLogEvent($"{DhtDebug.MethodeInfo()} - No Args");
+			DHTMetaLogService.MetaLogEvent($"{DHTDebug.MethodeInfo()} - No Args");
 		}
 		else
 		{
