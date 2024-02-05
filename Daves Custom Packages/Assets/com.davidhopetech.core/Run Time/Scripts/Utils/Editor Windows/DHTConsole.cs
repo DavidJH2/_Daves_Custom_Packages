@@ -20,7 +20,7 @@ public class DHTConsole : EditorWindow
 	private       bool           isResizing;
 	private       List<LogEntry> logEntries         = new();
 	private const float          DividerHeight      = 4f; // Height of the divider
-	private const float          DividerDragHeight  = 10;
+	private const float          dragAreaHeight     = 20;
 	private const float          ClearButtonHeight  = 25;
 	private       bool           LogEntryAdded      = false;
 	private       bool           isScrolledToBottom = false;
@@ -135,8 +135,16 @@ public class DHTConsole : EditorWindow
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label(entry.Log, EditorStyles.largeLabel); // Using LargeLabel for log entries
 
-			var newError              = HandleEntryClick(entry, metaLogs);
-			if (newError != "") error = newError;
+			if (Event.current.type == EventType.Repaint)
+			{
+				entry.rect = GUILayoutUtility.GetLastRect();
+			}
+
+			if (Event.current.type == EventType.MouseDown)
+			{
+				var newError = HandleEntryClick(entry, metaLogs);
+				if (newError != "") error = newError;
+			}
 
 			EditorGUILayout.EndHorizontal();
 		}
@@ -179,10 +187,10 @@ public class DHTConsole : EditorWindow
 		{
 			dividerRect = GUILayoutUtility.GetLastRect();
 
-			float delta = DividerDragHeight - DividerHeight;
+			float delta = dragAreaHeight - DividerHeight;
 			DragRect        =  dividerRect;
 			DragRect.y      -= delta/2;
-			DragRect.height =  DividerDragHeight;
+			DragRect.height =  dragAreaHeight;
 		}
 		EditorGUI.DrawRect(dividerRect, new Color(0.1f, 0.1f, 0.1f)); // Adjust the RGB values as needed to get your desired shade of dark
 
@@ -201,10 +209,7 @@ public class DHTConsole : EditorWindow
 	private void DrawStackTrace()
 	{
 		stackTraceScrollPosition = EditorGUILayout.BeginScrollView(stackTraceScrollPosition, GUILayout.Height(position.height - dividerPosition - DividerHeight / 2-ClearButtonHeight));
-		
-		if(Event.current.type==EventType.Repaint || Event.current.type==EventType.Layout) 
-			EditorGUILayout.TextArea("Test of Draw Stack Trace", EditorStyles.largeLabel);
-		 
+		EditorGUILayout.TextArea(logEntries.Count > 0 ? stackTrace : "", EditorStyles.largeLabel);
 		EditorGUILayout.EndScrollView();
 	}
 
@@ -249,7 +254,7 @@ public class DHTConsole : EditorWindow
 	{
 		var error = "";
 		
-		if (GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
+		if ( entry.rect.Contains(Event.current.mousePosition))
 		{
 			if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 1)
 			{
@@ -368,6 +373,7 @@ public class DHTConsole : EditorWindow
 		public LogType Type;
 		public Object  Context;
 		public string  GameObjectPath;
+		public Rect    rect;
 	}
 }
 

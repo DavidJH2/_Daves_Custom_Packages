@@ -16,11 +16,11 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 			
 			if (service)
 			{
-				DHTDebug.Log("------  Found Cached DHTService  ------");
+				// DHTDebug.Log("------  Found Cached DHTService  ------");
 				return (TServiceType) service;
 			}
 			
-			DHTDebug.Log("------  Locating DHTService  ------");
+			// DHTDebug.Log("------  Locating DHTService  ------");
 			var services = ObjectExtentions.DHTFindObjectsByType<TServiceType>(FindObjectsSortMode.None);
 
 			if (services.Length == 0)
