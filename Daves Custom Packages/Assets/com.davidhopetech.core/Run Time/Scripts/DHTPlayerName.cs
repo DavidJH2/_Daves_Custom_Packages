@@ -15,7 +15,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         void Start()
         {
             _storageService = DHTServiceLocator.Get<DHTStorageService>();
-            if (_storageService is null) throw new Exception("No Storage Service available");
+            if (_storageService is null) throw new Exception("No Storage DHTService available");
 
             _storageService.playerData.NameChangeEvent += newName =>
             {
