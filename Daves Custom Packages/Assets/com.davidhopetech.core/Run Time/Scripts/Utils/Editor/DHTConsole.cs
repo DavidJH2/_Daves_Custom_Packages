@@ -2,15 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Codice.Client.Common.WebApi;
 using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using UnityEditor;
 using UnityEditorInternal;
-using UnityEngine.EventSystems;
 
 
 public class DHTConsole : EditorWindow
@@ -35,20 +32,19 @@ public class DHTConsole : EditorWindow
 		get
 		{
 			return EditorStyles.largeLabel;
-		}		
+		}
 	}
-
-	
 
 
 	[MenuItem("David's Tools/DHT Console")]
 	public static void ShowWindow()
 	{
+		int a = 1;
 		GetWindow<DHTConsole>("DHT Console");
 	}
 
 
-	private void OnEnable()
+	void Init()
 	{
 		stackTrace             =  "";
 		DHTLogHandler.LogEvent += HandleLog;
@@ -57,6 +53,12 @@ public class DHTConsole : EditorWindow
 		Debug.unityLogger.logHandler = new DHTLogHandler(defaultLogHandler);
 
 		dividerPosition = position.height / 2; // Initialize divider position to half of window height
+	}
+	
+	private void OnEnable()
+	{
+		// Application.logMessageReceivedThreaded -= tempLogger; 
+		Init();
 	}
 
 	private void OnDisable()

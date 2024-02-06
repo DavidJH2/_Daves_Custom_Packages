@@ -1,29 +1,41 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service
 {
-	[System.Serializable] 
+	[System.Serializable]
 	public class DHTStorageService : DHTService<DHTStorageService>
 	{
-		[System.Serializable] 
-		public class PlayerData
+		private Dictionary<string, StorageData> data = new();
+
+		public void AddData(string dataName)
 		{
-			public Action<string> NameChangeEvent;
-			
-			private string _name;
-			public string Name
+			var item = data.TryAdd(dataName, new StorageData());
+			if (item == null) throw new Exception("DataStroage data already added");
+		}
+
+		public StorageData this[string str]
+		{
+			get
 			{
-				get => _name;
-				set
+				if (!data.TryGetValue(str, out var dataItem))
 				{
-					_name = value;
-					NameChangeEvent.Invoke(_name);					
+					dataItem = (data[str] = new StorageData());
 				}
+
+				return dataItem;
 			}
 		}
 
-			
-		public PlayerData playerData;
+		private void OnValidate()
+		{
+			foreach (var dataItemPair in data)
+			{
+				var dataItem = dataItemPair.Value;
+				dataItem.ChangeEvent?.Invoke(dataItem._value);
+			}
+		}
 	}
 }
