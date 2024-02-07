@@ -11,7 +11,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         [SerializeField] private string dataItemName;
         [SerializeField] private string defaultValue;
         
-        private                  TMP_InputField    _inputField;
+        private                  DHT_TMP_InputField    _inputField;
         private                  bool              _isUpdating = false;
         private                  DHTStorageService _storageService;
 
@@ -23,7 +23,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             var dataItem = _storageService.GetData(dataItemName, defaultValue);
             if (dataItem == null) throw new Exception($"DataItem '{dataItemName}' not in DataStorage");
 
-            if (_inputField is null) _inputField = GetComponentInChildren<TMP_InputField>();
+            if (_inputField is null) _inputField = GetComponentInChildren<DHT_TMP_InputField>();
             _inputField.text = dataItem.value;
             
 

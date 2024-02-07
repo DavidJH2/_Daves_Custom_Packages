@@ -8,10 +8,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     public class KeyboardKey : MonoBehaviour, IPointerDownHandler
     {
 
-        private Keyboard        keyboard;
-        private TMP_InputField  tmpInputField;
-        private TextMeshProUGUI tmp;
-        private Button          button;
+        private Keyboard           keyboard;
+        private DHT_TMP_InputField tmpInputField;
+        private TextMeshProUGUI    tmp;
+        private Button             button;
 
 
         public enum KeyType

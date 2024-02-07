@@ -12,7 +12,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     public class Keyboard : MonoBehaviour
     {
-        public TMP_InputField tmpInputField;
+        public DHT_TMP_InputField tmpInputField;
 
         private KeyboardKey[] keys;
         private bool          upercase = true;
@@ -77,7 +77,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         
         void InitInputFieldCallbacks()
         {
-            var tmpifs = GameObjectExtensions.FindAllComponentsOfType<TMP_InputField>();
+            var tmpifs = GameObjectExtensions.FindAllComponentsOfType<DHT_TMP_InputField>();
             foreach (var tmpif in tmpifs)
             {
                 var a = tmpif;
@@ -89,7 +89,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             }
         }
 
-        void SetCurrentInputField(TMP_InputField tmpif)
+        void SetCurrentInputField(DHT_TMP_InputField tmpif)
         {
             tmpInputField = tmpif;
         }
