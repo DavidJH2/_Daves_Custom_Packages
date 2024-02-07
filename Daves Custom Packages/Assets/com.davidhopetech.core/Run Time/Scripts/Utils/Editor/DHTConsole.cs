@@ -329,7 +329,7 @@ public class DHTConsole : EditorWindow
 			{
 				ExtractFilePathAndLineNumber(stackTrace, out var filePath, out var lineNumber);
 
-				DHTMetaLogService.MetaLogEvent.Invoke($"-----------  File: {filePath}, Line: {lineNumber}  -----------");
+				DHTMetaLogService.MetaLog($"-----------  File: {filePath}, Line: {lineNumber}  -----------");
 				if (filePath != "")
 				{
 					InternalEditorUtility.OpenFileAtLineExternal(filePath, lineNumber);

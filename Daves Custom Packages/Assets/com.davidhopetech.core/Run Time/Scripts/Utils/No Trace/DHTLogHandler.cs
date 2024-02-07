@@ -7,11 +7,11 @@ using Object = UnityEngine.Object;
 
 public class DHTLogHandler : ILogHandler
 {
-	private static DHTLogHandler instance;
+	private static DHTLogHandler instance = new (Debug.unityLogger.logHandler);
 	private        ILogHandler   defaultLogHandler;
 
-	
-	public static Action<string, string, LogType, Object> LogEvent;
+
+	public static Action<string, string, LogType, Object> LogEvent = (component, message, type, details) => {};
 	
 	
 	// Private constructor to prevent instantiation outside
