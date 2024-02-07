@@ -28,7 +28,7 @@ public class DebugPanel : MonoBehaviour
 
     public void SetElement(int elemNum, string newValue)
     {
-        var element = elements[elemNum];
+        var element = elements[elemNum]; //
         element.Set(newValue);
     }
 

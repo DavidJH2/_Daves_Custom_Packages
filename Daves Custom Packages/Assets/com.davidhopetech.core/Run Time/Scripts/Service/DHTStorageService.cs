@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using com.davidhopetech.vr.Run_Time.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,21 +13,20 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
 
 		public void AddData(string dataName)
 		{
-			var item = data.TryAdd(dataName, new StorageData());
-			if (item == null) throw new Exception("DataStroage data already added");
+			var itemWasNotAdded = !data.TryAdd(dataName, new StorageData());
+			if (itemWasNotAdded) throw new Exception("DataStroage data already added");
 		}
 
-		public StorageData this[string str]
+		public StorageData GetData(string str, string defaultValue)
 		{
-			get
+			if (!data.TryGetValue(str, out var dataItem))
 			{
-				if (!data.TryGetValue(str, out var dataItem))
-				{
-					dataItem = (data[str] = new StorageData());
-				}
-
-				return dataItem;
+				dataItem = (data[str] = new StorageData());
+				if (defaultValue != "")
+					dataItem.value = defaultValue;
 			}
+
+			return dataItem;
 		}
 
 		private void OnValidate()
@@ -34,7 +34,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
 			foreach (var dataItemPair in data)
 			{
 				var dataItem = dataItemPair.Value;
-				dataItem.ChangeEvent?.Invoke(dataItem._value);
+				dataItem.ChangeEvent?.Invoke(dataItem.value);
 			}
 		}
 	}

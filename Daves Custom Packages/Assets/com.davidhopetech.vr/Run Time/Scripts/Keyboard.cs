@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
@@ -13,10 +17,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         private KeyboardKey[] keys;
         private bool          upercase = true;
 
-        [SerializeField] private UnityEvent KeyboardEnterEvent;
-    
-    
-    
+        [SerializeField] private UnityEvent           KeyboardEnterEvent;
+        private                  DebugPanel           _debugPanel;
+
+
         int SelectionStart
         {
             get
@@ -65,6 +69,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             InitInputFieldCallbacks();
         }
 
+
+        private void Update()
+        {
+        }
+        
+        
         void InitInputFieldCallbacks()
         {
             var tmpifs = GameObjectExtensions.FindAllComponentsOfType<TMP_InputField>();
@@ -88,7 +98,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             if (tmpInputField == null) return;
             
-            if ((SelectionStart == 0 && SelectionEnd == 0) || tmpInputField.text[tmpInputField.caretPosition - 1] == ' ')
+            if ((SelectionStart == 0 && SelectionEnd == 0) || (tmpInputField.caretPosition>0 && tmpInputField.text[tmpInputField.caretPosition - 1] == ' '))
             {
                 if (!upercase)
                     ToggleCase();
@@ -100,7 +110,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             }
         }
 
-    
+
         public void KeyPressed(KeyboardKey pressedKey)
         {
             var addText        = pressedKey.keyValue;
@@ -109,19 +119,19 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
             var start = Math.Min(anchorPosition, focusPosition);
             var end   = Math.Max(anchorPosition, focusPosition);
-                
+
             var text     = tmpInputField.text;
             var caretPos = tmpInputField.caretPosition;
 
             string newText;
             int    newPos;
-        
+
             switch (pressedKey.keyType)
             {
                 case KeyboardKey.KeyType.Enter:
                     KeyboardEnterEvent.Invoke();
                     break;
-            
+
                 case KeyboardKey.KeyType.BackSpace:
 
                     if (tmpInputField.selectionAnchorPosition == tmpInputField.selectionFocusPosition)
@@ -131,7 +141,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                         if (pos > 1)
                         {
                             newText = text.Substring(0, pos - 1) + text.Substring(pos, text.Length - pos);
-                            newPos  = pos-1;
+                            newPos  = pos - 1;
                         }
                         else
                         {
@@ -158,26 +168,77 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
                     SetUppercaseIfFirstCharacter();
                     break;
-            
+
                 case KeyboardKey.KeyType.ToggleCase:
                     ToggleCase();
                     break;
 
                 default:
-                    newText = text.Substring(0, start) + addText + text.Substring(end, text.Length - end);
-                    newPos  = start + addText.Length;
+                    // Replace any Selected Text with 'addText'
+                    newText            = text.Substring(0, start) + addText + text.Substring(end, text.Length - end);
+                    tmpInputField.text = newText;
 
-                    tmpInputField.text                          = newText;
+                    // Place cursor at the end of 'addText'
+                    newPos = start + addText.Length;
+
                     tmpInputField.caretPosition                 = newPos;
                     tmpInputField.selectionStringAnchorPosition = newPos;
                     tmpInputField.selectionStringFocusPosition  = newPos;
 
+
+                    tmpInputField.ActivateInputField();
+                    tmpInputField.DeactivateInputField();
+                    //Invoke("AcrivateInputField", 2f);
+                    StartCoroutine(MyCoroutine());
+                    
                     SetUppercaseIfFirstCharacter();
                     break;
             }
-            tmpInputField.Select();
+
         }
 
+        IEnumerator MyCoroutine()
+        {
+            yield return new WaitForSeconds(2f);
+            tmpInputField.DeactivateInputField();
+
+            yield break;
+            
+            yield return new WaitForSeconds(.5f);
+            tmpInputField.ActivateInputField();
+            yield return new WaitForSeconds(1f);
+            tmpInputField.ActivateInputField();
+            yield return new WaitForSeconds(1f);
+            tmpInputField.ActivateInputField();
+            // yield return new WaitForSeconds(2f);
+            // EventSystem.current.SetSelectedGameObject(null);
+            //yield return new WaitForSeconds(.1f);
+            // tmpInputField.Select();
+            /*
+            yield return new WaitForSeconds(.1f);
+            EventSystem.current.SetSelectedGameObject(null);
+            yield return new WaitForSeconds(.1f);
+            tmpInputField.Select();
+            */
+            yield break;
+        }
+
+        
+        /*
+        private void AcrivateInputField()
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            // tmpInputField.ActivateInputField();
+            // tmpInputField.DeactivateInputField();\
+            // other();
+            Invoke("other", 1f);
+        }
+
+        void other()
+        {
+            tmpInputField.Select();
+        }
+        */
 
         public void ToggleCase()
         {

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SpatialTracking;
+
 
 namespace com.davidhopetech.tools.Run_Time.Editor
 {
@@ -107,6 +109,13 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 
 			Selection.objects = typedGOs.ToArray();
 
+		}
+
+
+		[MenuItem("GameObject/Davids Tools/Select All Input Fields", false, 10)]
+		static void SelectAllInputFields(MenuCommand menuCommand)
+		{
+			SelectAllGameObjectTypes<TMP_InputField>();
 		}
 
 

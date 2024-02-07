@@ -39,7 +39,6 @@ public class DHTConsole : EditorWindow
 	[MenuItem("David's Tools/DHT Console")]
 	public static void ShowWindow()
 	{
-		int a = 1;
 		GetWindow<DHTConsole>("DHT Console");
 	}
 

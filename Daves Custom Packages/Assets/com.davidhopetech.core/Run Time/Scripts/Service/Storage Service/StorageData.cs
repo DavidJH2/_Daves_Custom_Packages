@@ -5,16 +5,17 @@ using UnityEngine.Serialization;
 [System.Serializable] 
 public class StorageData
 {
-	[FormerlySerializedAs("NameChangeEvent")] public Action<string> ChangeEvent;
-
-	[FormerlySerializedAs("_name")] [SerializeField] private string value = "";
-	public string _value
+	public Action<string> ChangeEvent = delegate { };
+	
+	[SerializeField] private string _value = "";
+	
+	public string value
 	{
-		get => value;
+		get => _value;
 		set
 		{
-			this.value = value;
-			ChangeEvent.Invoke(this.value);					
+			this._value = value;
+			ChangeEvent.Invoke(this._value);					
 		}
 	}
 }
