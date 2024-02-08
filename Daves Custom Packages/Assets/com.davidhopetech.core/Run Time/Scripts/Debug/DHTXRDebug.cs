@@ -1,11 +1,14 @@
+using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace com.davidhopetech.core.Run_Time.DTHDebug
+namespace com.davidhopetech.core.Run_Time.DHTXRDebug
 {
 	public class DHTXRDebug : MonoBehaviour
 	{
+		public UnityEventBase unityEvent;
 		[SerializeField] private TextMeshProUGUI value1;
 		[SerializeField] private TextMeshProUGUI teleportValue;
 		[SerializeField] private TextMeshProUGUI miscValue;
@@ -17,12 +20,15 @@ namespace com.davidhopetech.core.Run_Time.DTHDebug
 		
 		void Start()
 		{
+			Debug.unityLogger.Log("This is a Test");	
 			// var eventService = DHTServiceLocator.dhtEventService;
-			var eventService = DHTServiceLocator.Instance.Get<DHTEventService>();
+			var eventService = DHTServiceLocator.Get<DHTEventService>();
 			
-			eventService.dhtUpdateDebugValue1Event.AddListener(UpdateValue1);
-			eventService.dhtUpdateDebugTeleportEvent.AddListener(UpdateTeleportValue);
-			eventService.dhtUpdateDebugMiscEvent.AddListener(UpdateMiscValue);
+			eventService.Get<DHTUpdateDebugValue1Event>()._event.AddListener(UpdateValue1);
+			eventService.Get<DHTUpdateDebugTeleportEvent>()._event.AddListener(UpdateTeleportValue);
+			
+			// ***  New Methode  ***
+			eventService.Get<DHTUpdateDebugMiscEvent>()._event.AddListener(UpdateMiscValue);
 		}
 
 		

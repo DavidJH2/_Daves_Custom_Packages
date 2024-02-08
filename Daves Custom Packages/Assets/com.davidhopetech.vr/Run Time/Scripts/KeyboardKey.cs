@@ -1,134 +1,117 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class KeyboardKey : MonoBehaviour
+namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-
-    private Keyboard        keyboard;
-    private TMP_InputField  tmpInputField;
-    private TextMeshProUGUI tmp;
-    private Button          button;
-
-
-    public enum KeyType
+    public class KeyboardKey : MonoBehaviour, IPointerDownHandler
     {
-        Character,
-        BackSpace,
-        ToggleCase,
-        Enter
-    }
+
+        private Keyboard           keyboard;
+        private DHT_TMP_InputField tmpInputField;
+        private TextMeshProUGUI    tmp;
+        private Button             button;
 
 
-    public bool IsSpace
-    {
-        get
+        public enum KeyType
         {
-            return tmp.text == "Space";
+            Character,
+            BackSpace,
+            ToggleCase,
+            Enter
         }
-    }
 
-    public bool IsEnter
-    {
-        get
-        {
-            return tmp.text == "Enter";
-        }
-    }
 
-    public bool IsLowerSpace
-    {
-        get
+        public bool IsSpace
         {
-            return tmp.text == "space";
-        }
-    }
-
-    public string keyValue
-    {
-        get
-        {
-            switch (tmp.text)
+            get
             {
-                case "Space":
-                    return " ";
-                default:
-                    return tmp.text;
+                return tmp.text == "Space";
             }
         }
-    }
 
-    public KeyType keyType
-    {
-        get
+        public bool IsEnter
         {
-            switch (tmp.text)
+            get
             {
-                case "Enter":
-                    return KeyType.Enter;
-                case "<":
-                    return KeyType.BackSpace;
-                case "^":
-                    return KeyType.ToggleCase;
-                default:
-                    return KeyType.Character;
+                return tmp.text == "Enter";
             }
         }
-    }
 
-    void Start()
-    {
-        keyboard      = GetComponentInParent<Keyboard>();
-        tmpInputField = keyboard.tmpInputField;
-        tmp           = GetComponentInChildren<TextMeshProUGUI>();
-        button        = GetComponent<Button>();
-        button.onClick.AddListener(DoClick);
-    }
-
-
-    public void ToUppercase()
-    {
-        if (keyType == KeyType.Character && keyValue != " ")
+        public bool IsLowerSpace
         {
-            var text    = tmp.text;
-            var newText = text.ToUpper();
-            tmp.text = newText;
+            get
+            {
+                return tmp.text == "space";
+            }
         }
-    }
 
-    public void ToLowercase()
-    {
-        if (keyType == KeyType.Character && keyValue != " ")
+        public string keyValue
         {
-            var text    = tmp.text;
-            var newText = text.ToLower();
-            tmp.text = newText;
-        }
-    }
-    
-    void DoClick()
-    {
-        keyboard.KeyPressed(this);
-        /*
-        switch (tmp.text)
-        {
-            case "<":
-                var text = tmpInputField.text;
-                var len  = text.Length;
-                if (len > 0)
+            get
+            {
+                switch (tmp.text)
                 {
-                    text               = text.Substring(0, len-1);
-                    tmpInputField.text = text;
+                    case "Space":
+                        return " ";
+                    default:
+                        return tmp.text;
                 }
-                break;
-            case "^":
-                keyboard.ToggleCase();
-                break;
-                
-            default:
-                keyboard.KeyPressed(this);
-                break;
+            }
         }
-        */
+
+        public KeyType keyType
+        {
+            get
+            {
+                switch (tmp.text)
+                {
+                    case "Enter":
+                        return KeyType.Enter;
+                    case "<":
+                        return KeyType.BackSpace;
+                    case "^":
+                        return KeyType.ToggleCase;
+                    default:
+                        return KeyType.Character;
+                }
+            }
+        }
+
+        void Start()
+        {
+            keyboard      = GetComponentInParent<Keyboard>();
+            tmpInputField = keyboard.tmpInputField;
+            tmp           = GetComponentInChildren<TextMeshProUGUI>();
+            button        = GetComponent<Button>();
+            //button.onClick.AddListener(DoClick);
+        }
+
+
+        public void ToUppercase()
+        {
+            if (keyType == KeyType.Character && keyValue != " ")
+            {
+                var text    = tmp.text;
+                var newText = text.ToUpper();
+                tmp.text = newText;
+            }
+        }
+
+        public void ToLowercase()
+        {
+            if (keyType == KeyType.Character && keyValue != " ")
+            {
+                var text    = tmp.text;
+                var newText = text.ToLower();
+                tmp.text = newText;
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            keyboard.KeyPressed(this);
+        }
     }
 }

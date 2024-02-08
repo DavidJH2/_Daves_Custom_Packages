@@ -437,7 +437,7 @@ MonoBehaviour:
   - {fileID: 6578681959289945369}
   - {fileID: -4524827999969926544}
   - {fileID: -160359850805477448}
-  - {fileID: 6263797009579965538}
+  - {fileID: 7293948224591492390}
   - {fileID: -3466267062003324811}
   - {fileID: 1540339158232822520}
   - {fileID: -7960599807313569468}
@@ -484,14 +484,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: -3598674649669453961}
+  - {fileID: 7326358924053692790}
   - {fileID: 8265456250362564912}
   - {fileID: -8782933473534876586}
   - {fileID: -3400317139106380986}
   - {fileID: 7270169350813107742}
   - {fileID: -3243379374355863412}
   - {fileID: -6458820261470966905}
-  - {fileID: -4447022238817448625}
-  - {fileID: 4250993699136317961}
+  - {fileID: 206060280807109749}
   - {fileID: -3482320504097825253}
   - {fileID: 1420726760931017518}
   - {fileID: -2511080707777855175}
@@ -635,6 +635,27 @@ MonoBehaviour:
   - {fileID: -2549355189705984061}
   - {fileID: -3341400385982467023}
   - {fileID: 3356365469480200119}
+--- !u!114 &206060280807109749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a4959af032305438a04d410c6b0418, type: 3}
+  m_Name: InterceptCreateSessionFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 'Sample: Intercept Create Session'
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.example.intercept
+  openxrExtensionStrings: XR_test
+  company: Unity
+  priority: 0
+  required: 0
+  message: Hello from C#!
 --- !u!114 &1401234276909448447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,14 +830,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: -448615171586083507}
-  - {fileID: 7743484157706272387}
+  - {fileID: 8260764617425868733}
   - {fileID: -293215328822975980}
   - {fileID: -7028764014936521238}
   - {fileID: 1863218519778719530}
   - {fileID: 3440223503736768957}
   - {fileID: 3635552722054151975}
   - {fileID: -9089020313253053163}
-  - {fileID: 8683576437371371293}
+  - {fileID: 4615759553650482880}
   - {fileID: -3797975704409549549}
   - {fileID: 6449159797286885747}
   - {fileID: -7259528298960974039}
@@ -886,6 +907,27 @@ MonoBehaviour:
   featureIdInternal: com.mycompany.openxr.customsessionstatefeature
   openxrExtensionStrings: 
   company: MyCompany
+  priority: 0
+  required: 0
+  message: Hello from C#!
+--- !u!114 &4615759553650482880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a4959af032305438a04d410c6b0418, type: 3}
+  m_Name: InterceptCreateSessionFeature Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 'Sample: Intercept Create Session'
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.example.intercept
+  openxrExtensionStrings: XR_test
+  company: Unity
   priority: 0
   required: 0
   message: Hello from C#!
@@ -1086,7 +1128,70 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &7293948224591492390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a4959af032305438a04d410c6b0418, type: 3}
+  m_Name: InterceptCreateSessionFeature Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 'Sample: Intercept Create Session'
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.example.intercept
+  openxrExtensionStrings: XR_test
+  company: Unity
+  priority: 0
+  required: 0
+  message: Hello from C#!
+--- !u!114 &7326358924053692790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08640098bc53a1146a42e8c71fda5a40, type: 3}
+  m_Name: CustomSessionStateFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Custom Session State Feature
+  version: 1.0.0
+  featureIdInternal: com.mycompany.openxr.customsessionstatefeature
+  openxrExtensionStrings: 
+  company: MyCompany
+  priority: 0
+  required: 0
+  message: Hello from C#!
 --- !u!114 &7743484157706272387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08640098bc53a1146a42e8c71fda5a40, type: 3}
+  m_Name: CustomSessionStateFeature Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Custom Session State Feature
+  version: 1.0.0
+  featureIdInternal: com.mycompany.openxr.customsessionstatefeature
+  openxrExtensionStrings: 
+  company: MyCompany
+  priority: 0
+  required: 0
+  message: Hello from C#!
+--- !u!114 &8260764617425868733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

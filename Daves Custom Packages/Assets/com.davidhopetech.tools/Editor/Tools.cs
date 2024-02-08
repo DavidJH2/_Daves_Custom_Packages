@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SpatialTracking;
+
 
 namespace com.davidhopetech.tools.Run_Time.Editor
 {
@@ -13,10 +16,10 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		[SerializeField] private GameObject srcGO;
 
 
-		[MenuItem("Tools/Setup/Create Default Folders")]
+		[MenuItem("David's Tools/Setup/Create Default Folders")]
 		public static void CreateDefaultFolders()
 		{
-			CreateFolders("_Project", "Art", "Code", "Scenes");
+			CreateFolders("_Project", "Art", "Prefabs", "Scripts", "Scenes");
 			CreateFolders("_Project/Art", "Materials", "Models");
 			AssetDatabase.Refresh();
 		}
@@ -109,6 +112,27 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		}
 
 
+		[MenuItem("GameObject/Davids Tools/Select All Input Fields", false, 10)]
+		static void SelectAllInputFields(MenuCommand menuCommand)
+		{
+			SelectAllGameObjectTypes<TMP_InputField>();
+		}
+
+
+		[MenuItem("GameObject/Davids Tools/Select All Tracked", false, 10)]
+		static void SelectAllTracked(MenuCommand menuCommand)
+		{
+			SelectAllGameObjectTypes<TrackedPoseDriver>();
+		}
+
+
+		[MenuItem("GameObject/Davids Tools/Select All Cameras", false, 10)]
+		static void SelectAllCameras(MenuCommand menuCommand)
+		{
+			SelectAllGameObjectTypes<Camera>();
+		}
+
+
 		[MenuItem("GameObject/Davids Tools/Select All Canvases", false, 10)]
 		static void SelectAllCanvases(MenuCommand menuCommand)
 		{
@@ -151,7 +175,7 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		}
 
 
-		static void SelectAllGameObjectTypes<T>() where T : Component
+		internal static void SelectAllGameObjectTypes<T>() where T : Component
 		{
 			// get root objects in scene
 			List<GameObject> rootObjects = new List<GameObject>();
