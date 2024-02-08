@@ -1,17 +1,31 @@
 
 
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 using System.Collections;
 using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Management;
 
 public class HMDInitialization : MonoBehaviour
 {
 	public  System.Action onHMDInitialized; // Custom callback action
 	private DHTLogService _logService;
+
+	private void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+
+	private void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
 	void Start()
 	{
 		_logService = DHTServiceLocator.Get<DHTLogService>();
@@ -60,5 +74,9 @@ public class HMDInitialization : MonoBehaviour
 		onHMDInitialized?.Invoke();
 		
 		if(DHTDebug.ShowPostionResetDebug) _logService?.Log("------  Done  ------");
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
 	}
 }
