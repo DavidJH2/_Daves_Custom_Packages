@@ -22,18 +22,20 @@ public class DHTXROrigin : MonoBehaviour
 	private DHTLogService _logService;
 	private DHTHMDService _service;
 
+	HMDInitialization hmdInitialization; 
+
 	void OnEnable()
 	{
 	}
 	
 	void Start()
 	{
-		StartCoroutine(nameof(InitializeXR));
+		//StartCoroutine(nameof(InitializeXR));
 		
 		_logService = DHTServiceLocator.Get<DHTLogService>();
 		_service = DHTServiceLocator.Get<DHTHMDService>();
 		
-		HMDInitialization hmdInitialization = GetComponent<HMDInitialization>(); 
+		hmdInitialization = GetComponent<HMDInitialization>(); 
 		hmdInitialization.onHMDInitialized += HMDInitialized;
 		
 		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
@@ -152,8 +154,8 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
-		// GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
+		GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
 		_service.UserPresenceEvent.RemoveListener(OnUserPresence);
-		XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+		//XRGeneralSettings.Instance.Manager.DeinitializeLoader();
 	}
 }
