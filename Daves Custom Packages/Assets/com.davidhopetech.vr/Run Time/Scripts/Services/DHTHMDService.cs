@@ -91,7 +91,7 @@ public class DHTHMDService : DHTService<DHTHMDService>
         Vector3 velocity;
         
         inputDevice.TryGetFeatureValue(CommonUsages.deviceVelocity, out velocity);
-        if(loggingState) logService.Log($"HMD Velocity: {velocity}\t\tlastHmdMounted = {lastHmdMounted}");
+        // if(loggingState) logService.Log($"HMD Velocity: {velocity}\t\tlastHmdMounted = {lastHmdMounted}");
         var hmdMounted =  (velocity != Vector3.zero);
         
         return hmdMounted;
