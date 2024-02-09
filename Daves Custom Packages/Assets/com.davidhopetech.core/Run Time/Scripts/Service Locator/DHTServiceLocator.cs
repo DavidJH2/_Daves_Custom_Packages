@@ -10,30 +10,40 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 	{
 		private static Dictionary<Type, MonoBehaviour> cachedServices = new();
 
+
 		public static TServiceType Get<TServiceType>(bool supressWarnings = false) where TServiceType : MonoBehaviour
 		{
-			cachedServices.TryGetValue(typeof( TServiceType), out var service);
-			
+			cachedServices.TryGetValue(typeof(TServiceType), out var service);
+
 			if (service)
 			{
 				// DHTDebug.Log("------  Found Cached DHTService  ------");
-				return (TServiceType) service;
+				return (TServiceType)service;
 			}
-			
+
 			// DHTDebug.Log("------  Locating DHTService  ------");
 			var services = ObjectExtentions.DHTFindObjectsByType<TServiceType>(FindObjectsSortMode.None);
 
 			if (services.Length == 0)
 			{
-				if(!supressWarnings) Debug.Log($"DHT DHTService '{typeof(TServiceType).Name}' Not In Scene");
+				if (!supressWarnings) Debug.Log($"DHT DHTService '{typeof(TServiceType).Name}' Not In Scene");
 				return null;
 			}
-			
+
 			if (!supressWarnings && services.Length > 1) Debug.Log($"There should only be one DHT DHTService '{typeof(TServiceType).Name}' In Scene");
 
 			service                              = services[0];
 			cachedServices[typeof(TServiceType)] = service;
-			return (TServiceType) service;
+			return (TServiceType)service;
+		}
+
+
+		public static bool IsServiceRegistered<TServiceType>(bool supressWarnings = false) where TServiceType : DHTService<TServiceType>
+		{
+			cachedServices.TryGetValue(typeof(TServiceType), out var service);
+
+			return service is not null;
 		}
 	}
 }
+

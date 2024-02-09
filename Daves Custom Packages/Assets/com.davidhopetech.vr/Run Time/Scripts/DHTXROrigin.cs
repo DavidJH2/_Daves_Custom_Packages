@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
 using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -16,6 +18,7 @@ public class DHTXROrigin : MonoBehaviour
 	[SerializeField] private bool                  resetPositionOnStart = true;
 	[SerializeField] private XROrigin              xrOrigin;
 	[SerializeField] private TeleportationProvider teleportationProvider;
+	[SerializeField] private GameObject            InitialCameraPos;
 
 	[SerializeField] private GameObject startOrientationGO = null;
 
@@ -30,6 +33,7 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
+		StartCoroutine(nameof(RecenterNextFrame));
 		//StartCoroutine(nameof(InitializeXR));
 		
 		_logService = DHTServiceLocator.Get<DHTLogService>();
@@ -48,7 +52,7 @@ public class DHTXROrigin : MonoBehaviour
 			xrOrigin = GetComponent<XROrigin>();
 		}
 		
-		Recenter();
+		// MoveToStart();
 	}
 
 	private void InityStartOrientation()
@@ -111,15 +115,24 @@ public class DHTXROrigin : MonoBehaviour
 	{
 		if (resetPositionOnStart && state)
 		{
-			Recenter();
+			DHTDebug.LogTag($"---------------  Call Recenter()  State: {state}  ---------------");
+			RecenterNextFrame();
 			_service.UserPresenceEvent.RemoveListener(OnUserPresence);
 		}
 	}
-	
-	
-	private int resetCount = 0;
 
-	public void Recenter()
+
+	void RecenterNextFrame()
+	{
+		StartCoroutine(nameof(RecenterNextFrameCR));
+	}
+	IEnumerator RecenterNextFrameCR()
+	{
+		yield return null;
+		Recenter();
+	}
+	
+	void MoveToStart()
 	{
 		if (startOrientationGO == null)
 		{
@@ -136,6 +149,15 @@ public class DHTXROrigin : MonoBehaviour
 			matchOrientation    = MatchOrientation.TargetUpAndForward
 		};
 		teleportationProvider.QueueTeleportRequest(request);
+	}
+	
+	
+	private int resetCount = 0;
+
+	public void Recenter()
+	{
+		DHTDebug.LogTag($"---------------  Recenter()  ---------------");
+		GetComponentInChildren<RecenterVRCam>().Recenter();
 	}
 
 
