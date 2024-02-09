@@ -1211,6 +1211,7 @@ MonoBehaviour:
   dropDown: {fileID: 2232438165396775959}
   dhtXROrigin: {fileID: 0}
   hudUI: {fileID: 4188396344205064328}
+  lefthandXRRayInteractor: {fileID: 0}
   menuButton:
     m_UseReference: 1
     m_Action:
@@ -1224,7 +1225,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -2382314469574091145, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-  lefthandXRRayInteractor: {fileID: 0}
 --- !u!1773428102 &4890831940911640247
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -2691,7 +2691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2700,8 +2700,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.20208646, g: 1, b: 0.05345905, a: 1}
+    m_PressedColor: {r: 0.0844991, g: 0.67295593, b: 0.014813383, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1

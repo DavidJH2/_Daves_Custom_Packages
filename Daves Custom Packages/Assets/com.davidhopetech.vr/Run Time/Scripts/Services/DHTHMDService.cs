@@ -23,8 +23,14 @@ public class DHTHMDService : DHTService<DHTHMDService>
 
     private                  DHTLogService logService;
     [SerializeField] private bool          loggingState = true;
-    
-    
+    private                  bool          _hmdMounted;
+
+
+    public bool hmdMounted
+    {
+        get => _hmdMounted;
+        private set => _hmdMounted = value;
+    }
     void Start()
     {
         logService = DHTServiceLocator.Get<DHTLogService>();
@@ -65,7 +71,7 @@ public class DHTHMDService : DHTService<DHTHMDService>
     void UpdateHMDUserPresence()
     {
         UpdateLoggingState();
-        var hmdMounted =  GetHMDMounted();
+        hmdMounted =  GetHMDMounted();
         if (!HMDHasBeenMounted && hmdMounted)
         {
             

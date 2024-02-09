@@ -204,6 +204,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
             yield break;
             
+            #if false
             yield return new WaitForSeconds(.5f);
             tmpInputField.ActivateInputField();
             yield return new WaitForSeconds(1f);
@@ -221,6 +222,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             tmpInputField.Select();
             */
             yield break;
+            #endif
         }
 
         
