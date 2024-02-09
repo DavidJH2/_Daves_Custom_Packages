@@ -1709,7 +1709,7 @@ namespace TMPro
                     }
                 }
 
-                OnDeselect(null);
+                // OnDeselect(null);            <----- This prevents you from selecting an TMP Input Field when your on a device which supports a Virtual Keyboard
                 return;
             }
 
@@ -4350,7 +4350,7 @@ namespace TMPro
 
         public override void OnDeselect(BaseEventData eventData)
         {
-            // DeactivateInputField();
+            DeactivateInputField();
 
             base.OnDeselect(eventData);
             SendOnFocusLost();

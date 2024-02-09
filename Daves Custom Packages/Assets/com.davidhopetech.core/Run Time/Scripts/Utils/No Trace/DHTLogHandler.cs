@@ -7,7 +7,8 @@ using Object = UnityEngine.Object;
 
 public class DHTLogHandler : ILogHandler
 {
-	private static DHTLogHandler instance = new (Debug.unityLogger.logHandler);
+	// private static DHTLogHandler instance = new (Debug.unityLogger.logHandler);
+	private static DHTLogHandler instance;
 	private        ILogHandler   defaultLogHandler;
 
 
