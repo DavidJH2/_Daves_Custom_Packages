@@ -38,8 +38,8 @@ public class DHTXROrigin : MonoBehaviour
 		
 		hmdInitialization = GetComponent<HMDInitialization>(); 
 		hmdInitialization.onHMDInitialized += HMDInitialized;
-		
-		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
+
+		if (_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
 
 		teleportationProvider         = GetComponent<TeleportationProvider>();
 		InityStartOrientation();
@@ -173,8 +173,8 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
+		DHTDebug.Tag(this, "      <------------------------------");
 		GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
-		_service.UserPresenceEvent.RemoveListener(OnUserPresence);
-		//XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+		if (_service) _service.UserPresenceEvent.RemoveListener(OnUserPresence);
 	}
 }

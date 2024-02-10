@@ -4,6 +4,7 @@ using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
@@ -21,8 +22,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		private DHTLogService          _logService;
 		private DhtDhtDebugPanel_1_Service _dhtDebugPanel_1_Service;
 
+		public GameObject DebugTools;
 
 
+
+		public void ToggleDebug(bool state)
+		{
+			DebugTools.SetActive(state);
+		}
+		
 		void Start()
 		{
 #if false
