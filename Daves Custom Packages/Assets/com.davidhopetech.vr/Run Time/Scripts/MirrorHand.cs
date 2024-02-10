@@ -27,16 +27,16 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         protected DHTUpdateDebugTeleportEvent TeleportEvent;
         protected DHTUpdateDebugValue1Event   DebugValue1Event;
 
-        private DebugPanel    _debugPanel;
-        private DHTLogService logService;
+        private DhtDhtDebugPanel_1_Service _dhtDebugPanel_1_Service;
+        private DHTLogService              logService;
 
     
         void Start()
         {
             logService = DHTServiceLocator.Get<DHTLogService>();
 
-             //_debugPanel = FindObjectOfType<DebugPanel>(true);
-            _debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
+             //_dhtDebugPanel_1_Service = FindObjectOfType<DHTDebugPanel_Service>(true);
+            _dhtDebugPanel_1_Service = DHTServiceLocator.Get<DhtDhtDebugPanel_1_Service>();
             
             dhtEventService  = DHTServiceLocator.Get<DHTEventService>();
 
@@ -110,11 +110,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             if (name.Contains("Left"))
             {
-                if(_debugPanel) _debugPanel.SetElement(0, $"Left Trigger Pulled: {TriggerPulled}", "");
+                if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(0, $"Left Trigger Pulled: {TriggerPulled}", "");
             }
             else
             {
-                if(_debugPanel) _debugPanel.SetElement(1, $"Right Trigger Pulled: {TriggerPulled}", "");
+                if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(1, $"Right Trigger Pulled: {TriggerPulled}", "");
             }
 
             grabStarted     = (IsGrabbing && !_lastIsGrabbing);

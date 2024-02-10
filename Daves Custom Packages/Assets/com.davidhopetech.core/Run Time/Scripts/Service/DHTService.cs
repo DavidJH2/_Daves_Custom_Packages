@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 public class DHTService<T> : MonoBehaviour where T : DHTService<T>
 {
-    void Awake()
+    internal void Awake()
     {
         if(DHTServiceLocator.IsServiceRegistered<T>())
         {

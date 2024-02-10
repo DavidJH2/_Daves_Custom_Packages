@@ -17,9 +17,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 		[SerializeField] internal InputActionProperty menuButton;
 
-		private DHTPlayerController _playerController;
-		private DHTLogService       _logService;
-		private DebugPanel          _debugPanel;
+		private DHTPlayerController    _playerController;
+		private DHTLogService          _logService;
+		private DhtDhtDebugPanel_1_Service _dhtDebugPanel_1_Service;
 
 
 
@@ -29,9 +29,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			string nullExcepton = null;
 			var    a            = nullExcepton.Length;
 #endif
-			_logService = DHTServiceLocator.Get<DHTLogService>();
-			_debugPanel = ObjectExtentions.DHTFindObjectOfType<DebugPanel>(true);
-			dhtXROrigin = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
+			_logService              = DHTServiceLocator.Get<DHTLogService>();
+			_dhtDebugPanel_1_Service = DHTServiceLocator.Get<DhtDhtDebugPanel_1_Service>();
+			dhtXROrigin              = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
 
 			_playerController = ObjectExtentions.DHTFindObjectOfType<DHTPlayerController>(false);
 
@@ -68,7 +68,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			
 
 			var menuButtonValue = menuButton.action.ReadValue<float>();
-			if (_debugPanel) _debugPanel.SetElement(3,$"Menu Button:{menuButtonValue}","");
+			if (_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(3,$"Menu Button:{menuButtonValue}","");
 			
 			if (menuButtonValue != lastMenuButtonValuel)
 			{

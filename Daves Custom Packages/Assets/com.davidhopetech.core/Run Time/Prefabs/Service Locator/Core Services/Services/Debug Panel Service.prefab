@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 308705241471216349}
-  - component: {fileID: 1544489123055691396}
+  - component: {fileID: 2214175028212978048}
   m_Layer: 0
   m_Name: Debug Panel Service
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1544489123055691396
+--- !u!114 &2214175028212978048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9066235404388164291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5925a0e5c61363468ae93f9a909e252, type: 3}
+  m_Script: {fileID: 11500000, guid: 39205588bd7959d4c84948d274006ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugPanel1: {fileID: 0}
+  elements: []
+  _resetOnStart: 1
