@@ -13,7 +13,7 @@ public class DHTDebugPanel_Service : DHTService<DHTDebugPanel_Service>
     private void Start()
     {
         // var service                     = DHTServiceLocator.Get<DHTDebugPanelService_DONT_USE>();
-        // if(service) service.dhtDebugPanelService =  this as DHTDebugPanel_Service<DhtDhtDebugPanel_1_Service>;
+        // if(service) service.dhtDebugPanelService =  this as DHTDebugPanel_Service<DHTDebugPanel_1_Service>;
 
         if (_resetOnStart) ResetOnStart();
     }

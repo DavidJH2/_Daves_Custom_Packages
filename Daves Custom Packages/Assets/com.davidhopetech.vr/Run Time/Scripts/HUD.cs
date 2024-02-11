@@ -20,7 +20,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		private DHTPlayerController    _playerController;
 		private DHTLogService          _logService;
-		private DhtDhtDebugPanel_1_Service _dhtDebugPanel_1_Service;
+		private DHTDebugPanel_1_Service _dhtDebugPanel_1_Service;
 
 		public GameObject DebugTools;
 
@@ -38,7 +38,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			var    a            = nullExcepton.Length;
 #endif
 			_logService              = DHTServiceLocator.Get<DHTLogService>();
-			_dhtDebugPanel_1_Service = DHTServiceLocator.Get<DhtDhtDebugPanel_1_Service>();
+			_dhtDebugPanel_1_Service = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
 			dhtXROrigin              = ObjectExtentions.DHTFindObjectOfType<DHTXROrigin>(true);
 
 			_playerController = ObjectExtentions.DHTFindObjectOfType<DHTPlayerController>(false);
