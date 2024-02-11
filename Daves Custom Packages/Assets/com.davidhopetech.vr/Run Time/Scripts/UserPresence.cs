@@ -103,20 +103,20 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			currentCameraGO = newCameraGo;
 
 			Camera   camera      = newCameraGo.GetComponent<Camera>();
-			Canvas[] _canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
+			Canvas[] _canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>(true);
 			foreach (var canvas in _canvasList)
 			{
 				canvas.worldCamera = camera;
 			}
 
-			TrackedDevicePhysicsRaycaster[] _trackedDevicePhysicsRaycasterList = ObjectExtentions.DHTFindObjectsByType<TrackedDevicePhysicsRaycaster>();
+			TrackedDevicePhysicsRaycaster[] _trackedDevicePhysicsRaycasterList = ObjectExtentions.DHTFindObjectsByType<TrackedDevicePhysicsRaycaster>(true);
 			foreach (var obj in _trackedDevicePhysicsRaycasterList)
 			{
 				obj.SetEventCamera(camera);
 			}
 
 			
-			CameraChange.Invoke(pancakeCamGO);
+			CameraChange.Invoke(newCameraGo);
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 			}
 
 			// DHTDebug.Log("------  Locating DHTService  ------");
-			var services = ObjectExtentions.DHTFindObjectsByType<TServiceType>(FindObjectsSortMode.None);
+			var services = ObjectExtentions.DHTFindObjectsByType<TServiceType>(true);
 
 			if (services.Length == 0)
 			{

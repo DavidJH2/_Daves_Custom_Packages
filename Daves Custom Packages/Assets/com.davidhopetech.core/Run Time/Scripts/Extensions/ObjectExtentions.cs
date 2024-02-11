@@ -7,9 +7,9 @@ namespace com.davidhopetech.core.Run_Time.Extensions
 	{
 		private static HashSet<Object> cache = new();
 
-		public static T[] DHTFindObjectsByType<T>(FindObjectsSortMode sortMode = FindObjectsSortMode.None) where T : Object
+		public static T[] DHTFindObjectsByType<T>(bool findObjectInactiveFlag = false) where T : Object
 		{
-			return Object.FindObjectsByType<T>(sortMode);
+			return Object.FindObjectsOfType<T>(findObjectInactiveFlag);
 		}
 
 		public static T DHTFindObjectOfType<T>(bool findObjectInactiveFlag = false) where T : Object
