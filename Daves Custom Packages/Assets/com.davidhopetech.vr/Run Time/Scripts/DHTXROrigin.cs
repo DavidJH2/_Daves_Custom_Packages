@@ -42,7 +42,7 @@ public class DHTXROrigin : MonoBehaviour
 		if (_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
 
 		teleportationProvider         = GetComponent<TeleportationProvider>();
-		InityStartOrientation();
+		InitStartOrientation();
 	
 		if (xrOrigin == null)
 		{
@@ -52,7 +52,7 @@ public class DHTXROrigin : MonoBehaviour
 		// MoveToStart();
 	}
 
-	private void InityStartOrientation()
+	private void InitStartOrientation()
 	{
 		if (startOrientationGO == null)
 		{
@@ -129,7 +129,7 @@ public class DHTXROrigin : MonoBehaviour
 		Recenter();
 	}
 	
-	void MoveToStart()
+	public void MoveToStart()
 	{
 		if (startOrientationGO == null)
 		{
