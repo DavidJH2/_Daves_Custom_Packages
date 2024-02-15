@@ -8,9 +8,13 @@ public class DHTService<T> : MonoBehaviour where T : DHTService<T>
 {
     internal virtual void Awake()
     {
-        if(DHTServiceLocator.IsServiceRegistered<T>())
+        DHTDebug.LogTag($"Service '{typeof(T).Name}' Awake   <--------");
+
+        var service = DHTServiceLocator.Get<T>();
+        if(service != this)
         {
-            DHTDebug.LogTag($"Service '{typeof(T).Name}' already exist, Destroying...");
+            var msg = $"Service '{typeof(T).Name}' already exist, Destroying...";
+            DHTDebug.LogTag(msg);
             Destroy(gameObject);
         }
     }

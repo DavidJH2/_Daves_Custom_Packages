@@ -38,7 +38,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 		}
 
 
-		public static bool IsServiceRegistered<TServiceType>(bool supressWarnings = false) where TServiceType : DHTService<TServiceType>
+		public static bool IsServiceCached<TServiceType>(bool supressWarnings = false) where TServiceType : DHTService<TServiceType>
 		{
 			cachedServices.TryGetValue(typeof(TServiceType), out var service);
 

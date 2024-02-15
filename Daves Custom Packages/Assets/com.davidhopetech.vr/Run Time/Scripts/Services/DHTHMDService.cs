@@ -23,16 +23,18 @@ public class DHTHMDService : DHTService<DHTHMDService>
 
     private                  DHTLogService logService;
     [SerializeField] private bool          loggingState = true;
-    private                  bool          _hmdMounted;
+
+    private float lastButtonValuel  = -1f;
+    private bool  HMDHasBeenUpdated = false;
 
 
     public bool hmdMounted
     {
-        get => _hmdMounted;
-        private set => _hmdMounted = value;
+        get => GetHMDMounted();
     }
     void Start()
     {
+        DHTDebug.LogTag($"Service '{typeof(DHTHMDService).Name}' Starting   <--------");
         logService = DHTServiceLocator.Get<DHTLogService>();
         SetState(FindHMD);
     }
@@ -60,21 +62,19 @@ public class DHTHMDService : DHTService<DHTHMDService>
             {
                 inputDevice = device;
                 SetState(UpdateHMDUserPresence);
+                UpdateHMDUserPresence();
             }
         }
     }
 
 
-    private float lastButtonValuel  = -1f;
-    private bool  HMDHasBeenMounted = false;
-    
     void UpdateHMDUserPresence()
     {
         UpdateLoggingState();
-        hmdMounted =  GetHMDMounted();
-        if (!HMDHasBeenMounted && hmdMounted)
+        if (!HMDHasBeenUpdated)
         {
-            
+            HMDHasBeenUpdated = true;
+            UserPresenceEvent.Invoke(hmdMounted);
         }
         
         if (hmdMounted != lastHmdMounted)
