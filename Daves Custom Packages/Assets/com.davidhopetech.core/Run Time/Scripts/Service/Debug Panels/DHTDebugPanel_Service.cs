@@ -15,6 +15,7 @@ public class DHTDebugPanel_Service : DHTService<DHTDebugPanel_Service>
         // var service                     = DHTServiceLocator.Get<DHTDebugPanelService_DONT_USE>();
         // if(service) service.dhtDebugPanelService =  this as DHTDebugPanel_Service<DHTDebugPanel_1_Service>;
 
+        DHTServiceLocator.Get<DHTLogService>().Log($"Reset On Start: {_resetOnStart}");
         if (_resetOnStart) ResetOnStart();
     }
 

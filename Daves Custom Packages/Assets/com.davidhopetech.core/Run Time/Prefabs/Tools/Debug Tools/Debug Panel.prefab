@@ -547,26 +547,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4596757932126941245, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
-      propertyPath: m_StartAxis
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596757932126941245, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
-      propertyPath: m_CellSize.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596757932126941245, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
-      propertyPath: m_CellSize.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596757932126941245, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
-      propertyPath: m_ChildAlignment
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8603401674223868340, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
       propertyPath: m_Pivot.y
@@ -956,11 +936,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 813018143061328789, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
-      propertyPath: m_text
-      value: Debug Panel - Elem 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 813018143061328789, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
       propertyPath: m_fontSize
       value: 36
       objectReference: {fileID: 0}
@@ -1003,11 +978,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6909418692385354075, guid: 08ee4cb54855f774b91290055e196827,
-        type: 3}
-      propertyPath: m_text
-      value: Value 9
       objectReference: {fileID: 0}
     - target: {fileID: 6909418692385354075, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
@@ -1159,8 +1129,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8858390274373601671, guid: 08ee4cb54855f774b91290055e196827, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1639,7 +1608,7 @@ PrefabInstance:
     - target: {fileID: 813018143061328789, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
       propertyPath: m_text
-      value: Debug Panel - Elem 8
+      value: Debug Panel - Elem 9
       objectReference: {fileID: 0}
     - target: {fileID: 813018143061328789, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
@@ -1689,7 +1658,7 @@ PrefabInstance:
     - target: {fileID: 6909418692385354075, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
       propertyPath: m_text
-      value: Value 8
+      value: Value 9
       objectReference: {fileID: 0}
     - target: {fileID: 6909418692385354075, guid: 08ee4cb54855f774b91290055e196827,
         type: 3}
