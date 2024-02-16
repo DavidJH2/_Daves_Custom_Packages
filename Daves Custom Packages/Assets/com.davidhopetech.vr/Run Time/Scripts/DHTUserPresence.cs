@@ -97,7 +97,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 #endif
 		}
 
-		private void ChangeCamera(GameObject newCameraGo)
+		public void ChangeCamera(GameObject newCameraGo)
 		{
 			if(_currentCameraGO) _currentCameraGO.SetActive(false);
 			newCameraGo.SetActive(true);
