@@ -71,9 +71,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			_logService.Log("--------  ToggleHUD  --------\n");
 
 			var newState = !hudUI.activeSelf; 
-			hudUI.SetActive(newState);
 			
-			lefthandXRRayInteractor.enabled = !hudUI.activeSelf;
+			hudUI.SetActive(newState);
+			lefthandXRRayInteractor.enabled = newState;
 		}
 		
 		
