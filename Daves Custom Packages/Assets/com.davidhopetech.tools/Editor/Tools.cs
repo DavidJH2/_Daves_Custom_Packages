@@ -35,11 +35,19 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 			}
 		}
 	
-		[ContextMenu("Align Transform")]
-		private void AlignTransform()
+		[MenuItem("David's Tools/GameObject/Align Transforms")]
+		public static void AlignTransform()
 		{
-			transform.position = srcGO.transform.position;
-			transform.rotation = srcGO.transform.rotation;
+			var tranforms  = Selection.transforms;
+			var activeTransform = Selection.activeTransform;
+			foreach (var currentTransform in tranforms)
+			{
+				if (currentTransform != activeTransform)
+				{
+					currentTransform.position = activeTransform.position;
+					currentTransform.rotation = activeTransform.rotation;
+				}
+			}
 		}
 
 
