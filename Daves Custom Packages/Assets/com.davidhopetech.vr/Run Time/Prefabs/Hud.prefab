@@ -511,7 +511,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 315809395683089882}
         m_TargetAssemblyTypeName: com.davidhopetech.vr.Run_Time.Scripts.HUD, DavidHopeTechVR
-        m_MethodName: ToggleDebug
+        m_MethodName: OnDebugToolsToggleValueChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

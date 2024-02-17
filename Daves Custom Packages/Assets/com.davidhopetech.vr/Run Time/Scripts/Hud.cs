@@ -5,14 +5,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-	public class HUD : MonoBehaviour
+	public class Hud : MonoBehaviour
 	{
 		[SerializeField] private  TMP_Dropdown        dropDown;
+		[SerializeField] private  Toggle              DebugToolsToggle;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
 		[SerializeField] internal GameObject          hudUI;
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
@@ -22,17 +24,21 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		private DHTLogService          _logService;
 		private DHTDebugPanel_1_Service _dhtDebugPanel_1_Service;
 
-		public GameObject DebugTools;
+		private DebugTools _debugTools;
 
 
 
-		public void ToggleDebug(bool state)
+		public void OnDebugToolsToggleValueChange(bool state)
 		{
-			DebugTools.SetActive(state);
+			_debugTools.Show = state;
 		}
+		
+		
 		
 		void Start()
 		{
+			_debugTools           = ObjectExtentions.DHTFindObjectOfType<DebugTools>(true);
+			DebugToolsToggle.isOn = _debugTools.Visible;
 #if false
 			string nullExcepton = null;
 			var    a            = nullExcepton.Length;
@@ -48,8 +54,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 				_playerController.SetVRMode(dropDown);
 			}
 		}
-
-
+		
 		public void ResetXROriginPosition()
 		{
 			dhtXROrigin.Recenter();
@@ -61,10 +66,13 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		}
 
 
-		public void Toggle()
+		public void ToggleHUD()
 		{
-			_logService.Log("--------  Toggle  --------\n");
-			hudUI.SetActive(!hudUI.activeSelf);
+			_logService.Log("--------  ToggleHUD  --------\n");
+
+			var newState = !hudUI.activeSelf; 
+			hudUI.SetActive(newState);
+			
 			lefthandXRRayInteractor.enabled = !hudUI.activeSelf;
 		}
 		
@@ -82,7 +90,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				if (menuButtonValue > 0.9f)
 				{
-					Toggle();
+					ToggleHUD();
 				}
 				lastMenuButtonValuel = menuButtonValue;
 			}
