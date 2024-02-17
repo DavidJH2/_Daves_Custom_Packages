@@ -65,6 +65,16 @@ public class DHTConsole : EditorWindow
 		DHTLogHandler.LogEvent -= HandleLog;
 	}
 
+	private void Update()
+	{
+		if (dirty)
+		{
+			dirty = false;
+			DHTMetaLogService.MetaLog("Is Not Dirty...");
+			Repaint();
+		}
+	}
+
 	private void HandleLog(string logString, string stackTrace, LogType type, Object context)
 	{
 		var        path       = "";
@@ -82,22 +92,14 @@ public class DHTConsole : EditorWindow
 		logEntries.Add(new LogEntry { Log = logString, StackTrace = stackTrace, Type = type, Context = context, GameObjectPath = path});
 
 		LogEntryAdded = true;
-		this.Repaint();
+		//this.Repaint();
 		
-		// dirty         = true;
-		// DHTMetaLogService.MetaLog("Is Dirty...");
+		dirty         = true;
+		DHTMetaLogService.MetaLog("Is Dirty...");
 	}
 
 	private void OnGUI()
 	{
-		if (dirty && Event.current.type != EventType.Repaint)
-			// if (Event.current.type != EventType.Repaint)
-		{
-			dirty = false;
-			DHTMetaLogService.MetaLog("Is Not Dirty...");
-			Repaint();
-		}
-		
 		GUILayout.BeginVertical();
 		
 		DrawClearButton();

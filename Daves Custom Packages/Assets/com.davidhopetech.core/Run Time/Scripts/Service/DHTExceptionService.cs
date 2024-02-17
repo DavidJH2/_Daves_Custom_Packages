@@ -21,8 +21,9 @@ public class DHTExceptionService : DHTService<DHTExceptionService>
 
     public List<LogEntry> log = new();
     
-    void Awake()
+    internal override void Awake()
     {
+        base.Awake();
         Application.logMessageReceived += LogCallback;
     }
 

@@ -12,6 +12,8 @@ using UnityEngine.XR.Management;
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
 public class DHTXROrigin : MonoBehaviour
 {
+	public static DHTXROrigin dhtXROrigin;
+	
 	[SerializeField] private bool                  resetPositionOnStart = true;
 	[SerializeField] private XROrigin              xrOrigin;
 	[SerializeField] private TeleportationProvider teleportationProvider;
@@ -30,6 +32,7 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
+		DHTXROrigin.dhtXROrigin = this;
 		StartCoroutine(nameof(RecenterNextFrame));
 		//StartCoroutine(nameof(InitializeXR));
 		
@@ -38,11 +41,11 @@ public class DHTXROrigin : MonoBehaviour
 		
 		hmdInitialization = GetComponent<HMDInitialization>(); 
 		hmdInitialization.onHMDInitialized += HMDInitialized;
-		
-		if(_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
+
+		if (_service) _service.UserPresenceEvent.AddListener(OnUserPresence);
 
 		teleportationProvider         = GetComponent<TeleportationProvider>();
-		InityStartOrientation();
+		InitStartOrientation();
 	
 		if (xrOrigin == null)
 		{
@@ -52,7 +55,7 @@ public class DHTXROrigin : MonoBehaviour
 		// MoveToStart();
 	}
 
-	private void InityStartOrientation()
+	private void InitStartOrientation()
 	{
 		if (startOrientationGO == null)
 		{
@@ -129,7 +132,7 @@ public class DHTXROrigin : MonoBehaviour
 		Recenter();
 	}
 	
-	void MoveToStart()
+	public void MoveToStart()
 	{
 		if (startOrientationGO == null)
 		{
@@ -173,8 +176,8 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
+		DHTDebug.Tag(this, "      <------------------------------");
 		GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
-		_service.UserPresenceEvent.RemoveListener(OnUserPresence);
-		//XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+		if (_service) _service.UserPresenceEvent.RemoveListener(OnUserPresence);
 	}
 }

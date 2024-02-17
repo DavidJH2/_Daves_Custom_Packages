@@ -23,14 +23,34 @@ namespace com.davidhopetech.core.Run_Time.Utils
 
 			if (stackFrames != null && stackFrames.Length > 1)
 			{
-				StackFrame callingFrame = stackFrames[1 + stackFramOffset];
-				var        method       = callingFrame.GetMethod();
 
-				var gameObject     = toGameObject(context);
-				var sceneName      = ((gameObject) ? (gameObject.scene.name) : "");
-				var sceneGoMessage = ((sceneName != "") ? $"  ( {sceneName}, {gameObject.name} ) - " : "");
+				var gameObject = toGameObject(context);
 
-				message = $"{sceneGoMessage}{method.DeclaringType.Name}.{method.Name}()";
+				string sceneGoMessage;
+				if (gameObject == null)
+				{
+					sceneGoMessage = "{Unknown GameObject}";
+				}
+				else
+				{
+					var sceneName = ((gameObject) ? (gameObject.scene.name) : "");
+					sceneGoMessage = ((sceneName != "") ? $"  ( {sceneName}, {gameObject.name} ) - " : "");
+				}
+
+				string methodeDiscription;
+				if (1 + stackFramOffset >= stackFrames.Length)
+				{
+					methodeDiscription ="{Unknown Method}";
+				}
+				else
+				{
+					StackFrame callingFrame = stackFrames[1 + stackFramOffset];
+					var method       = callingFrame.GetMethod();
+					
+					methodeDiscription = $"{method.DeclaringType.Name}.{method.Name}()";
+				}
+
+				message = $"{sceneGoMessage}{methodeDiscription}()";
 			}
 
 			return message;

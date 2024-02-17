@@ -1,25 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-	public class UserPresence : MonoBehaviour
+	public class DHTUserPresence : MonoBehaviour
 	{
 		[SerializeField] private GameObject vrCamGO;
 		[SerializeField] private GameObject pancakeCamGO;
 
 
 		public  UnityEvent<GameObject> CameraChange = new();
-		private GameObject             currentCameraGO;
-		
-		
+		private GameObject             _currentCameraGO;
+
+		public GameObject CurrentCameraGO
+		{
+			get { return _currentCameraGO; }
+		}
+
+
 		private void Start()
 		{
 			InitializeServices();	
@@ -51,11 +52,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			if (vrCamGO.activeSelf)
 			{
-				currentCameraGO = vrCamGO;
+				_currentCameraGO = vrCamGO;
 			}
 			else if(pancakeCamGO.activeSelf)
 			{
-				currentCameraGO = pancakeCamGO;
+				_currentCameraGO = pancakeCamGO;
 			}
 		}
 
@@ -96,27 +97,27 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 #endif
 		}
 
-		private void ChangeCamera(GameObject newCameraGo)
+		public void ChangeCamera(GameObject newCameraGo)
 		{
-			if(currentCameraGO) currentCameraGO.SetActive(false);
+			if(_currentCameraGO) _currentCameraGO.SetActive(false);
 			newCameraGo.SetActive(true);
-			currentCameraGO = newCameraGo;
+			_currentCameraGO = newCameraGo;
 
 			Camera   camera      = newCameraGo.GetComponent<Camera>();
-			Canvas[] _canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>();
+			Canvas[] _canvasList = ObjectExtentions.DHTFindObjectsByType<Canvas>(true);
 			foreach (var canvas in _canvasList)
 			{
 				canvas.worldCamera = camera;
 			}
 
-			TrackedDevicePhysicsRaycaster[] _trackedDevicePhysicsRaycasterList = ObjectExtentions.DHTFindObjectsByType<TrackedDevicePhysicsRaycaster>();
+			TrackedDevicePhysicsRaycaster[] _trackedDevicePhysicsRaycasterList = ObjectExtentions.DHTFindObjectsByType<TrackedDevicePhysicsRaycaster>(true);
 			foreach (var obj in _trackedDevicePhysicsRaycasterList)
 			{
 				obj.SetEventCamera(camera);
 			}
 
 			
-			CameraChange.Invoke(pancakeCamGO);
+			CameraChange.Invoke(newCameraGo);
 		}
 	}
 }

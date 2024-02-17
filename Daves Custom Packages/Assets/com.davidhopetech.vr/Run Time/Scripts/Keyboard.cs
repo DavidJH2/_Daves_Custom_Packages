@@ -18,7 +18,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         private bool          upercase = true;
 
         [SerializeField] private UnityEvent           KeyboardEnterEvent;
-        private                  DebugPanel           _debugPanel;
+        // private                  DHTDebugPanel_1_Service           _dhtDebugPanelService;
 
 
         int SelectionStart
