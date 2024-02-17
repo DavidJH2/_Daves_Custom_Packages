@@ -12,6 +12,8 @@ using UnityEngine.XR.Management;
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]
 public class DHTXROrigin : MonoBehaviour
 {
+	public static DHTXROrigin dhtXROrigin;
+	
 	[SerializeField] private bool                  resetPositionOnStart = true;
 	[SerializeField] private XROrigin              xrOrigin;
 	[SerializeField] private TeleportationProvider teleportationProvider;
@@ -30,6 +32,7 @@ public class DHTXROrigin : MonoBehaviour
 	
 	void Start()
 	{
+		DHTXROrigin.dhtXROrigin = this;
 		StartCoroutine(nameof(RecenterNextFrame));
 		//StartCoroutine(nameof(InitializeXR));
 		
