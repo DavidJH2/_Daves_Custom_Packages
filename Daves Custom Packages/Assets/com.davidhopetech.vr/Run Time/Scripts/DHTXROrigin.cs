@@ -115,7 +115,7 @@ public class DHTXROrigin : MonoBehaviour
 	{
 		if (resetPositionOnStart && state)
 		{
-			DHTDebug.LogTag($"---------------  Call Recenter()  State: {state}  ---------------");
+			// DHTDebug.LogTag($"---------------  Call Recenter()  State: {state}  ---------------");
 			RecenterNextFrame();
 			_service.UserPresenceEvent.RemoveListener(OnUserPresence);
 		}
@@ -156,7 +156,7 @@ public class DHTXROrigin : MonoBehaviour
 
 	public void Recenter()
 	{
-		DHTDebug.LogTag($"---------------  Recenter()  ---------------");
+		// DHTDebug.LogTag($"---------------  Recenter()  ---------------");
 		GetComponentInChildren<RecenterVRCam>().Recenter();
 	}
 
@@ -176,7 +176,7 @@ public class DHTXROrigin : MonoBehaviour
 
 	void OnDisable()
 	{
-		DHTDebug.Tag(this, "      <------------------------------");
+		// DHTDebug.Tag(this, "      <------------------------------");
 		GetComponent<HMDInitialization>().onHMDInitialized -= HMDInitialized;
 		if (_service) _service.UserPresenceEvent.RemoveListener(OnUserPresence);
 	}

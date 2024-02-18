@@ -8,7 +8,7 @@ public class DHTService<T> : MonoBehaviour where T : DHTService<T>
 {
     internal virtual void Awake()
     {
-        DHTDebug.LogTag($"Service '{typeof(T).Name}' Awake   <--------");
+        // DHTDebug.LogTag($"Service '{typeof(T).Name}' Awake   <--------");
 
         var service = DHTServiceLocator.Get<T>();
         if(service != this)
