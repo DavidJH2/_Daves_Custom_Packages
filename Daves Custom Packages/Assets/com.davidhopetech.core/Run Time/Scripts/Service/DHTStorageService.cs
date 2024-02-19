@@ -9,21 +9,27 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
 	[System.Serializable]
 	public class DHTStorageService : DHTService<DHTStorageService>
 	{
-		private Dictionary<string, StorageData> data = new();
+		private Dictionary<string, StorageData> allStorageDatas = new();
 
 		public void AddData(string dataName)
 		{
-			var itemWasNotAdded = !data.TryAdd(dataName, new StorageData());
-			if (itemWasNotAdded) throw new Exception("DataStroage data already added");
+			var itemWasNotAdded = !allStorageDatas.TryAdd(dataName, new StorageData(""));
+			if (itemWasNotAdded) throw new Exception("DataStroage allStorageDatas already added");
 		}
 
-		public StorageData GetData(string str, string defaultValue)
+		public StorageData GetData(string str, string defaultValue, string PlayerPrefsKey)
 		{
-			if (!data.TryGetValue(str, out var dataItem))
+			if (!allStorageDatas.TryGetValue(str, out var dataItem))
 			{
-				dataItem = (data[str] = new StorageData());
-				if (defaultValue != "")
+				dataItem = (allStorageDatas[str] = new StorageData(PlayerPrefsKey));
+				if (PlayerPrefsKey == "" && defaultValue != "")
+				{
 					dataItem.value = defaultValue;
+				}
+				else
+				{
+					var value = dataItem.value;
+				}
 			}
 
 			return dataItem;
@@ -31,7 +37,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
 
 		private void OnValidate()
 		{
-			foreach (var dataItemPair in data)
+			foreach (var dataItemPair in allStorageDatas)
 			{
 				var dataItem = dataItemPair.Value;
 				dataItem.ChangeEvent?.Invoke(dataItem.value);

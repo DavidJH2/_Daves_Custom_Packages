@@ -10,17 +10,18 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     {
         [SerializeField] private string dataItemName;
         [SerializeField] private string defaultValue;
+        [SerializeField] private string PlayerPrefsKey;
         
-        private                  DHT_TMP_InputField    _inputField;
-        private                  bool              _isUpdating = false;
-        private                  DHTStorageService _storageService;
+        private DHT_TMP_InputField _inputField;
+        private bool               _isUpdating = false;
+        private DHTStorageService  _storageService;
 
         void Start()
         {
             _storageService = DHTServiceLocator.Get<DHTStorageService>();
             if (_storageService is null) throw new Exception("No Storage DHTService available");
 
-            var dataItem = _storageService.GetData(dataItemName, defaultValue);
+            var dataItem = _storageService.GetData(dataItemName, defaultValue, PlayerPrefsKey);
             if (dataItem == null) throw new Exception($"DataItem '{dataItemName}' not in DataStorage");
 
             if (_inputField is null) _inputField = GetComponentInChildren<DHT_TMP_InputField>();
