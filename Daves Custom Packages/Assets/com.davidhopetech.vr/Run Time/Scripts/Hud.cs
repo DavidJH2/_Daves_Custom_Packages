@@ -84,7 +84,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			
 
 			var menuButtonValue = menuButton.action.ReadValue<float>();
-			if (_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(3,$"Menu Button:{menuButtonValue}","");
+			// if (_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(3,$"Menu Button:{menuButtonValue}","");
 			
 			if (menuButtonValue != lastMenuButtonValuel)
 			{
