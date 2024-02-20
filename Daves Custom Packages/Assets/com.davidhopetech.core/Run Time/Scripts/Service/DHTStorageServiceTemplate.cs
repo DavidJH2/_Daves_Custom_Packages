@@ -7,17 +7,17 @@ using UnityEngine.Serialization;
 namespace com.davidhopetech.core.Run_Time.Scripts.Service
 {
 	[System.Serializable]
-	public class DHTStorageService : DHTService<DHTStorageService>
+	public class DHTStorageServiceTemplate<T> : DHTService<DHTStorageServiceTemplate<T>>
 	{
-		private Dictionary<string, StorageData> allStorageDatas = new();
+		private Dictionary<T, StorageData> allStorageDatas = new();
 
-		public void AddData(string dataName)
+		public void AddData(T dataName)
 		{
 			var itemWasNotAdded = !allStorageDatas.TryAdd(dataName, new StorageData(""));
 			if (itemWasNotAdded) throw new Exception("DataStroage allStorageDatas already added");
 		}
 
-		public StorageData GetData(string str, string defaultValue, string PlayerPrefsKey)
+		public StorageData GetData(T str, string defaultValue, string PlayerPrefsKey)
 		{
 			if (!allStorageDatas.TryGetValue(str, out var dataItem))
 			{

@@ -11,7 +11,8 @@ public class DHTService<T> : MonoBehaviour where T : DHTService<T>
         // DHTDebug.LogTag($"Service '{typeof(T).Name}' Awake   <--------");
 
         var service = DHTServiceLocator.Get<T>();
-        if(service != this)
+        
+        if(service && service != this)
         {
             var msg = $"Service '{typeof(T).Name}' already exist, Destroying...";
             DHTDebug.LogTag(msg);

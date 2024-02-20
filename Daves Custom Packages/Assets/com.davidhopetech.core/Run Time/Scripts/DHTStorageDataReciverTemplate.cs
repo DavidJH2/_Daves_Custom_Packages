@@ -6,22 +6,22 @@ using UnityEngine;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class DHTStorageDataReciver : MonoBehaviour
+    public class DHTStorageDataReciverTemplate<T> : MonoBehaviour
     {
-        [SerializeField] private string dataItemName;
+        [SerializeField] private T dataItemName;
         [SerializeField] private string defaultValue;
         [SerializeField] private string PlayerPrefsKey;
         
         private DHT_TMP_InputField _inputField;
         private bool               _isUpdating = false;
-        private DHTStorageService  _storageService;
+        private DHTStorageServiceTemplate<T>  _storageServiceTemplate;
 
         void Start()
         {
-            _storageService = DHTServiceLocator.Get<DHTStorageService>();
-            if (_storageService is null) throw new Exception("No Storage DHTService available");
+            _storageServiceTemplate = DHTServiceLocator.Get<DHTStorageServiceTemplate<T>>();
+            if (_storageServiceTemplate is null) throw new Exception("No Storage DHTService available");
 
-            var dataItem = _storageService.GetData(dataItemName, defaultValue, PlayerPrefsKey);
+            var dataItem = _storageServiceTemplate.GetData(dataItemName, defaultValue, PlayerPrefsKey);
             if (dataItem == null) throw new Exception($"DataItem '{dataItemName}' not in DataStorage");
 
             if (_inputField is null) _inputField = GetComponentInChildren<DHT_TMP_InputField>();
