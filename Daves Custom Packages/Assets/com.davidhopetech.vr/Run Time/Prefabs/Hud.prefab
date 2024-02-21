@@ -721,7 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "This is a test\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: This is a test
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1413,9 +1413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df972a22f5e9dd4c8f261328dbdc6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataItemName: HUD Player Name
+  dataItemName: Player Name
   defaultValue: David
-  PlayerPrefsKey: HUDPlayerNameKey
+  UsePlayerPrefs: 1
 --- !u!1 &3816105108844214529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6231905259404288800
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,7 +2096,7 @@ Transform:
   m_Children:
   - {fileID: 989851720175028037}
   m_Father: {fileID: 6231905259404288800}
-  m_LocalEulerAnglesHint: {x: 51.412, y: 5.713, z: 97.293}
+  m_LocalEulerAnglesHint: {x: 60, y: 40, z: 105}
 --- !u!1 &6293104552639569745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2585,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8048826996909170974}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
