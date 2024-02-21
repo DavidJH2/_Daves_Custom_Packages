@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class DHTInputFieldStorageDataReceiver<T> : MonoBehaviour where T: IConvertible, IComparable
+    public class DHTInputField_StorageDataReceiver<T> : MonoBehaviour where T: IConvertible, IComparable
     {
         [SerializeField] private string dataItemName;
         [SerializeField] private T      defaultValue;
