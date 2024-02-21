@@ -24,27 +24,26 @@ public class DHTStorageDataGeneric<T> where T : IConvertible
 	{
 		get
 		{
-
 			if (playerPrefsKey != "")
 			{
 				if (typeof(T) == typeof(string))
 				{
 					var value = PlayerPrefs.GetString(playerPrefsKey, "");
-					_value  = (T) Convert.ChangeType(value, typeof(T));
+					_value  = (T) (object) value;
 
 					return _value;
 				}
 				else if (typeof(T) == typeof(int))
 				{
 					var value = PlayerPrefs.GetInt(playerPrefsKey, 0);
-					_value = (T) Convert.ChangeType(value, typeof(T));
+					_value = (T) (object) value;
 
 					return _value;
 				}
 				else if (typeof(T) == typeof(float))
 				{
 					var value = PlayerPrefs.GetFloat(playerPrefsKey, 0);
-					_value = (T) Convert.ChangeType(value, typeof(T));
+					_value = (T) (object) value;
 
 					return _value;
 				}
