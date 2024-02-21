@@ -9789,16 +9789,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1445380538120787730, guid: f57eb2e6ce8b3a446b0f60c58397ce1c,
-        type: 3}
-      propertyPath: m_Size
-      value: 0.99997824
-      objectReference: {fileID: 0}
-    - target: {fileID: 1445380538120787730, guid: f57eb2e6ce8b3a446b0f60c58397ce1c,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1554535042391246736, guid: f57eb2e6ce8b3a446b0f60c58397ce1c,
         type: 3}
       propertyPath: m_Color.a
