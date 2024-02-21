@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 8294891641545171721, guid: 595ce8a5f5a59ff4bbc29d3152f9653f,
         type: 3}
       propertyPath: m_Size
-      value: 0.09267499
+      value: 0.092675
       objectReference: {fileID: 0}
     - target: {fileID: 8731999358018258791, guid: 595ce8a5f5a59ff4bbc29d3152f9653f,
         type: 3}
@@ -219,6 +219,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1360033056970364136}
     m_Modifications:
+    - target: {fileID: 6140892636189909869, guid: 50a01cb8e1dd35b4cbadfe606892099c,
+        type: 3}
+      propertyPath: loggingToggle.m_Action.m_Name
+      value: Logging Toggle
+      objectReference: {fileID: 0}
     - target: {fileID: 9054812379722190787, guid: 50a01cb8e1dd35b4cbadfe606892099c,
         type: 3}
       propertyPath: m_Name

@@ -6,9 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class DHTStorageDataGeneric<T> where T : IConvertible
 {
-	private                  string    playerPrefsKey;
-	public                   Action<T> ChangeEvent = delegate { };
-	[SerializeField] private T         _value;
+	private                   string    playerPrefsKey;
+	public                    Action<T> ChangeEvent = delegate { };
+	[SerializeField] internal T         _value;
 
 	
 	
@@ -30,21 +30,21 @@ public class DHTStorageDataGeneric<T> where T : IConvertible
 				if (typeof(T) == typeof(string))
 				{
 					var value = PlayerPrefs.GetString(playerPrefsKey, "");
-					_value  = (T)Convert.ChangeType(value, typeof(T));
+					_value  = (T) Convert.ChangeType(value, typeof(T));
 
 					return _value;
 				}
 				else if (typeof(T) == typeof(int))
 				{
 					var value = PlayerPrefs.GetInt(playerPrefsKey, 0);
-					_value = (T)Convert.ChangeType(value, typeof(T));
+					_value = (T) Convert.ChangeType(value, typeof(T));
 
 					return _value;
 				}
 				else if (typeof(T) == typeof(float))
 				{
 					var value = PlayerPrefs.GetFloat(playerPrefsKey, 0);
-					_value = (T)Convert.ChangeType(value, typeof(T));
+					_value = (T) Convert.ChangeType(value, typeof(T));
 
 					return _value;
 				}

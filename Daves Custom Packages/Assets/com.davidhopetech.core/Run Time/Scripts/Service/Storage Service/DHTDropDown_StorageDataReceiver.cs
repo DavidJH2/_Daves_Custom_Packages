@@ -5,22 +5,23 @@ using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class DHTInputField_StorageDataReceiver : DHTStorageDataReceiverGeneric<string>
+    public class DHTDropDown_StorageDataReceiver : DHTStorageDataReceiverGeneric<int>
     {
-        internal DHT_TMP_InputField _inputField;
+        internal TMP_Dropdown _dropdown;
         
         new void Start()
         {
             base.Start();
-            if (_inputField is null) _inputField = GetComponentInChildren<DHT_TMP_InputField>();
-            _inputField.text = Convert.ToString(dataItem.value, CultureInfo.InvariantCulture);
+            if (_dropdown is null) _dropdown = GetComponentInChildren<TMP_Dropdown>();
+            _dropdown.value = Convert.ToInt32(dataItem.value, CultureInfo.InvariantCulture);
             
 
-            if (_inputField is not null)
-                _inputField.onValueChanged.AddListener(newName =>
+            if (_dropdown is not null)
+                _dropdown.onValueChanged.AddListener(newName =>
                 {
                     if (_isUpdating)
                     {
@@ -29,7 +30,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                     else
                     {
                         _isUpdating     = true;
-                        dataItem.value = (string) Convert.ChangeType(newName, typeof(string));
+                        dataItem.value = (int) Convert.ChangeType(newName, typeof(int));
                     }
                 });
             
@@ -38,8 +39,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                 if (!_isUpdating)
                 {
                     _isUpdating      = true;
-                    _inputField.text = Convert.ToString(newName, CultureInfo.InvariantCulture);
-                    // dataItem.value   = (T) Convert.ChangeType(newName, typeof(T));
+                    _dropdown.value = Convert.ToInt32(newName, CultureInfo.InvariantCulture);
                 }
                 else
                 {
