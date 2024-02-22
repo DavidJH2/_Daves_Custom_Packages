@@ -1,8 +1,10 @@
+using System;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -20,13 +22,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 		[SerializeField] internal InputActionProperty menuButton;
 
-		private DHTPlayerController    _playerController;
-		private DHTLogService          _logService;
+		private DHTPlayerController     _playerController;
+		private DHTLogService           _logService;
 		private DHTDebugPanel_1_Service _dhtDebugPanel_1_Service;
-
-		private DebugTools _debugTools;
-
-
+		private DebugTools              _debugTools;
+		public  UnityEvent<Single>      VoulumeChangeEvent;
 
 		public void OnDebugToolsToggleValueChange(bool state)
 		{
@@ -53,6 +53,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				_playerController.SetVRMode(dropDown);
 			}
+		}
+
+
+		public void OnVolumeChange(Single newVolume)
+		{
+			VoulumeChangeEvent.Invoke(newVolume);
 		}
 		
 		public void ResetXROriginPosition()

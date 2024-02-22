@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
+    [DefaultExecutionOrder(1000)]
     public class DHTStorageDataReceiverGeneric<T> : MonoBehaviour where T: IConvertible, IComparable
     {
         [SerializeField] internal string                      dataItemName;
@@ -15,17 +16,14 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         [SerializeField] internal bool                        UsePlayerPrefs;
         internal                  bool                        _isUpdating = false;
         internal                  DHTStorageServiceGeneric<T> _storageService;
-        internal                  string                      PlayerPrefsKey;
         internal                  DHTStorageDataGeneric<T>    dataItem;
         
         internal void Start()
         {
-            PlayerPrefsKey = UsePlayerPrefs ? $"{dataItemName}PF" : "";
-            
             _storageService = DHTServiceLocator.Get<DHTStorageServiceGeneric<T>>();
             if (_storageService is null) throw new Exception("No Storage DHTService available");
 
-            dataItem = _storageService.GetData(dataItemName, defaultValue, PlayerPrefsKey);
+            dataItem = _storageService.GetData(dataItemName, defaultValue);
             if (dataItem == null) throw new Exception($"DataItem '{dataItemName}' not in DataStorage");
         }
     }

@@ -17,11 +17,13 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
 			if (itemWasNotAdded) throw new Exception("DataStroage allStorageDatas already added");
 		}
 
-		public DHTStorageDataGeneric<T> GetData(string key, T defaultValue, string PlayerPrefsKey)
+		public DHTStorageDataGeneric<T> GetData(string dataItemName, T defaultValue = default(T))
 		{
-			if (!allStorageDatas.TryGetValue(key, out var dataItem))
+			var PlayerPrefsKey = $"{dataItemName}PF";
+            
+			if (!allStorageDatas.TryGetValue(dataItemName, out var dataItem))
 			{
-				dataItem = (allStorageDatas[key] = new DHTStorageDataGeneric<T>(PlayerPrefsKey));
+				dataItem = (allStorageDatas[dataItemName] = new DHTStorageDataGeneric<T>(PlayerPrefsKey));
 				if (PlayerPrefsKey == "" && defaultValue.Equals(default(T)))
 				{
 					dataItem.value = defaultValue;

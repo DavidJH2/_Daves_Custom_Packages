@@ -1,24 +1,25 @@
 
-
 using System;
 using System.Globalization;
-using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class DHTDropDown_StorageDataReceiver : DHTStorageDataReceiverGeneric<int>
+    [DefaultExecutionOrder(1000)]
+    public class DHT_Slder_StorageDataReceiver : DHTStorageDataReceiverGeneric<float>
     {
-        internal TMP_Dropdown _dropdown;
+        internal Slider _slider;
         
         new void Start()
         {
             base.Start();
-            if (_dropdown is null) _dropdown = GetComponentInChildren<TMP_Dropdown>();
-            _dropdown.value = Convert.ToInt32(dataItem.value, CultureInfo.InvariantCulture);
+            if (_slider is null) _slider = GetComponentInChildren<Slider>();
+            _slider.value = Convert.ToSingle(dataItem.value, CultureInfo.InvariantCulture);
             
 
-            if (_dropdown is not null)
-                _dropdown.onValueChanged.AddListener(newName =>
+            if (_slider is not null)
+                _slider.onValueChanged.AddListener(newName =>
                 {
                     if (_isUpdating)
                     {
@@ -27,7 +28,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                     else
                     {
                         _isUpdating     = true;
-                        dataItem.value = (int) Convert.ChangeType(newName, typeof(int));
+                        dataItem.value = (float) Convert.ChangeType(newName, typeof(float));
                     }
                 });
             
@@ -36,7 +37,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
                 if (!_isUpdating)
                 {
                     _isUpdating      = true;
-                    _dropdown.value = Convert.ToInt32(newName, CultureInfo.InvariantCulture);
+                    _slider.value = Convert.ToInt32(newName, CultureInfo.InvariantCulture);
                 }
                 else
                 {

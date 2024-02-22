@@ -1,14 +1,13 @@
 
 using System;
 using System.Globalization;
-using com.davidhopetech.core.Run_Time.Scripts.Service;
-using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using TMPro;
 using UnityEngine;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    public class DHTInputField_StorageDataReceiver : DHTStorageDataReceiverGeneric<string>
+    [DefaultExecutionOrder(1000)]
+    public class DHT_InputField_StorageDataReceiver : DHTStorageDataReceiverGeneric<string>
     {
         internal DHT_TMP_InputField _inputField;
         

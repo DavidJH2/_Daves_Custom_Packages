@@ -72,7 +72,7 @@ public class DHTStorageDataGeneric<T> where T : IConvertible
 				else if (typeof(T) == typeof(float))
 				{
 					float val = (float)Convert.ChangeType(value, typeof(T));
-					PlayerPrefs.SetFloat(playerPrefsKey, 0);
+					PlayerPrefs.SetFloat(playerPrefsKey, val);
 				}
 				else
 				{
