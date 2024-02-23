@@ -1,7 +1,8 @@
+
+
 using System;
 using System.Collections.Generic;
 using com.davidhopetech.core.Run_Time.Extensions;
-using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 
 namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
@@ -26,8 +27,12 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service_Locator
 
 			if (services.Length == 0)
 			{
-				if (!supressWarnings) Debug.Log($"DHT DHTService '{typeof(TServiceType).Name}' Not In Scene");
-				return null;
+				if (!supressWarnings)
+				{
+					var typeName = typeof(TServiceType).Name;
+					Debug.Log($"DHT DHTService '{typeName}' Not In Scene");
+				}
+				return null; //
 			}
 
 			if (!supressWarnings && services.Length > 1) Debug.Log($"There should only be one DHT DHTService '{typeof(TServiceType).Name}' In Scene");

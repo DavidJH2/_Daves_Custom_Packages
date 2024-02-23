@@ -80,12 +80,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
 			if (hmdMounted)
 			{
-				Debug.Log("User Presence");
+				// Debug.Log("User Presence");
 				ChangeCamera(vrCamGO);
 			}
 			else
 			{
-				Debug.Log("No User Presence");
+				// Debug.Log("No User Presence");
 				
 				ChangeCamera(pancakeCamGO);
 			}

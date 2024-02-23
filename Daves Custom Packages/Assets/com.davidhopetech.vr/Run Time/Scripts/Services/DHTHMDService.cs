@@ -35,7 +35,7 @@ public class DHTHMDService : DHTService<DHTHMDService>
 	}
 	void Start()
 	{
-		DHTDebug.LogTag($"Service '{typeof(DHTHMDService).Name}' Starting   <--------");
+		// DHTDebug.LogTag($"Service '{typeof(DHTHMDService).Name}' Starting   <--------");
 		logService = DHTServiceLocator.Get<DHTLogService>();
 		SetState(FindHMD);
 	}
@@ -63,7 +63,7 @@ public class DHTHMDService : DHTService<DHTHMDService>
 			{
 				inputDevice = device;
 				SetState(UpdateHMDUserPresence);
-				UpdateHMDUserPresence();
+				//UpdateHMDUserPresence();
 			}
 		}
 	}
@@ -76,6 +76,7 @@ public class DHTHMDService : DHTService<DHTHMDService>
 		{
 			HMDHasBeenUpdated = true;
 			UserPresenceEvent.Invoke(hmdMounted);
+			lastHmdMounted = hmdMounted;
 		}
 		else if (hmdMounted != lastHmdMounted)
 		{
