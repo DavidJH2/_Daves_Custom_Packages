@@ -18,7 +18,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] private  TMP_Dropdown        dropDown;
 		[SerializeField] private  Toggle              DebugToolsToggle;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
-		[SerializeField] internal GameObject          hudUI;
+		[SerializeField] public   GameObject          hudUI;
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 		[SerializeField] internal InputActionProperty menuButton;
 
