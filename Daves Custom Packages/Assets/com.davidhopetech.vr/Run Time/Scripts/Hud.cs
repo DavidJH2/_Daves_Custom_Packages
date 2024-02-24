@@ -76,10 +76,19 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			_logService.Log("--------  ToggleHUD  --------\n");
 
-			var newState = !hudUI.activeSelf; 
-			
-			hudUI.SetActive(newState);
-			lefthandXRRayInteractor.enabled = newState;
+			var newState = !hudUI.activeSelf;
+			State = newState;
+		}
+
+
+		public bool State
+		{
+			get => hudUI.activeSelf;
+			set
+			{
+				hudUI.SetActive(value);
+				lefthandXRRayInteractor.enabled = value;
+			}
 		}
 		
 		
