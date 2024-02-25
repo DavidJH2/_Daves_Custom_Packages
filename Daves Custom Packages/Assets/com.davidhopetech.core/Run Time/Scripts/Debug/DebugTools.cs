@@ -28,12 +28,4 @@ public class DebugTools : MonoBehaviour
     {
         _activator.SetActive(Visible);
     }
-
-    public bool Show
-    {
-        set
-        {
-            Visible = value;
-        }
-    }
 }

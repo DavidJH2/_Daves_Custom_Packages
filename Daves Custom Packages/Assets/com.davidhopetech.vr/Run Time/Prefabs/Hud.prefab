@@ -2774,7 +2774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropDown: {fileID: 2232438165396775959}
-  DebugToolsToggle: {fileID: 0}
+  debugToolsToggle: {fileID: 213973375632025517}
   dhtXROrigin: {fileID: 0}
   hudUI: {fileID: 4188396344205064328}
   lefthandXRRayInteractor: {fileID: 0}

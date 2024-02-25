@@ -16,7 +16,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 	public class Hud : MonoBehaviour
 	{
 		[SerializeField] private  TMP_Dropdown        dropDown;
-		[SerializeField] private  Toggle              DebugToolsToggle;
+		[SerializeField] private  Toggle              debugToolsToggle;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
 		[SerializeField] public   GameObject          hudUI;
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
@@ -30,7 +30,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		public void OnDebugToolsToggleValueChange(bool state)
 		{
-			_debugTools.Show = state;
+			_debugTools.Visible = state;
 		}
 		
 		
@@ -38,7 +38,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Start()
 		{
 			_debugTools           = ObjectExtentions.DHTFindObjectOfType<DebugTools>(true);
-			DebugToolsToggle.isOn = _debugTools.Visible;
+			debugToolsToggle.isOn = _debugTools.Visible;
 #if false
 			string nullExcepton = null;
 			var    a            = nullExcepton.Length;
@@ -77,11 +77,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			_logService.Log("--------  ToggleHUD  --------\n");
 
 			var newState = !hudUI.activeSelf;
-			State = newState;
+			Visible = newState;
 		}
 
 
-		public bool State
+		public bool Visible
 		{
 			get => hudUI.activeSelf;
 			set
