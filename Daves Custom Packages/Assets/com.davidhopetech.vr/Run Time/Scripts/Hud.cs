@@ -15,6 +15,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
 	public class Hud : MonoBehaviour
 	{
+		public UnityEvent<bool> HudVisableEvent;
+        
 		[SerializeField] private  TMP_Dropdown        dropDown;
 		[SerializeField] private  Toggle              debugToolsToggle;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
@@ -88,6 +90,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				hudUI.SetActive(value);
 				lefthandXRRayInteractor.enabled = value;
+				HudVisableEvent.Invoke(value);
 			}
 		}
 		
