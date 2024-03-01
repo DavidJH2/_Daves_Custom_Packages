@@ -15,7 +15,7 @@ public class DebugTools : MonoBehaviour
     
     public bool Visible
     {
-        get =>  PlayerPrefs.GetInt(DebugToolsActivationStateString, 0) != 0;
+        get =>  PlayerPrefs.GetInt(DebugToolsActivationStateString, 1) != 0;
         set
         {
             PlayerPrefs.SetInt(DebugToolsActivationStateString, value ? 1 : 0); 
