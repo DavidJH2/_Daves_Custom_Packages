@@ -89,12 +89,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			set
 			{
 				hudUI.SetActive(value);
-				// lefthandXRRayInteractor.enabled = value;
 				HudVisableEvent.Invoke(value);
 			}
 		}
-		
-		
-		private float lastMenuButtonValuel = -1f;
 	}
 }
