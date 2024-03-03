@@ -15,10 +15,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
 	public class Hud : MonoBehaviour
 	{
+		public UnityEvent<bool> HudVisableEvent;
+        
 		[SerializeField] private  TMP_Dropdown        dropDown;
-		[SerializeField] private  Toggle              DebugToolsToggle;
+		[SerializeField] private  Toggle              debugToolsToggle;
 		[SerializeField] private  DHTXROrigin         dhtXROrigin;
-		[SerializeField] internal GameObject          hudUI;
+		[SerializeField] public   GameObject          hudUI;
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 		[SerializeField] internal InputActionProperty menuButton;
 
@@ -30,7 +32,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		public void OnDebugToolsToggleValueChange(bool state)
 		{
-			_debugTools.Show = state;
+			_debugTools.Visible = state;
 		}
 		
 		
@@ -38,7 +40,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Start()
 		{
 			_debugTools           = ObjectExtentions.DHTFindObjectOfType<DebugTools>(true);
-			DebugToolsToggle.isOn = _debugTools.Visible;
+			debugToolsToggle.isOn = _debugTools.Visible;
 #if false
 			string nullExcepton = null;
 			var    a            = nullExcepton.Length;
@@ -76,10 +78,20 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			_logService.Log("--------  ToggleHUD  --------\n");
 
-			var newState = !hudUI.activeSelf; 
-			
-			hudUI.SetActive(newState);
-			lefthandXRRayInteractor.enabled = newState;
+			var newState = !hudUI.activeSelf;
+			Visible = newState;
+		}
+
+
+		public bool Visible
+		{
+			get => hudUI.activeSelf;
+			set
+			{
+				hudUI.SetActive(value);
+				lefthandXRRayInteractor.enabled = value;
+				HudVisableEvent.Invoke(value);
+			}
 		}
 		
 		
@@ -96,8 +108,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				if (menuButtonValue > 0.9f)
 				{
-					ToggleHUD();
+					// ToggleHUD();
+					Visible = true;
 				}
+				else
+				{
+					Visible = false;
+				}
+				
+				
 				lastMenuButtonValuel = menuButtonValue;
 			}
 		}

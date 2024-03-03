@@ -23,7 +23,7 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
             
 			if (!allStorageDatas.TryGetValue(dataItemName, out var dataItem))
 			{
-				dataItem = (allStorageDatas[dataItemName] = new DHTStorageDataGeneric<T>(PlayerPrefsKey));
+				dataItem = (allStorageDatas[dataItemName] = new DHTStorageDataGeneric<T>(PlayerPrefsKey, defaultValue));
 				if (PlayerPrefsKey == "" && defaultValue.Equals(default(T)))
 				{
 					dataItem.value = defaultValue;

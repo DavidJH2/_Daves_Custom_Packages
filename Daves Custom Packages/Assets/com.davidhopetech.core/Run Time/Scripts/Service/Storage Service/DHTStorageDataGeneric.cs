@@ -14,9 +14,10 @@ public class DHTStorageDataGeneric<T> where T : IConvertible
 	
 	public DHTStorageDataGeneric() {}
 	
-	public DHTStorageDataGeneric(string iPlayerPrefsKey)
+	public DHTStorageDataGeneric(string iPlayerPrefsKey, T defaultValue = default(T))
 	{
 		playerPrefsKey = iPlayerPrefsKey;
+		value         = defaultValue;
 	}
 
 	

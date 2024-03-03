@@ -35,7 +35,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             logService = DHTServiceLocator.Get<DHTLogService>();
 
-             //_dhtDebugPanel_1_Service = FindObjectOfType<DHTDebugPanel_Service>(true);
             _dhtDebugPanel_1_Service = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
             
             dhtEventService  = DHTServiceLocator.Get<DHTEventService>();

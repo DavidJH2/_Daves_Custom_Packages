@@ -115,7 +115,7 @@ public class DHTXROrigin : MonoBehaviour
 	{
 		if (resetPositionOnStart && state)
 		{
-			// DHTDebug.LogTag($"---------------  Call Recenter()  State: {state}  ---------------");
+			// DHTDebug.LogTag($"---------------  Call Recenter()  Visible: {state}  ---------------");
 			RecenterNextFrame();
 			_service.UserPresenceEvent.RemoveListener(OnUserPresence);
 		}

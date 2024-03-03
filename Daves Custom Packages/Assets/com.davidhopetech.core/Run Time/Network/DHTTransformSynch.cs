@@ -7,6 +7,7 @@ public class DHTTransformSynch : NetworkBehaviour
 
     private NetworkVariable<Vector3> position = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<Vector3> rotation = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private NetworkVariable<Vector3> scale    = new(default(Vector3), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     
     
     void Start()
@@ -21,11 +22,13 @@ public class DHTTransformSynch : NetworkBehaviour
         {
             position.Value = _transform.position;
             rotation.Value = _transform.rotation.eulerAngles;
+            scale.Value    = _transform.localScale;
         }
         else
         {
-            _transform.position = position.Value;
-            _transform.rotation = Quaternion.Euler(rotation.Value);
+            _transform.position   = position.Value;
+            _transform.rotation   = Quaternion.Euler(rotation.Value);
+            _transform.localScale = scale.Value;
         }
     }
 }
