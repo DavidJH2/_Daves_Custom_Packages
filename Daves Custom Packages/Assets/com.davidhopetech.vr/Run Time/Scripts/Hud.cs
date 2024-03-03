@@ -108,8 +108,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			{
 				if (menuButtonValue > 0.9f)
 				{
-					ToggleHUD();
+					// ToggleHUD();
+					Visible = true;
 				}
+				else
+				{
+					Visible = false;
+				}
+				
+				
 				lastMenuButtonValuel = menuButtonValue;
 			}
 		}
