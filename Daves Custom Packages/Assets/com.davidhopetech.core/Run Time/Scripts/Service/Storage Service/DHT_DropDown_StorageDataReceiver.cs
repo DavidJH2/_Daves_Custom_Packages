@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
-    [DefaultExecutionOrder(1000)]
+    [DefaultExecutionOrder(-20000)]
     public class DHT_DropDown_StorageDataReceiver : DHTStorageDataReceiverGeneric<int>
     {
         internal TMP_Dropdown _dropdown;
