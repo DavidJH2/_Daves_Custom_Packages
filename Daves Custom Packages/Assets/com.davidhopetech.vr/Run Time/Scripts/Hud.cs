@@ -89,35 +89,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			set
 			{
 				hudUI.SetActive(value);
-				lefthandXRRayInteractor.enabled = value;
 				HudVisableEvent.Invoke(value);
-			}
-		}
-		
-		
-		private float lastMenuButtonValuel = -1f;
-
-		void Update()
-		{
-			
-
-			var menuButtonValue = menuButton.action.ReadValue<float>();
-			// if (_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(3,$"Menu Button:{menuButtonValue}","");
-			
-			if (menuButtonValue != lastMenuButtonValuel)
-			{
-				if (menuButtonValue > 0.9f)
-				{
-					// ToggleHUD();
-					Visible = true;
-				}
-				else
-				{
-					Visible = false;
-				}
-				
-				
-				lastMenuButtonValuel = menuButtonValue;
 			}
 		}
 	}

@@ -62,7 +62,9 @@ public class DHTHMDService : DHTService<DHTHMDService>
 			if (device.characteristics.HasFlag(InputDeviceCharacteristics.HeadMounted))
 			{
 				inputDevice = device;
+				
 				SetState(UpdateHMDUserPresence);
+				HMDFirstMountEvent.Invoke();
 				//UpdateHMDUserPresence();
 			}
 		}
