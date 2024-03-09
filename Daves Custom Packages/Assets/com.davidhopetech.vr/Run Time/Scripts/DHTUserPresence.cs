@@ -8,12 +8,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
 	public class DHTUserPresence : MonoBehaviour
 	{
-		[SerializeField] private GameObject vrCamGO;
-		[SerializeField] private GameObject pancakeCamGO;
+		[SerializeField] public GameObject vrCamGO;
+		[SerializeField] public GameObject pancakeCamGO;
 
 
-		public  UnityEvent<GameObject> CameraChange = new();
-		private GameObject             _currentCameraGO;
+		public   UnityEvent<GameObject> CameraChange = new();
+		internal GameObject             _currentCameraGO;
 
 		public GameObject CurrentCameraGO
 		{
