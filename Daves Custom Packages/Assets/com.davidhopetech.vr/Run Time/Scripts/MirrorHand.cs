@@ -109,11 +109,11 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         {
             if (name.Contains("Left"))
             {
-                if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(0, $"Left Trigger Pulled: {TriggerPulled}", "");
+                // if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(0, $"Left Trigger Pulled: {TriggerPulled}", "");
             }
             else
             {
-                if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(1, $"Right Trigger Pulled: {TriggerPulled}", "");
+                // if(_dhtDebugPanel_1_Service) _dhtDebugPanel_1_Service.SetElement(1, $"Right Trigger Pulled: {TriggerPulled}", "");
             }
 
             grabStarted     = (IsGrabbing && !_lastIsGrabbing);
