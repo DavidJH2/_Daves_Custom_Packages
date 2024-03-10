@@ -47,7 +47,7 @@ namespace com.davidhopetech.core.Run_Time.Utils
 					StackFrame callingFrame = stackFrames[1 + stackFramOffset];
 					var method       = callingFrame.GetMethod();
 					
-					methodeDiscription = $"{method.DeclaringType.Name}.{method.Name}()";
+					methodeDiscription = $"{method.DeclaringType.Name}.{method.Name}";
 				}
 
 				message = $"{sceneGoMessage}{methodeDiscription}()";
