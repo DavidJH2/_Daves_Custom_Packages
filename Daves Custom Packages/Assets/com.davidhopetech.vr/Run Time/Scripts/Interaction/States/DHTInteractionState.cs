@@ -15,7 +15,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 		protected UnityEvent<string> DebugValue1Event;
 
 		protected DHTEventService     dhtEventService;
-		protected DHTPlayerController Controller;
+		protected DHTPlayerController playerController;
 
 		public   MirrorHand MirrorHand;
 		internal GameObject MirrorHandGO;
@@ -26,7 +26,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 		
 		public void Awake()
 		{
-			Controller      = GetComponent<DHTPlayerController>();
+			playerController      = GetComponent<DHTPlayerController>();
 			// dhtEventService = DHTServiceLocator.dhtEventService;
 			dhtEventService = DHTServiceLocator.Get<DHTEventService>();
 

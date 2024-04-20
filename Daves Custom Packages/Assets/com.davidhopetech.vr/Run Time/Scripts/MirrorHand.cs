@@ -3,22 +3,26 @@ using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     public class MirrorHand : MonoBehaviour
     {
-        [SerializeField] public   Transform           target;
+        [FormerlySerializedAs("target")] [SerializeField] public   Transform           xrControler;
         [SerializeField] internal Transform           interactionPoint;
         [SerializeField] internal bool                active = true;
         [SerializeField] private  float               torqueCoeff;
         [SerializeField] private  bool                debug;
         [SerializeField] internal InputActionProperty grabValue;
         [SerializeField] internal InputActionProperty triggerValue;
+
+        internal DTHRingBuffer<Vector3> velocityBuffer;
     
-        internal bool grabStarted;
-        internal bool grabStopped;
-        public   bool triggerPulledThisFrame;
+        internal bool    grabStarted;
+        internal bool    grabStopped;
+        public   bool    triggerPulledThisFrame;
+        private  Vector3 lastXRControlerPos;
 
         private Rigidbody rb;
 
@@ -33,7 +37,10 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
     
         void Start()
         {
-            logService = DHTServiceLocator.Get<DHTLogService>();
+            velocityBuffer = new DTHRingBuffer<Vector3>(5);
+            
+            lastXRControlerPos = xrControler.position;
+            logService         = DHTServiceLocator.Get<DHTLogService>();
 
             _dhtDebugPanel_1_Service = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
             
@@ -58,19 +65,31 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
         void FixedUpdate()
         {
+            var velocity = (xrControler.position - lastXRControlerPos) / Time.fixedDeltaTime;
+            velocityBuffer.Add(velocity);
+            lastXRControlerPos = xrControler.position;
+            
             if (active)
             {
                 MoveHandToTargetOrientation();
             }
         }
 
+        Vector3 lastVelocity
+        {
+            get
+            {
+                return velocityBuffer[0];
+            }
+        }
+
         void MoveHandToTargetOrientation()
         {
-            var vel = (target.position - transform.position) / Time.fixedDeltaTime;
+            var vel = (xrControler.position - transform.position) / Time.fixedDeltaTime;
             vel.Clamp(0,1);
             rb.SetVelocty(vel); //
         
-            var deltaRot = target.rotation * Quaternion.Inverse(transform.rotation);
+            var deltaRot = xrControler.rotation * Quaternion.Inverse(transform.rotation);
 
             deltaRot.ToAngleAxis(out float angle, out Vector3 axis);
 

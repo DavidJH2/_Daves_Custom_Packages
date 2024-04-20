@@ -1,4 +1,5 @@
 using System;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Serialization;
@@ -6,50 +7,119 @@ using UnityEngine.Serialization;
 namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
 	[Serializable]
-	public class DHTInteractionStationaryGrabbingState : DHTInteractionState
+	public class DHTInteractionGrabbingState : DHTInteractionState
 	{
-		[FormerlySerializedAs("GrabedItem")] public  DHTStationaryGrabable      grabedItem;
-		private  ParentConstraint _parentConstraint;
+		public  DHTGrabable      grabedItem;
+		private ParentConstraint _parentConstraint;
+		private ParentConstraint _grabableParentConstraint;
+
 		internal Transform        GrabItemInitialTransform;
 
+		
+		const         float GRAB_TIME      = 0.05f;
+		private const float HALF_GRAB_TIME = GRAB_TIME / 2;
 		
 		protected override void StartExt()
 		{
 			// DebugMiscEvent.Invoke("Grabbing State");
 			var rb = MirrorHandGO.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
-			
+
+			_grabableParentConstraint = grabedItem.GetComponent<ParentConstraint>();
+			InitializeControllerConstraint();
+		}
+
+		void InitializeControllerConstraint()
+		{
 			_parentConstraint = MirrorHandGO.GetComponent<ParentConstraint>();
 			var cs = new ConstraintSource();
-			cs.sourceTransform = grabedItem.transform;
+			cs.sourceTransform = GrabItemInitialTransform;
 			cs.weight          = 0f;
 			_parentConstraint.SetSource(1, cs);
 			_parentConstraint.constraintActive = true;
 			_parentConstraint.rotationAxis     = Axis.None;
 		}
 
+		private float grabTimer = 0;
 
+		enum GrabState
+		{
+			ReachOut,
+			BringBack,
+			Holding
+		}
+
+		GrabState _grabState;
+		
 		protected override void UpdateStateImpl()
 		{
 			// DebugValue1Event.Invoke(_input.GrabValue().ToString());
 			if (MirrorHand.grabStopped)
 			{
 				ChangeToIdleState();
+				var rigidbody =  grabedItem.GetComponent<Rigidbody>();
+				rigidbody.velocity = MirrorHand.velocityBuffer[0];
 			}
 
-			AdjustParentConstraint();
+			switch (_grabState)
+			{
+				case GrabState.ReachOut:
+					grabTimer += Time.deltaTime;
+					if (grabTimer > GRAB_TIME/2)
+					{
+						InitializeGrabableConstraint();
+						_grabState = GrabState.BringBack;
+					}
+					else
+					{
+						AdjustParentConstraint(grabTimer/HALF_GRAB_TIME);
+					}
+					break;
+				case GrabState.BringBack:
+					grabTimer += Time.deltaTime;
+					if (grabTimer > GRAB_TIME)
+					{
+						_grabState = GrabState.Holding;
+						AdjustParentConstraint(0.0f);
+					}
+					else
+					{
+						AdjustParentConstraint((GRAB_TIME-grabTimer)/HALF_GRAB_TIME);
+					}
+					break;
+				case GrabState.Holding:
+					break;
+				default:
+					break;
+			}
+
 			ApplyHandForce();
 		}
 
+		void InitializeGrabableConstraint()
+		{
+			if (!_grabableParentConstraint)
+			{
+				DHTDebug.Log($"Game Object '{grabedItem.name}' needs a ParentConstraint");
+				return;
+			}
 
-		void AdjustParentConstraint()
+			var cs = new ConstraintSource();
+			cs.sourceTransform = MirrorHand.transform;
+			cs.weight          = 1f;
+			_grabableParentConstraint.SetSource(0, cs);
+			_grabableParentConstraint.constraintActive = true;
+			_grabableParentConstraint.rotationAxis     = Axis.None;
+		}
+
+
+		void AdjustParentConstraint(float value)
 		{
 			var cs0 = _parentConstraint.GetSource(0);
 			var cs1 = _parentConstraint.GetSource(1);
 
-			var grab = MirrorHand.GrabValue;
-			cs0.weight = 1.0f - grab;
-			cs1.weight = grab;
+			cs0.weight = 1.0f - value;
+			cs1.weight = value;
 
 			_parentConstraint.SetSource(0, cs0);
 			_parentConstraint.SetSource(1, cs1);
@@ -81,6 +151,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			DebugValue1Event.Invoke("###  Change to Idle State  ###");
 
 			_parentConstraint.constraintActive = false;
+			_grabableParentConstraint.constraintActive = false;
+
 			
 			DHTInteractionIdleState component = playerController.gameObject.AddComponent<DHTInteractionIdleState>();
 			component.selfHandle = selfHandle;

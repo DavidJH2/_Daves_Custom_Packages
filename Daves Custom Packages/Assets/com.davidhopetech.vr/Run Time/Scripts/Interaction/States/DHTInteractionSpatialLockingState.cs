@@ -34,7 +34,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 
 		protected override void UpdateStateImpl()
 		{
-			var interactorPos = MirrorHand.target.transform.position;
+			var interactorPos = MirrorHand.xrControler.transform.position;
 
 			if (SpatialLock.InRange(interactorPos))
 			{
@@ -77,7 +77,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			_parentConstraint.constraintActive = false;
 			MirrorHand.active                  = true;
 		 
-			DHTInteractionIdleState component = Controller.gameObject.AddComponent<DHTInteractionIdleState>();
+			DHTInteractionIdleState component = playerController.gameObject.AddComponent<DHTInteractionIdleState>();
 			component.selfHandle = selfHandle;
 			component.MirrorHand = MirrorHand;
 			
