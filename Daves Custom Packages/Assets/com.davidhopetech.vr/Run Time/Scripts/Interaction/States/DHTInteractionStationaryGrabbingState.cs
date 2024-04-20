@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Serialization;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 {
 	[Serializable]
-	public class DHTInteractionGrabbingState : DHTInteractionState
+	public class DHTInteractionStationaryGrabbingState : DHTInteractionState
 	{
-		public DHTGrabable      GrabedItem;
+		[FormerlySerializedAs("GrabedItem")] public  DHTGrabable      grabedItem;
 		private  ParentConstraint _parentConstraint;
+		internal Transform        GrabItemInitialTransform;
 
 		
 		protected override void StartExt()
@@ -19,7 +21,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			
 			_parentConstraint = MirrorHandGO.GetComponent<ParentConstraint>();
 			var cs = new ConstraintSource();
-			cs.sourceTransform = GrabedItem.transform;
+			cs.sourceTransform = grabedItem.transform;
 			cs.weight          = 0f;
 			_parentConstraint.SetSource(1, cs);
 			_parentConstraint.constraintActive = true;
@@ -58,11 +60,17 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 		{
 			var interactorPos = MirrorHand.target.transform.position;
 
-			var dist  = interactorPos - GrabedItem.transform.position;
+			var dist  = interactorPos - grabedItem.transform.position;
 			var accel = dist * Controller.handSpringCoeeff;
-			var rb    = GrabedItem.GetComponentInParent<Rigidbody>();
+			var rb    = grabedItem.GetComponentInParent<Rigidbody>();
 			
-			var loc = GrabedItem.transform.position;
+			var loc = grabedItem.transform.position;
+			if (rb == null)
+			{
+				Debug.Log($"Object '{grabedItem.name}' missing RigidBody");
+				return;
+			}
+			
 			rb.AddForceAtPosition(accel, loc, ForceMode.Force);
 		}
 		
