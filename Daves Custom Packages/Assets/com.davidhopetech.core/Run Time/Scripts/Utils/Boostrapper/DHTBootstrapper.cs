@@ -21,10 +21,10 @@ public class DHTBootstrapper : MonoBehaviour
 
 	private void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
 	{
-		DHTDebug.LogTag($"  ----------->  Scene Loaded:",this);
+		// DHTDebug.LogTag($"  ----------->  Scene Loaded:",this);
 		if (SceneManager.sceneCount == SceneManager.loadedSceneCount)
 		{
-			DHTDebug.LogTag("------  All Scenes Loaded  ------",this);
+			// DHTDebug.LogTag("------  All Scenes Loaded  ------",this);
 			OnAllScenesLoaded();
 		}
 

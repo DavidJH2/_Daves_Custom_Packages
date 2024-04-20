@@ -23,6 +23,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		[SerializeField] public   GameObject          hudUI;
 		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
 		[SerializeField] internal InputActionProperty menuButton;
+		[SerializeField] internal bool                UseLocalInputControl = false; 
 
 		private DHTPlayerController     _playerController;
 		private DHTLogService           _logService;
@@ -34,9 +35,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		{
 			_debugTools.Visible = state;
 		}
-		
-		
-		
+
+		private void OnEnable()
+		{
+			
+		}
+
 		void Start()
 		{
 			_debugTools           = ObjectExtentions.DHTFindObjectOfType<DebugTools>(true);
@@ -54,6 +58,22 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			if (_playerController != null)
 			{
 				_playerController.SetVRMode(dropDown);
+			}
+		}
+
+		private bool lastMenuButtonState;
+
+		private void Update()
+		{
+			var menuButtonState = menuButton.action.ReadValue<float>() > 0.2f;
+			if (menuButtonState != lastMenuButtonState)
+			{
+				if (UseLocalInputControl)
+				{
+					Visible = menuButtonState;
+				}
+
+				lastMenuButtonState = menuButtonState;
 			}
 		}
 
