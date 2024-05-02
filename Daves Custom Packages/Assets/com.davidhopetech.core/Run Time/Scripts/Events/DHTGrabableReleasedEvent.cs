@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DHTEventBase<T> : MonoBehaviour
+public class DHTGrabableReleasedEvent : MonoBehaviour
 {
-    public UnityEvent<T> Event = new();
+    public UnityEvent<GameObject> _event;
 }

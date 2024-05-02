@@ -19,14 +19,14 @@ namespace com.davidhopetech.core.Run_Time.Scripts.Service
             gameObject.AddComponent<T>();
         }
         
-        public TEventType Get<TEventType>() where TEventType : Object
+        public TEventType Get<TEventType>() where TEventType : MonoBehaviour
         {
-            var Event = ObjectExtentions.DHTFindObjectOfType<TEventType>(true);
+            var fEvent = ObjectExtentions.DHTFindObjectOfType<TEventType>(true);
             
-            if(Event==null)
+            if(fEvent==null)
                 Debug.Log($"DHT Event '{typeof(TEventType).Name}' Not In Scene");
             
-            return ObjectExtentions.DHTFindObjectOfType<TEventType>(true);
+            return fEvent;
         }
     }
 }

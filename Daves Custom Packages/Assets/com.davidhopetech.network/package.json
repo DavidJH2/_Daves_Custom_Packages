@@ -1,8 +1,8 @@
 {
-  "name": "com.davehopetech.core.dependency",
-  "displayName": "Dave's Custom Core",
-  "version": "1.1.4",
-  "description": "This is my VR Core asset",
+  "name": "com.davehopetech.network.dependency",
+  "displayName": "Dave's Network",
+  "version": "1.0.0",
+  "description": "This is my Netcode for Game Objects augmentaion asset",
   "unity": "2019.1",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
@@ -11,7 +11,8 @@
     "com.unity.xr.management": "4.3.3",
     "com.unity.xr.openxr": "1.7.0",
     "com.unity.xr.interaction.toolkit": "2.2.0",
-    "com.unity.animation.rigging": "1.1.1"
+    "com.unity.animation.rigging": "1.1.1",
+    "com.unity.netcode.gameobjects": "1.9.1"
   },
   "keywords": [
     "keyword1",

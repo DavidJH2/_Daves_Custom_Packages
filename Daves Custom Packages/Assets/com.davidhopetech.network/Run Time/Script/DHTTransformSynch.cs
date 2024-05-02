@@ -11,7 +11,7 @@ public class DHTTransformSynch : NetworkBehaviour
     
     
     void Start()
-    {
+     {
         _transform = GetComponent<Transform>();
     }
 

@@ -13,11 +13,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
 		[SerializeField] internal DHTInteractionState leftHandInitialInteractionState;
 		[SerializeField] internal DHTInteractionState rightHandInitialInteractionState;
-		[SerializeField] internal GameObject leftMirrorHand;
-		[SerializeField] internal GameObject rightMirrorHand;
-		[SerializeField] internal float handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
-		[SerializeField] internal float handDampCoeeff;
-		[SerializeField] private  DHTJoystick dhtJoystick;
+		[SerializeField] internal GameObject          leftMirrorHand;
+		[SerializeField] internal GameObject          rightMirrorHand;
+		[SerializeField] internal float               handSpringCoeeff; // TODO: Move these to Settings Scriptable Object
+		[SerializeField] internal float               handDampCoeeff;
+		[SerializeField] private  DHTJoystick         dhtJoystick;
+		[SerializeField] internal float               throwMultiplyer = 2.0f;
 
 		// private                   InputDevice                targetDevice;
 

@@ -9,7 +9,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     public class MirrorHand : MonoBehaviour
     {
-        [FormerlySerializedAs("target")] [SerializeField] public   Transform           xrControler;
+        [SerializeField] public   Transform           xrControler;
         [SerializeField] internal Transform           interactionPoint;
         [SerializeField] internal bool                active = true;
         [SerializeField] private  float               torqueCoeff;
@@ -22,7 +22,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         internal bool    grabStarted;
         internal bool    grabStopped;
         public   bool    triggerPulledThisFrame;
-        private  Vector3 lastXRControlerPos;
+        private  Vector3 lastXRControlerPosition;
 
         private Rigidbody rb;
 
@@ -34,12 +34,15 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         private DHTDebugPanel_1_Service _dhtDebugPanel_1_Service;
         private DHTLogService              logService;
 
+        private DHTDebugPanel_1_Service debugService;
+
     
         void Start()
         {
-            velocityBuffer = new DTHRingBuffer<Vector3>(5);
+            debugService   = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
+            velocityBuffer = new DTHRingBuffer<Vector3>(30);
             
-            lastXRControlerPos = xrControler.position;
+            lastXRControlerPosition = xrControler.position;
             logService         = DHTServiceLocator.Get<DHTLogService>();
 
             _dhtDebugPanel_1_Service = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
@@ -60,15 +63,22 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
         private void Update()
         {
             SetGrabFlags();
+            
+            var xrControllerPosition = xrControler.transform.position;
+            var velocity             = (xrControllerPosition - lastXRControlerPosition) / Time.deltaTime;
+            lastXRControlerPosition = xrControllerPosition;
+            
+            debugService.SetElement(0, $"Velocity = {velocity}", "");
+            debugService.SetElement(1, $"Position = {xrControllerPosition}");
+            debugService.SetElement(1, $"Last Position = {lastXRControlerPosition}");
+            
+            velocityBuffer.Add(velocity);
+            
         }
 
 
         void FixedUpdate()
         {
-            var velocity = (xrControler.position - lastXRControlerPos) / Time.fixedDeltaTime;
-            velocityBuffer.Add(velocity);
-            lastXRControlerPos = xrControler.position;
-            
             if (active)
             {
                 MoveHandToTargetOrientation();

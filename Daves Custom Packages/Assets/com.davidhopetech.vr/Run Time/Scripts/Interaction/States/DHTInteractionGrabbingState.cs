@@ -1,7 +1,10 @@
 using System;
+using com.davidhopetech.core.Run_Time.Scripts.Service;
+using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
@@ -15,16 +18,20 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 
 		internal Transform        GrabItemInitialTransform;
 
-		
 		const         float GRAB_TIME      = 0.05f;
 		private const float HALF_GRAB_TIME = GRAB_TIME / 2;
-		
+
+		private DHTEventService         eventService;
+		private DHTDebugPanel_1_Service debugService;
+		private UnityEvent<GameObject>  _grabableReleasedEvent;
 		protected override void StartExt()
 		{
+			eventService = DHTServiceLocator.Get<DHTEventService>();
+			_grabableReleasedEvent = (eventService.Get<DHTGrabableReleasedEvent>())._event;
+			debugService = DHTServiceLocator.Get<DHTDebugPanel_1_Service>();
 			// DebugMiscEvent.Invoke("Grabbing State");
 			var rb = MirrorHandGO.GetComponent<Rigidbody>();
 			rb.isKinematic = false;
-
 			_grabableParentConstraint = grabedItem.GetComponent<ParentConstraint>();
 			InitializeControllerConstraint();
 		}
@@ -58,7 +65,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 			{
 				ChangeToIdleState();
 				var rigidbody =  grabedItem.GetComponent<Rigidbody>();
-				rigidbody.velocity = MirrorHand.velocityBuffer[0];
+				var velocity  = MirrorHand.velocityBuffer[5];
+				
+				debugService.SetElement(6, $"Velocity = {velocity}", "");
+				
+				rigidbody.velocity = velocity * playerController.throwMultiplyer;
+				_grabableReleasedEvent.Invoke(grabedItem.gameObject);
 			}
 
 			switch (_grabState)
@@ -81,6 +93,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 					{
 						_grabState = GrabState.Holding;
 						AdjustParentConstraint(0.0f);
+						Destroy(GrabItemInitialTransform.gameObject);
 					}
 					else
 					{
