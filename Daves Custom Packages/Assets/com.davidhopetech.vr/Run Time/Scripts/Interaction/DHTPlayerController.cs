@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction.States;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
@@ -23,7 +25,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 		// private                   InputDevice                targetDevice;
 
 
-		public List<DHTInteractable>  Interactables;
+		public   List<DHTInteractable>  Interactables;
 		internal DHTInteractionStateRef LeftHandInteractionStateRef;
 		internal DHTInteractionStateRef RightHandInteractionStateRef;
 
@@ -31,7 +33,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 
 		private void Awake()
 		{
-			_xrOrgin = GetComponent<XROrigin>();
+			_xrOrgin = ObjectExtentions.DHTFindObjectOfType<XROrigin>();
 		}
 
 		void Start()
@@ -51,6 +53,28 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 			// Debug.Log($"Number of Grabables: {Interactables.Count}");
 		}
 
+
+		public void OnHoverEntered(HoverEnterEventArgs args)
+		{
+			var a = args.interactableObject;
+		}
+
+		public void OnActivate(ActivateEventArgs args)
+		{
+			
+		}
+
+
+	public void OnSelectEnter(SelectEnterEventArgs args)
+		{
+			var a = args.interactableObject;
+		}
+
+
+		public void OnfocusExited(FocusExitEventArgs args)
+		{
+			
+		}
 
 		public void SetVRMode(TMP_Dropdown dropdown)
 		{

@@ -44,7 +44,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 		void Start()
 		{
 			_debugTools           = ObjectExtentions.DHTFindObjectOfType<DebugTools>(true);
-			debugToolsToggle.isOn = _debugTools.Visible;
+			// debugToolsToggle.isOn = _debugTools.Visible;
 #if false
 			string nullExcepton = null;
 			var    a            = nullExcepton.Length;
@@ -72,6 +72,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 				{
 					Visible = menuButtonState;
 				}
+				
+				_dhtDebugPanel_1_Service.SetElement(0, $"Menu Button: {menuButtonState}", "");
 
 				lastMenuButtonState = menuButtonState;
 			}

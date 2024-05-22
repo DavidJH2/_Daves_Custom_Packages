@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DHTUnityDebug")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93e42f486c196cb1b21c2321325f2e1ff9c28d3b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+469d03477e2a11fcc7c2858bad4672aa0c78d56c")]
 [assembly: System.Reflection.AssemblyProductAttribute("DHTUnityDebug")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DHTUnityDebug")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -30,12 +30,12 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		void InitCams()
 		{
-#if PLATFORM_ANDROID && !UNITY_EDITOR 
+#if PLATFORM_ANDROID && !UNITY_EDITOR || PLATFORM_STANDALONE 
 			ChangeCamera(vrCamGO);
 
-			/*
-			 vrCamGO.SetActive(true);
+			vrCamGO.SetActive(true);
 			pancakeCamGO.SetActive(false);
+			/*
 			*/
 #else
 			ChangeCamera(pancakeCamGO);
@@ -80,7 +80,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
 			if (hmdMounted)
 			{
-				// Debug.Log("User Presence");
+				Debug.Log("User Presence");
 				ChangeCamera(vrCamGO);
 			}
 			else

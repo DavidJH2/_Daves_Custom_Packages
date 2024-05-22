@@ -68,9 +68,9 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
             var velocity             = (xrControllerPosition - lastXRControlerPosition) / Time.deltaTime;
             lastXRControlerPosition = xrControllerPosition;
             
-            debugService.SetElement(0, $"Velocity = {velocity}", "");
-            debugService.SetElement(1, $"Position = {xrControllerPosition}");
-            debugService.SetElement(1, $"Last Position = {lastXRControlerPosition}");
+            // debugService.SetElement(0, $"Velocity = {velocity}", "");
+            // debugService.SetElement(1, $"Position = {xrControllerPosition}", "");
+            //  debugService.SetElement(2, $"Last Position = {lastXRControlerPosition}", "");
             
             velocityBuffer.Add(velocity);
             

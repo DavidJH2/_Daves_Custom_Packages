@@ -70,7 +70,8 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 				debugService.SetElement(6, $"Velocity = {velocity}", "");
 				
 				rigidbody.velocity = velocity * playerController.throwMultiplyer;
-				_grabableReleasedEvent.Invoke(grabedItem.gameObject);
+				var go = grabedItem.gameObject;
+				_grabableReleasedEvent.Invoke(go);
 			}
 
 			switch (_grabState)
