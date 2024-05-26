@@ -53,10 +53,13 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		[MenuItem("GameObject/Davids Tools/Move Offset to Parent", false, 10)]
 		static void MoveOffsetToParent(MenuCommand menuCommand)
 		{
+			GameObject ogo     = Selection.gameObjects[0];
+			Vector3    offset = ogo.transform.localPosition;
+			ogo.transform.parent.localPosition += offset;
+			
 			foreach(GameObject go in Selection.gameObjects)
 			{
-				go.transform.parent.localPosition += go.transform.localPosition;
-				go.transform.localPosition        =  Vector3.zero;
+				Vector3 newPos = go.transform.localPosition - offset;
 			}
 		}
 
