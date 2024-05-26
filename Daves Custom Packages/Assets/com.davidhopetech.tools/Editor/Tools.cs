@@ -4,7 +4,6 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SpatialTracking;
 
 
 namespace com.davidhopetech.tools.Run_Time.Editor
@@ -124,13 +123,6 @@ namespace com.davidhopetech.tools.Run_Time.Editor
 		static void SelectAllInputFields(MenuCommand menuCommand)
 		{
 			SelectAllGameObjectTypes<TMP_InputField>();
-		}
-
-
-		[MenuItem("GameObject/Davids Tools/Select All Tracked", false, 10)]
-		static void SelectAllTracked(MenuCommand menuCommand)
-		{
-			SelectAllGameObjectTypes<TrackedPoseDriver>();
 		}
 
 
