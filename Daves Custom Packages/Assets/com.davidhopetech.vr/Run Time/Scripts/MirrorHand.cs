@@ -1,3 +1,4 @@
+using System;
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
@@ -9,6 +10,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 {
     public class MirrorHand : MonoBehaviour
     {
+        [Obsolete("Change to xrController")][SerializeField] public   Transform           target;
         [SerializeField] public   Transform           xrControler;
         [SerializeField] internal Transform           interactionPoint;
         [SerializeField] internal bool                active = true;
