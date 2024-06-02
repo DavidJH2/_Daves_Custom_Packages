@@ -14,6 +14,22 @@ public static class GameObjectExtensions
 		}
 	}
 	
+	public static List<T> FindObjectsOfTypeWithInterface<T>() where T : class
+	{
+		List<T>         objectsWithInterface = new List<T>();
+		MonoBehaviour[] allObjects           = GameObject.FindObjectsOfType<MonoBehaviour>();
+
+		foreach (MonoBehaviour obj in allObjects)
+		{
+			T component = obj as T;
+			if (component != null)
+			{
+				objectsWithInterface.Add(component);
+			}
+		}
+
+		return objectsWithInterface;
+	}
 	
 	public static void EnableAllColliders(this GameObject go)
 	{
