@@ -14,7 +14,7 @@ public static class GameObjectExtensions
 		}
 	}
 	
-	public static List<T> FindObjectsOfTypeWithInterface<T>() where T : class
+	public static T[] FindObjectsOfTypeWithInterface<T>() where T : class
 	{
 		List<T>         objectsWithInterface = new List<T>();
 		MonoBehaviour[] allObjects           = GameObject.FindObjectsOfType<MonoBehaviour>();
@@ -28,7 +28,7 @@ public static class GameObjectExtensions
 			}
 		}
 
-		return objectsWithInterface;
+		return objectsWithInterface.ToArray();
 	}
 	
 	public static void EnableAllColliders(this GameObject go)
