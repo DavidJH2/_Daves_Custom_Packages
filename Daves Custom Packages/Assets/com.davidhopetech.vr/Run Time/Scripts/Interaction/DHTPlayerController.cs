@@ -5,6 +5,7 @@ using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.vr.Run_Time.Scripts.Interaction.States;
 using TMPro;
 using Unity.XR.CoreUtils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -119,14 +120,21 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 		{
 			if (context.performed)
 			{
+#if UNITY_EDITOR
+				EditorApplication.isPlaying = false;
+#else				
 				Application.Quit();
+#endif
 			}
 		}
 
 
 		private void OnDisable()
 		{
-			_quitActon.action.Disable();
+			if (_quitActon)
+			{
+				_quitActon.action.Disable();
+			}
 		}
 	}
 }
