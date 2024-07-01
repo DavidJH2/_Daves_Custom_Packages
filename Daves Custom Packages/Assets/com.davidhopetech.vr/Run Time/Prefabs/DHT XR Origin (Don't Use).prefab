@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7975194356592878633}
   m_Layer: 0
-  m_Name: DHT XR Origin
+  m_Name: DHT XR Origin (Don't Use)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

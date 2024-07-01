@@ -15,7 +15,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 {
 	public class DHTPlayerController : MonoBehaviour
 	{
-		//[SerializeField] internal InputDeviceCharacteristics controllerCharacteristics;
 		[SerializeField] internal DHTInteractionState  leftHandInitialInteractionState;
 		[SerializeField] internal DHTInteractionState  rightHandInitialInteractionState;
 		[SerializeField] internal GameObject           leftMirrorHand;
@@ -24,7 +23,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 		[SerializeField] internal float                handDampCoeeff;
 		[SerializeField] private  DHTJoystick          dhtJoystick;
 		[SerializeField] internal float                throwMultiplyer = 2.0f;
-		[SerializeField] private  InputActionReference _quitActon;
 
 		// private                   InputDevice                targetDevice;
 
@@ -38,15 +36,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 
 		private void OnEnable()
 		{
-			if (_quitActon)
-			{
-				_quitActon.action.Enable();
-				_quitActon.action.performed += Quit;
-			}
-			else
-			{
-				Debug.LogWarning("quit action reference is not set.");
-			}
 		}
 
 
@@ -131,10 +120,6 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction
 
 		private void OnDisable()
 		{
-			if (_quitActon)
-			{
-				_quitActon.action.Disable();
-			}
 		}
 	}
 }

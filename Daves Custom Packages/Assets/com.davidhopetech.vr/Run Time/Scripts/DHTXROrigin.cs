@@ -5,8 +5,15 @@ using com.davidhopetech.core.Run_Time.Utils;
 using Run_Time.Scripts.Misc;
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Management;
+
+#if UNITY_6000_0_OR_NEWER
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
+#else
+using UnityEngine.XR.Interaction.Toolkit;
+#endif
+
+
 
 
 [RequireComponent(typeof (XROrigin), typeof(TeleportationProvider))]

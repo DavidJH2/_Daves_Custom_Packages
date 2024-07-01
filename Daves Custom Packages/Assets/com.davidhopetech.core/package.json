@@ -8,9 +8,6 @@
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
   "dependencies": {
-    "com.unity.xr.management": "4.3.3",
-    "com.unity.xr.openxr": "1.7.0",
-    "com.unity.xr.interaction.toolkit": "2.2.0",
     "com.unity.animation.rigging": "1.1.1"
   },
   "keywords": [

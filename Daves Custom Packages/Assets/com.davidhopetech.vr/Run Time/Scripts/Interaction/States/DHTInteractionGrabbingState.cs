@@ -1,4 +1,5 @@
 using System;
+using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
 using com.davidhopetech.core.Run_Time.Utils;
@@ -69,7 +70,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts.Interaction.States
 				
 				debugService.SetElement(6, $"Velocity = {velocity}", "");
 				
-				rigidbody.velocity = velocity * playerController.throwMultiplyer;
+				rigidbody.SetVelocty(velocity * playerController.throwMultiplyer);
 				var go = grabedItem.gameObject;
 				_grabableReleasedEvent.Invoke(go);
 			}

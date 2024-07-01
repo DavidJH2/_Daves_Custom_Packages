@@ -6,9 +6,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+
+
+#if UNITY_6000_0_OR_NEWER
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+#else
 using UnityEngine.XR.Interaction.Toolkit;
+#endif
 
 
 namespace com.davidhopetech.vr.Run_Time.Scripts
@@ -17,13 +22,13 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 	{
 		public UnityEvent<bool> HudVisableEvent;
         
-		[SerializeField] private  TMP_Dropdown        dropDown;
-		[SerializeField] private  Toggle              debugToolsToggle;
-		[SerializeField] private  DHTXROrigin         dhtXROrigin;
-		[SerializeField] public   GameObject          hudUI;
-		[SerializeField] internal XRRayInteractor     lefthandXRRayInteractor;
-		[SerializeField] internal InputActionProperty menuButton;
-		[SerializeField] internal bool                UseLocalInputControl = false; 
+		[SerializeField] private  TMP_Dropdown                                                   dropDown;
+		[SerializeField] private  Toggle                                                         debugToolsToggle;
+		[SerializeField] private  DHTXROrigin                                                    dhtXROrigin;
+		[SerializeField] public   GameObject                                                     hudUI;
+		[SerializeField] internal XRRayInteractor                                                lefthandXRRayInteractor;
+		[SerializeField] internal InputActionProperty                                            menuButton;
+		[SerializeField] internal bool                                                           UseLocalInputControl = false; 
 
 		private DHTPlayerController     _playerController;
 		private DHTLogService           _logService;
