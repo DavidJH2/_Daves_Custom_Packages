@@ -400,7 +400,7 @@ namespace TMPro
                     case RuntimePlatform.WSAPlayerX86:
                     case RuntimePlatform.WSAPlayerX64:
                     case RuntimePlatform.WSAPlayerARM:
-                    case RuntimePlatform.Stadia:
+                    // case RuntimePlatform.Stadia:
 #if UNITY_2020_2_OR_NEWER
                     case RuntimePlatform.PS4:
 #if !(UNITY_2020_2_1 || UNITY_2020_2_2)
@@ -427,7 +427,7 @@ namespace TMPro
                     case RuntimePlatform.WSAPlayerX86:
                     case RuntimePlatform.WSAPlayerX64:
                     case RuntimePlatform.WSAPlayerARM:
-                    case RuntimePlatform.Stadia:
+                    // case RuntimePlatform.Stadia:
 #if UNITY_2020_2_OR_NEWER
                     case RuntimePlatform.PS4:
 #if !(UNITY_2020_2_1 || UNITY_2020_2_2)
@@ -4466,10 +4466,17 @@ namespace TMPro
             if (m_TextComponent == null)
                 return;
 
+#if UNITY_2022_1_OR_NEWER && !UNITY_2022
+            if (multiLine)
+                m_TextComponent.textWrappingMode = TextWrappingModes.Normal;
+            else
+                m_TextComponent.textWrappingMode = TextWrappingModes.NoWrap;
+#else
             if (multiLine)
                 m_TextComponent.enableWordWrapping = true;
             else
                 m_TextComponent.enableWordWrapping = false;
+#endif
         }
 
         // Control Rich Text option on the text component.

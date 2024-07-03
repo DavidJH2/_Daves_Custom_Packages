@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using com.davidhopetech.core.Run_Time.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +18,7 @@ public static class GameObjectExtensions
 	public static T[] FindObjectsOfTypeWithInterface<T>() where T : class
 	{
 		List<T>         objectsWithInterface = new List<T>();
-		MonoBehaviour[] allObjects           = GameObject.FindObjectsOfType<MonoBehaviour>();
+		MonoBehaviour[] allObjects           = ObjectExtentions.DHTFindObjectsByType<MonoBehaviour>();//        = Object.DHTFindObjectOfType<MonoBehaviour>();
 
 		foreach (MonoBehaviour obj in allObjects)
 		{
