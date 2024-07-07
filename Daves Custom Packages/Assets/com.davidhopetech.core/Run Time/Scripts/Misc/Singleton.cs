@@ -23,13 +23,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (_instance == null)
                 {
                     T[] instances = ObjectExtentions.DHTFindObjectsByType<T>();
-/*
-#if UNITY_2022_1_OR_NEWER && !UNITY_2022
-                    T[] instances = DHTFindObjectsByType<T>(FindObjectsSortMode.None);
-#else
-                    T[] instances = FindObjectsOfType<T>();
-#endif
-*/
+
                     if (instances.Length > 0)
                     {
                         if (instances.Length > 1)
@@ -63,6 +57,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (transform.parent != null)
+        {}
+        
         if (_instance == null)
         {
             _instance = this as T;
@@ -70,6 +67,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else if (_instance != this)
         {
+            Debug.Log($"[Singleton] An instance of {typeof(T)} already exist in the scene, so 'gameObject.name' will be destroyed.");
+
             Destroy(gameObject);
         }
     }

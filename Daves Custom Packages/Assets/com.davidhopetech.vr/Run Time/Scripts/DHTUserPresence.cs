@@ -1,5 +1,6 @@
 using com.davidhopetech.core.Run_Time.Extensions;
 using com.davidhopetech.core.Run_Time.Scripts.Service_Locator;
+using com.davidhopetech.core.Run_Time.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.UI;
@@ -30,7 +31,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		void InitCams()
 		{
-#if PLATFORM_ANDROID && !UNITY_EDITOR || PLATFORM_STANDALONE 
+#if (PLATFORM_ANDROID || PLATFORM_STANDALONE) && !UNITY_EDITOR
 			ChangeCamera(vrCamGO);
 
 			vrCamGO.SetActive(true);
@@ -85,7 +86,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 			}
 			else
 			{
-				// Debug.Log("No User Presence");
+				Debug.Log("No User Presence");
 				
 				ChangeCamera(pancakeCamGO);
 			}
@@ -99,6 +100,7 @@ namespace com.davidhopetech.vr.Run_Time.Scripts
 
 		public void ChangeCamera(GameObject newCameraGo)
 		{
+			DHTDebug.Log($"Switching to Camera {newCameraGo}");
 			if(_currentCameraGO) _currentCameraGO.SetActive(false);
 			newCameraGo.SetActive(true);
 			_currentCameraGO = newCameraGo;
