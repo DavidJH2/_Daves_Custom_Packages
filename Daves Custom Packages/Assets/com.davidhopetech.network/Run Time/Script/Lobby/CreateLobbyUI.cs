@@ -40,6 +40,7 @@ public class CreateLobbyUI : MonoBehaviour
 		
 		await CreateLobby(lobbyName, accessibility, maxPlayers);
 		gameObject.SetActive(false);
+		JoinedLobbyUIGO.SetActive(true);
 	}
 
 

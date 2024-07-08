@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 8746297358092942221}
   - component: {fileID: 209553374064479422}
   - component: {fileID: 9044997745776045841}
-  - component: {fileID: 8880418169163236549}
   m_Layer: 0
   m_Name: Pancake Camera
   m_TagString: Untagged
@@ -170,68 +169,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &8880418169163236549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3026327601475300766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d06e3e7d2767dbf45a2ed08604143e28, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4621090325644276487}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: MouseLook
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6e468529-740b-47cc-8db7-50cf4f5291e7
-    m_ActionName: 'action map/Mouse Look[/Mouse/delta]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4621090325644276487}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: MouseLookButton
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 37b0a07e-78dd-4958-9cd2-7c5370f742e9
-    m_ActionName: 'action map/Mouse Look Button[/Mouse/rightButton]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: action map
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &6364443750089773496
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d06e3e7d2767dbf45a2ed08604143e28, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d06e3e7d2767dbf45a2ed08604143e28,
+    type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -321,7 +259,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6e468529-740b-47cc-8db7-50cf4f5291e7
-    m_ActionName: 'action map/Mouse Look[/Mouse/delta]'
+    m_ActionName: action map/Mouse Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4621090325644276487}
@@ -337,7 +275,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 37b0a07e-78dd-4958-9cd2-7c5370f742e9
-    m_ActionName: 'action map/Mouse Look Button[/Mouse/rightButton]'
+    m_ActionName: action map/Mouse Look Button[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: action map
