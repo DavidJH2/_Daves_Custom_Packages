@@ -749,7 +749,7 @@ MonoBehaviour:
   LobbyListContentTransform: {fileID: 7265209511164651063}
   LobbySlotPrefab: {fileID: 555253622573748056, guid: 49652bf68b7209444a43b9b07637e26b,
     type: 3}
-  lobbyCodeTMP: {fileID: 0}
+  lobbyCodeTMP: {fileID: 6219115890264479046}
 --- !u!114 &5879580846893601846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1285,8 +1285,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TestLobby, Assembly-CSharp
+      - m_Target: {fileID: 7771264457684481354}
+        m_TargetAssemblyTypeName: LobbyListUI, NewAssembly
         m_MethodName: QuickJoin
         m_Mode: 1
         m_Arguments:
@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 6219115890264479046}
   - component: {fileID: 9025672658562227494}
   m_Layer: 5
-  m_Name: Code ITMP
+  m_Name: Code (TMPIF)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1777,7 +1777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000009559184}
+  m_AnchoredPosition: {x: 0, y: 0.0024509653}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3487765435124265005
@@ -2519,7 +2519,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3577496326214691239}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999939
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

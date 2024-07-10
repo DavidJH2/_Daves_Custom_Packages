@@ -1338,6 +1338,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1398007011369111045, guid: 13f7bdd030f4adc479e22393fde002d0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6665978497142101304}
+    - target: {fileID: 1398007011369111045, guid: 13f7bdd030f4adc479e22393fde002d0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LobbyListUI, NewAssembly
+      objectReference: {fileID: 0}
     - target: {fileID: 2380014873004899028, guid: 13f7bdd030f4adc479e22393fde002d0,
         type: 3}
       propertyPath: m_AnchorMax.y

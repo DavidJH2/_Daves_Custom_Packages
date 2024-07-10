@@ -159,7 +159,12 @@ public class LobbyListUI : MonoBehaviour
 			Player = await DHTLobbyManager.GetPlayer()
 		};
 
-		JoinedLobbyUI.JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
+		try
+		{
+			JoinedLobbyUI.JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
+		}
+		catch(LobbyServiceException)
+		{}
 		// SubscribeLoobyChanges(JoinedLobby);
 	}
 

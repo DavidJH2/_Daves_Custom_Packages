@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -11,6 +12,7 @@ using UnityEngine.Serialization;
 
 public class DHTLobbyManager : MonoBehaviour
 {
+	
 	[SerializeField] private JoinedLobbyUI joinedLobbyUI;
 	[SerializeField] private Transform     PlayerContentTransform;
 	[SerializeField] private GameObject    PlayerSlotPrefab;
@@ -21,16 +23,21 @@ public class DHTLobbyManager : MonoBehaviour
 
 	[SerializeField] private TMP_InputField gameModeTMP;
 
-	
 
-
-	async void Start()
+	private async void OnEnable()
 	{
 		await UnityServices.InitializeAsync();
-
 		AuthenticationService.Instance.SignedIn += () => { Debug.Log($"Signed In: {AuthenticationService.Instance.PlayerId}"); };
-		await AuthenticationService.Instance.SignInAnonymouslyAsync();
+	}
 
+	private void Start()
+	{
+		Init();
+	}
+
+
+	public async void Init()
+	{
 		InitUI();
 	}
 
