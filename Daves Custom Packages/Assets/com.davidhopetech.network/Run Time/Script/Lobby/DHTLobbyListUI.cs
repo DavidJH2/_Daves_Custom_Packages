@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.davidhopetech.core.Run_Time.Utils;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
-public class LobbyListUI : MonoBehaviour
+public class DHTLobbyListUI : MonoBehaviour
 {
 	[SerializeField] private Transform      LobbyListContentTransform;
 	[SerializeField] private GameObject     LobbySlotPrefab;
@@ -31,7 +32,7 @@ public class LobbyListUI : MonoBehaviour
 
 	async void UpdateLobbyList()
 	{
-		if (JoinedLobbyUI.JoinedLobby == null)
+		if (DHTJoinedLobbyUI.JoinedLobby == null)
 		{
 			QueryResponse response = await FindLobbies();
 			if (response == null)
@@ -161,11 +162,14 @@ public class LobbyListUI : MonoBehaviour
 
 		try
 		{
-			JoinedLobbyUI.JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
+			DHTJoinedLobbyUI.JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
+			
+			FindFirstObjectByType<DHTJoinedLobbyUI>().gameObject.SetActive(true);
+			gameObject.SetActive(false);
+			// SubscribeLoobyChanges(JoinedLobby);
 		}
 		catch(LobbyServiceException)
 		{}
-		// SubscribeLoobyChanges(JoinedLobby);
 	}
 
 
@@ -178,12 +182,17 @@ public class LobbyListUI : MonoBehaviour
 				Player = await DHTLobbyManager.GetPlayer()
 			};
 			
-			JoinedLobbyUI.JoinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
+			DHTJoinedLobbyUI.JoinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
+			
+			DHTJoinedLobbyUI joinedLobbyUI =  FindFirstObjectByType<DHTJoinedLobbyUI>(FindObjectsInactive.Include);
+			DHTDebug.Log($"UI: {joinedLobbyUI.name}");
+			joinedLobbyUI.gameObject.SetActive(true);
+			gameObject.SetActive(false);
 			// SubscribeLoobyChanges(JoinedLobby);
 		}
-		catch (LobbyServiceException)
+		catch (LobbyServiceException e)
 		{
-			Debug.Log("No Lobbies found");
+			Debug.Log($"{e}");
 		}
 	}
 }

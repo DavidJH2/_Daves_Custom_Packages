@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.davidhopetech.core.Run_Time.Utils;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -13,11 +14,11 @@ using UnityEngine.Serialization;
 public class DHTLobbyManager : MonoBehaviour
 {
 	
-	[SerializeField] private JoinedLobbyUI joinedLobbyUI;
+	[FormerlySerializedAs("joinedLobbyUI")] [SerializeField] private DHTJoinedLobbyUI dhtJoinedLobbyUI;
 	[SerializeField] private Transform     PlayerContentTransform;
 	[SerializeField] private GameObject    PlayerSlotPrefab;
 
-	[SerializeField] private LobbyListUI LobbyListUI;
+	[FormerlySerializedAs("LobbyListUI")] [SerializeField] private DHTLobbyListUI dhtLobbyListUI;
 	[SerializeField] private GameObject  CreateLobbyUIGO;
 	[SerializeField] private GameObject  JoinedLobbyUIGO;
 
@@ -26,17 +27,19 @@ public class DHTLobbyManager : MonoBehaviour
 
 	private async void OnEnable()
 	{
+		DHTDebug.LogTag("Initializing Unity Services...", this);
 		await UnityServices.InitializeAsync();
 		AuthenticationService.Instance.SignedIn += () => { Debug.Log($"Signed In: {AuthenticationService.Instance.PlayerId}"); };
 	}
 
-	private void Start()
+	private async void Start()
 	{
-		Init();
+		//await FindFirstObjectByType<DHTSignInManager>().SignInAnonymously();
+		//Init();
 	}
 
 
-	public async void Init()
+	public void Init()
 	{
 		InitUI();
 	}
@@ -44,11 +47,11 @@ public class DHTLobbyManager : MonoBehaviour
 
 	private void InitUI()
 	{
-		LobbyListUI.gameObject.SetActive(true);
+		dhtLobbyListUI.gameObject.SetActive(true);
 		CreateLobbyUIGO.SetActive(false);
 		JoinedLobbyUIGO.SetActive(false);
 		
-		StartCoroutine(LobbyListUI.StartUpdatingLobbyList());
+		StartCoroutine(dhtLobbyListUI.StartUpdatingLobbyList());
 	}
 
 
@@ -65,7 +68,7 @@ public class DHTLobbyManager : MonoBehaviour
 		{
 			Data = new Dictionary<string, PlayerDataObject>
 			{
-				{ "PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) }
+				{ "Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) }
 			}
 		};
 	}

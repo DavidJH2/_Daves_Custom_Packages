@@ -2773,7 +2773,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4342112012874998080}
         m_TargetAssemblyTypeName: JoinedLobbyUI, Assembly-CSharp
-        m_MethodName: RemovePlayer
+        m_MethodName: LeaveLobbyButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -22,8 +22,8 @@ public class CreateLobbyUI : MonoBehaviour
 
     private void OnEnable()
     {
-	    JoinedLobbyUIGO = FindFirstObjectByType<JoinedLobbyUI>(FindObjectsInactive.Include).gameObject;
-	    LobbyListUIGO = FindFirstObjectByType<LobbyListUI>(FindObjectsInactive.Include).gameObject;
+	    JoinedLobbyUIGO = FindFirstObjectByType<DHTJoinedLobbyUI>(FindObjectsInactive.Include).gameObject;
+	    LobbyListUIGO = FindFirstObjectByType<DHTLobbyListUI>(FindObjectsInactive.Include).gameObject;
     }
 
     void Start()
@@ -63,8 +63,8 @@ public class CreateLobbyUI : MonoBehaviour
 			};
 
 			lobby                     = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
-			JoinedLobbyUI._hostLobby  = lobby;
-			JoinedLobbyUI.JoinedLobby = JoinedLobbyUI._hostLobby;
+			DHTJoinedLobbyUI._hostLobby  = lobby;
+			DHTJoinedLobbyUI.JoinedLobby = DHTJoinedLobbyUI._hostLobby;
 			 //SubscribeLoobyChanges(DHTLobbyManager.JoinedLobby);
 			Debug.Log($"Created Lobby: {lobby.Name} {lobby.MaxPlayers} {lobby.Id} {lobby.LobbyCode}");
 			
