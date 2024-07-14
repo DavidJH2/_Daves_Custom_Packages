@@ -24,6 +24,8 @@ public class DHTLobbyListUI : MonoBehaviour
 
 	void Init()
 	{
+		// Debug.Log("DHTLobbyList.Init()");
+		
 	    StartCoroutine(StartUpdatingLobbyList());
 	}
 
@@ -127,6 +129,8 @@ public class DHTLobbyListUI : MonoBehaviour
 
 	async public Task<QueryResponse> FindLobbies()
 	{
+		// Debug.Log("Finding Lobbies");
+		
 		try
 		{
 			QueryLobbiesOptions queryLobbiesOptions = new QueryLobbiesOptions
