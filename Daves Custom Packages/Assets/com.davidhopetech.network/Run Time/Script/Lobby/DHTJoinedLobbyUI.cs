@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class DHTJoinedLobbyUI : MonoBehaviour
@@ -22,6 +24,8 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	[SerializeField] private GameObject PlayerSlotPrefab;
 	[SerializeField] private GameObject StartButtonGO;
 
+	public UnityEvent HostStarted   = new UnityEvent();
+	public UnityEvent ClientStarted = new UnityEvent();
 
 	private DHTLobbyManager _lobbyManager;
 	private RelayManager _relayManager;
@@ -67,7 +71,11 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	public async void StartButtonPressed()
 	{
 		string lobbyCode = await _relayManager.CreateRelay(_joinedLobby.MaxPlayers);
+		NetworkManager.Singleton.StartHost();
+		HostStarted.Invoke();
+		
 		ModifyLobby("", lobbyCode);
+		Debug.Log($"Start Button Pressed: Relay Join Code = \"{_joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value}\"");
 	}
 	
 	
@@ -97,7 +105,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 		{
 			var _lobbyEvents = await Lobbies.Instance.SubscribeToLobbyEventsAsync(lobby.Id, _callbacks);
 			Debug.Log(_lobbyEvents);
-			Debug.Log($"Subscribe... {lobby.Id}");
+			Debug.Log($"Subscribe to Lobby: \"{lobby.Id}\"");
 		}
 		catch (LobbyServiceException e)
 		{
@@ -115,6 +123,8 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 			if (relayJoinCode != "")
 			{
 				_relayManager.joinRelay(relayJoinCode);
+				NetworkManager.Singleton.StartClient();
+				ClientStarted.Invoke();
 			}
 		}
 	}
@@ -216,6 +226,8 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 				};
 				_hostLobby   = await LobbyService.Instance.UpdateLobbyAsync(_hostLobby.Id, updateLobbyOptions);
 				_joinedLobby = _hostLobby;
+				
+				Debug.Log($"After Modify Lobby: Lobby = {_joinedLobby.Name}\nRelay Join code = \"{_joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value}\"");
 			}
 			catch (LobbyServiceException)
 			{
