@@ -26,7 +26,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	private DHTLobbyManager _lobbyManager;
 	private RelayManager _relayManager;
 	
-	public static            Lobby      JoinedLobby;
+	public static            Lobby      _joinedLobby;
 	Lobby                               _lobby;
 	internal static Lobby               _hostLobby;
 
@@ -49,7 +49,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 		_lobbyManager = FindFirstObjectByType<DHTLobbyManager>(FindObjectsInactive.Include);
 		_relayManager = FindFirstObjectByType<RelayManager>(FindObjectsInactive.Include);
 		StartButtonGO.SetActive(_hostLobby!=null);
-		SubscribeLobbyChanges(JoinedLobby);
+		SubscribeLobbyChanges(_joinedLobby);
 
 		if (_hostLobby != null)
 		{
@@ -60,13 +60,13 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 
 		UpdateLobbyUI();
 		
-		lobby = JoinedLobby;
+		lobby = _joinedLobby;
 	}
 
 
 	public async void StartButtonPressed()
 	{
-		string lobbyCode = await _relayManager.CreateRelay(JoinedLobby.MaxPlayers);
+		string lobbyCode = await _relayManager.CreateRelay(_joinedLobby.MaxPlayers);
 		ModifyLobby("", lobbyCode);
 	}
 	
@@ -109,15 +109,23 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	void OnRoomPropertiesUpdate(ILobbyChanges changes)
 	{
 		UpdateLobbyUI();
+		if (_hostLobby == null)
+		{
+			string relayJoinCode = _joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value; 
+			if (relayJoinCode != "")
+			{
+				_relayManager.joinRelay(relayJoinCode);
+			}
+		}
 	}
 
 	async void UpdateLobbyUI()
 	{
 		try
 		{
-			JoinedLobby = (await LobbyService.Instance.GetLobbyAsync(JoinedLobby.Id));
+			_joinedLobby = (await LobbyService.Instance.GetLobbyAsync(_joinedLobby.Id));
 			
-			Player[] players = JoinedLobby.Players.ToArray();
+			Player[] players = _joinedLobby.Players.ToArray();
 			//Debug.Log($"Lobby Count: {lobbies.Length}");
 
 
@@ -207,7 +215,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 					Data = data
 				};
 				_hostLobby   = await LobbyService.Instance.UpdateLobbyAsync(_hostLobby.Id, updateLobbyOptions);
-				JoinedLobby = _hostLobby;
+				_joinedLobby = _hostLobby;
 			}
 			catch (LobbyServiceException)
 			{
@@ -230,10 +238,10 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 
 	private async void LeaveLobby()
 	{
-		if (JoinedLobby != null)
+		if (_joinedLobby != null)
 		{
-			await LobbyService.Instance.RemovePlayerAsync(JoinedLobby.Id, AuthenticationService.Instance.PlayerId);
-			JoinedLobby = null;
+			await LobbyService.Instance.RemovePlayerAsync(_joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+			_joinedLobby = null;
 			_hostLobby  = null;
 		}
 	}

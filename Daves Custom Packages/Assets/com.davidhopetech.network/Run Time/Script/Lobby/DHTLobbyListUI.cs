@@ -40,7 +40,7 @@ public class DHTLobbyListUI : MonoBehaviour
 
 	async void UpdateLobbyList()
 	{
-		if (DHTJoinedLobbyUI.JoinedLobby == null)
+		if (DHTJoinedLobbyUI._joinedLobby == null)
 		{
 			QueryResponse response = await FindLobbies();
 			if (response == null)
@@ -170,11 +170,11 @@ public class DHTLobbyListUI : MonoBehaviour
 
 		try
 		{
-			DHTJoinedLobbyUI.JoinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
+			DHTJoinedLobbyUI._joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeTMP.text, joinLobbyByCodeOptions);
 			
 			FindFirstObjectByType<DHTJoinedLobbyUI>().gameObject.SetActive(true);
 			gameObject.SetActive(false);
-			// SubscribeLoobyChanges(JoinedLobby);
+			// SubscribeLoobyChanges(_joinedLobby);
 		}
 		catch(LobbyServiceException)
 		{}
@@ -190,13 +190,13 @@ public class DHTLobbyListUI : MonoBehaviour
 				Player = await _lobbyManager.GetPlayer()
 			};
 			
-			DHTJoinedLobbyUI.JoinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
+			DHTJoinedLobbyUI._joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);
 			
 			DHTJoinedLobbyUI joinedLobbyUI =  FindFirstObjectByType<DHTJoinedLobbyUI>(FindObjectsInactive.Include);
 			DHTDebug.Log($"UI: {joinedLobbyUI.name}");
 			joinedLobbyUI.gameObject.SetActive(true);
 			gameObject.SetActive(false);
-			// SubscribeLoobyChanges(JoinedLobby);
+			// SubscribeLoobyChanges(_joinedLobby);
 		}
 		catch (LobbyServiceException e)
 		{

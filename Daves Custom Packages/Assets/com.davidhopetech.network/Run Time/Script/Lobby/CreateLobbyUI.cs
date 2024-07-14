@@ -64,8 +64,8 @@ public class CreateLobbyUI : MonoBehaviour
 
 			lobby                     = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
 			DHTJoinedLobbyUI._hostLobby  = lobby;
-			DHTJoinedLobbyUI.JoinedLobby = DHTJoinedLobbyUI._hostLobby;
-			 //SubscribeLoobyChanges(DHTLobbyManager.JoinedLobby);
+			DHTJoinedLobbyUI._joinedLobby = DHTJoinedLobbyUI._hostLobby;
+			 //SubscribeLoobyChanges(DHTLobbyManager._joinedLobby);
 			Debug.Log($"Created Lobby: {lobby.Name} {lobby.MaxPlayers} {lobby.Id} {lobby.LobbyCode}");
 			
 			JoinedLobbyUIGO.gameObject.SetActive(true);
