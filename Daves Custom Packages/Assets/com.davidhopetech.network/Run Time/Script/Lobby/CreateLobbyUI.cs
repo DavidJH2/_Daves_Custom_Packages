@@ -1,13 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
-using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class CreateLobbyUI : MonoBehaviour
@@ -20,6 +16,9 @@ public class CreateLobbyUI : MonoBehaviour
     [SerializeField] private GameObject LobbyListUIGO;
     [SerializeField] private GameObject JoinedLobbyUIGO;
 
+    private DHTLobbyManager _lobbyManager;
+    
+
     private void OnEnable()
     {
 	    JoinedLobbyUIGO = FindFirstObjectByType<DHTJoinedLobbyUI>(FindObjectsInactive.Include).gameObject;
@@ -28,7 +27,7 @@ public class CreateLobbyUI : MonoBehaviour
 
     void Start()
     {
-        
+	    _lobbyManager = FindFirstObjectByType<DHTLobbyManager>(FindObjectsInactive.Include);
     }
 
 
@@ -54,11 +53,12 @@ public class CreateLobbyUI : MonoBehaviour
 			CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
 			{
 				IsPrivate = false,
-				Player    = await DHTLobbyManager.GetPlayer(),
+				Player    = await _lobbyManager.GetPlayer(),
 				Data = new Dictionary<string, DataObject>
 				{
-					{"GameMode", new DataObject(DataObject.VisibilityOptions.Public, "CaptureTheFlag")},
-					{"Map", new DataObject(DataObject.VisibilityOptions.Public, "Open World")}
+					{_lobbyManager.GameModeKey, new DataObject(DataObject.VisibilityOptions.Public, "CaptureTheFlag")},
+					{_lobbyManager.LobbyMapKey, new DataObject(DataObject.VisibilityOptions.Public, "Open World")},
+					{_lobbyManager.RelayJoinCodeKey, new DataObject(DataObject.VisibilityOptions.Member, "")}
 				}
 			};
 

@@ -14,7 +14,7 @@ using UnityEngine.Serialization;
 public class DHTLobbyManager : MonoBehaviour
 {
 	
-	[FormerlySerializedAs("joinedLobbyUI")] [SerializeField] private DHTJoinedLobbyUI dhtJoinedLobbyUI;
+	[SerializeField] private DHTJoinedLobbyUI dhtJoinedLobbyUI;
 	[SerializeField] private Transform     PlayerContentTransform;
 	[SerializeField] private GameObject    PlayerSlotPrefab;
 
@@ -24,24 +24,23 @@ public class DHTLobbyManager : MonoBehaviour
 
 	[SerializeField] private TMP_InputField gameModeTMP;
 
+	public readonly string GameModeKey      = "GameMode";
+	public readonly string RelayJoinCodeKey = "RelayJoinCode";
+	public readonly string LobbyMapKey      = "LobbyMap";
+	
+	public readonly string PlayerNameKey      = "PlayerName";
 
 	private async void OnEnable()
 	{
 		DHTDebug.LogTag("Initializing Unity Services...", this);
 		await UnityServices.InitializeAsync();
 		AuthenticationService.Instance.SignedIn += () => { Debug.Log($"Signed In: {AuthenticationService.Instance.PlayerId}"); };
-	}
-
-	private async void Start()
-	{
-		//await FindFirstObjectByType<DHTSignInManager>().SignInAnonymously();
-		//Init();
+		InitUI();
 	}
 
 
 	public void Init()
 	{
-		InitUI();
 	}
 
 
@@ -50,8 +49,6 @@ public class DHTLobbyManager : MonoBehaviour
 		dhtLobbyListUI.gameObject.SetActive(true);
 		CreateLobbyUIGO.SetActive(false);
 		JoinedLobbyUIGO.SetActive(false);
-		
-		StartCoroutine(dhtLobbyListUI.StartUpdatingLobbyList());
 	}
 
 
@@ -61,14 +58,14 @@ public class DHTLobbyManager : MonoBehaviour
 	}
 
 
-	static public async Task<Player> GetPlayer()
+	public async Task<Player> GetPlayer()
 	{
 		string PlayerName = await AuthenticationService.Instance.GetPlayerNameAsync();
 		return new Player
 		{
 			Data = new Dictionary<string, PlayerDataObject>
 			{
-				{ "Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) }
+				{ PlayerNameKey, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, PlayerName) }
 			}
 		};
 	}

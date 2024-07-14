@@ -14,10 +14,18 @@ public class DHTLobbyListUI : MonoBehaviour
 	[SerializeField] private GameObject     LobbySlotPrefab;
 	[SerializeField] private TMP_InputField lobbyCodeTMP;
 	
+	private DHTLobbyManager _lobbyManager;
+
 	void Start()
     {
+	    _lobbyManager                           =  FindFirstObjectByType<DHTLobbyManager>(FindObjectsInactive.Include);
+	    AuthenticationService.Instance.SignedIn += Init;
     }
 
+	void Init()
+	{
+	    StartCoroutine(StartUpdatingLobbyList());
+	}
 
 	public IEnumerator StartUpdatingLobbyList()
 	{
@@ -91,7 +99,7 @@ public class DHTLobbyListUI : MonoBehaviour
 
 				slotTransform.GetChild(0).GetComponent<TMP_Text>().text = lobby.Name;
 				slotTransform.GetChild(1).GetComponent<TMP_Text>().text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-				slotTransform.GetChild(2).GetComponent<TMP_Text>().text = $"{lobby.Data["GameMode"].Value}";
+				slotTransform.GetChild(2).GetComponent<TMP_Text>().text = $"{lobby.Data[_lobbyManager.GameModeKey].Value}";
 			}
 		}
 	}
@@ -107,7 +115,7 @@ public class DHTLobbyListUI : MonoBehaviour
 			Debug.Log($"Lobbies found: {response.Results.Count}");
 			foreach (var lobby in lobbies)
 			{
-				Debug.Log($"Name: {lobby.Name}   Players: {lobby.Players.Count}/{lobby.MaxPlayers}  {lobby.Data["GameMode"].Value}  {lobby.Data["Map"].Value}");
+				Debug.Log($"Name: {lobby.Name}   Players: {lobby.Players.Count}/{lobby.MaxPlayers}  {lobby.Data[_lobbyManager.GameModeKey].Value}  {lobby.Data[_lobbyManager.LobbyMapKey].Value}");
 			}
 		}
 		else
@@ -157,7 +165,7 @@ public class DHTLobbyListUI : MonoBehaviour
 
 		JoinLobbyByCodeOptions joinLobbyByCodeOptions = new JoinLobbyByCodeOptions
 		{
-			Player = await DHTLobbyManager.GetPlayer()
+			Player = await _lobbyManager.GetPlayer()
 		};
 
 		try
@@ -179,7 +187,7 @@ public class DHTLobbyListUI : MonoBehaviour
 		{
 			QuickJoinLobbyOptions quickJoinLobbyOptions = new QuickJoinLobbyOptions
 			{
-				Player = await DHTLobbyManager.GetPlayer()
+				Player = await _lobbyManager.GetPlayer()
 			};
 			
 			DHTJoinedLobbyUI.JoinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync(quickJoinLobbyOptions);

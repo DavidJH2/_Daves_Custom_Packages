@@ -20,6 +20,11 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	[SerializeField] private GameObject LobbyListUIGO;
 	[SerializeField] private Transform  PlayerListContentTransform;
 	[SerializeField] private GameObject PlayerSlotPrefab;
+	[SerializeField] private GameObject StartButtonGO;
+
+
+	private DHTLobbyManager _lobbyManager;
+	private RelayManager _relayManager;
 	
 	public static            Lobby      JoinedLobby;
 	Lobby                               _lobby;
@@ -34,13 +39,16 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 			_lobby              = value;
 			NameTMP.text        = lobby.Name;
 			PlayerCountTMP.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-			GameModeTMP.text    = lobby.Data["GameMode"].Value;
+			GameModeTMP.text    = lobby.Data[_lobbyManager.GameModeKey].Value;
 		}
 	}
 
 	
 	void Start()
 	{
+		_lobbyManager = FindFirstObjectByType<DHTLobbyManager>(FindObjectsInactive.Include);
+		_relayManager = FindFirstObjectByType<RelayManager>(FindObjectsInactive.Include);
+		StartButtonGO.SetActive(_hostLobby!=null);
 		SubscribeLobbyChanges(JoinedLobby);
 
 		if (_hostLobby != null)
@@ -55,6 +63,12 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 		lobby = JoinedLobby;
 	}
 
+
+	public async void StartButtonPressed()
+	{
+		string lobbyCode = await _relayManager.CreateRelay(JoinedLobby.MaxPlayers);
+		ModifyLobby("", lobbyCode);
+	}
 	
 	
 	async void LobbyHeartBeat()
@@ -153,7 +167,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 				GameObject slotGO        = PlayerListContentTransform.GetChild(i).gameObject;
 				Transform  slotTransform = slotGO.transform;
 				
-				string playerName =	player.Data["Name"].Value;
+				string playerName =	player.Data[_lobbyManager.PlayerNameKey].Value;
 				TMP_Text nameTMP = slotTransform.GetChild(0).GetComponent<TMP_Text>();
 				nameTMP.text = playerName;
 			}
@@ -171,18 +185,26 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 		ModifyLobby(newMap);
 	}
 	
-	public async void ModifyLobby(string newGameMode)
+	public async void ModifyLobby(string newGameMode, string lobbyCode = "")
 	{
 		if (_hostLobby != null)
 		{
 			try
 			{
+				newGameMode = newGameMode != "" ? newGameMode : _hostLobby.Data[_lobbyManager.GameModeKey].Value;
+				Dictionary<string, DataObject> data = new Dictionary<string, DataObject>
+				{
+					{ _lobbyManager.GameModeKey, new DataObject(DataObject.VisibilityOptions.Public, newGameMode) }
+				};
+
+				if (lobbyCode != "")
+				{
+					data[_lobbyManager.RelayJoinCodeKey] = new DataObject(DataObject.VisibilityOptions.Member, lobbyCode);
+				}
+				
 				UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
 				{
-					Data = new Dictionary<string, DataObject>
-					{
-						{ "GameMode", new DataObject(DataObject.VisibilityOptions.Public, newGameMode) }
-					}
+					Data = data
 				};
 				_hostLobby   = await LobbyService.Instance.UpdateLobbyAsync(_hostLobby.Id, updateLobbyOptions);
 				JoinedLobby = _hostLobby;
@@ -208,9 +230,12 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 
 	private async void LeaveLobby()
 	{
-		await LobbyService.Instance.RemovePlayerAsync(JoinedLobby.Id, AuthenticationService.Instance.PlayerId);
-		JoinedLobby = null;
-		_hostLobby  = null;
+		if (JoinedLobby != null)
+		{
+			await LobbyService.Instance.RemovePlayerAsync(JoinedLobby.Id, AuthenticationService.Instance.PlayerId);
+			JoinedLobby = null;
+			_hostLobby  = null;
+		}
 	}
 
 	private void OnDestroy()
