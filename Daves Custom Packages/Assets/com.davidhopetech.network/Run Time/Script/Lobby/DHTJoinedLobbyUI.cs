@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using com.davidhopetech.core.Run_Time.Utils;
 using TMPro;
 using Unity.Netcode;
 using Unity.Services.Authentication;
@@ -48,7 +50,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	}
 
 	
-	void Start()
+	async void Start()
 	{
 		_lobbyManager = FindFirstObjectByType<DHTLobbyManager>(FindObjectsInactive.Include);
 		_relayManager = FindFirstObjectByType<RelayManager>(FindObjectsInactive.Include);
@@ -62,7 +64,7 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 			lobbyCodeTMPText.text = _hostLobby.LobbyCode;
 		}
 
-		UpdateLobbyUI();
+		await UpdateLobbyUI();
 		
 		lobby = _joinedLobby;
 	}
@@ -114,26 +116,34 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 	}
 
 
-	void OnRoomPropertiesUpdate(ILobbyChanges changes)
+	async void OnRoomPropertiesUpdate(ILobbyChanges changes)
 	{
-		UpdateLobbyUI();
+		await UpdateLobbyUI(); // d
 		if (_hostLobby == null)
 		{
 			string relayJoinCode = _joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value; 
+			Debug.Log($"Room Changed - Relay Join Code: \"{relayJoinCode}\"");
 			if (relayJoinCode != "")
 			{
-				_relayManager.joinRelay(relayJoinCode);
-				NetworkManager.Singleton.StartClient();
-				ClientStarted.Invoke();
+				await _relayManager.JoinRelay(relayJoinCode);
+
+				NetworkManager.Singleton.OnClientConnectedCallback += (ulong clinentID) =>
+				{
+					ClientStarted.Invoke();
+				};
+
+				var result = NetworkManager.Singleton.StartClient();
+				DHTDebug.LogTag($"Start Client = {result}");
 			}
 		}
 	}
 
-	async void UpdateLobbyUI()
+	async Task UpdateLobbyUI()
 	{
 		try
 		{
 			_joinedLobby = (await LobbyService.Instance.GetLobbyAsync(_joinedLobby.Id));
+			DHTDebug.LogTag($"Relay Join Code = \"{_joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value}\"");
 			
 			Player[] players = _joinedLobby.Players.ToArray();
 			//Debug.Log($"Lobby Count: {lobbies.Length}");
@@ -209,29 +219,39 @@ public class DHTJoinedLobbyUI : MonoBehaviour
 		{
 			try
 			{
-				newGameMode = newGameMode != "" ? newGameMode : _hostLobby.Data[_lobbyManager.GameModeKey].Value;
-				Dictionary<string, DataObject> data = new Dictionary<string, DataObject>
+				Dictionary<string, DataObject> data = new Dictionary<string, DataObject>();
+
+				newGameMode = "Test Test";
+				if(newGameMode!="")
 				{
-					{ _lobbyManager.GameModeKey, new DataObject(DataObject.VisibilityOptions.Public, newGameMode) }
-				};
+					data[_lobbyManager.GameModeKey] = new DataObject(DataObject.VisibilityOptions.Public, newGameMode);
+				}
 
 				if (lobbyCode != "")
 				{
-					data[_lobbyManager.RelayJoinCodeKey] = new DataObject(DataObject.VisibilityOptions.Member, lobbyCode);
+					data[_lobbyManager.RelayJoinCodeKey] = new DataObject(DataObject.VisibilityOptions.Public, lobbyCode);
 				}
+				
+				Debug.Log("------------------------------------");
+				foreach(var kvp in data)
+				{
+					Debug.Log($"data[{kvp.Key}] = \"{kvp.Value.Value}\"");
+				}
+				Debug.Log("------------------------------------");
 				
 				UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
 				{
 					Data = data
 				};
+				
 				_hostLobby   = await LobbyService.Instance.UpdateLobbyAsync(_hostLobby.Id, updateLobbyOptions);
 				_joinedLobby = _hostLobby;
 				
 				Debug.Log($"After Modify Lobby: Lobby = {_joinedLobby.Name}\nRelay Join code = \"{_joinedLobby.Data[_lobbyManager.RelayJoinCodeKey].Value}\"");
 			}
-			catch (LobbyServiceException)
+			catch (LobbyServiceException e)
 			{
-				Debug.Log("Couldn't Update Lobby");
+				Debug.Log($"Couldn't Update Lobby\n{e}");
 			}
 		}
 		else

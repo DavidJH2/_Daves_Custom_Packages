@@ -58,7 +58,7 @@ public class CreateLobbyUI : MonoBehaviour
 				{
 					{_lobbyManager.GameModeKey, new DataObject(DataObject.VisibilityOptions.Public, "CaptureTheFlag")},
 					{_lobbyManager.LobbyMapKey, new DataObject(DataObject.VisibilityOptions.Public, "Open World")},
-					{_lobbyManager.RelayJoinCodeKey, new DataObject(DataObject.VisibilityOptions.Member, "")}
+					{_lobbyManager.RelayJoinCodeKey, new DataObject(DataObject.VisibilityOptions.Public, "")}
 				}
 			};
 
